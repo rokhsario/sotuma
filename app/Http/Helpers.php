@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Category;
 use App\Models\PostTag;
 use App\Models\PostCategory;
@@ -84,6 +85,33 @@ class Helper
         }
         return PostCategory::has('posts')->orderBy('id', 'DESC')->get();
     }
+
+    /**
+     * Get the correct image URL that works with both symbolic links and copied files
+     *
+     * @param string $imagePath
+     * @return string
+     */
+    public static function getImageUrl($imagePath)
+    {
+        if (empty($imagePath)) {
+            return null;
+        }
+
+        // Use asset() with direct file path
+        if (file_exists(public_path($imagePath))) {
+            return asset($imagePath);
+        }
+
+        // Try asset() with storage/ prefix (for copied files)
+        $publicPath = 'storage/' . ltrim($imagePath, '/');
+        if (file_exists(public_path($publicPath))) {
+            return asset($publicPath);
+        }
+
+        // Fallback to asset() anyway
+        return asset($publicPath);
+    }
 }
 
 if (!function_exists('generateUniqueSlug')) {
@@ -104,6 +132,19 @@ if (!function_exists('generateUniqueSlug')) {
         }
 
         return $slug;
+    }
+}
+
+if (!function_exists('getImageUrl')) {
+    /**
+     * Get the correct image URL that works with both symbolic links and copied files
+     *
+     * @param string $imagePath
+     * @return string
+     */
+    function getImageUrl($imagePath)
+    {
+        return Helper::getImageUrl($imagePath);
     }
 }
 

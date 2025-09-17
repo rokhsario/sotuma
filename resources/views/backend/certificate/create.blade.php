@@ -16,16 +16,26 @@
                     <form action="{{ route('admin.certificate.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="title">Titre</label>
-                            <input type="text" name="title" class="form-control" required>
+                            <label for="title">Titre <span class="text-danger">*</span></label>
+                            <input type="text" name="title" class="form-control" value="{{old('title')}}" required>
+                            @error('title')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="image">Image</label>
-                            <input type="file" name="image" class="form-control-file" required>
+                            <label for="image" class="col-form-label">Image <span class="text-danger">*</span></label>
+                            <input type="file" name="image" class="form-control" accept="image/*" required>
+                            <small class="form-text text-muted">Formats acceptés: JPEG, PNG, JPG, GIF, SVG, WEBP (Max: 50MB)</small>
+                            @error('image')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea name="description" class="form-control" rows="4" required></textarea>
+                            <label for="description">Description <span class="text-danger">*</span></label>
+                            <textarea name="description" class="form-control" rows="4" required>{{old('description')}}</textarea>
+                            @error('description')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                     </form>

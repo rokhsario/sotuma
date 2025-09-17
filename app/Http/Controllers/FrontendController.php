@@ -25,13 +25,17 @@ class FrontendController extends Controller
 
     public function home(){
         $posts=Post::where('status','active')->orderBy('id','DESC')->limit(3)->get();
-        $products=Product::where('status','active')->orderBy('id','DESC')->limit(8)->get();
-        $category=Category::orderBy('title','ASC')->get();
+        $products=Product::orderBy('id','DESC')->limit(8)->get();
+        $category=Category::orderBy('sort_order','ASC')->orderBy('title','ASC')->get();
+        $projectCategories=\App\Models\ProjectCategory::orderBy('name','ASC')->get();
+        $settings=\DB::table('settings')->first();
         // return $category;
         return view('frontend.index')
                 ->with('posts',$posts)
                 ->with('product_lists',$products)
-                ->with('category_lists',$category);
+                ->with('category_lists',$category)
+                ->with('project_categories',$projectCategories)
+                ->with('settings',$settings);
     }   
 
     public function aboutUs(){
@@ -51,36 +55,33 @@ class FrontendController extends Controller
 
     public function productGrids(){
         $products=Product::query();
+        $categories = Category::orderBy('sort_order','ASC')->orderBy('title','ASC')->get();
         
         if(!empty($_GET['category'])){
-            $slug=explode(',',$_GET['category']);
-            // dd($slug);
-            $cat_ids=Category::select('id')->whereIn('slug',$slug)->pluck('id')->toArray();
-            // dd($cat_ids);
-            $products->whereIn('cat_id',$cat_ids);
-            // return $products;
+            $cat_ids = explode(',', $_GET['category']);
+            $products->whereIn('category_id', $cat_ids);
         }
         if(!empty($_GET['sortBy'])){
             if($_GET['sortBy']=='title'){
-                $products=$products->where('status','active')->orderBy('title','ASC');
+                $products=$products->orderBy('title','ASC');
             }
         }
 
-        $recent_products=Product::where('status','active')->orderBy('id','DESC')->limit(3)->get();
+        $recent_products=Product::orderBy('id','DESC')->limit(3)->get();
         // Sort by number
         if(!empty($_GET['show'])){
-            $products=$products->where('status','active')->paginate($_GET['show']);
+            $products=$products->paginate($_GET['show']);
         }
         else{
-            $products=$products->where('status','active')->paginate(9);
+            $products=$products->paginate(9);
         }
         // Sort by name, category
 
-      
-        return view('frontend.pages.product-grids')->with('products',$products)->with('recent_products',$recent_products);
+        return view('frontend.pages.product-grids')->with('products',$products)->with('recent_products',$recent_products)->with('categories', $categories);
     }
     public function productLists(){
         $products=Product::query();
+        $categories = Category::orderBy('sort_order','ASC')->orderBy('title','ASC')->get();
         
         if(!empty($_GET['category'])){
             $slug=explode(',',$_GET['category']);
@@ -92,22 +93,22 @@ class FrontendController extends Controller
         }
         if(!empty($_GET['sortBy'])){
             if($_GET['sortBy']=='title'){
-                $products=$products->where('status','active')->orderBy('title','ASC');
+                $products=$products->orderBy('title','ASC');
             }
         }
 
-        $recent_products=Product::where('status','active')->orderBy('id','DESC')->limit(3)->get();
+        $recent_products=Product::orderBy('id','DESC')->limit(3)->get();
         // Sort by number
         if(!empty($_GET['show'])){
-            $products=$products->where('status','active')->paginate($_GET['show']);
+            $products=$products->paginate($_GET['show']);
         }
         else{
-            $products=$products->where('status','active')->paginate(6);
+            $products=$products->paginate(6);
         }
         // Sort by name, category
 
       
-        return view('frontend.pages.product-lists')->with('products',$products)->with('recent_products',$recent_products);
+        return view('frontend.pages.product-lists')->with('products',$products)->with('recent_products',$recent_products)->with('categories', $categories);
     }
     public function productFilter(Request $request){
             $data= $request->all();
@@ -142,7 +143,7 @@ class FrontendController extends Controller
             }
     }
     public function productSearch(Request $request){
-        $recent_products=Product::where('status','active')->orderBy('id','DESC')->limit(3)->get();
+        $recent_products=Product::orderBy('id','DESC')->limit(3)->get();
         $products=Product::orwhere('title','like','%'.$request->search.'%')
                     ->orwhere('slug','like','%'.$request->search.'%')
                     ->orwhere('description','like','%'.$request->search.'%')
@@ -154,7 +155,7 @@ class FrontendController extends Controller
     public function productCat(Request $request){
         $products=Category::getProductByCat($request->slug);
         // return $request->slug;
-        $recent_products=Product::where('status','active')->orderBy('id','DESC')->limit(3)->get();
+        $recent_products=Product::orderBy('id','DESC')->limit(3)->get();
 
         if(request()->is('SOTUMA.loc/product-grids')){
             return view('frontend.pages.product-grids')->with('products',$products->products)->with('recent_products',$recent_products);
@@ -167,7 +168,7 @@ class FrontendController extends Controller
     public function productSubCat(Request $request){
         $products=Category::getProductBySubCat($request->sub_slug);
         // return $products;
-        $recent_products=Product::where('status','active')->orderBy('id','DESC')->limit(3)->get();
+        $recent_products=Product::orderBy('id','DESC')->limit(3)->get();
 
         if(request()->is('SOTUMA.loc/product-grids')){
             return view('frontend.pages.product-grids')->with('products',$products->sub_products)->with('recent_products',$recent_products);
@@ -178,55 +179,102 @@ class FrontendController extends Controller
 
     }
 
-    public function blog(){
-        $post=Post::query();
+    public function blog(Request $request){
+        // Show ALL posts on one page - no pagination
+        $perPage = 1000;
         
-        if(!empty($_GET['category'])){
-            $slug=explode(',',$_GET['category']);
-            // dd($slug);
-            $cat_ids=PostCategory::select('id')->whereIn('slug',$slug)->pluck('id')->toArray();
-            return $cat_ids;
-            $post->whereIn('post_cat_id',$cat_ids);
-            // return $post;
-        }
-        if(!empty($_GET['tag'])){
-            $slug=explode(',',$_GET['tag']);
-            // dd($slug);
-            $tag_ids=PostTag::select('id')->whereIn('slug',$slug)->pluck('id')->toArray();
-            // return $tag_ids;
-            $post->where('post_tag_id',$tag_ids);
-            // return $post;
-        }
-
-        if(!empty($_GET['show'])){
-            $post=$post->where('status','active')->orderBy('id','DESC')->paginate($_GET['show']);
-        }
-        else{
-            $post=$post->where('status','active')->orderBy('id','DESC')->paginate(9);
-        }
-        // $post=Post::where('status','active')->paginate(8);
-        $rcnt_post=Post::where('status','active')->orderBy('id','DESC')->limit(3)->get();
-        return view('frontend.pages.blog')->with('posts',$post)->with('recent_posts',$rcnt_post);
+        // Build the query with proper relationships
+        $posts = Post::with(['cat_info', 'author_info', 'images'])
+            ->where('status', 'active')
+            ->orderBy('id', 'DESC')
+            ->paginate($perPage);
+            
+        // Get recent posts for sidebar
+        $recent_posts = Post::with(['cat_info', 'author_info', 'images'])
+            ->where('status', 'active')
+            ->when($posts->first(), function($query, $firstPost) {
+                return $query->where('id', '!=', $firstPost->id);
+            })
+            ->orderBy('id', 'DESC')
+            ->limit(3)
+            ->get();
+            
+        return view('frontend.pages.blog')
+            ->with('posts', $posts)
+            ->with('recent_posts', $recent_posts);
     }
 
     public function blogDetail($slug){
-        $post=Post::getPostBySlug($slug);
-        $rcnt_post=Post::where('status','active')->orderBy('id','DESC')->limit(3)->get();
-        // return $post;
-        return view('frontend.pages.blog-detail')->with('post',$post)->with('recent_posts',$rcnt_post);
+        $post = Post::getPostBySlug($slug);
+        
+        if(!$post){
+            request()->session()->flash('error','Article non trouvé');
+            return redirect()->route('media');
+        }
+        
+        // Increment view count
+        $post->incrementViews();
+        
+        // Get related posts from same category
+        $relatedPosts = Post::with(['cat_info', 'author_info', 'images'])
+            ->where('status', 'active')
+            ->where('id', '!=', $post->id)
+            ->where('post_cat_id', $post->post_cat_id)
+            ->orderBy('id', 'DESC')
+            ->limit(3)
+            ->get();
+            
+        // Get recent posts for sidebar
+        $recent_posts = Post::with(['cat_info', 'author_info', 'images'])
+            ->where('status', 'active')
+            ->where('id', '!=', $post->id)
+            ->orderBy('id', 'DESC')
+            ->limit(3)
+            ->get();
+            
+        // Get popular posts for sidebar
+        $popular_posts = Post::with(['cat_info', 'author_info', 'images'])
+            ->where('status', 'active')
+            ->where('id', '!=', $post->id)
+            ->orderBy('views', 'DESC')
+            ->limit(5)
+            ->get();
+            
+        return view('frontend.pages.blog-detail')
+            ->with('post', $post)
+            ->with('recent_posts', $recent_posts)
+            ->with('relatedPosts', $relatedPosts)
+            ->with('popular_posts', $popular_posts);
     }
 
     public function blogSearch(Request $request){
-        // return $request->all();
-        $rcnt_post=Post::where('status','active')->orderBy('id','DESC')->limit(3)->get();
-        $posts=Post::orwhere('title','like','%'.$request->search.'%')
-            ->orwhere('quote','like','%'.$request->search.'%')
-            ->orwhere('summary','like','%'.$request->search.'%')
-            ->orwhere('description','like','%'.$request->search.'%')
-            ->orwhere('slug','like','%'.$request->search.'%')
-            ->orderBy('id','DESC')
-            ->paginate(8);
-        return view('frontend.pages.blog')->with('posts',$posts)->with('recent_posts',$rcnt_post);
+        $search = $request->get('search', '');
+        $perPage = 1000; // Show ALL posts on one page - no pagination
+        
+        // Build search query with proper where clause
+        $posts = Post::with(['cat_info', 'author_info', 'images'])
+            ->where('status', 'active')
+            ->where(function($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                      ->orWhere('quote', 'like', '%' . $search . '%')
+                      ->orWhere('summary', 'like', '%' . $search . '%')
+                      ->orWhere('description', 'like', '%' . $search . '%')
+                      ->orWhere('tags', 'like', '%' . $search . '%');
+            })
+            ->orderBy('id', 'DESC')
+            ->paginate($perPage);
+            
+        // Get recent posts for sidebar
+        $recent_posts = Post::with(['cat_info', 'author_info', 'images'])
+            ->where('status', 'active')
+            ->orderBy('id', 'DESC')
+            ->limit(3)
+            ->get();
+            
+        return view('frontend.pages.blog')
+            ->with('posts', $posts)
+            ->with('recent_posts', $recent_posts)
+            ->with('search', $search);
     }
 
     public function blogFilter(Request $request){
@@ -261,30 +309,83 @@ class FrontendController extends Controller
     }
 
     public function blogByCategory(Request $request){
-        $post=PostCategory::getBlogByCategory($request->slug);
-        $rcnt_post=Post::where('status','active')->orderBy('id','DESC')->limit(3)->get();
-        return view('frontend.pages.blog')->with('posts',$post->post)->with('recent_posts',$rcnt_post);
+        $slug = $request->slug;
+        $perPage = 1000; // Show ALL posts on one page - no pagination
+        
+        // Get category
+        $category = PostCategory::where('slug', $slug)->where('status', 'active')->first();
+        
+        if (!$category) {
+            request()->session()->flash('error', 'Catégorie non trouvée');
+            return redirect()->route('media');
+        }
+        
+        // Get posts for this category with pagination
+        $posts = Post::with(['cat_info', 'author_info', 'images'])
+            ->where('status', 'active')
+            ->where('post_cat_id', $category->id)
+            ->orderBy('id', 'DESC')
+            ->paginate($perPage);
+            
+        // Get recent posts for sidebar
+        $recent_posts = Post::with(['cat_info', 'author_info', 'images'])
+            ->where('status', 'active')
+            ->orderBy('id', 'DESC')
+            ->limit(3)
+            ->get();
+            
+        return view('frontend.pages.blog')
+            ->with('posts', $posts)
+            ->with('recent_posts', $recent_posts)
+            ->with('category', $category);
     }
 
     public function blogByTag(Request $request){
-        // dd($request->slug);
-        $post=Post::getBlogByTag($request->slug);
-        // return $post;
-        $rcnt_post=Post::where('status','active')->orderBy('id','DESC')->limit(3)->get();
-        return view('frontend.pages.blog')->with('posts',$post)->with('recent_posts',$rcnt_post);
+        $tag = $request->slug;
+        $perPage = 1000; // Show ALL posts on one page - no pagination
+        
+        // Get posts with this tag
+        $posts = Post::with(['cat_info', 'author_info', 'images'])
+            ->where('status', 'active')
+            ->where('tags', 'like', '%' . $tag . '%')
+            ->orderBy('id', 'DESC')
+            ->paginate($perPage);
+            
+        // Get recent posts for sidebar
+        $recent_posts = Post::with(['cat_info', 'author_info', 'images'])
+            ->where('status', 'active')
+            ->orderBy('id', 'DESC')
+            ->limit(3)
+            ->get();
+            
+        return view('frontend.pages.blog')
+            ->with('posts', $posts)
+            ->with('recent_posts', $recent_posts)
+            ->with('tag', $tag);
     }
 
     public function certificates()
     {
-        $certificates = Certificate::latest()->paginate(6);
+        $certificates = Certificate::latest()->get();
         return view('frontend.pages.certificates', compact('certificates'));
     }
 
-    public function nosProduits() {
+    public function nosProduits(Request $request) {
         $categories = \App\Models\Category::with(['products' => function($q) {
-            $q->select('id', 'title', 'photo', 'description', 'cat_id');
+            $q->select('id', 'title', 'image', 'description', 'category_id');
         }])->get();
-        return view('frontend.pages.products', compact('categories'));
+
+        // Build products collection for the grid
+        $productsQuery = \App\Models\Product::query();
+        if ($request->has('category')) {
+            $category = \App\Models\Category::where('slug', $request->category)->first();
+            if ($category) {
+                $productsQuery->where('category_id', $category->id);
+            }
+        }
+        $products = $productsQuery->orderBy('id', 'desc')->get();
+
+        return view('frontend.pages.products', compact('categories', 'products'));
     }
 
     // Login

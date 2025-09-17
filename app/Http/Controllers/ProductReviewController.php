@@ -56,7 +56,7 @@ class ProductReviewController extends Controller
         $user=User::where('role','admin')->get();
         $details=[
             'title'=>'New Product Rating!',
-            'actionURL'=>route('product-detail',$product_info->slug),
+            'actionURL'=>$product_info->slug ? route('product-detail',$product_info->slug) : '#',
             'fas'=>'fa-star'
         ];
         Notification::send($user,new StatusNotification($details));

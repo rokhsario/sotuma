@@ -1,108 +1,680 @@
 @extends('frontend.layouts.master')
 
-@section('title','SOTUMA || Login Page')
+@section('title','SOTUMA || ' . __('frontend.login'))
 
 @section('main-content')
-    <!-- Breadcrumbs -->
-    <div class="breadcrumbs">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="bread-inner">
-                        <ul class="bread-list">
-                            <li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="javascript:void(0);">Login</a></li>
-                        </ul>
+    <!-- Modern Login Section -->
+    <section class="modern-login-section">
+        <div class="login-container">
+            <div class="login-card">
+                <!-- Left Side - Branding -->
+                <div class="login-branding">
+                    <div class="branding-content">
+                        <div class="brand-logo">
+                            <div class="logo-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <h1 class="brand-title">SOTUMA</h1>
+                        </div>
+                        <div class="brand-description">
+                            <h2>{{ __('frontend.welcome_personal_space') }}</h2>
+                            <p>{{ __('frontend.login_description') }}</p>
+                        </div>
+                        <div class="brand-features">
+                            <div class="feature-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>{{ __('frontend.security_guaranteed') }}</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-clock"></i>
+                                <span>{{ __('frontend.access_24_7') }}</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-headset"></i>
+                                <span>{{ __('frontend.premium_support') }}</span>
+                            </div>
+                        </div>
                     </div>
+                    <div class="branding-background">
+                        <div class="floating-elements">
+                            <div class="floating-element" style="--delay: 0s"></div>
+                            <div class="floating-element" style="--delay: 2s"></div>
+                            <div class="floating-element" style="--delay: 4s"></div>
+                            <div class="floating-element" style="--delay: 6s"></div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- End Breadcrumbs -->
-            
-    <!-- Shop Login -->
-    <section class="shop login section">
-        <div class="container">
-            <div class="row"> 
-                <div class="col-lg-6 offset-lg-3 col-12">
-                    <div class="login-form">
-                        <h2>Login</h2>
-                        <p>Please register in order to checkout more quickly</p>
-                        <!-- Form -->
-                        <form class="form" method="post" action="{{route('login.submit')}}">
-                            @csrf
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Your Email<span>*</span></label>
-                                        <input type="email" name="email" placeholder="" required="required" value="{{old('email')}}">
-                                        @error('email')
-                                            <span class="text-danger">{{$message}}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Your Password<span>*</span></label>
-                                        <input type="password" name="password" placeholder="" required="required" value="{{old('password')}}">
-                                        @error('password')
-                                            <span class="text-danger">{{$message}}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group login-btn">
-                                        <button class="btn" type="submit">Login</button>
-                                        <a href="{{route('register.form')}}" class="btn">Register</a>
-                                        OR
-                                        <a href="{{route('login.redirect','facebook')}}" class="btn btn-facebook"><i class="ti-facebook"></i></a>
-                                        <a href="{{route('login.redirect','github')}}" class="btn btn-github"><i class="ti-github"></i></a>
-                                        <a href="{{route('login.redirect','google')}}" class="btn btn-google"><i class="ti-google"></i></a>
 
+                <!-- Right Side - Login Form -->
+                <div class="login-form-container">
+                    <div class="form-header">
+                        <h2>{{ __('frontend.login') }}</h2>
+                        <p>{{ __('frontend.access_sotuma_account') }}</p>
+    </div>
+
+                    <form class="modern-login-form" method="post" action="{{route('login.submit')}}">
+                            @csrf
+                        
+                                    <div class="form-group">
+                            <div class="input-wrapper">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" name="email" id="email" placeholder="{{ __('frontend.email_address') }}" required value="{{old('email')}}" autocomplete="email">
+                                <label for="email" class="input-label">{{ __('frontend.email') }}</label>
+                            </div>
+                                        @error('email')
+                                <span class="error-message">{{$message}}</span>
+                                        @enderror
                                     </div>
-                                    <div class="checkbox">
-                                        <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">Remember me</label>
+
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" name="password" id="password" placeholder="{{ __('frontend.password') }}" required autocomplete="current-password">
+                                <label for="password" class="input-label">{{ __('frontend.password') }}</label>
+                                <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                </div>
+                                        @error('password')
+                                <span class="error-message">{{$message}}</span>
+                                        @enderror
                                     </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">{{ __('frontend.remember_me') }}</span>
+                            </label>
+                            
                                     @if (Route::has('password.request'))
-                                        <a class="lost-pass" href="{{ route('password.request') }}">
-                                            Lost your password?
+                                <a href="{{ route('password.request') }}" class="forgot-password">
+                                    {{ __('frontend.forgot_password') }}
                                         </a>
                                     @endif
                                 </div>
+
+                        <button type="submit" class="login-btn">
+                            <span class="btn-text">{{ __('frontend.login') }}</span>
+                            <span class="btn-icon">
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+                            <div class="btn-loading">
+                                <div class="spinner"></div>
                             </div>
+                        </button>
                         </form>
-                        <!--/ End Form -->
+
+                    <div class="divider">
+                        <span>{{ __('frontend.or') }}</span>
+                    </div>
+
+
+                    <div class="register-link">
+                        <p>{{ __('frontend.no_account_yet') }} 
+                            <a href="{{route('register.form')}}" class="link-highlight">{{ __('frontend.create_account') }}</a>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!--/ End Login -->
 @endsection
+
 @push('styles')
 <style>
-    .shop.login .form .btn{
-        margin-right:0;
+/* Modern Login Styles */
+.modern-login-section {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.modern-login-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+    animation: grain 20s linear infinite;
+}
+
+@keyframes grain {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-5%, -5%); }
+    20% { transform: translate(-10%, 5%); }
+    30% { transform: translate(5%, -10%); }
+    40% { transform: translate(-5%, 15%); }
+    50% { transform: translate(-10%, 5%); }
+    60% { transform: translate(15%, 0%); }
+    70% { transform: translate(0%, 10%); }
+    80% { transform: translate(-15%, 0%); }
+    90% { transform: translate(10%, 5%); }
+}
+
+.login-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.login-card {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    min-height: 600px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Left Side - Branding */
+.login-branding {
+    flex: 1;
+    background: linear-gradient(135deg, #2e4157 0%, #34495e 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    color: white;
+    overflow: hidden;
+}
+
+.branding-content {
+    text-align: center;
+    z-index: 2;
+    position: relative;
+}
+
+.brand-logo {
+    margin-bottom: 40px;
+}
+
+.logo-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.logo-icon i {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.brand-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.brand-description h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+.brand-description p {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    margin-bottom: 40px;
+}
+
+.brand-features {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.feature-item i {
+    width: 20px;
+    color: #74b9ff;
+}
+
+.branding-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.floating-elements {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.floating-element {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+    animation-delay: var(--delay);
+}
+
+.floating-element:nth-child(1) { top: 20%; left: 20%; }
+.floating-element:nth-child(2) { top: 60%; right: 20%; }
+.floating-element:nth-child(3) { bottom: 20%; left: 30%; }
+.floating-element:nth-child(4) { top: 40%; right: 30%; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+/* Right Side - Form */
+.login-form-container {
+    flex: 1;
+    padding: 60px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.form-header p {
+    color: #bdc3c7;
+    font-size: 1rem;
+}
+
+.modern-login-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.input-wrapper {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.input-wrapper:focus-within {
+    border-color: #2e4157;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 4px rgba(46, 65, 87, 0.2);
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #bdc3c7;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.input-wrapper:focus-within .input-icon {
+    color: #74b9ff;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 16px 16px 16px 48px;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    color: white;
+    outline: none;
+}
+
+.input-wrapper input::placeholder {
+    color: #bdc3c7;
+    transition: opacity 0.3s ease;
+}
+
+.input-wrapper:focus-within input::placeholder {
+    opacity: 0.7;
+}
+
+.input-label {
+    position: absolute;
+    left: 48px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #bdc3c7;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.input-wrapper:focus-within .input-label,
+.input-wrapper input:not(:placeholder-shown) + .input-label {
+    top: 8px;
+    left: 16px;
+    font-size: 12px;
+    color: #74b9ff;
+    font-weight: 600;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #bdc3c7;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: #74b9ff;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 8px;
+    display: block;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #bdc3c7;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #bdc3c7;
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.checkbox-wrapper input[type="checkbox"]:checked + .checkmark {
+    background: #2e4157;
+    border-color: #2e4157;
+}
+
+.checkbox-wrapper input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.forgot-password {
+    color: #74b9ff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #0984e3;
+}
+
+.login-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #2e4157 0%, #34495e 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(46, 65, 87, 0.3);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.btn-loading {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-btn.loading .btn-text,
+.login-btn.loading .btn-icon {
+    opacity: 0;
+}
+
+.login-btn.loading .btn-loading {
+    display: block;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.divider {
+    text-align: center;
+    margin: 32px 0;
+    position: relative;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.divider span {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    padding: 0 16px;
+    color: #bdc3c7;
+    font-size: 14px;
+}
+
+
+.register-link {
+    text-align: center;
+    color: #bdc3c7;
+    font-size: 14px;
+}
+
+.link-highlight {
+    color: #74b9ff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.link-highlight:hover {
+    color: #0984e3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-card {
+        flex-direction: column;
+        min-height: auto;
     }
-    .btn-facebook{
-        background:#39579A;
+    
+    .login-branding {
+        padding: 40px 20px;
     }
-    .btn-facebook:hover{
-        background:#073088 !important;
+    
+    .brand-title {
+        font-size: 2rem;
     }
-    .btn-github{
-        background:#444444;
-        color:white;
+    
+    .brand-description h2 {
+        font-size: 1.5rem;
     }
-    .btn-github:hover{
-        background:black !important;
+    
+    .login-form-container {
+        padding: 40px 30px;
     }
-    .btn-google{
-        background:#ea4335;
-        color:white;
+    
+    .form-options {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
     }
-    .btn-google:hover{
-        background:rgb(243, 26, 26) !important;
+}
+
+@media (max-width: 480px) {
+    .modern-login-section {
+        padding: 10px;
+    }
+    
+    .login-form-container {
+        padding: 30px 20px;
+    }
+    
+    .social-login {
+        gap: 8px;
+    }
+    
+    .social-btn {
+        padding: 12px;
+        font-size: 13px;
+    }
     }
 </style>
+@endpush
+
+@push('scripts')
+<script>
+function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    const toggle = input.parentElement.querySelector('.password-toggle i');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        toggle.className = 'fas fa-eye-slash';
+    } else {
+        input.type = 'password';
+        toggle.className = 'fas fa-eye';
+    }
+}
+
+// Form submission with loading state
+document.querySelector('.modern-login-form').addEventListener('submit', function(e) {
+    const btn = this.querySelector('.login-btn');
+    btn.classList.add('loading');
+    
+    // Remove loading state after 3 seconds (in case of error)
+    setTimeout(() => {
+        btn.classList.remove('loading');
+    }, 3000);
+});
+
+// Input focus effects
+document.querySelectorAll('.input-wrapper input').forEach(input => {
+    input.addEventListener('focus', function() {
+        this.parentElement.classList.add('focused');
+    });
+    
+    input.addEventListener('blur', function() {
+        if (!this.value) {
+            this.parentElement.classList.remove('focused');
+        }
+    });
+    
+    // Check if input has value on page load
+    if (input.value) {
+        input.parentElement.classList.add('focused');
+    }
+});
+</script>
 @endpush

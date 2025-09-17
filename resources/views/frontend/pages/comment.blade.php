@@ -4,11 +4,6 @@
 <div class="display-comment"   @if($comment->parent_id != null) style="margin-left:40px;" @endif>
     <div class="comment-list">
         <div class="single-comment">
-            @if($comment->user_info['photo'])
-                <img src="{{$comment->user_info['photo']}}" alt="#">
-            @else 
-                <img src="{{asset('backend/img/avatar.png')}}" alt="">
-            @endif
             <div class="content">
                 {{-- {{$post}} --}}
             <h4>{{$comment->user_info['name']}} <span>At {{$comment->created_at->format('g: i a')}} On {{$comment->created_at->format('M d Y')}}</span></h4>

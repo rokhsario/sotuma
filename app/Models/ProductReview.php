@@ -9,7 +9,7 @@ class ProductReview extends Model
     protected $fillable=['user_id','product_id','rate','review','status'];
 
     public function user_info(){
-        return $this->hasOne('App\User','id','user_id');
+        return $this->hasOne('App\User','id','user_id')->select('id', 'name', 'email', 'photo');
     }
 
     public static function getAllReview(){

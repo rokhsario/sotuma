@@ -8,10 +8,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="keywords" content="online shop, purchase, cart, ecommerce site, best online shopping">
 	<meta name="description" content="{{$product_detail->summary}}">
-	<meta property="og:url" content="{{route('product-detail',$product_detail->slug)}}">
+	<meta property="og:url" content="{{ $product_detail->slug ? route('product-detail',$product_detail->slug) : '#' }}">ckage or
 	<meta property="og:type" content="article">
 	<meta property="og:title" content="{{$product_detail->title}}">
-	<meta property="og:image" content="{{$product_detail->photo}}">
+	<meta property="og:image" content="{{$product_detail->image}}">
 	<meta property="og:description" content="{{$product_detail->description}}">
 @endsection
 @section('title','SOTUMA || PRODUCT DETAIL')
@@ -47,14 +47,11 @@
 											<div class="flexslider-thumbnails">
 												<ul class="slides">
 													@php 
-														$photo=explode(',',$product_detail->photo);
-													// dd($photo);
+														// dd($product_detail->image);
 													@endphp
-													@foreach($photo as $data)
-														<li data-thumb="{{$data}}" rel="adjustX:10, adjustY:">
-															<img src="{{$data}}" alt="{{$data}}">
-														</li>
-													@endforeach
+													<li data-thumb="{{asset($product_detail->image)}}" rel="adjustX:10, adjustY:">
+														<img src="{{asset($product_detail->image)}}" alt="{{asset($product_detail->image)}}">
+													</li>
 												</ul>
 											</div>
 											<!-- End Images slider -->
@@ -63,7 +60,7 @@
 									</div>
 									<div class="col-lg-6 col-12">
 										<div class="product-des">
-											<!-- Description -->
+											<!-- {{ __('frontend.description') }} -->
 											<div class="short">
 												<h4>{{$product_detail->title}}</h4>
 												<div class="rating-main">
@@ -87,7 +84,7 @@
 												<p class="price"><span class="discount">${{number_format($after_discount,2)}}</span><s>${{number_format($product_detail->price,2)}}</s> </p>
 												<p class="description">{!!($product_detail->summary)!!}</p>
 											</div>
-											<!--/ End Description -->
+											<!--/ End {{ __('frontend.description') }} -->
 											<!-- Color -->
 											{{-- <div class="color">
 												<h4>Available Options <span>Color</span></h4>
@@ -160,13 +157,13 @@
 											<div class="nav-main">
 												<!-- Tab Nav -->
 												<ul class="nav nav-tabs" id="myTab" role="tablist">
-													<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a></li>
+													<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description" role="tab">{{ __('frontend.description') }}</a></li>
 													<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews</a></li>
 												</ul>
 												<!--/ End Tab Nav -->
 											</div>
 											<div class="tab-content" id="myTabContent">
-												<!-- Description Tab -->
+												<!-- {{ __('frontend.description') }} Tab -->
 												<div class="tab-pane fade show active" id="description" role="tabpanel">
 													<div class="tab-single">
 														<div class="row">
@@ -178,7 +175,7 @@
 														</div>
 													</div>
 												</div>
-												<!--/ End Description Tab -->
+												<!--/ End {{ __('frontend.description') }} Tab -->
 												<!-- Reviews Tab -->
 												<div class="tab-pane fade" id="reviews" role="tabpanel">
 													<div class="tab-single review-panel">
@@ -256,13 +253,6 @@
 																	@foreach($product_detail['getReview'] as $data)
 																	<!-- Single Rating -->
 																	<div class="single-rating">
-																		<div class="rating-author">
-																			@if($data->user_info['photo'])
-																			<img src="{{$data->user_info['photo']}}" alt="{{$data->user_info['photo']}}">
-																			@else 
-																			<img src="{{asset('backend/img/avatar.png')}}" alt="Profile.jpg">
-																			@endif
-																		</div>
 																		<div class="rating-des">
 																			<h6>{{$data->user_info['name']}}</h6>
 																			<div class="ratings">
@@ -321,12 +311,12 @@
                                 <!-- Start Single Product -->
                                 <div class="single-product">
                                     <div class="product-img">
-										<a href="{{route('product-detail',$data->slug)}}">
+										<a href="{{ $data->slug ? route('product-detail',$data->slug) : '#' }}">
 											@php 
-												$photo=explode(',',$data->photo);
+												// dd($data->image);
 											@endphp
-                                            <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                            <img class="default-img" src="{{asset($data->image)}}" alt="{{asset($data->image)}}">
+                                            <img class="hover-img" src="{{asset($data->image)}}" alt="{{asset($data->image)}}">
                                             <span class="price-dec">{{$data->discount}} % Off</span>
                                                                     {{-- <span class="out-of-stock">Hot</span> --}}
                                         </a>
@@ -342,7 +332,7 @@
                                         </div>
                                     </div>
                                     <div class="product-content">
-                                        <h3><a href="{{route('product-detail',$data->slug)}}">{{$data->title}}</a></h3>
+                                        <h3><a href="{{ $data->slug ? route('product-detail',$data->slug) : '#' }}">{{$data->title}}</a></h3>
                                         <div class="product-price">
                                             @php 
                                                 $after_discount=($data->price-(($data->discount*$data->price)/100));
@@ -507,7 +497,7 @@
 		float: right;
 		padding-left: 2px;
 		cursor: pointer;
-		color: #F7941D;
+		color: #D2B48C;
 		font-size: 16px;
 		margin-top: 5px;
 		}

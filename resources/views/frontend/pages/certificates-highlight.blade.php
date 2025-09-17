@@ -1,5 +1,5 @@
 <section class="certificates-highlight">
     <!-- Certificates highlights go here -->
     <h2>Nos Certificats</h2>
-    <p>Ajoutez ici un aperçu ou des certificats importants.</p>
+    <p>{{ __('frontend.add_preview_here') }} ou des certificats importants.</p>
 </section> 

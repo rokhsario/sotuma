@@ -3,7 +3,7 @@
 @section('main-content')
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Certificats</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ __('admin.certificates') }}</h1>
         <a href="{{ route('admin.certificate.create') }}" class="btn btn-primary">Ajouter un certificat</a>
     </div>
     <div class="card shadow mb-4">
@@ -24,7 +24,13 @@
                     <tbody>
                         @foreach($certificates as $certificate)
                         <tr>
-                            <td><img src="{{ asset('storage/' . $certificate->image) }}" alt="{{ $certificate->title }}" width="80"></td>
+                            <td>
+                                @if($certificate->image)
+                                    <img src="{{ asset($certificate->image) }}" alt="{{ $certificate->title }}" width="80" class="img-fluid">
+                                @else
+                                    <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="default">
+                                @endif
+                            </td>
                             <td>{{ $certificate->title }}</td>
                             <td>{{ Str::limit($certificate->description, 60) }}</td>
                             <td>

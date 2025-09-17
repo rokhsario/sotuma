@@ -6,7 +6,12 @@
        @include('backend.layouts.notification')
     </div>
   </div>
-  <h5 class="card-header">Messages</h5>
+  <h5 class="card-header">
+    {{ __('admin.messages') }}
+    <a href="{{route('message.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Créer un Message">
+      <i class="fas fa-plus"></i> Créer un Message
+    </a>
+  </h5>
   <div class="card-body">
     @if(count($messages)>0)
     <table class="table message-table" id="message-dataTable">
@@ -29,17 +34,36 @@
           <td>{{$message->subject}}</td>
           <td>
               @if($message->attachment)
-                  <a href="{{ asset('storage/' . $message->attachment) }}" target="_blank" title="Voir la pièce jointe"><i class="fas fa-paperclip"></i></a>
+                  <div class="d-flex align-items-center">
+                      <a href="{{ route('message.download', $message->id) }}" class="btn btn-sm btn-info mr-1" title="Télécharger la pièce jointe">
+                          <i class="fas fa-download"></i> Télécharger
+                      </a>
+                      <a href="{{ route('message.attachment.delete', $message->id) }}" class="btn btn-sm btn-danger" 
+                         onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette pièce jointe ?')" title="Supprimer la pièce jointe">
+                          <i class="fas fa-trash"></i>
+                      </a>
+                  </div>
+              @else
+                  <span class="text-muted">Aucune pièce jointe</span>
               @endif
           </td>
           <td>{{$message->created_at->format('F d, Y h:i A')}}</td>
           <td>
-            <a href="{{route('message.show',$message->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="view" data-placement="bottom"><i class="fas fa-eye"></i></a>
-            <form method="POST" action="{{route('message.destroy',[$message->id])}}">
-              @csrf 
-              @method('delete')
-                  <button class="btn btn-danger btn-sm dltBtn" data-id={{$message->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
-            </form>
+            <div class="d-flex align-items-center">
+                <a href="{{route('message.show',$message->id)}}" class="btn btn-primary btn-sm mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="Voir" data-placement="bottom">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <a href="{{route('message.edit',$message->id)}}" class="btn btn-warning btn-sm mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="Modifier" data-placement="bottom">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <form method="POST" action="{{route('message.destroy',[$message->id])}}" class="d-inline">
+                  @csrf 
+                  @method('delete')
+                  <button class="btn btn-danger btn-sm dltBtn" data-id={{$message->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Supprimer">
+                      <i class="fas fa-trash-alt"></i>
+                  </button>
+                </form>
+            </div>
           </td>
         </tr>
 
@@ -50,7 +74,7 @@
       {{$messages->links()}}
     </nav>
     @else
-      <h2>Messages Empty!</h2>
+      <h2>{{ __('admin.messages') }} Empty!</h2>
     @endif
   </div>
 </div>

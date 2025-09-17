@@ -3,9 +3,9 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin')}}">
       <div class="sidebar-brand-icon rotate-n-15">
-        <i class="fas fa-laugh-wink"></i>
+        <i class="fas fa-crown"></i>
       </div>
-      <div class="sidebar-brand-text mx-3">Admin</div>
+      <div class="sidebar-brand-text mx-3">SOTUMA Admin</div>
     </a>
 
     <!-- Divider -->
@@ -15,7 +15,7 @@
     <li class="nav-item active">
       <a class="nav-link" href="{{route('admin')}}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
+        <span>{{ __('admin.dashboard') }}</span></a>
     </li>
 
     <!-- Divider -->
@@ -23,159 +23,161 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Banner
+        Gestion des Projets
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <!-- Nav Item - Charts -->
-    {{--
+    <!-- Projects Management -->
     <li class="nav-item">
-        <a class="nav-link" href="{{route('file-manager')}}">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Media Manager</span></a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-image"></i>
-        <span>Banners</span>
-      </a>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Banner Options:</h6>
-          <a class="collapse-item" href="{{route('banner.index')}}">Banners</a>
-          <a class="collapse-item" href="{{route('banner.create')}}">Add Banners</a>
-        </div>
-      </div>
-    </li>
-    --}}
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Shop
-        </div>
-
-    <!-- Categories -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#categoryCollapse" aria-expanded="true" aria-controls="categoryCollapse">
-          <i class="fas fa-sitemap"></i>
-          <span>Category</span>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#projectCollapse" aria-expanded="true" aria-controls="projectCollapse">
+          <i class="fas fa-project-diagram"></i>
+          <span>{{ __('admin.projects') }}</span>
         </a>
-        <div id="categoryCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="projectCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Category Options:</h6>
-            <a class="collapse-item" href="{{route('category.index')}}">Category</a>
-            <a class="collapse-item" href="{{route('category.create')}}">Add Category</a>
+            <h6 class="collapse-header">{{ __('admin.project_options') }}:</h6>
+            <a class="collapse-item" href="{{route('admin.projects.index')}}">{{ __('admin.project_list') }}</a>
+            <a class="collapse-item" href="{{route('admin.projects.create')}}">{{ __('admin.add_project') }}</a>
+            <a class="collapse-item" href="{{route('admin.projectcategory.index')}}">{{ __('admin.project_categories') }}</a>
+            <a class="collapse-item" href="{{route('admin.projectcategory.create')}}">{{ __('admin.add_category') }}</a>
           </div>
         </div>
     </li>
 
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
-    {{-- Products --}}
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Gestion des Produits
+    </div>
+
+    <!-- Products Management -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#productCollapse" aria-expanded="true" aria-controls="productCollapse">
           <i class="fas fa-cubes"></i>
-          <span>Products</span>
+          <span>{{ __('admin.products') }}</span>
         </a>
         <div id="productCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Product Options:</h6>
-            <a class="collapse-item" href="{{route('product.index')}}">Products</a>
-            <a class="collapse-item" href="{{route('product.create')}}">Add Product</a>
+            <h6 class="collapse-header">{{ __('admin.product_options') }}:</h6>
+            <a class="collapse-item" href="{{route('admin.product.index')}}">{{ __('admin.product_list') }}</a>
+            <a class="collapse-item" href="{{route('admin.product.create')}}">{{ __('admin.add_product') }}</a>
+            <a class="collapse-item" href="{{route('admin.category.index')}}">{{ __('admin.product_categories') }}</a>
+            <a class="collapse-item" href="{{route('admin.category.create')}}">{{ __('admin.add_category') }}</a>
           </div>
         </div>
     </li>
 
-  
-    {{-- Reviews --}}
+    <!-- Reviews -->
     <li class="nav-item">
         <a class="nav-link" href="{{route('review.index')}}">
             <i class="fas fa-comments"></i>
-            <span>Reviews</span></a>
+            <span>{{ __('admin.client_reviews') }}</span></a>
     </li>
-    
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
     <!-- Heading -->
     <div class="sidebar-heading">
-      Posts
+        Gestion des Médias
     </div>
 
-    <!-- Posts -->
+    <!-- Media Management -->
     <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#postCollapse" aria-expanded="true" aria-controls="postCollapse">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#mediaCollapse" aria-expanded="true" aria-controls="mediaCollapse">
         <i class="fas fa-fw fa-folder"></i>
-        <span>Posts</span>
+        <span>{{ __('admin.media') }}</span>
       </a>
-      <div id="postCollapse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div id="mediaCollapse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Post Options:</h6>
-          <a class="collapse-item" href="{{route('post.index')}}">Posts</a>
-          <a class="collapse-item" href="{{route('post.create')}}">Add Post</a>
+          <h6 class="collapse-header">{{ __('admin.media_options') }}:</h6>
+          <a class="collapse-item" href="{{route('post.index')}}">{{ __('admin.article_list') }}</a>
+          <a class="collapse-item" href="{{route('post.create')}}">{{ __('admin.add_article') }}</a>
+          <a class="collapse-item" href="{{route('post-category.index')}}">{{ __('admin.article_categories') }}</a>
+          <a class="collapse-item" href="{{route('post-category.create')}}">{{ __('admin.add_category') }}</a>
         </div>
       </div>
     </li>
 
-     <!-- Category -->
-     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#postCategoryCollapse" aria-expanded="true" aria-controls="postCategoryCollapse">
-          <i class="fas fa-sitemap fa-folder"></i>
-          <span>Category</span>
-        </a>
-        <div id="postCategoryCollapse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Category Options:</h6>
-            <a class="collapse-item" href="{{route('post-category.index')}}">Category</a>
-            <a class="collapse-item" href="{{route('post-category.create')}}">Add Category</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Comments -->
-      <li class="nav-item">
+    <!-- Comments -->
+    <li class="nav-item">
         <a class="nav-link" href="{{route('comment.index')}}">
-            <i class="fas fa-comments fa-chart-area"></i>
-            <span>Comments</span>
+            <i class="fas fa-comments"></i>
+            <span>{{ __('admin.comments') }}</span>
         </a>
-      </li>
-
+    </li>
 
     <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
-     <!-- Heading -->
-    <div class="sidebar-heading">
-        General Settings
-    </div>
-    {{-- <a class="nav-link" href="{{route('coupon.index')}}">Coupon</a> --}}
-     <!-- Users -->
-     <li class="nav-item">
-        <a class="nav-link" href="{{route('users.index')}}">
-            <i class="fas fa-users"></i>
-            <span>Users</span></a>
-    </li>
-     <!-- General settings -->
-     <li class="nav-item">
-        <a class="nav-link" href="{{route('settings')}}">
-            <i class="fas fa-cog"></i>
-            <span>Settings</span></a>
-    </li>
+    <hr class="sidebar-divider">
 
-    <!-- Certificats -->
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Gestion des Certificats
+    </div>
+
+    <!-- Certificates Management -->
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#certificateCollapse" aria-expanded="true" aria-controls="certificateCollapse">
         <i class="fas fa-certificate"></i>
-        <span>Certificats</span>
+        <span>{{ __('admin.certificates') }}</span>
       </a>
       <div id="certificateCollapse" class="collapse" aria-labelledby="headingCert" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Certificat Options:</h6>
-          <a class="collapse-item" href="{{ route('admin.certificate.index') }}">Liste des certificats</a>
-          <a class="collapse-item" href="{{ route('admin.certificate.create') }}">Ajouter un certificat</a>
+          <h6 class="collapse-header">{{ __('admin.certificate_options') }}:</h6>
+          <a class="collapse-item" href="{{ route('admin.certificate.index') }}">{{ __('admin.certificate_list') }}</a>
+          <a class="collapse-item" href="{{ route('admin.certificate.create') }}">{{ __('admin.add_certificate') }}</a>
         </div>
       </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Gestion des Utilisateurs
+    </div>
+
+    <!-- Users Management (Admin Only) -->
+    @if(Auth()->user()->role == 'admin')
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('users.index')}}">
+            <i class="fas fa-users"></i>
+            <span>{{ __('admin.users') }}</span></a>
+    </li>
+    @endif
+
+    <!-- Messages -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('message.index')}}">
+            <i class="fas fa-envelope"></i>
+            <span>{{ __('admin.messages') }}</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Configuration
+    </div>
+
+    <!-- Settings (Admin Only) -->
+    @if(Auth()->user()->role == 'admin')
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('settings')}}">
+            <i class="fas fa-cog"></i>
+            <span>{{ __('admin.settings') }}</span></a>
+    </li>
+    @endif
+
+    <!-- Analytics -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.analytics') }}">
+            <i class="fas fa-chart-line"></i>
+            <span>{{ __('admin.analytics') }}</span>
+        </a>
     </li>
 
     <!-- Sidebar Toggler (Sidebar) -->

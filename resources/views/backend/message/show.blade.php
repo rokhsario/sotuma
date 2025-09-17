@@ -4,21 +4,24 @@
   <h5 class="card-header">Message</h5>
   <div class="card-body">
     @if($message)
-        @if($message->photo)
-        <img src="{{$message->photo}}" class="rounded-circle " style="margin-left:44%;">
-        @else 
-        <img src="{{asset('backend/img/avatar.png')}}" class="rounded-circle " style="margin-left:44%;">
-        @endif
         <div class="py-4">From: <br>
            Name :{{$message->name}}<br>
            Email :{{$message->email}}<br>
            Phone :{{$message->phone}}
         </div>
         @if($message->attachment)
-    <div class="mb-3 text-center">
-        <a href="{{ asset('storage/' . $message->attachment) }}" target="_blank" class="btn btn-info">
-            Télécharger la pièce jointe
-        </a>
+    <div class="mb-3">
+        <h6>Pièce jointe:</h6>
+        <div class="d-flex align-items-center">
+            <a href="{{ route('message.download', $message->id) }}" class="btn btn-info mr-2">
+                <i class="fas fa-download"></i> Télécharger
+            </a>
+            <a href="{{ route('message.attachment.delete', $message->id) }}" class="btn btn-danger" 
+               onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette pièce jointe ?')">
+                <i class="fas fa-trash"></i> Supprimer
+            </a>
+        </div>
+        <small class="text-muted">Fichier: {{ basename($message->attachment) }}</small>
     </div>
 @endif
         <hr/>

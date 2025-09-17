@@ -1,255 +1,652 @@
 @extends('frontend.layouts.master')
 
-@section('title', 'Nos Certificats')
+@section('title', __('frontend.certificates'))
 
 @section('main-content')
 <style>
-.certificate-hero {
-    width: 100%;
-    background: linear-gradient(120deg, #fff 0%, #f8f8f8 100%), url('https://www.transparenttextures.com/patterns/diamond-upholstery.png');
-    border-radius: 28px;
-    box-shadow: 0 6px 32px rgba(130,4,3,0.10);
-    color: rgb(130,4,3);
-    padding: 56px 32px 48px 32px;
-    margin-bottom: 56px;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    justify-content: center;
+/* MODERN CERTIFICATES PAGE - EYE COMFORTABLE & SYMMETRICAL */
+:root {
+    --primary-bg: #fafafa;
+    --secondary-bg: #ffffff;
+    --accent-color: #6366f1;
+    --accent-light: #818cf8;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --border-light: #e5e7eb;
+    --border-lighter: #f3f4f6;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+}
+
+.certificates-container {
+    min-height: 100vh;
+    background: var(--primary-bg);
+    position: relative;
+}
+
+.certificates-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Hero Section */
+.certificates-hero {
+    background: #e3f2fd;
+    border-radius: 24px;
+    padding: 4rem 3rem;
+    margin: 2rem 0 4rem 0;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-light);
     position: relative;
     overflow: hidden;
+}
+
+.certificates-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--accent-color);
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    line-height: 1.7;
+    font-weight: 500;
+}
+
+
+
+/* Section Header */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Certificates Grid - Symmetrical Design */
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.certificate-card {
+    background: var(--secondary-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--border-light);
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+}
+
+.certificate-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--accent-light);
+}
+
+.certificate-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    z-index: 1;
+}
+
+.certificate-image-container {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.certificate-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    padding: 1rem;
+}
+
+.certificate-card:hover .certificate-image {
+    transform: scale(1.02);
+}
+
+.certificate-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(99, 102, 241, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.certificate-card:hover .certificate-overlay {
+    opacity: 1;
+}
+
+.zoom-icon {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--accent-color);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.zoom-icon:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+.certificate-content {
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     min-height: 220px;
 }
-.certificate-hero-icon {
-    font-size: 4.2rem;
-    background: #fff;
-    color: rgb(130,4,3);
-    border-radius: 50%;
-    padding: 28px 32px;
-    box-shadow: 0 2px 16px rgba(130,4,3,0.10);
-    margin-right: 32px;
-    flex-shrink: 0;
-    border: 2px solid #e53935;
-}
-.certificate-hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    max-width: 700px;
-}
-.certificate-hero-title {
-    font-size: 2.7rem;
-    font-weight: 900;
-    letter-spacing: 1.5px;
-    margin-bottom: 10px;
-    color: rgb(130,4,3);
-    text-shadow: 0 2px 12px rgba(130,4,3,0.08);
-}
-.certificate-hero-desc {
-    font-size: 1.25rem;
-    font-weight: 500;
-    opacity: 0.97;
-    color: #222;
-    margin-bottom: 18px;
-}
-.certificate-hero-btn {
-    background: #e53935;
-    color: #fff;
-    font-weight: 700;
-    border-radius: 18px;
-    padding: 12px 38px;
-    font-size: 1.15rem;
-    border: none;
-    box-shadow: 0 2px 12px rgba(130,4,3,0.08);
-    transition: background 0.2s, color 0.2s;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 8px;
-}
-.certificate-hero-btn:hover {
-    background: #f7c948;
-    color: #222;
-}
-.certificate-divider {
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, #e53935 0%, rgb(130,4,3) 100%);
-    border-radius: 2px;
-    margin: 0 auto 48px auto;
-    opacity: 0.18;
-}
-.certificate-section {
-    background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 4px 32px rgba(130,4,3,0.08);
-    margin-bottom: 48px;
-    padding: 44px 38px;
-    display: flex;
-    align-items: center;
-    gap: 48px;
-    transition: box-shadow 0.2s;
-    border-left: 8px solid #e53935;
-}
-.certificate-section:hover {
-    box-shadow: 0 8px 48px rgba(130,4,3,0.18);
-}
-.certificate-img-viewer {
-    flex: 0 0 420px;
-    max-width: 420px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 18px;
-    background: #f8f8f8;
-    box-shadow: 0 2px 16px rgba(130,4,3,0.10);
-    cursor: zoom-in;
-    transition: box-shadow 0.2s;
-    border: 2px solid #eee;
-}
-.certificate-img-viewer img {
-    width: 100%;
-    height: 320px;
-    object-fit: contain;
-    transition: box-shadow 0.2s;
-}
-.certificate-content {
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 220px;
-}
+
 .certificate-title {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: rgb(130,4,3);
-    margin-bottom: 18px;
-    letter-spacing: 2px;
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: auto;
     line-height: 1.4;
-    word-break: break-word;
-    white-space: pre-line;
-}
-.certificate-desc {
-    font-size: 1.35rem;
-    line-height: 2.1;
-    color: #222;
-    font-weight: 500;
-    margin-bottom: 0;
-}
-.certificates-header {
-    font-size: 2.3rem;
-    font-weight: 900;
-    color: rgb(130,4,3);
-    letter-spacing: 2px;
-    text-align: left;
-    margin-bottom: 36px;
-    margin-left: 8px;
-    text-shadow: 0 2px 12px rgba(130,4,3,0.08);
-}
-.certificate-meta {
-    font-size: 1rem;
-    color: #888;
-    margin-top: 12px;
-    font-style: italic;
-}
-@media (max-width: 1100px) {
-    .certificate-section { flex-direction: column; gap: 24px; padding: 24px 10px; border-left: 0; border-top: 8px solid #e53935; }
-    .certificate-img-viewer { max-width: 100%; width: 100%; }
-    .certificate-img-viewer img { height: 200px; }
-    .certificate-title { font-size: 1.3rem; }
-    .certificate-desc { font-size: 1.08rem; }
-    .certificates-header { font-size: 1.5rem; }
-    .certificate-hero { flex-direction: column; gap: 18px; padding: 24px 10px; text-align: center; min-height: 120px; }
-    .certificate-hero-content { align-items: center; }
-    .certificate-hero-title { font-size: 1.3rem; }
-    .certificate-hero-desc { font-size: 1rem; }
-    .certificate-hero-btn { font-size: 1rem; padding: 8px 18px; }
-}
-.certificate-modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0; width: 100vw; height: 100vh;
-    background: rgba(30,30,30,0.92);
+    min-height: 3.5rem;
+    display: flex;
     align-items: center;
-    justify-content: center;
-    transition: opacity 0.2s;
-    flex-direction: column;
 }
-.certificate-modal.active { display: flex; }
-.certificate-modal-img {
-    max-width: 90vw;
-    max-height: 80vh;
-    border-radius: 16px;
-    box-shadow: 0 8px 48px rgba(130,4,3,0.18);
-    background: #fff;
-    padding: 12px;
-    display: block;
+
+.certificate-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    flex: 1;
+    min-height: 4.5rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.certificate-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-lighter);
+    margin-top: auto;
+}
+
+.certificate-badge {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: var(--shadow-sm);
+}
+
+
+
+/* Empty State */
+.empty-state {
+    background: var(--secondary-bg);
+    border-radius: 20px;
+    padding: 4rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-light);
+}
+
+.empty-icon {
+    font-size: 4rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.empty-title {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.empty-description {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    max-width: 400px;
     margin: 0 auto;
 }
-.certificate-modal-close {
+
+/* Modal */
+.certificate-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 2rem;
+    backdrop-filter: blur(8px);
+}
+
+.certificate-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    background: var(--secondary-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    border: 1px solid var(--border-light);
+}
+
+.certificate-modal.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-image {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+    padding: 1rem;
+}
+
+.modal-close {
     position: absolute;
-    top: 32px;
-    right: 48px;
-    font-size: 2.5rem;
-    color: #fff;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.125rem;
     cursor: pointer;
-    z-index: 10001;
-    transition: color 0.2s;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.certificate-modal-close:hover { color: #f7c948; }
-</style>
-<div class="container py-5">
-    <div class="certificate-hero">
-        <span class="certificate-hero-icon"><i class="fas fa-award"></i></span>
-        <div class="certificate-hero-content">
-            <div class="certificate-hero-title">Nos Certificats Officiels</div>
-            <div class="certificate-hero-desc">Découvrez l’excellence, la fiabilité et la reconnaissance de nos certifications. Chaque distinction est la preuve de notre engagement envers la qualité, l’innovation et la confiance de nos partenaires.</div>
-            <a href="#certificates-list" class="certificate-hero-btn">Voir les certificats</a>
-        </div>
-    </div>
-    <div class="certificate-divider"></div>
-    <h1 class="certificates-header" id="certificates-list">Liste des certificats</h1>
-    @foreach($certificates as $certificate)
-        <div class="certificate-section">
-            <div class="certificate-img-viewer" title="Cliquez pour agrandir" onclick="showCertificateModal('{{ asset('storage/' . $certificate->image) }}')">
-                <img src="{{ asset('storage/' . $certificate->image) }}" alt="{{ $certificate->title }}">
-            </div>
-            <div class="certificate-content">
-                <div class="certificate-title">{{ $certificate->title }}</div>
-                <div class="certificate-desc">{{ $certificate->description }}</div>
-                <div class="certificate-meta">Certificat officiel SOTUMA</div>
-            </div>
-        </div>
-    @endforeach
-    @if($certificates->isEmpty())
-        <div class="alert alert-info text-center">Aucun certificat pour le moment.</div>
-    @endif
-    <div class="d-flex justify-content-center mt-4">
-        {{ $certificates->links() }}
-    </div>
-</div>
-<!-- Modal for image inspect -->
-<div class="certificate-modal" id="certificateModal" onclick="hideCertificateModal(event)">
-    <span class="certificate-modal-close" onclick="hideCertificateModal(event)" title="Fermer">&times;</span>
-    <img src="" alt="Certificat" class="certificate-modal-img" id="certificateModalImg" onclick="event.stopPropagation()">
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-<script>
-function showCertificateModal(imgUrl) {
-    var modal = document.getElementById('certificateModal');
-    var modalImg = document.getElementById('certificateModalImg');
-    modalImg.src = imgUrl;
-    modal.classList.add('active');
+
+.modal-close:hover {
+    background: var(--accent-color);
+    transform: scale(1.1);
 }
-function hideCertificateModal(e) {
-    // Only close if clicking the modal background or close button, not the image
-    if (e.target.classList.contains('certificate-modal') || e.target.classList.contains('certificate-modal-close')) {
-        document.getElementById('certificateModal').classList.remove('active');
-        document.getElementById('certificateModalImg').src = '';
+
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .certificates-content {
+        padding: 1.5rem;
+    }
+    
+    .certificates-hero {
+        padding: 3rem 2rem;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .certificates-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 1.5rem;
     }
 }
+
+@media (max-width: 768px) {
+    .certificates-hero {
+        padding: 2rem 1.5rem;
+        margin: 1rem 0 2rem 0;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.125rem;
+    }
+    
+    .hero-stats {
+        gap: 2rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .certificates-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .certificate-image-container {
+        height: 240px;
+    }
+    
+    .certificate-content {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .certificates-content {
+        padding: 1rem;
+    }
+    
+    .certificates-hero {
+        padding: 1.5rem 1rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .certificate-image-container {
+        height: 200px;
+    }
+}
+
+/* Loading Animation */
+.certificate-card.loading {
+    animation: shimmer 1.5s infinite linear;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Smooth Animations */
+.certificate-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
+<div class="certificates-container">
+    <div class="certificates-content">
+        <!-- Hero Section -->
+        <section class="certificates-hero">
+            <h1 class="hero-title">{{ __('frontend.certificates') }} d'Excellence</h1>
+            <p class="hero-subtitle">
+                Découvrez notre collection de certifications qui témoignent de notre engagement envers la qualité, 
+                l'innovation et la conformité aux normes internationales les plus strictes.
+            </p>
+            
+
+        </section>
+
+        <!-- Certificates Section -->
+        <section class="certificates-section">
+            <div class="section-header">
+                <h2 class="section-title">Certifications Officielles</h2>
+                <p class="section-subtitle">
+                    Chaque certificat représente notre engagement envers l'excellence et notre conformité 
+                    aux standards internationaux les plus élevés.
+                </p>
+            </div>
+
+            @if($certificates->count() > 0)
+                <div class="certificates-grid">
+                    @foreach($certificates as $certificate)
+                        <div class="certificate-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                            <div class="certificate-image-container" onclick="openCertificateModal('{{ asset($certificate->image) }}', '{{ $certificate->title }}')">
+                                <img src="{{ asset($certificate->image) }}" 
+                                     alt="{{ $certificate->title }}" 
+                                     class="certificate-image"
+                                     loading="lazy">
+                                <div class="certificate-overlay">
+                                    <div class="zoom-icon">
+                                        <i class="fas fa-search-plus"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="certificate-content">
+                                <h3 class="certificate-title">{{ $certificate->title }}</h3>
+                                <p class="certificate-description">{{ $certificate->description }}</p>
+                                <div class="certificate-meta">
+                                    <span class="certificate-badge">Certifié</span>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="empty-title">Aucun certificat disponible</h3>
+                    <p class="empty-description">
+                        {{ __('frontend.certificates_updating') }}
+                    </p>
+                </div>
+            @endif
+        </section>
+    </div>
+</div>
+
+<!-- Certificate Modal -->
+<div class="certificate-modal" id="certificateModal" onclick="closeCertificateModal()">
+    <button class="modal-close" onclick="closeCertificateModal()">
+        <i class="fas fa-times"></i>
+    </button>
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <img src="" alt="Certificat" class="modal-image" id="modalImage">
+    </div>
+</div>
+
+<script>
+// Certificate Modal Functions
+function openCertificateModal(imageSrc, title) {
+    const modal = document.getElementById('certificateModal');
+    const modalImage = document.getElementById('modalImage');
+    
+    modalImage.src = imageSrc;
+    modalImage.alt = title;
+    modal.classList.add('active');
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCertificateModal() {
+    const modal = document.getElementById('certificateModal');
+    modal.classList.remove('active');
+    
+    // Restore body scroll
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal on escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeCertificateModal();
+    }
+});
+
+// Close modal on background click
+document.getElementById('certificateModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeCertificateModal();
+    }
+});
+
+// Intersection Observer for animations
+if ('IntersectionObserver' in window) {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observe certificate cards
+    document.querySelectorAll('.certificate-card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+    });
+}
+
+// Loading state management
+document.addEventListener('DOMContentLoaded', function() {
+    // Remove loading states after images load
+    const images = document.querySelectorAll('.certificate-image');
+    images.forEach(img => {
+        if (img.complete) {
+            img.parentElement.classList.remove('loading');
+        } else {
+            img.addEventListener('load', function() {
+                this.parentElement.classList.remove('loading');
+            });
+            img.addEventListener('error', function() {
+                this.parentElement.classList.remove('loading');
+                this.style.display = 'none';
+            });
+        }
+    });
+});
 </script>
 @endsection 

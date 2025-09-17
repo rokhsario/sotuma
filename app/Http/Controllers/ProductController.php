@@ -2,144 +2,112 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
-
-use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $products = Product::getAllProduct();
+    public function index() {
+        $products = Product::with('category')->paginate(10); // Paginate for links()
         return view('backend.product.index', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $categories = Category::where('is_parent', 1)->get();
+    public function create() {
+        $categories = \App\Models\Category::all();
         return view('backend.product.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
+    public function store(Request $request) {
+        $validated = $request->validate([
             'title' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'has_details' => 'boolean',
             'description' => 'nullable|string',
-            'photo' => 'required|string',
-            'cat_id' => 'required|exists:categories,id',
-            'child_cat_id' => 'nullable|exists:categories,id',
-            'status' => 'required|in:active,inactive',
+            'specifications' => 'nullable|string',
+            'features' => 'nullable|string',
         ]);
-
-        $slug = generateUniqueSlug($request->title, Product::class);
-        $validatedData['slug'] = $slug;
-
-        $product = Product::create($validatedData);
-
-        $message = $product
-            ? 'Product Successfully added'
-            : 'Please try again!!';
-
-        return redirect()->route('product.index')->with(
-            $product ? 'success' : 'error',
-            $message
-        );
+        
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = uniqid().'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('images/products'), $filename);
+            $validated['image'] = 'images/products/' . $filename;
+        }
+        
+        // Set has_details to false by default if not provided
+        $validated['has_details'] = $request->has('has_details');
+        
+        Product::create($validated);
+        return redirect()->route('admin.product.index')->with('success', 'Product created!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        // Implement if needed
+    public function edit($id) {
+        $product = \App\Models\Product::findOrFail($id);
+        $categories = \App\Models\Category::all();
+        return view('backend.product.edit', compact('product', 'categories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $product = Product::findOrFail($id);
-        $categories = Category::where('is_parent', 1)->get();
-        $items = Product::where('id', $id)->get();
-
-        return view('backend.product.edit', compact('product', 'categories', 'items'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $product = Product::findOrFail($id);
-
-        $validatedData = $request->validate([
+    public function update(Request $request, Product $product) {
+        $validated = $request->validate([
             'title' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'has_details' => 'boolean',
             'description' => 'nullable|string',
-            'photo' => 'required|string',
-            'cat_id' => 'required|exists:categories,id',
-            'child_cat_id' => 'nullable|exists:categories,id',
-            'status' => 'required|in:active,inactive',
+            'specifications' => 'nullable|string',
+            'features' => 'nullable|string',
         ]);
-
-        $status = $product->update($validatedData);
-
-        $message = $status
-            ? 'Product Successfully updated'
-            : 'Please try again!!';
-
-        return redirect()->route('product.index')->with(
-            $status ? 'success' : 'error',
-            $message
-        );
+        
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($product->image && file_exists(public_path($product->image))) {
+                @unlink(public_path($product->image));
+            }
+            $file = $request->file('image');
+            $filename = uniqid().'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('images/products'), $filename);
+            $validated['image'] = 'images/products/' . $filename;
+        }
+        
+        // Set has_details based on checkbox
+        $validated['has_details'] = $request->has('has_details');
+        
+        $product->update($validated);
+        return redirect()->route('admin.product.index')->with('success', 'Product updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $product = Product::findOrFail($id);
-        $status = $product->delete();
+    public function destroy(Product $product) {
+        // Delete the product image file if it exists
+        if ($product->image && file_exists(public_path($product->image))) {
+            @unlink(public_path($product->image));
+        }
+        
+        $product->delete();
+        return redirect()->route('admin.product.index')->with('success', 'Product deleted!');
+    }
 
-        $message = $status
-            ? 'Product successfully deleted'
-            : 'Error while deleting product';
+    // Frontend: show all categories as cards (for Products button)
+    public function showCategories() {
+        $categories = Category::all();
+        return view('frontend.products.categories', compact('categories'));
+    }
 
-        return redirect()->route('product.index')->with(
-            $status ? 'success' : 'error',
-            $message
-        );
+    // Frontend: show products for a category
+    public function showByCategory(Category $category) {
+        $products = $category->products()->orderBy('sort_order', 'asc')->get();
+        return view('frontend.products.index', compact('products', 'category'));
+    }
+
+    // Frontend: show all products (optionally filtered by category)
+    public function showAll(Request $request) {
+        $categories = Category::all();
+        $products = Product::with('category');
+        if ($request->filled('category_id')) {
+            $products = $products->where('category_id', $request->category_id);
+        }
+        $products = $products->get();
+        return view('frontend.products.all', compact('products', 'categories'));
     }
 }

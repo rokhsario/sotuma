@@ -21,13 +21,6 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
-                    <div class="image">
-                        @if($profile->photo)
-                        <img class="card-img-top img-fluid roundend-circle mt-4" style="border-radius:50%;height:80px;width:80px;margin:auto;" src="{{$profile->photo}}" alt="profile picture">
-                        @else 
-                        <img class="card-img-top img-fluid roundend-circle mt-4" style="border-radius:50%;height:80px;width:80px;margin:auto;" src="{{asset('backend/img/avatar.png')}}" alt="profile picture">
-                        @endif
-                    </div>
                     <div class="card-body mt-4 ml-2">
                       <h5 class="card-title text-left"><small><i class="fas fa-user"></i> {{$profile->name}}</small></h5>
                       <p class="card-text text-left"><small><i class="fas fa-envelope"></i> {{$profile->email}}</small></p>
@@ -68,17 +61,25 @@
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                       </div>
+                      @if(Auth()->user()->role == 'admin')
                       <div class="form-group">
                           <label for="role" class="col-form-label">Role</label>
                           <select name="role" class="form-control">
                               <option value="">-----Select Role-----</option>
                                   <option value="admin" {{(($profile->role=='admin')? 'selected' : '')}}>Admin</option>
+                                  <option value="co-admin" {{(($profile->role=='co-admin')? 'selected' : '')}}>Co-Admin</option>
                                   <option value="user" {{(($profile->role=='user')? 'selected' : '')}}>User</option>
                           </select>
                         @error('role')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                         </div>
+                      @else
+                      <div class="form-group">
+                          <label for="role" class="col-form-label">Role</label>
+                          <input type="text" class="form-control" value="{{ucfirst($profile->role)}}" readonly>
+                      </div>
+                      @endif
 
                         <button type="submit" class="btn btn-success btn-sm">Update</button>
                 </form>

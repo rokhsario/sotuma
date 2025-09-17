@@ -33,14 +33,30 @@ class CertificateController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:51200', // 50MB
             'description' => 'required|string',
         ]);
+        
         $data = $request->only(['title', 'description']);
+        
+        // Handle image upload like products/projects
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('certificates', 'public');
+            $file = $request->file('image');
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+            
+            // Create directory if it doesn't exist
+            $uploadPath = public_path('images/certificates');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
+            // Move file to public directory (creates a copy)
+            $file->move($uploadPath, $filename);
+            $data['image'] = 'images/certificates/' . $filename;
         }
+        
         \App\Models\Certificate::create($data);
+        
         return redirect()->route('admin.certificate.index')->with('success', 'Certificat ajouté avec succès.');
     }
 
@@ -69,17 +85,33 @@ class CertificateController extends Controller
         $certificate = \App\Models\Certificate::findOrFail($id);
         $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:51200', // 50MB
             'description' => 'required|string',
         ]);
+        
         $data = $request->only(['title', 'description']);
+        
+        // Handle new image upload like products/projects
         if ($request->hasFile('image')) {
-            // Delete old image
-            if ($certificate->image && Storage::disk('public')->exists($certificate->image)) {
-                Storage::disk('public')->delete($certificate->image);
+            // Delete old image file if it exists
+            if ($certificate->image && file_exists(public_path($certificate->image))) {
+                @unlink(public_path($certificate->image));
             }
-            $data['image'] = $request->file('image')->store('certificates', 'public');
+            
+            $file = $request->file('image');
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+            
+            // Create directory if it doesn't exist
+            $uploadPath = public_path('images/certificates');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
+            // Move file to public directory (creates a copy)
+            $file->move($uploadPath, $filename);
+            $data['image'] = 'images/certificates/' . $filename;
         }
+        
         $certificate->update($data);
         return redirect()->route('admin.certificate.index')->with('success', 'Certificat mis à jour avec succès.');
     }
@@ -90,9 +122,12 @@ class CertificateController extends Controller
     public function destroy($id)
     {
         $certificate = \App\Models\Certificate::findOrFail($id);
-        if ($certificate->image && Storage::disk('public')->exists($certificate->image)) {
-            Storage::disk('public')->delete($certificate->image);
+        
+        // Delete image file if it exists
+        if ($certificate->image && file_exists(public_path($certificate->image))) {
+            @unlink(public_path($certificate->image));
         }
+        
         $certificate->delete();
         return redirect()->route('admin.certificate.index')->with('success', 'Certificat supprimé avec succès.');
     }

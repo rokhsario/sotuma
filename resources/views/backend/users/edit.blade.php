@@ -55,10 +55,9 @@
             <label for="role" class="col-form-label">Role</label>
             <select name="role" class="form-control">
                 <option value="">-----Select Role-----</option>
-                @foreach($roles as $role)
-                    <option value="{{$role->role}}" {{(($role->role=='admin') ? 'selected' : '')}}>Admin</option>
-                    <option value="{{$role->role}}" {{(($role->role=='user') ? 'selected' : '')}}>User</option>
-                @endforeach
+                <option value="admin" {{(($user->role=='admin') ? 'selected' : '')}}>Admin</option>
+                <option value="co-admin" {{(($user->role=='co-admin') ? 'selected' : '')}}>Co-Admin</option>
+                <option value="user" {{(($user->role=='user') ? 'selected' : '')}}>User</option>
             </select>
           @error('role')
           <span class="text-danger">{{$message}}</span>

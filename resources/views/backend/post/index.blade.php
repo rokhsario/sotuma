@@ -9,8 +9,8 @@
          </div>
      </div>
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary float-left">Post Lists</h6>
-      <a href="{{route('post.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Post</a>
+      <h6 class="m-0 font-weight-bold text-primary float-left">Liste des {{ __('admin.media') }}</h6>
+      <a href="{{route('post.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Ajouter un Média"><i class="fas fa-plus"></i> Ajouter un Média</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -18,23 +18,23 @@
         <table class="table table-bordered" id="product-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
-              <th>Title</th>
-              <th>Category</th>
-              <th>Author</th>
-              <th>Photo</th>
-              <th>Status</th>
+              <th>N°</th>
+              <th>Titre</th>
+              <th>Catégorie</th>
+              <th>Auteur</th>
+              <th>Media</th>
+              <th>Statut</th>
               <th>Action</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
-              <th>S.N.</th>
-              <th>Title</th>
-              <th>Category</th>
-              <th>Author</th>
-              <th>Photo</th>
-              <th>Status</th>
+              <th>N°</th>
+              <th>Titre</th>
+              <th>Catégorie</th>
+              <th>Auteur</th>
+              <th>Media</th>
+              <th>Statut</th>
               <th>Action</th>
             </tr>
           </tfoot>
@@ -58,10 +58,21 @@
                       @endforeach
                     </td>
                     <td>
-                        @if($post->photo)
-                            <img src="{{$post->photo}}" class="img-fluid zoom" style="max-width:80px" alt="{{$post->photo}}">
+                        @if($post->first_media)
+                            @if($post->first_media->isVideo())
+                                <video class="img-fluid zoom" style="max-width:80px; height:60px; object-fit:cover;" controls>
+                                    <source src="{{ asset($post->first_media->image) }}" type="video/{{ $post->first_media->file_extension }}">
+                                    Your browser does not support the video tag.
+                                </video>
+                            @else
+                                <img src="{{ asset($post->first_media->image) }}" class="img-fluid zoom" style="max-width:80px" alt="{{$post->title}}">
+                            @endif
+                        @elseif($post->photo)
+                            <img src="{{ asset($post->photo) }}" class="img-fluid zoom" style="max-width:80px" alt="{{$post->title}}">
                         @else
-                            <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="avatar.png">
+                            <div class="bg-light d-flex align-items-center justify-content-center" style="width:80px; height:60px; border-radius:4px;">
+                                <i class="fas fa-image text-muted"></i>
+                            </div>
                         @endif
                     </td>                   
                     <td>
@@ -85,7 +96,7 @@
         </table>
         <span style="float:right">{{$posts->links()}}</span>
         @else
-          <h6 class="text-center">No posts found!!! Please create Post</h6>
+          <h6 class="text-center">Aucun média trouvé !!! Veuillez créer un média</h6>
         @endif
       </div>
     </div>
@@ -105,6 +116,18 @@
 
       .zoom:hover {
         transform: scale(5);
+      }
+      
+      /* Video preview styling */
+      video.zoom {
+        border-radius: 4px;
+        background: #f8f9fa;
+      }
+      
+      video.zoom:hover {
+        transform: scale(3);
+        z-index: 1000;
+        position: relative;
       }
   </style>
 @endpush
@@ -148,8 +171,8 @@
               // alert(dataID);
               e.preventDefault();
               swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "Êtes-vous sûr ?",
+                    text: "Une fois supprimé, vous ne pourrez plus récupérer ces données !",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -158,7 +181,7 @@
                     if (willDelete) {
                        form.submit();
                     } else {
-                        swal("Your data is safe!");
+                        swal("Vos données sont en sécurité !");
                     }
                 });
           })

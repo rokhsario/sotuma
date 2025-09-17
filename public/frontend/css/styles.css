@@ -100,14 +100,14 @@
     bottom: -2px;
     width: 100%;
     height: 2.5px;
-    background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
+    background: linear-gradient(90deg, #6c757d 0%, #495057 100%);
     border-radius: 2px;
     transform: scaleX(0);
     opacity: 0.5;
     transition: transform 0.32s cubic-bezier(.4,0,.2,1), opacity 0.32s;
 }
 .nav-menu li a:hover, .nav-menu li a.active {
-    color: #007bff;
+    color: #6c757d;
     opacity: 1;
 }
 .nav-menu li a:hover::after, .nav-menu li a.active::after {
@@ -144,7 +144,7 @@
     position: relative;
 }
 .nav-auth a:hover {
-    color: #007bff;
+    color: #6c757d;
     opacity: 1;
 }
 .nav-auth .auth-divider {
@@ -361,7 +361,7 @@
 }
 .lang-option-item:hover, .lang-option-item.selected {
     background: #f5f7fa;
-    color: #007bff;
+    color: #6c757d;
 }
 
 .custom-lang-dropdown:focus .selected-lang,

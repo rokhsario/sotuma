@@ -20,7 +20,8 @@ class CreateCartsTable extends Migration
             $table->enum('status',['new','progress','delivered','cancel'])->default('new');
             $table->integer('quantity');
             $table->float('amount');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
+            // Temporarily remove the foreign key constraint for a clean migration
+            // $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
             $table->timestamps();
         });
     }

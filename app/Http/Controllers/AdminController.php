@@ -24,8 +24,19 @@ class AdminController extends Controller
      {
        $array[++$key] = [$value->day_name, $value->count];
      }
-    //  return $data;
-     return view('backend.index')->with('users', json_encode($array));
+     
+     // Get visitor statistics
+     $visitorStats = [
+         'today_visits' => \App\Models\Visitor::getTodayVisits(),
+         'today_unique_visitors' => \App\Models\Visitor::getTodayUniqueVisitors(),
+         'this_week_visits' => \App\Models\Visitor::getThisWeekVisitors(),
+         'this_month_visits' => \App\Models\Visitor::getThisMonthVisitors(),
+         'last_7_days' => \App\Models\Visitor::getLast7DaysVisitors()
+     ];
+     
+     return view('backend.index')
+         ->with('users', json_encode($array))
+         ->with('visitorStats', $visitorStats);
     }
 
     public function profile(){
@@ -38,6 +49,12 @@ class AdminController extends Controller
         // return $request->all();
         $user=User::findOrFail($id);
         $data=$request->all();
+        
+        // Restrict co-admin from changing their role
+        if($user->role == 'co-admin' && isset($data['role'])) {
+            unset($data['role']); // Remove role from data to prevent changes
+        }
+        
         $status=$user->fill($data)->save();
         if($status){
             request()->session()->flash('success','Successfully updated your profile');
@@ -57,23 +74,49 @@ class AdminController extends Controller
         // return $request->all();
         $this->validate($request,[
             'short_des'=>'required|string',
-            'description'=>'required|string',
-            'photo'=>'required',
-            'logo'=>'required',
+            'hero_slogan'=>'nullable|string|max:255',
+            'presentation_image'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:92160', // 90MB
             'address'=>'required|string',
             'email'=>'required|email',
             'phone'=>'required|string',
+            'warranty_years'=>'required|integer|min:1|max:50',
+            'experience_years'=>'required|integer|min:1|max:100',
+            'projects_count'=>'required|integer|min:1|max:1000',
         ]);
-        $data=$request->all();
-        // return $data;
-        $settings=Settings::first();
-        // return $settings;
-        $status=$settings->fill($data)->save();
+        
+        $data = $request->only(['short_des', 'hero_slogan', 'address', 'email', 'phone', 'warranty_years', 'experience_years', 'projects_count']);
+        
+        // Handle presentation image upload
+        if ($request->hasFile('presentation_image')) {
+            $settings = Settings::first();
+            
+            // Delete old presentation image file if it exists
+            if ($settings->presentation_image && file_exists(public_path($settings->presentation_image))) {
+                @unlink(public_path($settings->presentation_image));
+            }
+            
+            $file = $request->file('presentation_image');
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+            
+            // Create directory if it doesn't exist
+            $uploadPath = public_path('images/presentation');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
+            // Move file to public directory (creates a copy)
+            $file->move($uploadPath, $filename);
+            $data['presentation_image'] = 'images/presentation/' . $filename;
+        }
+        
+        $settings = Settings::first();
+        $status = $settings->fill($data)->save();
+        
         if($status){
-            request()->session()->flash('success','Setting successfully updated');
+            request()->session()->flash('success','Paramètres mis à jour avec succès');
         }
         else{
-            request()->session()->flash('error','Please try again');
+            request()->session()->flash('error','Veuillez réessayer');
         }
         return redirect()->route('admin');
     }

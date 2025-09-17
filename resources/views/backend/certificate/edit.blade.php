@@ -17,18 +17,32 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label for="title">Titre</label>
+                            <label for="title">Titre <span class="text-danger">*</span></label>
                             <input type="text" name="title" class="form-control" value="{{ $certificate->title }}" required>
+                            @error('title')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="image">Image actuelle</label><br>
-                            <img src="{{ asset('storage/' . $certificate->image) }}" alt="{{ $certificate->title }}" width="120" class="mb-2">
-                            <input type="file" name="image" class="form-control-file">
-                            <small class="form-text text-muted">Laisser vide pour conserver l'image actuelle.</small>
+                            <label for="image" class="col-form-label">Image</label>
+                            @if($certificate->image)
+                                <div class="mb-2">
+                                    <img src="{{ asset($certificate->image) }}" alt="{{ $certificate->title }}" style="max-width:200px;max-height:200px;" class="img-thumbnail">
+                                    <p class="text-muted small">Image actuelle</p>
+                                </div>
+                            @endif
+                            <input type="file" name="image" class="form-control" accept="image/*">
+                            <small class="form-text text-muted">Formats acceptés: JPEG, PNG, JPG, GIF, SVG, WEBP (Max: 50MB). Laisser vide pour conserver l'image actuelle.</small>
+                            @error('image')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="description">Description</label>
+                            <label for="description">Description <span class="text-danger">*</span></label>
                             <textarea name="description" class="form-control" rows="4" required>{{ $certificate->description }}</textarea>
+                            @error('description')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Mettre à jour</button>
                     </form>

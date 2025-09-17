@@ -103,14 +103,14 @@
                                     @foreach($recent_products as $product)
                                         <!-- Single Post -->
                                         @php 
-                                            $photo=explode(',',$product->photo);
+                                            $photo=explode(',',$product->image);
                                         @endphp
                                         <div class="single-post first">
                                             <div class="image">
-                                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                                <img src="{{asset($photo[0])}}" alt="{{$photo[0]}}">
                                             </div>
                                             <div class="content">
-                                                <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h5>
+                                                <h5><a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}">{{$product->title}}</a></h5>
                                                 @php
                                                     $org=($product->price-($product->price*$product->discount)/100);
                                                 @endphp
@@ -168,12 +168,12 @@
 												<div class="col-lg-4 col-md-6 col-sm-6">
 													<div class="single-product">
 														<div class="product-img">
-															<a href="{{route('product-detail',$product->slug)}}">
+															<a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}">
 															@php 
-																$photo=explode(',',$product->photo);
+																$photo=explode(',',$product->image);
 															@endphp
-															<img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-															<img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+															<img class="default-img" src="{{asset($photo[0])}}" alt="{{$photo[0]}}">
+															<img class="hover-img" src="{{asset($photo[0])}}" alt="{{$photo[0]}}">
 															</a>
 															<div class="button-head">
 																<div class="product-action">
@@ -197,7 +197,7 @@
 																<span>${{number_format($after_discount,2)}}</span>
 																<del>${{number_format($product->price,2)}}</del>
 															</div>
-															<h3 class="title"><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
+															<h3 class="title"><a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}">{{$product->title}}</a></h3>
 														{{-- <p>{!! html_entity_decode($product->summary) !!}</p> --}}
 														</div>
 														<p class="des pt-2">{!! html_entity_decode($product->summary) !!}</p>
@@ -239,12 +239,12 @@
 												<div class="product-gallery">
 													<div class="quickview-slider-active">
 														@php 
-															$photo=explode(',',$product->photo);
+															$photo=explode(',',$product->image);
 														// dd($photo);
 														@endphp
 														@foreach($photo as $data)
 															<div class="single-slider">
-																<img src="{{$data}}" alt="{{$data}}">
+																<img src="{{asset($data)}}" alt="{{$data}}">
 															</div>
 														@endforeach
 													</div>
@@ -352,7 +352,7 @@
 	.filter_button{
         /* height:20px; */
         text-align: center;
-        background:#F7941D;
+        background:#D2B48C;
         padding:8px 16px;
         margin-top:10px;
         color: white;

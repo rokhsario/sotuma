@@ -1,131 +1,184 @@
-[![github-follow](https://img.shields.io/github/followers/Prajwal100?label=Follow&logoColor=purple&style=social)](https://github.com/Prajwal100)
-[![GitHub stars](https://img.shields.io/github/stars/Prajwal100/Complete-Ecommerce-in-laravel-10.svg?style=social)](https://github.com/Prajwal100/Complete-Ecommerce-in-laravel-10/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/Prajwal100/Complete-Ecommerce-in-laravel-10.svg)](https://github.com/Prajwal100/Complete-Ecommerce-in-laravel-10/network)
+[![github-follow](https://img.shields.io/github/followers/rokhsario?label=Follow&logoColor=purple&style=social)](https://github.com/rokhsario)
+[![GitHub stars](https://img.shields.io/github/stars/rokhsario/sotuma.svg?style=social)](https://github.com/rokhsario/sotuma/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/rokhsario/sotuma.svg)](https://github.com/rokhsario/sotuma/network)
 [![license](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://choosealicense.com/licenses/mit/)
-[![Buy Me A Coffee](https://img.shields.io/badge/Support-Buy%20Me%20A%20Coffee-yellow?style=flat-square&logo=buy-me-a-coffee)](https://buymeacoffee.com/prajwalrai/support-my-work-complete-laravel-e-commerce-project)
 
-# 🚀 Complete E-commerce Website in Laravel 10
-A full-fledged **eCommerce solution** built on **Laravel 10**, featuring a modern UI, powerful admin panel, seamless payment integration, and a user-friendly shopping experience.
-
----
-
-## 🎥 Live Demo & Tutorials
-🔹 **Setup Video:** [Watch Here](https://www.youtube.com/watch?v=URX5D1A5XQ4&t=19s)
-🔹 **Demo Video:** [Live Demo](https://youtu.be/RxyrQQ3oTIE?si=Iq25IuJ8_eB5OJpC)
-🔹 **Complete Tutorial Series:** [Watch Now](https://www.youtube.com/watch?v=FdAMucaks64&list=PLIFG3IUe1Zxo8Zvju3_kJJvoKSaIP_SC_&index=1&t=44s)
+# 🏗️ SOTUMA - Système de Catalogue en Ligne Laravel 10
+**SOTUMA** est une plateforme de catalogue moderne développée avec **Laravel 10** pour une entreprise spécialisée en menuiserie aluminium depuis 2014. Le système présente les produits, projets, et services avec un design moderne et une interface d'administration complète.
 
 ---
 
-## 🌟 Features
-
-### 🔹 **Frontend**
-- ⚡ **Progressive Web App (PWA) support**
-- 🎨 **Modern & responsive design**
-- 🛒 **Shopping cart, wishlist, and order tracking**
-- 🔎 **SEO-friendly URLs & metadata**
-- 💳 **Integrated PayPal payment gateway**
-- 📢 **Social login (Google, Facebook, Github)**
-- 💬 **Multi-level comments & reviews**
-
-### 🔹 **Admin Dashboard**
-- 🎛️ **Role management**
-- 📊 **Advanced analytics & reporting**
-- 🛍️ **Product & order management**
-- 🔔 **Real-time notifications & messaging**
-- 🏷️ **Coupon & discount system**
-- 📰 **Blog & category management**
-- 📸 **Media & banner manager**
-
-### 🔹 **User Dashboard**
-- 📦 **Order history & tracking**
-- 💬 **Review & comment system**
-- 🔧 **Profile customization**
+## 🏢 À Propos de SOTUMA
+**SOTUMA** est une entreprise tunisienne fondée en 2014, spécialisée dans la fabrication et l'installation de menuiserie aluminium. Avec plus de 10 ans d'expérience, nous proposons des solutions techniques personnalisées pour tous types de projets : résidentiels, commerciaux et industriels.
 
 ---
 
-## 🛠️ Installation Guide
+## 🌟 Fonctionnalités
 
-### 🔹 **Step 1: Clone the Repository**
-```sh
-git clone https://github.com/Prajwal100/Complete-Ecommerce-in-laravel-10.git
-cd Complete-Ecommerce-in-laravel-10
+### 🔹 **Interface Utilisateur (Frontend)**
+- 🎨 **Design moderne et responsive**
+- 🌍 **Support multilingue (Français, Anglais, Arabe)**
+- 🏗️ **Catalogue de produits aluminium**
+- 📸 **Galerie de projets réalisés**
+- 📜 **Présentation des certificats**
+- 📱 **Compatible mobile et tablette**
+- 🔍 **URLs SEO-friendly**
+
+### 🔹 **Panneau d'Administration**
+- 🎛️ **Gestion des utilisateurs et rôles**
+- 📊 **Tableau de bord analytique**
+- 🛍️ **Gestion des produits et catégories**
+- 🏗️ **Gestion des projets**
+- 📨 **Système de messagerie intégré**
+- 📰 **Gestion du blog/actualités**
+- 📸 **Gestionnaire de médias**
+- 🏆 **Gestion des certificats**
+
+### 🔹 **Fonctionnalités Techniques**
+- 🔧 **Architecture MVC Laravel 10**
+- 🗄️ **Base de données MySQL optimisée**
+- 📁 **Gestion avancée des fichiers**
+- 🌐 **Système de traduction intégré**
+- 📈 **Suivi des visiteurs et analytics**
+
+---
+
+## 🛠️ Guide d'Installation
+
+### 🔹 **Étape 1: Cloner le Repository**
+```bash
+git clone https://github.com/rokhsario/sotuma.git
+cd sotuma
 ```
 
-### 🔹 **Step 2: Install Dependencies**
-```sh
+### 🔹 **Étape 2: Installer les Dépendances**
+```bash
 composer install
 npm install
+npm run build
 ```
 
-### 🔹 **Step 3: Environment Setup**
-```sh
+### 🔹 **Étape 3: Configuration de l'Environnement**
+```bash
 cp .env.example .env
 php artisan key:generate
 ```
-Update `.env` with database credentials.
+Mettez à jour le fichier `.env` avec vos informations de base de données :
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sotuma
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
 
-### 🔹 **Step 4: Database Configuration**
-```sh
+### 🔹 **Étape 4: Configuration de la Base de Données**
+```bash
+# Créer la base de données
+mysql -u root -p -e "CREATE DATABASE sotuma CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+
+# Exécuter les migrations et seeders
 php artisan migrate --seed
 ```
-Import `database/SOTUMA.sql` into your database manually (if needed).
 
-### 🔹 **Step 5: Setup Storage**
-```sh
+### 🔹 **Étape 5: Configuration du Stockage**
+```bash
 php artisan storage:link
 ```
 
-### 🔹 **Step 6: Run the Application**
-```sh
+### 🔹 **Étape 6: Lancer l'Application**
+```bash
 php artisan serve
 ```
-🔗 Open `http://localhost:8000`
+🔗 Ouvrir `http://localhost:8000`
 
-### **Admin Login Credentials:**
+### **Identifiants d'Administration:**
 📧 **Email:** `admin@gmail.com`  
-🔑 **Password:** `1111`
+🔑 **Mot de passe:** `1111`
 
 ---
 
-## 🎙️ Transform Text into Speech with NepVox! 🔊
-🚀 **[NepVox](https://nepvox.com/)** is an advanced **AI-powered text-to-speech** platform that helps you convert any text into natural human-like voice effortlessly.
+## 🏗️ Domaines d'Expertise SOTUMA
 
-✅ **Supports multiple languages & voices**
-✅ **Perfect for videos, accessibility & podcasts**
-✅ **Simple API integration for businesses**
+### **Nos Spécialités:**
+✅ **Fenêtres et portes aluminium**
+✅ **Façades vitrées et murs-rideaux**
+✅ **Garde-corps et rampes**
+✅ **Cloisons et verrières**
+✅ **Vérandas et pergolas**
+✅ **Volets roulants**
 
-🎧 **Experience it now:** [NepVox AI TTS](https://nepvox.com/)
-
----
-
-## 📷 Screenshots
-
-### **Admin Panel**
-![Admin](https://user-images.githubusercontent.com/29488275/90719413-13b82200-e2d4-11ea-8ca0-f0e5551c4c9d.png)
-
-### **Product Management**
-![Products](https://user-images.githubusercontent.com/29488275/90719534-61348f00-e2d4-11ea-8a81-409daee0ad94.png)
-
-### **User Dashboard**
-![User Dashboard](https://user-images.githubusercontent.com/29488275/90719563-7a3d4000-e2d4-11ea-9e6a-56caac13b146.png)
+### **Nos Secteurs d'Intervention:**
+🏠 **Résidentiel** - Villas, appartements, maisons individuelles
+🏢 **Commercial** - Bureaux, magasins, showrooms
+🏭 **Industriel** - Usines, entrepôts, bâtiments techniques
 
 ---
 
-## 📩 Contact Me
-💼 Need a **Full Stack Laravel Developer**? Let's work together!
+## 📊 Données du Système
 
-📧 **Email:** Prajwal.iar@gmail.com  
-📲 **WhatsApp:** +977-9818441226  
+### **Contenu Actuel:**
+- 📦 **35 Produits** organisés en 9 catégories
+- 🏗️ **25 Projets** réalisés avec galeries photos
+- 📰 **11 Articles** de blog/actualités
+- 🏆 **2 Certificats** de qualité
+- 👥 **2 Utilisateurs** (Admin + Co-admin)
 
-🔗 **[Hire Me on Upwork](https://www.upwork.com/freelancers/~01210bb2575a8c05a9)**
-
-### ☕ Support My Work
-If you find this project helpful, consider [buying me a coffee](https://buymeacoffee.com/prajwalrai/support-my-work-complete-laravel-e-commerce-project). Your support helps maintain and improve this project! 🚀
+### **Performance:**
+- ⚡ **Temps de requête:** 17.13ms (excellent)
+- 💾 **Utilisation mémoire:** 19.48MB (optimisé)
+- 🌐 **Support multilingue:** 3 langues (FR, EN, AR)
+- 📱 **Responsive:** Compatible tous appareils
 
 ---
 
-## 📜 License
-🔹 This project is **MIT Licensed** – Feel free to use & modify!
+## 🛠️ Technologies Utilisées
 
-⭐ **If you find this project helpful, don't forget to star it!** ⭐
+### **Backend:**
+- 🔧 **Laravel 10** - Framework PHP
+- 🗄️ **MySQL** - Base de données
+- 📁 **Laravel File Manager** - Gestion des médias
+- 📄 **DomPDF** - Génération de PDF
+- 🌐 **Laravel Socialite** - Authentification sociale
+
+### **Frontend:**
+- 🎨 **Bootstrap 5** - Framework CSS
+- ⚡ **jQuery** - JavaScript
+- 📱 **Responsive Design** - Mobile-first
+- 🌍 **Multi-langue** - Système de traduction Laravel
+
+### **Outils de Développement:**
+- 🔍 **Laravel Pint** - Code styling
+- 🧪 **PHPUnit** - Tests unitaires
+- 📦 **Composer** - Gestionnaire de dépendances PHP
+- 📦 **NPM** - Gestionnaire de dépendances JS
+
+---
+
+## 📞 Contact SOTUMA
+
+### **Informations de Contact:**
+🏢 **Entreprise:** SOTUMA - Menuiserie Aluminium  
+📍 **Adresse:** Tunisie  
+📧 **Email:** contact@sotuma.tn  
+📱 **Téléphone:** +216 XX XXX XXX  
+
+### **Services:**
+- 💼 **Devis gratuit** pour tous vos projets
+- 🔧 **Installation professionnelle**
+- 🛠️ **Maintenance et SAV**
+- 📐 **Conception sur mesure**
+
+---
+
+## 📜 Licence
+🔹 Ce projet est sous **licence MIT** – Libre d'utilisation et de modification !
+
+⭐ **Si ce projet vous aide, n'hésitez pas à lui donner une étoile !** ⭐
+
+---
+
+## 👨‍💻 Développeur
+Développé par **@rokhsario** avec ❤️ pour SOTUMA
 

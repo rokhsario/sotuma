@@ -7,7 +7,22 @@
     <div class="hero-slogan position-absolute" style="top:40px;left:0;z-index:10;color:#fff;text-align:left;padding-left:80px;">
         <div class="slogan-text" style="font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;color:#fff;text-shadow:0 4px 16px rgba(0,0,0,0.8);letter-spacing:2px;line-height:1.4;max-width:700px;text-align:justify;word-spacing:0.3em;">
             @if($settings && $settings->hero_slogan)
-                <div style="text-align:justify;">{{ $settings->hero_slogan }}</div>
+                @php
+                    $slogan = $settings->hero_slogan;
+                    // Split the slogan into two balanced lines
+                    if ($slogan === 'Le monde se reflète dans nos créations') {
+                        $line1 = 'LE MONDE SE REFLETE';
+                        $line2 = 'DANS NOS CREATIONS';
+                    } else {
+                        // For other slogans, try to split at the middle
+                        $words = explode(' ', strtoupper($slogan));
+                        $mid = ceil(count($words) / 2);
+                        $line1 = implode(' ', array_slice($words, 0, $mid));
+                        $line2 = implode(' ', array_slice($words, $mid));
+                    }
+                @endphp
+                <div style="text-align:justify;margin-bottom:8px;">{{ $line1 }}</div>
+                <div style="text-align:justify;">{{ $line2 }}</div>
             @else
                 <div style="text-align:justify;margin-bottom:8px;">LE MONDE SE REFLETE</div>
                 <div style="text-align:justify;">DANS NOS CREATIONS</div>

@@ -155,7 +155,7 @@ Version: 1.0
     }
     
     .nav-responsive .nav-menu li a:hover {
-        color: #D2B48C !important;
+        color: #666 !important;
     }
     
     /* Mobile-only navigation items */
@@ -279,8 +279,8 @@ Version: 1.0
     }
     
     .nav-responsive .nav-menu li a:hover {
-        background: rgba(210, 180, 140, 0.1) !important;
-        color: #D2B48C !important;
+        background: rgba(128, 128, 128, 0.1) !important;
+        color: #666 !important;
     }
     
     .nav-responsive .nav-auth {
@@ -564,6 +564,66 @@ Version: 1.0
     }
 }
 
+/* Auth Links Styling */
+.nav-auth .auth-link {
+    color: #333 !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    font-size: 0.9rem !important;
+    padding: 0.5rem 0.75rem !important;
+    border-radius: 4px !important;
+    transition: all 0.3s ease !important;
+}
+
+.nav-auth .auth-link:hover {
+    background: rgba(128, 128, 128, 0.1) !important;
+    color: #666 !important;
+    text-decoration: none !important;
+}
+
+/* Dashboard Link Special Styling */
+.nav-auth .dashboard-link {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    border-radius: 20px !important;
+    padding: 0.6rem 1.2rem !important;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3) !important;
+}
+
+.nav-auth .dashboard-link:hover {
+    background: rgba(128, 128, 128, 0.9) !important;
+    color: white !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(128, 128, 128, 0.4) !important;
+}
+
+@media (max-width: 991px) {
+    .nav-auth .auth-link {
+        font-size: 0.8rem !important;
+        padding: 0.4rem 0.6rem !important;
+    }
+    
+    .nav-auth .dashboard-link {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.75rem !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .nav-auth .auth-link {
+        font-size: 0.75rem !important;
+        padding: 0.35rem 0.5rem !important;
+    }
+    
+    .nav-auth .dashboard-link {
+        padding: 0.45rem 0.8rem !important;
+        font-size: 0.7rem !important;
+    }
+}
+
 /* High Contrast Mode */
 @media (prefers-contrast: high) {
     .nav-responsive .nav-menu li a {
@@ -573,5 +633,13 @@ Version: 1.0
     .nav-responsive .nav-menu li a:hover,
     .nav-responsive .nav-menu li a:focus {
         border-color: currentColor !important;
+    }
+    
+    .nav-auth .auth-link {
+        border: 1px solid #333 !important;
+    }
+    
+    .nav-auth .dashboard-link {
+        border: 2px solid #ffc107 !important;
     }
 }

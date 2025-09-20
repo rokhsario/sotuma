@@ -68,9 +68,27 @@
         </ul>
         <div style="flex:1 1 0;"></div>
         <div class="nav-auth" style="display: flex; align-items: center; gap: 12px; margin-right: 0; flex-shrink:0;">
-            <a href="{{ route('register.form') }}" class="auth-link">{{ __('frontend.register') }}</a>
-            <span style="border-left:1px solid #000;height:22px;display:inline-block;margin:0 8px;vertical-align:middle;"></span>
-            <a href="{{ route('login.form') }}" class="auth-link">{{ __('frontend.login') }}</a>
+            @if(auth()->check())
+                @if(auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin')
+                    <!-- Replace Sign In with Dashboard for admin users -->
+                    <a href="{{ route('register.form') }}" class="auth-link">{{ __('frontend.register') }}</a>
+                    <span style="border-left:1px solid #000;height:22px;display:inline-block;margin:0 8px;vertical-align:middle;"></span>
+                    <a href="{{ route('admin') }}" class="auth-link dashboard-link">{{ __('frontend.dashboard') }}</a>
+                @else
+                    <!-- Regular user - show logout -->
+                    <a href="{{ route('register.form') }}" class="auth-link">{{ __('frontend.register') }}</a>
+                    <span style="border-left:1px solid #000;height:22px;display:inline-block;margin:0 8px;vertical-align:middle;"></span>
+                    <a href="{{ route('logout') }}" class="auth-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('frontend.logout') }}</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                @endif
+            @else
+                <!-- Guest user - show login -->
+                <a href="{{ route('register.form') }}" class="auth-link">{{ __('frontend.register') }}</a>
+                <span style="border-left:1px solid #000;height:22px;display:inline-block;margin:0 8px;vertical-align:middle;"></span>
+                <a href="{{ route('login.form') }}" class="auth-link">{{ __('frontend.login') }}</a>
+            @endif
         </div>
         <div class="lang-switcher" style="margin-left: 20px; margin-right: 0; flex-shrink:0;">
             <div class="custom-lang-dropdown" tabindex="0">
@@ -100,9 +118,6 @@
         <button id="fullscreenBtn" class="fullscreen-btn" title="Toggle Fullscreen" style="margin-left: 20px; margin-right: 4px; flex-shrink:0;">
             <i class="fas fa-expand"></i>
         </button>
-        @if(auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin'))
-            <a href="{{ route('admin') }}" class="btn btn-warning font-weight-bold admin-dashboard-btn" style="border-radius: 20px;min-width:140px;margin-left: 20px;margin-right:4px;flex-shrink:0;text-transform: uppercase;letter-spacing: 1px;">{{ __('frontend.dashboard') }}</a>
-        @endif
         <div class="hamburger">
             <span></span>
             <span></span>

@@ -1,9 +1,14 @@
 <!-- Navigation -->
-<nav class="navbar" style="width:100%;">
-    <div class="nav-container" style="display:flex;align-items:center;justify-content:flex-start;width:100%;padding:0 18px;flex-wrap:nowrap;">
-        <div class="logo" style="margin-right:40px;flex-shrink:0;">
+<nav class="navbar nav-responsive" style="width:100%;">
+    <div class="nav-container container-responsive" style="display:flex;align-items:center;justify-content:space-between;width:100%;flex-wrap:nowrap;">
+        <!-- Mobile Menu Toggle -->
+        <button class="nav-toggle show-mobile" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="nav-brand logo" style="flex-shrink:0;">
             <a href="{{ route('home') }}">
-                <img src="{{ asset('images/logo2.png') }}" alt="SOTUMA" style="height: 180px; max-width: 700px;">
+                <img src="{{ asset('images/logo2.png') }}" alt="SOTUMA" class="responsive-logo">
             </a>
         </div>
         <ul class="nav-menu" style="display:flex;align-items:center;gap:32px;margin:0 40px 0 0;padding:0;flex-shrink:0;">
@@ -30,6 +35,36 @@
             </li>
             <li><a href="{{ route('certificates') }}">{{ __('frontend.certificates') }}</a></li>
             <li><a href="{{ route('contact') }}">{{ __('frontend.contact') }}</a></li>
+            
+            <!-- Mobile-only items (auth links and admin dashboard) -->
+            @if(auth()->check())
+                <li class="mobile-only-nav-item">
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fas fa-sign-out-alt"></i> {{ __('frontend.logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+                @if(auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin')
+                    <li class="mobile-only-nav-item admin-nav-item">
+                        <a href="{{ route('admin') }}">
+                            <i class="fas fa-tachometer-alt"></i> {{ __('frontend.dashboard') }}
+                        </a>
+                    </li>
+                @endif
+            @else
+                <li class="mobile-only-nav-item">
+                    <a href="{{ route('login.form') }}">
+                        <i class="fas fa-sign-in-alt"></i> {{ __('frontend.login') }}
+                    </a>
+                </li>
+                <li class="mobile-only-nav-item">
+                    <a href="{{ route('register.form') }}">
+                        <i class="fas fa-user-plus"></i> {{ __('frontend.register') }}
+                    </a>
+                </li>
+            @endif
         </ul>
         <div style="flex:1 1 0;"></div>
         <div class="nav-auth" style="display: flex; align-items: center; gap: 12px; margin-right: 0; flex-shrink:0;">
@@ -74,6 +109,9 @@
             <span></span>
         </div>
     </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="nav-overlay"></div>
 </nav>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -125,6 +163,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (href) {
                     window.location.href = href;
                 }
+            });
+        });
+    }
+    
+    // Mobile Navigation Toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const navOverlay = document.querySelector('.nav-overlay');
+    
+    if (navToggle && navMenu && navOverlay) {
+        navToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        navOverlay.addEventListener('click', function() {
+            navMenu.classList.remove('active');
+            navOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                navOverlay.classList.remove('active');
+                document.body.style.overflow = '';
             });
         });
     }

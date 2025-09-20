@@ -215,6 +215,10 @@
 		});
 	});
 	</script>
+	
+	<!-- Responsive JavaScript -->
+	<script src="{{ asset('js/frontend-responsive.js') }}"></script>
+	<script src="{{ asset('js/mobile-social.js') }}"></script>
 
 </body>
 </html>

@@ -39,6 +39,12 @@
 <link rel="stylesheet" href="{{asset('frontend/css/responsive.css')}}">
 <link rel="stylesheet" href="{{ asset('frontend/css/styles.css') }}">
 
+<!-- Global Responsive CSS -->
+<link rel="stylesheet" href="{{ asset('css/responsive-global.css') }}">
+<link rel="stylesheet" href="{{ asset('css/header-responsive.css') }}">
+<link rel="stylesheet" href="{{ asset('css/social-sidebar-responsive.css') }}">
+<link rel="stylesheet" href="{{ asset('css/sidebar-fixes.css') }}">
+
 <script src="{{ asset('frontend/js/script.js') }}"></script>
 <style>
     /* Multilevel dropdown */

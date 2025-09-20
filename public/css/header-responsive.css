@@ -1,0 +1,577 @@
+/* =====================================
+SOTUMA Header Responsive CSS
+Navigation and Header Mobile Optimization
+Version: 1.0
+===================================== */
+
+/* Header Logo Responsive */
+.responsive-logo {
+    height: auto !important;
+    max-height: 60px !important;
+    width: auto !important;
+    max-width: 200px !important;
+    transition: all 0.3s ease;
+}
+
+@media (min-width: 576px) {
+    .responsive-logo {
+        max-height: 80px !important;
+        max-width: 250px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .responsive-logo {
+        max-height: 100px !important;
+        max-width: 300px !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .responsive-logo {
+        max-height: 120px !important;
+        max-width: 400px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .responsive-logo {
+        max-height: 140px !important;
+        max-width: 500px !important;
+    }
+}
+
+/* Navigation Responsive Overrides */
+.nav-responsive .nav-container {
+    padding: 0.5rem 1rem !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+}
+
+@media (min-width: 768px) {
+    .nav-responsive .nav-container {
+        padding: 1rem 2rem !important;
+    }
+}
+
+/* Header overflow management */
+@media (max-width: 1199px) {
+    .nav-responsive .nav-container {
+        flex-wrap: nowrap !important;
+        min-height: 60px !important;
+    }
+    
+    /* Prioritize logo and admin button, hide less important elements */
+    .nav-responsive .nav-container .nav-auth {
+        order: 10 !important;
+    }
+    
+    .nav-responsive .nav-container .lang-switcher {
+        order: 11 !important;
+    }
+    
+    .nav-responsive .nav-container .fullscreen-btn {
+        order: 12 !important;
+    }
+    
+    .nav-responsive .nav-container .admin-dashboard-btn {
+        order: 1 !important;
+    }
+    
+    .nav-responsive .nav-container .nav-toggle {
+        order: 0 !important;
+    }
+    
+    .nav-responsive .nav-container .nav-brand {
+        order: 2 !important;
+        flex: 0 0 auto !important;
+    }
+}
+
+/* Ultra-compact header for very small screens */
+@media (max-width: 480px) {
+    .nav-responsive .nav-container {
+        padding: 0.25rem 0.5rem !important;
+        min-height: 50px !important;
+        gap: 0.25rem !important;
+    }
+    
+    /* Hide non-essential elements on very small screens */
+    .nav-responsive .nav-container .fullscreen-btn {
+        display: none !important;
+    }
+    
+    .nav-responsive .nav-container .lang-switcher .selected-lang span:not(.lang-caret) {
+        display: none !important;
+    }
+    
+    .nav-responsive .nav-container .lang-switcher {
+        margin-left: 0.25rem !important;
+        margin-right: 0 !important;
+    }
+}
+
+/* Mobile Navigation Menu */
+@media (max-width: 991px) {
+    .nav-responsive .nav-menu {
+        position: fixed !important;
+        top: 0 !important;
+        left: -100% !important;
+        width: 85% !important;
+        max-width: 320px !important;
+        height: 100vh !important;
+        background: white !important;
+        box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3) !important;
+        padding: 2rem 1rem !important;
+        transition: left 0.3s ease !important;
+        z-index: 1001 !important;
+        overflow-y: auto !important;
+        display: block !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .nav-responsive .nav-menu.active {
+        left: 0 !important;
+    }
+    
+    .nav-responsive .nav-menu li {
+        width: 100% !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .nav-responsive .nav-menu li a {
+        display: block !important;
+        padding: 1rem 0 !important;
+        color: #333 !important;
+        text-decoration: none !important;
+        font-weight: 500 !important;
+        border-bottom: 1px solid #eee !important;
+        transition: color 0.3s ease !important;
+        font-size: 1rem !important;
+    }
+    
+    .nav-responsive .nav-menu li a:hover {
+        color: #D2B48C !important;
+    }
+    
+    /* Mobile-only navigation items */
+    .nav-responsive .nav-menu .mobile-only-nav-item {
+        display: block !important;
+        border-top: 2px solid #f0f0f0 !important;
+        margin-top: 1rem !important;
+        padding-top: 1rem !important;
+    }
+    
+    .nav-responsive .nav-menu .mobile-only-nav-item:first-of-type {
+        margin-top: 1.5rem !important;
+    }
+    
+    .nav-responsive .nav-menu .mobile-only-nav-item a {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+        padding: 0.75rem 0 !important;
+        font-weight: 600 !important;
+        border-bottom: 1px solid #e0e0e0 !important;
+    }
+    
+    .nav-responsive .nav-menu .mobile-only-nav-item.admin-nav-item a {
+        background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%) !important;
+        color: white !important;
+        padding: 1rem !important;
+        border-radius: 8px !important;
+        border-bottom: none !important;
+        margin: 0.5rem 0 !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3) !important;
+    }
+    
+    .nav-responsive .nav-menu .mobile-only-nav-item.admin-nav-item a:hover {
+        background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4) !important;
+    }
+    
+    .nav-responsive .nav-menu .mobile-only-nav-item a i {
+        font-size: 1.1rem !important;
+        width: 20px !important;
+        text-align: center !important;
+    }
+}
+    
+    /* Mobile Dropdown Styles */
+    .nav-responsive .nav-menu .dropdown-menu {
+        position: static !important;
+        display: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        background: #f8f9fa !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        margin-left: 1rem !important;
+        width: calc(100% - 1rem) !important;
+    }
+    
+    .nav-responsive .nav-menu .dropdown-menu.show {
+        display: block !important;
+    }
+    
+    .nav-responsive .nav-menu .dropdown-menu a {
+        padding: 0.75rem 1rem !important;
+        font-size: 0.9rem !important;
+        color: #666 !important;
+        border-bottom: 1px solid #e0e0e0 !important;
+    }
+    
+    .nav-responsive .nav-menu .dropdown-menu a:hover {
+        color: #D2B48C !important;
+        background: rgba(210, 180, 140, 0.1) !important;
+    }
+    
+    /* Mobile Auth Links */
+    .nav-responsive .nav-auth {
+        display: none !important;
+    }
+    
+    /* Add auth links to mobile menu */
+    .nav-responsive .nav-menu::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: #eee;
+        margin: 1rem 0;
+    }
+}
+
+/* Desktop Navigation */
+@media (min-width: 992px) {
+    .nav-responsive .nav-menu {
+        display: flex !important;
+        align-items: center !important;
+        gap: 2rem !important;
+        margin: 0 2rem 0 0 !important;
+        padding: 0 !important;
+        flex-shrink: 0 !important;
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        overflow-y: visible !important;
+    }
+    
+    .nav-responsive .nav-menu li a {
+        padding: 0.5rem 1rem !important;
+        border-bottom: none !important;
+        border-radius: 4px !important;
+        font-size: 0.9rem !important;
+        font-weight: 500 !important;
+        color: #333 !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .nav-responsive .nav-menu li a:hover {
+        background: rgba(210, 180, 140, 0.1) !important;
+        color: #D2B48C !important;
+    }
+    
+    .nav-responsive .nav-auth {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        margin-right: 0 !important;
+        flex-shrink: 0 !important;
+    }
+    
+    /* Hide mobile-only items on desktop */
+    .nav-responsive .nav-menu .mobile-only-nav-item {
+        display: none !important;
+    }
+}
+
+/* Language Switcher Responsive */
+.lang-switcher {
+    margin-left: 1rem !important;
+    margin-right: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+@media (max-width: 767px) {
+    .lang-switcher {
+        margin-left: 0.5rem !important;
+    }
+    
+    .custom-lang-dropdown .selected-lang span:not(.lang-caret) {
+        display: none !important;
+    }
+    
+    .custom-lang-dropdown .selected-lang {
+        min-width: auto !important;
+        padding: 0.5rem !important;
+    }
+    
+    .lang-flag {
+        width: 20px !important;
+        height: 15px !important;
+    }
+}
+
+/* Fullscreen Button Responsive */
+.fullscreen-btn {
+    margin-left: 1rem !important;
+    margin-right: 0.25rem !important;
+    flex-shrink: 0 !important;
+    background: none !important;
+    border: none !important;
+    color: #333 !important;
+    font-size: 1.1rem !important;
+    padding: 0.5rem !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.fullscreen-btn:hover {
+    background: rgba(210, 180, 140, 0.1) !important;
+    color: #D2B48C !important;
+}
+
+@media (max-width: 767px) {
+    .fullscreen-btn {
+        margin-left: 0.5rem !important;
+        font-size: 1rem !important;
+        padding: 0.4rem !important;
+    }
+}
+
+/* Admin Dashboard Button Responsive */
+.admin-dashboard-btn {
+    margin-left: 1rem !important;
+    margin-right: 0.25rem !important;
+    flex-shrink: 0 !important;
+    font-size: 0.8rem !important;
+    padding: 0.5rem 1rem !important;
+    min-width: 120px !important;
+    white-space: nowrap !important;
+    transition: all 0.3s ease !important;
+}
+
+@media (max-width: 991px) {
+    .admin-dashboard-btn {
+        font-size: 0.75rem !important;
+        padding: 0.45rem 0.9rem !important;
+        min-width: 110px !important;
+        margin-left: 0.75rem !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .admin-dashboard-btn {
+        font-size: 0.7rem !important;
+        padding: 0.4rem 0.8rem !important;
+        min-width: 90px !important;
+        margin-left: 0.5rem !important;
+        letter-spacing: 0.5px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-dashboard-btn {
+        font-size: 0.65rem !important;
+        padding: 0.35rem 0.7rem !important;
+        min-width: 80px !important;
+        margin-left: 0.25rem !important;
+        border-radius: 15px !important;
+    }
+}
+
+/* Header Layout Adjustments for Admin Button */
+@media (max-width: 991px) {
+    .nav-responsive .nav-container {
+        gap: 0.5rem !important;
+    }
+    
+    /* Adjust spacing when admin button is present */
+    .nav-responsive .nav-container:has(.admin-dashboard-btn) {
+        padding: 0.5rem 0.75rem !important;
+    }
+    
+    /* Make auth links smaller when admin button present */
+    .nav-responsive .nav-container:has(.admin-dashboard-btn) .nav-auth a {
+        font-size: 0.8rem !important;
+        padding: 0.25rem 0.5rem !important;
+    }
+}
+
+@media (max-width: 767px) {
+    /* Hide regular auth links on mobile when admin button is present */
+    .nav-responsive .nav-container:has(.admin-dashboard-btn) .nav-auth {
+        display: none !important;
+    }
+    
+    /* Adjust container padding for mobile with admin button */
+    .nav-responsive .nav-container:has(.admin-dashboard-btn) {
+        padding: 0.5rem !important;
+        gap: 0.25rem !important;
+    }
+    
+    /* Make language switcher more compact when admin button present */
+    .nav-responsive .nav-container:has(.admin-dashboard-btn) .lang-switcher {
+        margin-left: 0.25rem !important;
+    }
+    
+    /* Make fullscreen button more compact */
+    .nav-responsive .nav-container:has(.admin-dashboard-btn) .fullscreen-btn {
+        margin-left: 0.25rem !important;
+        padding: 0.35rem !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Hamburger Menu (if used) */
+.hamburger {
+    display: none !important;
+}
+
+/* Mobile Menu Toggle Button */
+.nav-toggle {
+    display: none !important;
+    background: none !important;
+    border: none !important;
+    color: #333 !important;
+    font-size: 1.25rem !important;
+    padding: 0.5rem !important;
+    cursor: pointer !important;
+    border-radius: 4px !important;
+    transition: all 0.3s ease !important;
+}
+
+.nav-toggle:hover {
+    background: rgba(210, 180, 140, 0.1) !important;
+    color: #D2B48C !important;
+}
+
+@media (max-width: 991px) {
+    .nav-toggle {
+        display: block !important;
+    }
+}
+
+/* Mobile Menu Overlay */
+.nav-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: all 0.3s ease !important;
+    z-index: 1000 !important;
+}
+
+.nav-overlay.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+@media (min-width: 992px) {
+    .nav-overlay {
+        display: none !important;
+    }
+}
+
+/* Social Sidebar Responsive */
+.social-sidebar {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    background: white;
+    border-radius: 8px 0 0 8px;
+    box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 767px) {
+    .social-sidebar {
+        right: -60px;
+        transform: translateY(-50%) scale(0.8);
+    }
+    
+    .social-sidebar:hover {
+        right: 0;
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+/* Cookie Banner Responsive */
+@media (max-width: 767px) {
+    .cookie-banner .cookie-content {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 1rem !important;
+    }
+    
+    .cookie-banner .cookie-buttons {
+        width: 100% !important;
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .cookie-banner .btn-accept,
+    .cookie-banner .btn-decline {
+        flex: 1 !important;
+        min-width: 120px !important;
+    }
+}
+
+/* Performance Optimizations */
+.nav-responsive {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.nav-responsive .nav-menu {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Accessibility Improvements */
+.nav-toggle:focus,
+.nav-responsive .nav-menu a:focus {
+    outline: 2px solid #D2B48C !important;
+    outline-offset: 2px !important;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .nav-responsive .nav-menu,
+    .nav-overlay,
+    .responsive-logo,
+    .nav-toggle {
+        transition: none !important;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .nav-responsive .nav-menu li a {
+        border: 1px solid transparent !important;
+    }
+    
+    .nav-responsive .nav-menu li a:hover,
+    .nav-responsive .nav-menu li a:focus {
+        border-color: currentColor !important;
+    }
+}

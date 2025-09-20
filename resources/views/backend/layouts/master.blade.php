@@ -30,6 +30,10 @@
       <!-- End of Main Content -->
       @include('backend.layouts.footer')
 
+    <!-- Dashboard Responsive JavaScript -->
+    <script src="{{ asset('js/dashboard-responsive.js') }}"></script>
+    @stack('scripts')
+
 </body>
 
 </html>

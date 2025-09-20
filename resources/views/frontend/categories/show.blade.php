@@ -483,17 +483,21 @@
     }
     
     .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
+        grid-template-columns: 1fr;
+        gap: 30px;
         padding: 0 10px;
     }
     
     .product-content {
-        padding: 30px;
+        padding: 20px;
     }
     
     .product-title {
         font-size: 1.1rem;
+    }
+    
+    .product-image-container {
+        height: 250px;
     }
     
     .subcategories-grid {
@@ -503,6 +507,11 @@
     
     .section-title {
         font-size: 2rem;
+    }
+    
+    /* Better mobile card hover effects */
+    .product-card:hover {
+        transform: translateX(0) translateY(-4px);
     }
 }
 

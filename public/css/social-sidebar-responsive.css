@@ -1,0 +1,431 @@
+/* =====================================
+SOTUMA Social Sidebar Responsive CSS
+Mobile-Friendly Social Media Sidebar
+Version: 1.0
+===================================== */
+
+/* Desktop Social Sidebar */
+.social-sidebar {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    background: linear-gradient(135deg, #D2B48C 0%, #bc8f8f 100%);
+    border-radius: 12px 0 0 12px;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    padding: 1rem 0;
+    min-width: 60px;
+    max-width: 60px;
+    width: 60px;
+    overflow: hidden;
+}
+
+.social-sidebar-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    padding: 0.5rem 0;
+}
+
+.social-header {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.25rem 0;
+    transition: all 0.3s ease;
+}
+
+.social-icon a {
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.social-icon a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+    color: #fff;
+}
+
+/* Hover effects for different social platforms */
+.social-icon a[href*="instagram"]:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.social-icon a[href*="facebook"]:hover {
+    background: #1877f2;
+}
+
+.social-icon a[href*="tiktok"]:hover {
+    background: #000;
+}
+
+.social-icon a[href*="linkedin"]:hover {
+    background: #0077b5;
+}
+
+.social-icon a[href*="mailto"]:hover {
+    background: #ea4335;
+}
+
+.social-icon a[href*="whatsapp"]:hover,
+.social-icon a[href*="wa.me"]:hover {
+    background: #25d366;
+}
+
+/* Better desktop positioning */
+@media (min-width: 1025px) {
+    .social-sidebar {
+        right: 0;
+        max-height: calc(100vh - 200px);
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    .social-sidebar:hover {
+        right: 0;
+        box-shadow: -6px 0 25px rgba(0, 0, 0, 0.2);
+        transform: translateY(-50%) scale(1.05);
+    }
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .social-sidebar {
+        right: -45px;
+        min-width: 50px;
+        max-width: 50px;
+        width: 50px;
+        padding: 0.75rem 0;
+        max-height: calc(100vh - 150px);
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    .social-sidebar:hover {
+        right: 0;
+        transform: translateY(-50%) scale(1.02);
+    }
+    
+    .social-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .social-icon a {
+        font-size: 1rem;
+    }
+    
+    .social-header {
+        font-size: 0.7rem;
+        margin-bottom: 0.75rem;
+    }
+}
+
+/* Mobile - Hide sidebar and show floating social button */
+@media (max-width: 768px) {
+    .social-sidebar {
+        display: none;
+    }
+}
+
+/* Mobile Social Floating Button */
+@media (max-width: 768px) {
+    /* Create floating social button */
+    .mobile-social-toggle {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+        background: linear-gradient(135deg, #D2B48C 0%, #bc8f8f 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+        z-index: 1000;
+        transition: all 0.3s ease;
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+    }
+    
+    .mobile-social-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .mobile-social-toggle.active {
+        transform: rotate(45deg);
+        background: linear-gradient(135deg, #bc8f8f 0%, #a67c76 100%);
+    }
+    
+    /* Mobile Social Menu */
+    .mobile-social-menu {
+        position: fixed;
+        bottom: 150px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+        z-index: 999;
+    }
+    
+    .mobile-social-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    .mobile-social-menu .social-icon {
+        width: 48px;
+        height: 48px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        animation: socialIconSlideIn 0.3s ease forwards;
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    
+    .mobile-social-menu.active .social-icon {
+        animation: socialIconSlideIn 0.4s ease forwards;
+    }
+    
+    .mobile-social-menu .social-icon:nth-child(1) { animation-delay: 0.1s; }
+    .mobile-social-menu .social-icon:nth-child(2) { animation-delay: 0.15s; }
+    .mobile-social-menu .social-icon:nth-child(3) { animation-delay: 0.2s; }
+    .mobile-social-menu .social-icon:nth-child(4) { animation-delay: 0.25s; }
+    .mobile-social-menu .social-icon:nth-child(5) { animation-delay: 0.3s; }
+    .mobile-social-menu .social-icon:nth-child(6) { animation-delay: 0.35s; }
+    
+    @keyframes socialIconSlideIn {
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    .mobile-social-menu .social-icon a {
+        color: #666;
+        font-size: 1.1rem;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-social-menu .social-icon a:hover {
+        color: white;
+        transform: scale(1.1);
+    }
+    
+    /* Individual social platform colors for mobile */
+    .mobile-social-menu .social-icon a[href*="instagram"]:hover {
+        background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    }
+    
+    .mobile-social-menu .social-icon a[href*="facebook"]:hover {
+        background: #1877f2;
+    }
+    
+    .mobile-social-menu .social-icon a[href*="tiktok"]:hover {
+        background: #000;
+    }
+    
+    .mobile-social-menu .social-icon a[href*="linkedin"]:hover {
+        background: #0077b5;
+    }
+    
+    .mobile-social-menu .social-icon a[href*="mailto"]:hover {
+        background: #ea4335;
+    }
+    
+    .mobile-social-menu .social-icon a[href*="whatsapp"]:hover,
+    .mobile-social-menu .social-icon a[href*="wa.me"]:hover {
+        background: #25d366;
+    }
+    
+    /* Mobile Social Overlay */
+    .mobile-social-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 998;
+    }
+    
+    .mobile-social-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* Very small mobile devices */
+@media (max-width: 480px) {
+    .mobile-social-toggle {
+        bottom: 70px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.1rem;
+    }
+    
+    .mobile-social-menu {
+        bottom: 135px;
+        right: 15px;
+        gap: 10px;
+    }
+    
+    .mobile-social-menu .social-icon {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .mobile-social-menu .social-icon a {
+        font-size: 1rem;
+    }
+}
+
+/* Accessibility improvements */
+.mobile-social-toggle:focus,
+.social-icon a:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .social-sidebar,
+    .mobile-social-toggle,
+    .mobile-social-menu,
+    .mobile-social-menu .social-icon,
+    .social-icon a {
+        transition: none;
+        animation: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .social-sidebar {
+        background: #000;
+        border: 2px solid #fff;
+    }
+    
+    .mobile-social-toggle {
+        background: #000;
+        border: 2px solid #fff;
+    }
+    
+    .mobile-social-menu .social-icon {
+        background: #fff;
+        border: 2px solid #000;
+    }
+}
+
+/* Prevent sidebar from interfering with page content */
+body {
+    margin-right: 0 !important;
+}
+
+/* Ensure sidebar doesn't cover scrollbars */
+@media (min-width: 769px) {
+    .social-sidebar {
+        right: 5px;
+    }
+}
+
+/* Fix for pages with horizontal scroll */
+html {
+    overflow-x: hidden;
+}
+
+/* Ensure sidebar is above other fixed elements but below modals */
+.social-sidebar {
+    z-index: 999;
+}
+
+/* Prevent sidebar from showing on very narrow screens */
+@media (max-width: 320px) {
+    .social-sidebar {
+        display: none !important;
+    }
+}
+
+/* Fix for RTL languages */
+[dir="rtl"] .social-sidebar {
+    right: auto;
+    left: 0;
+    border-radius: 0 12px 12px 0;
+}
+
+[dir="rtl"] .social-sidebar {
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Smooth scroll behavior when sidebar is present */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Prevent sidebar from interfering with page zoom */
+@media (min-resolution: 150dpi) {
+    .social-sidebar {
+        transform: translateY(-50%) scale(0.9);
+    }
+}
+
+/* Print styles */
+@media print {
+    .social-sidebar,
+    .mobile-social-toggle,
+    .mobile-social-menu {
+        display: none !important;
+    }
+}

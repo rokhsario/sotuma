@@ -216,6 +216,11 @@
                                 <span>{{ __('frontend.dashboard') }}</span>
                                 <i class="fas fa-arrow-right"></i>
                             </a>
+                        @else
+                            <a href="{{ route('register.form') }}" class="mobile-auth-link">
+                                <i class="fas fa-user-plus"></i>
+                                <span>{{ __('frontend.register') }}</span>
+                            </a>
                         @endif
                         <a href="{{ route('logout') }}" class="mobile-auth-link" onclick="event.preventDefault(); document.getElementById('mobile-logout').submit();">
                             <i class="fas fa-sign-out-alt"></i>

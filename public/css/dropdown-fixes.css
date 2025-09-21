@@ -1,0 +1,91 @@
+/* =====================================
+SOTUMA Dropdown Fixes CSS
+Ensure dropdowns appear over body content
+Version: 1.0
+===================================== */
+
+/* Ensure navigation has proper z-index */
+.navbar {
+    position: relative;
+    z-index: 1050;
+}
+
+/* Ensure dropdown parent has proper positioning */
+.nav-item.dropdown {
+    position: relative;
+    z-index: 1051;
+}
+
+/* Force dropdown menus to appear over content */
+.dropdown-menu {
+    z-index: 9999 !important;
+    position: absolute !important;
+}
+
+/* Gray hover effects for all navigation elements */
+.nav-menu li a:hover {
+    background: rgba(128, 128, 128, 0.1) !important;
+    color: #666 !important;
+}
+
+.dropdown-item:hover {
+    background: rgba(128, 128, 128, 0.1) !important;
+    color: #666 !important;
+    text-decoration: none !important;
+}
+
+/* Auth links hover */
+.auth-link:hover {
+    background: rgba(128, 128, 128, 0.1) !important;
+    color: #666 !important;
+    text-decoration: none !important;
+}
+
+/* Fullscreen button hover */
+.fullscreen-btn:hover {
+    background: rgba(128, 128, 128, 0.1) !important;
+    color: #666 !important;
+}
+
+/* Mobile toggle hover */
+.nav-toggle:hover {
+    background: rgba(128, 128, 128, 0.1) !important;
+    color: #666 !important;
+}
+
+/* Ensure no other elements interfere with dropdown z-index */
+.hero-section,
+.category-hero,
+.products-section,
+main,
+#main-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Force dropdown to stay on top */
+.dropdown-menu {
+    will-change: opacity, transform;
+    backface-visibility: hidden;
+}
+
+/* Ensure dropdown parent container doesn't clip */
+.nav-menu {
+    overflow: visible !important;
+}
+
+.nav-container {
+    overflow: visible !important;
+}
+
+/* Mobile responsive - only apply mobile styles on mobile */
+@media (max-width: 991px) {
+    .dropdown-menu {
+        position: static !important;
+        z-index: auto !important;
+        background: #f8f9fa !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        margin-left: 1rem !important;
+    }
+}

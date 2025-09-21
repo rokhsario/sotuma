@@ -16,7 +16,7 @@
     <link href="{{asset('backend/css/sb-admin-2.min.css')}}" rel="stylesheet">
     
     <!-- Dashboard Responsive CSS -->
-    <link href="{{asset('css/dashboard-responsive.css')}}" rel="stylesheet">
+    <link href="{{asset('css/dashboard-responsive-simple.css')}}" rel="stylesheet">
     
     @stack('styles')
   

@@ -205,33 +205,34 @@ Version: 1.0
     }
 }
     
-    /* Mobile Dropdown Styles */
-    .nav-responsive .nav-menu .dropdown-menu {
-        position: static !important;
-        display: none !important;
-        box-shadow: none !important;
-        border: none !important;
-        background: #f8f9fa !important;
-        border-radius: 0 !important;
-        padding: 0 !important;
-        margin-left: 1rem !important;
-        width: calc(100% - 1rem) !important;
-    }
-    
-    .nav-responsive .nav-menu .dropdown-menu.show {
-        display: block !important;
-    }
-    
-    .nav-responsive .nav-menu .dropdown-menu a {
-        padding: 0.75rem 1rem !important;
-        font-size: 0.9rem !important;
-        color: #666 !important;
-        border-bottom: 1px solid #e0e0e0 !important;
-    }
-    
-    .nav-responsive .nav-menu .dropdown-menu a:hover {
-        color: #D2B48C !important;
-        background: rgba(210, 180, 140, 0.1) !important;
+    /* Mobile Dropdown Styles - Only apply on mobile screens */
+    @media (max-width: 991px) {
+        .nav-responsive .nav-menu .dropdown-menu {
+            position: static !important;
+            background: #f8f9fa !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            margin-left: 1rem !important;
+            width: calc(100% - 1rem) !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+        
+        .nav-responsive .nav-menu .dropdown-menu.show {
+            display: block !important;
+        }
+        
+        .nav-responsive .nav-menu .dropdown-menu a {
+            padding: 0.75rem 1rem !important;
+            font-size: 0.9rem !important;
+            color: #666 !important;
+            border-bottom: 1px solid #e0e0e0 !important;
+        }
+        
+        .nav-responsive .nav-menu .dropdown-menu a:hover {
+            color: #666 !important;
+            background: rgba(128, 128, 128, 0.1) !important;
+        }
     }
     
     /* Mobile Auth Links */
@@ -250,50 +251,18 @@ Version: 1.0
     }
 }
 
-/* Desktop Navigation */
+/* Desktop Navigation - Minimal CSS, let original styles work */
 @media (min-width: 992px) {
-    .nav-responsive .nav-menu {
-        display: flex !important;
-        align-items: center !important;
-        gap: 2rem !important;
-        margin: 0 2rem 0 0 !important;
-        padding: 0 !important;
-        flex-shrink: 0 !important;
-        position: static !important;
-        width: auto !important;
-        height: auto !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        overflow-y: visible !important;
-    }
-    
-    .nav-responsive .nav-menu li a {
-        padding: 0.5rem 1rem !important;
-        border-bottom: none !important;
-        border-radius: 4px !important;
-        font-size: 0.9rem !important;
-        font-weight: 500 !important;
-        color: #333 !important;
-        text-decoration: none !important;
-        transition: all 0.3s ease !important;
-    }
-    
-    .nav-responsive .nav-menu li a:hover {
-        background: rgba(128, 128, 128, 0.1) !important;
-        color: #666 !important;
-    }
-    
-    .nav-responsive .nav-auth {
-        display: flex !important;
-        align-items: center !important;
-        gap: 12px !important;
-        margin-right: 0 !important;
-        flex-shrink: 0 !important;
-    }
-    
     /* Hide mobile-only items on desktop */
-    .nav-responsive .nav-menu .mobile-only-nav-item {
+    .mobile-only-nav-item {
         display: none !important;
+    }
+    
+    /* Add gray hover effects without breaking structure */
+    .dropdown-item:hover {
+        color: #666 !important;
+        background: rgba(128, 128, 128, 0.1) !important;
+        text-decoration: none !important;
     }
 }
 
@@ -340,8 +309,8 @@ Version: 1.0
 }
 
 .fullscreen-btn:hover {
-    background: rgba(210, 180, 140, 0.1) !important;
-    color: #D2B48C !important;
+    background: rgba(128, 128, 128, 0.1) !important;
+    color: #666 !important;
 }
 
 @media (max-width: 767px) {
@@ -455,8 +424,8 @@ Version: 1.0
 }
 
 .nav-toggle:hover {
-    background: rgba(210, 180, 140, 0.1) !important;
-    color: #D2B48C !important;
+    background: rgba(128, 128, 128, 0.1) !important;
+    color: #666 !important;
 }
 
 @media (max-width: 991px) {
@@ -550,7 +519,7 @@ Version: 1.0
 /* Accessibility Improvements */
 .nav-toggle:focus,
 .nav-responsive .nav-menu a:focus {
-    outline: 2px solid #D2B48C !important;
+    outline: 2px solid #666 !important;
     outline-offset: 2px !important;
 }
 
@@ -581,8 +550,8 @@ Version: 1.0
     text-decoration: none !important;
 }
 
-/* Dashboard Link Special Styling */
-.nav-auth .dashboard-link {
+/* Dashboard Auth Link Special Styling */
+.nav-auth .dashboard-auth-link {
     background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%) !important;
     color: white !important;
     font-weight: 600 !important;
@@ -593,7 +562,7 @@ Version: 1.0
     box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3) !important;
 }
 
-.nav-auth .dashboard-link:hover {
+.nav-auth .dashboard-auth-link:hover {
     background: rgba(128, 128, 128, 0.9) !important;
     color: white !important;
     transform: translateY(-1px) !important;
@@ -606,7 +575,7 @@ Version: 1.0
         padding: 0.4rem 0.6rem !important;
     }
     
-    .nav-auth .dashboard-link {
+    .nav-auth .dashboard-auth-link {
         padding: 0.5rem 1rem !important;
         font-size: 0.75rem !important;
     }
@@ -618,7 +587,7 @@ Version: 1.0
         padding: 0.35rem 0.5rem !important;
     }
     
-    .nav-auth .dashboard-link {
+    .nav-auth .dashboard-auth-link {
         padding: 0.45rem 0.8rem !important;
         font-size: 0.7rem !important;
     }

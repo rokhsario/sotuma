@@ -1,0 +1,101 @@
+/* =====================================
+SOTUMA Navigation Simple Fixes
+Only gray hover effects - no structural changes
+Version: 1.0
+===================================== */
+
+/* Gray hover effects for navigation links */
+.nav-menu li a:hover {
+    background: rgba(128, 128, 128, 0.1);
+    color: #666;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+/* Gray hover effects for dropdown items */
+.dropdown-item:hover {
+    background: rgba(128, 128, 128, 0.1) !important;
+    color: #666 !important;
+    text-decoration: none !important;
+}
+
+/* Gray hover effects for auth links */
+.auth-link:hover {
+    background: rgba(128, 128, 128, 0.1);
+    color: #666;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+/* Special styling for dashboard auth link */
+.dashboard-auth-link {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 20px;
+    padding: 0.6rem 1.2rem;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+.dashboard-auth-link:hover {
+    background: rgba(128, 128, 128, 0.9);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(128, 128, 128, 0.4);
+}
+
+/* Ensure dropdowns appear over content */
+.dropdown-menu {
+    z-index: 99999 !important;
+}
+
+/* Basic mobile responsiveness without breaking desktop */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0 10px;
+        flex-wrap: wrap;
+    }
+    
+    .logo img {
+        height: 120px !important;
+        max-width: 400px !important;
+    }
+    
+    .nav-menu {
+        gap: 20px !important;
+        margin: 0 20px 0 0 !important;
+    }
+    
+    .nav-auth {
+        gap: 8px !important;
+    }
+    
+    .auth-link {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem;
+    }
+    
+    .dashboard-auth-link {
+        font-size: 0.75rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img {
+        height: 80px !important;
+        max-width: 300px !important;
+    }
+    
+    .nav-menu {
+        gap: 15px !important;
+        font-size: 0.85rem;
+    }
+    
+    .lang-switcher {
+        margin-left: 10px !important;
+    }
+}

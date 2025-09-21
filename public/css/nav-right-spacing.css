@@ -1,0 +1,143 @@
+/* =====================================
+SOTUMA Navigation Right Spacing
+Move auth elements and everything after to the right
+Version: 1.0
+===================================== */
+
+/* Push auth section and everything after it more to the right */
+.nav-auth {
+    margin-left: auto !important;
+    margin-right: 30px !important;
+}
+
+.lang-switcher {
+    margin-left: 30px !important;
+    margin-right: 20px !important;
+}
+
+.fullscreen-btn {
+    margin-left: 25px !important;
+    margin-right: 15px !important;
+}
+
+.admin-dashboard-btn {
+    margin-left: 25px !important;
+    margin-right: 15px !important;
+}
+
+/* Responsive adjustments */
+@media (min-width: 1200px) {
+    .nav-auth {
+        margin-right: 40px !important;
+    }
+    
+    .lang-switcher {
+        margin-left: 35px !important;
+        margin-right: 25px !important;
+    }
+    
+    .fullscreen-btn {
+        margin-left: 30px !important;
+        margin-right: 20px !important;
+    }
+    
+    .admin-dashboard-btn {
+        margin-left: 30px !important;
+        margin-right: 20px !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .nav-auth {
+        margin-right: 25px !important;
+    }
+    
+    .lang-switcher {
+        margin-left: 25px !important;
+        margin-right: 15px !important;
+    }
+    
+    .fullscreen-btn {
+        margin-left: 20px !important;
+        margin-right: 10px !important;
+    }
+    
+    .admin-dashboard-btn {
+        margin-left: 20px !important;
+        margin-right: 10px !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .nav-auth {
+        margin-right: 20px !important;
+    }
+    
+    .lang-switcher {
+        margin-left: 20px !important;
+        margin-right: 10px !important;
+    }
+    
+    .fullscreen-btn {
+        margin-left: 15px !important;
+        margin-right: 8px !important;
+    }
+    
+    .admin-dashboard-btn {
+        margin-left: 15px !important;
+        margin-right: 8px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .nav-auth {
+        margin-right: 15px !important;
+    }
+    
+    .lang-switcher {
+        margin-left: 15px !important;
+        margin-right: 8px !important;
+    }
+    
+    .fullscreen-btn {
+        margin-left: 12px !important;
+        margin-right: 6px !important;
+    }
+    
+    .admin-dashboard-btn {
+        margin-left: 12px !important;
+        margin-right: 6px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-auth {
+        margin-right: 10px !important;
+    }
+    
+    .lang-switcher {
+        margin-left: 10px !important;
+        margin-right: 5px !important;
+    }
+    
+    .fullscreen-btn {
+        margin-left: 8px !important;
+        margin-right: 4px !important;
+    }
+    
+    .admin-dashboard-btn {
+        margin-left: 8px !important;
+        margin-right: 4px !important;
+    }
+}
+
+/* Ensure flex layout pushes elements to the right */
+.nav-container {
+    justify-content: space-between !important;
+}
+
+/* Make sure the spacer div works properly */
+.nav-container > div[style*="flex:1"] {
+    flex: 1 1 auto !important;
+    min-width: 20px !important;
+}

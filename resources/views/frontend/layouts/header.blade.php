@@ -1,23 +1,18 @@
 <!-- Navigation -->
-<nav class="navbar nav-responsive" style="width:100%;">
-    <div class="nav-container container-responsive" style="display:flex;align-items:center;justify-content:space-between;width:100%;flex-wrap:nowrap;">
-        <!-- Mobile Menu Toggle -->
-        <button class="nav-toggle show-mobile" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
-        </button>
-        
-        <div class="nav-brand logo" style="flex-shrink:0;">
+<nav class="navbar" style="width:100%;position:relative;z-index:1050;">
+    <div class="nav-container" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:0 18px;flex-wrap:nowrap;">
+        <div class="logo" style="margin-right:40px;flex-shrink:0;">
             <a href="{{ route('home') }}">
-                <img src="{{ asset('images/logo2.png') }}" alt="SOTUMA" class="responsive-logo">
+                <img src="{{ asset('images/logo2.png') }}" alt="SOTUMA" style="height: 180px; max-width: 700px;">
             </a>
         </div>
-        <ul class="nav-menu" style="display:flex;align-items:center;gap:32px;margin:0 40px 0 0;padding:0;flex-shrink:0;">
+        <ul class="nav-menu" style="display:flex;align-items:center;gap:32px;margin:0;padding:0;flex:1;justify-content:center;">
             <li><a href="{{ route('home') }}">{{ __('frontend.home') }}</a></li>
             <li><a href="{{ route('about-us') }}">{{ __('frontend.about') }}</a></li>
             <li><a href="{{ route('media') }}">{{ __('frontend.media') }}</a></li>
             <li class="nav-item dropdown" style="position:relative;">
                 <a href="{{ route('project-categories.index') }}" class="nav-link" id="projectsDropdown" role="button" aria-haspopup="true" aria-expanded="false" style="cursor:pointer;">{{ __('frontend.projects') }} <span style="font-size:0.8em;">▼</span></a>
-                <div class="dropdown-menu" aria-labelledby="projectsDropdown" style="position:absolute;top:100%;left:0;min-width:200px;z-index:1000;display:none;background:#fff;border-radius:0 0 8px 8px;box-shadow:0 4px 16px rgba(0,0,0,0.08);padding:8px 0;">
+                <div class="dropdown-menu" aria-labelledby="projectsDropdown" style="position:absolute;top:100%;left:0;min-width:200px;z-index:99999;display:none;background:#fff;border-radius:0 0 8px 8px;box-shadow:0 4px 16px rgba(0,0,0,0.08);padding:8px 0;">
                     <a class="dropdown-item" href="{{ route('project-categories.index') }}" style="padding:8px 18px;">{{ __('frontend.all') }}</a>
                     @foreach(\App\Models\ProjectCategory::orderBy('name','ASC')->get() as $cat)
                         <a class="dropdown-item" href="{{ route('project-categories.show', $cat->slug) }}" style="padding:8px 18px;">{{ $cat->name }}</a>
@@ -26,7 +21,7 @@
             </li>
             <li class="nav-item dropdown" style="position:relative;">
                 <a href="{{ route('categories.index') }}" class="nav-link" id="productsDropdown" role="button" aria-haspopup="true" aria-expanded="false" style="cursor:pointer;">{{ __('frontend.products') }} <span style="font-size:0.8em;">▼</span></a>
-                <div class="dropdown-menu" aria-labelledby="productsDropdown" style="position:absolute;top:100%;left:0;min-width:200px;z-index:1000;display:none;background:#fff;border-radius:0 0 8px 8px;box-shadow:0 4px 16px rgba(0,0,0,0.08);padding:8px 0;">
+                <div class="dropdown-menu" aria-labelledby="productsDropdown" style="position:absolute;top:100%;left:0;min-width:200px;z-index:99999;display:none;background:#fff;border-radius:0 0 8px 8px;box-shadow:0 4px 16px rgba(0,0,0,0.08);padding:8px 0;">
                     <a class="dropdown-item" href="{{ route('categories.index') }}" style="padding:8px 18px;">{{ __('frontend.all') }}</a>
                     @foreach(\App\Models\Category::whereNull('parent_id')->orderBy('sort_order','ASC')->orderBy('title','ASC')->get() as $cat)
                         <a class="dropdown-item" href="{{ route('categories.show', $cat->slug ?? Str::slug($cat->title)) }}" style="padding:8px 18px;">{{ $cat->title }}</a>
@@ -35,47 +30,16 @@
             </li>
             <li><a href="{{ route('certificates') }}">{{ __('frontend.certificates') }}</a></li>
             <li><a href="{{ route('contact') }}">{{ __('frontend.contact') }}</a></li>
-            
-            <!-- Mobile-only items (auth links and admin dashboard) -->
-            @if(auth()->check())
-                <li class="mobile-only-nav-item">
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fas fa-sign-out-alt"></i> {{ __('frontend.logout') }}
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </li>
-                @if(auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin')
-                    <li class="mobile-only-nav-item admin-nav-item">
-                        <a href="{{ route('admin') }}">
-                            <i class="fas fa-tachometer-alt"></i> {{ __('frontend.dashboard') }}
-                        </a>
-                    </li>
-                @endif
-            @else
-                <li class="mobile-only-nav-item">
-                    <a href="{{ route('login.form') }}">
-                        <i class="fas fa-sign-in-alt"></i> {{ __('frontend.login') }}
-                    </a>
-                </li>
-                <li class="mobile-only-nav-item">
-                    <a href="{{ route('register.form') }}">
-                        <i class="fas fa-user-plus"></i> {{ __('frontend.register') }}
-                    </a>
-                </li>
-            @endif
         </ul>
-        <div style="flex:1 1 0;"></div>
-        <div class="nav-auth" style="display: flex; align-items: center; gap: 12px; margin-right: 0; flex-shrink:0;">
+        <div class="nav-auth" style="display: flex; align-items: center; gap: 15px; margin-right: 40px; flex-shrink:0;">
             @if(auth()->check())
                 @if(auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin')
-                    <!-- Replace Sign In with Dashboard for admin users -->
+                    <!-- For admin/co-admin: Replace login with dashboard -->
                     <a href="{{ route('register.form') }}" class="auth-link">{{ __('frontend.register') }}</a>
                     <span style="border-left:1px solid #000;height:22px;display:inline-block;margin:0 8px;vertical-align:middle;"></span>
-                    <a href="{{ route('admin') }}" class="auth-link dashboard-link">{{ __('frontend.dashboard') }}</a>
+                    <a href="{{ route('admin') }}" class="auth-link dashboard-auth-link">{{ __('frontend.dashboard') }}</a>
                 @else
-                    <!-- Regular user - show logout -->
+                    <!-- For regular users: Show logout -->
                     <a href="{{ route('register.form') }}" class="auth-link">{{ __('frontend.register') }}</a>
                     <span style="border-left:1px solid #000;height:22px;display:inline-block;margin:0 8px;vertical-align:middle;"></span>
                     <a href="{{ route('logout') }}" class="auth-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('frontend.logout') }}</a>
@@ -84,13 +48,13 @@
                     </form>
                 @endif
             @else
-                <!-- Guest user - show login -->
+                <!-- For guests: Show login -->
                 <a href="{{ route('register.form') }}" class="auth-link">{{ __('frontend.register') }}</a>
                 <span style="border-left:1px solid #000;height:22px;display:inline-block;margin:0 8px;vertical-align:middle;"></span>
                 <a href="{{ route('login.form') }}" class="auth-link">{{ __('frontend.login') }}</a>
             @endif
         </div>
-        <div class="lang-switcher" style="margin-left: 20px; margin-right: 0; flex-shrink:0;">
+        <div class="lang-switcher" style="margin-left: 25px; margin-right: 25px; flex-shrink:0;">
             <div class="custom-lang-dropdown" tabindex="0">
                 <div class="selected-lang">
                     @php
@@ -115,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <button id="fullscreenBtn" class="fullscreen-btn" title="Toggle Fullscreen" style="margin-left: 20px; margin-right: 4px; flex-shrink:0;">
+        <button id="fullscreenBtn" class="fullscreen-btn" title="Toggle Fullscreen" style="margin-left: 25px; margin-right: 40px; flex-shrink:0;">
             <i class="fas fa-expand"></i>
         </button>
         <div class="hamburger">
@@ -125,8 +89,30 @@
         </div>
     </div>
     
-    <!-- Mobile Menu Overlay -->
-    <div class="nav-overlay"></div>
+    <!-- Mobile Menu -->
+    <div class="mobile-nav-menu">
+        <ul>
+            <li><a href="{{ route('home') }}">{{ __('frontend.home') }}</a></li>
+            <li><a href="{{ route('about-us') }}">{{ __('frontend.about') }}</a></li>
+            <li><a href="{{ route('media') }}">{{ __('frontend.media') }}</a></li>
+            <li><a href="{{ route('project-categories.index') }}">{{ __('frontend.projects') }}</a></li>
+            <li><a href="{{ route('categories.index') }}">{{ __('frontend.products') }}</a></li>
+            <li><a href="{{ route('certificates') }}">{{ __('frontend.certificates') }}</a></li>
+            <li><a href="{{ route('contact') }}">{{ __('frontend.contact') }}</a></li>
+            @if(auth()->check())
+                @if(auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin')
+                    <li><a href="{{ route('admin') }}" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); color: white; font-weight: 600; text-transform: uppercase; border-radius: 8px; padding: 1rem; margin: 0.5rem 0;">{{ __('frontend.dashboard') }}</a></li>
+                @endif
+                <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">{{ __('frontend.logout') }}</a></li>
+                <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+            @else
+                <li><a href="{{ route('register.form') }}">{{ __('frontend.register') }}</a></li>
+                <li><a href="{{ route('login.form') }}">{{ __('frontend.login') }}</a></li>
+            @endif
+        </ul>
+    </div>
+    
+    <div class="mobile-nav-overlay"></div>
 </nav>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -211,6 +197,103 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Mobile Navigation Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.querySelector('.mobile-nav-menu');
+    const mobileOverlay = document.querySelector('.mobile-nav-overlay');
+    
+    if (hamburger && mobileMenu && mobileOverlay) {
+        hamburger.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        mobileOverlay.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Close mobile menu when clicking on links
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 991) {
+                mobileMenu.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Mobile dropdown functionality
+        const mobileDropdowns = mobileMenu.querySelectorAll('.mobile-dropdown');
+        mobileDropdowns.forEach(dropdown => {
+            const toggle = dropdown.querySelector('.mobile-dropdown-toggle');
+            const menu = dropdown.querySelector('.mobile-dropdown-menu');
+            const arrow = dropdown.querySelector('.mobile-dropdown-arrow');
+            
+            if (toggle && menu && arrow) {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Toggle this dropdown
+                    menu.classList.toggle('active');
+                    arrow.style.transform = menu.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+                    
+                    // Close other dropdowns
+                    mobileDropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            const otherMenu = otherDropdown.querySelector('.mobile-dropdown-menu');
+                            const otherArrow = otherDropdown.querySelector('.mobile-dropdown-arrow');
+                            if (otherMenu && otherArrow) {
+                                otherMenu.classList.remove('active');
+                                otherArrow.style.transform = 'rotate(0deg)';
+                            }
+                        }
+                    });
+                });
+            }
+        });
+    }
+    
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.querySelector('.mobile-nav-menu');
+    const mobileOverlay = document.querySelector('.mobile-nav-overlay');
+    
+    if (hamburger && mobileMenu && mobileOverlay) {
+        hamburger.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        mobileOverlay.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Close mobile menu when clicking links
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+    
     // Handle fullscreen functionality
     var fullscreenBtn = document.getElementById('fullscreenBtn');
     var fullscreenIcon = fullscreenBtn.querySelector('i');
@@ -257,6 +340,72 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+<style>
+/* Simple dropdown fix */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block !important;
+}
+
+/* Hide mobile menu on desktop */
+@media (min-width: 992px) {
+    .mobile-nav-menu {
+        display: none !important;
+    }
+    
+    .mobile-nav-overlay {
+        display: none !important;
+    }
+}
+
+/* Push register/login and everything after to right */
+@media (min-width: 992px) {
+    .nav-auth {
+        margin-left: 0 !important;
+        margin-right: 40px !important;
+        gap: 15px !important;
+    }
+    
+    .lang-switcher {
+        margin-left: 25px !important;
+        margin-right: 25px !important;
+    }
+    
+    .fullscreen-btn {
+        margin-left: 25px !important;
+        margin-right: 40px !important;
+    }
+    
+    /* Override inline styles */
+    div[style*="flex:1"] {
+        flex: 1 1 0 !important;
+    }
+}
+
+/* Show mobile menu only on mobile */
+@media (max-width: 991px) {
+    .nav-menu {
+        display: none !important;
+    }
+    
+    .nav-auth {
+        display: none !important;
+    }
+    
+    .lang-switcher {
+        display: none !important;
+    }
+    
+    .fullscreen-btn {
+        display: none !important;
+    }
+    
+    .hamburger {
+        display: block !important;
+        cursor: pointer !important;
+    }
+}
+</style>
 <style>
 .admin-dashboard-btn {
     transition: background 0.2s, color 0.2s;

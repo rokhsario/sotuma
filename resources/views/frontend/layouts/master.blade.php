@@ -69,7 +69,7 @@
 	</div>
 	
 	<!-- Header -->
-	@include('frontend.layouts.header')
+	@include('frontend.layouts.header-final')
 	<!--/ End Header -->
 	@yield('main-content')
 	

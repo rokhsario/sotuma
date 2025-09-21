@@ -30,8 +30,8 @@
       <!-- End of Main Content -->
       @include('backend.layouts.footer')
 
-    <!-- Dashboard Responsive JavaScript -->
-    <script src="{{ asset('js/dashboard-responsive.js') }}"></script>
+    <!-- Dashboard Simple JavaScript -->
+    <script src="{{ asset('js/dashboard-simple.js') }}"></script>
     @stack('scripts')
 
 </body>

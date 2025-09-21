@@ -37,35 +37,20 @@ Version: 1.0
     padding: 0;
 }
 
-/* Responsive Sidebar */
-.sidebar {
-    width: var(--dashboard-sidebar-width);
-    min-height: 100vh;
-    background: linear-gradient(180deg, var(--dashboard-primary) 10%, #2c2c54 100%);
-    transition: all 0.3s ease;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1050;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-/* Mobile Sidebar Hidden by Default */
+/* Responsive Sidebar - Simplified */
 @media (max-width: 768px) {
     .sidebar {
-        left: -100%;
-        width: 280px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        margin-left: -224px;
+        transition: margin-left 0.3s ease;
     }
     
-    .sidebar.active {
-        left: 0;
+    .sidebar.toggled {
+        margin-left: 0;
     }
     
     #content-wrapper {
-        margin-left: 0 !important;
-        width: 100% !important;
+        margin-left: 0;
+        width: 100%;
     }
 }
 
@@ -97,15 +82,7 @@ Version: 1.0
 
 /* Desktop Sidebar */
 @media (min-width: 992px) {
-    .sidebar {
-        position: relative;
-        width: var(--dashboard-sidebar-width);
-    }
-    
-    #content-wrapper {
-        margin-left: var(--dashboard-sidebar-width);
-        width: calc(100% - var(--dashboard-sidebar-width));
-    }
+    /* Use default SB Admin styles */
 }
 
 /* Sidebar Brand */

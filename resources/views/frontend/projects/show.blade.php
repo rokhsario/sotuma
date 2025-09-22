@@ -259,8 +259,33 @@
     margin: 0 auto;
     padding: 0 80px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 40px;
+}
+
+/* Tablet and mobile responsive for project info container */
+@media (max-width: 1200px) {
+    .project-info-container {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+        padding: 0 40px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .project-info-container {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 0 20px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-info-container {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+        padding: 0 15px !important;
+    }
 }
 
 .project-info-card {
@@ -396,8 +421,8 @@
 /* Responsive Design */
 @media (max-width: 1200px) {
     .project-info-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
     }
 }
 
@@ -692,4 +717,32 @@ document.addEventListener('keydown', function(e) {
 });
 </script>
 
-@endsection 
+@endsection
+
+@push('scripts')
+<script>
+// Force mobile responsive grids immediately
+document.addEventListener('DOMContentLoaded', function() {
+    function forceMobileGrids() {
+        const isMobile = window.innerWidth <= 768;
+        const projectGrid = document.querySelector('.project-info-container');
+        
+        if (isMobile && projectGrid) {
+            projectGrid.style.gridTemplateColumns = '1fr';
+            projectGrid.style.gap = '20px';
+            projectGrid.setAttribute('data-mobile-forced', 'true');
+        }
+    }
+    
+    // Run immediately
+    forceMobileGrids();
+    
+    // Run on resize
+    window.addEventListener('resize', forceMobileGrids);
+    
+    // Run every 100ms for first 3 seconds to catch any late-loading content
+    let interval = setInterval(forceMobileGrids, 100);
+    setTimeout(() => clearInterval(interval), 3000);
+});
+</script>
+@endpush 

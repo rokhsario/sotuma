@@ -43,49 +43,6 @@ body {
     padding: 2rem;
 }
 
-/* Hero Section */
-.certificates-hero {
-    background: #e3f2fd;
-    border-radius: 24px;
-    padding: 4rem 3rem;
-    margin: 2rem 0 4rem 0;
-    text-align: center;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-light);
-    position: relative;
-    overflow: hidden;
-}
-
-.certificates-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--gradient-primary);
-}
-
-.hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-    letter-spacing: -0.025em;
-}
-
-.hero-subtitle {
-    font-size: 1.25rem;
-    color: var(--accent-color);
-    max-width: 600px;
-    margin: 0 auto 2rem auto;
-    line-height: 1.7;
-    font-weight: 500;
-}
 
 
 
@@ -390,13 +347,6 @@ body {
         padding: 1.5rem;
     }
     
-    .certificates-hero {
-        padding: 3rem 2rem;
-    }
-    
-    .hero-title {
-        font-size: 3rem;
-    }
     
     .certificates-grid {
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -405,26 +355,6 @@ body {
 }
 
 @media (max-width: 768px) {
-    .certificates-hero {
-        padding: 2rem 1.5rem;
-        margin: 1rem 0 2rem 0;
-    }
-    
-    .hero-title {
-        font-size: 2.5rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.125rem;
-    }
-    
-    .hero-stats {
-        gap: 2rem;
-    }
-    
-    .stat-number {
-        font-size: 2rem;
-    }
     
     .section-title {
         font-size: 2rem;
@@ -449,18 +379,6 @@ body {
         padding: 1rem;
     }
     
-    .certificates-hero {
-        padding: 1.5rem 1rem;
-    }
-    
-    .hero-title {
-        font-size: 2rem;
-    }
-    
-    .hero-stats {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
     
     .certificate-image-container {
         height: 200px;
@@ -498,16 +416,6 @@ body {
 
 <div class="certificates-container">
     <div class="certificates-content">
-        <!-- Hero Section -->
-        <section class="certificates-hero">
-            <h1 class="hero-title">{{ __('frontend.certificates') }} d'Excellence</h1>
-            <p class="hero-subtitle">
-                Découvrez notre collection de certifications qui témoignent de notre engagement envers la qualité, 
-                l'innovation et la conformité aux normes internationales les plus strictes.
-            </p>
-            
-
-        </section>
 
         <!-- Certificates Section -->
         <section class="certificates-section">

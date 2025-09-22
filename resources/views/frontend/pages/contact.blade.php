@@ -37,6 +37,13 @@
     height: 100%;
 }
 
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
 .map-overlay {
     position: absolute;
     top: 20px;
@@ -309,6 +316,15 @@
     position: relative;
 }
 
+.contact-form-group label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--sotuma-red);
+    margin-bottom: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .contact-form-group.full-width {
     grid-column: 1 / -1;
 }
@@ -482,17 +498,92 @@
 
 
 
-/* Responsive Design */
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablet and below - show sidebar */
 @media (max-width: 1200px) {
+    .map-section {
+        height: 450px;
+    }
+    
+    .map-container iframe {
+        width: 100%;
+        height: 100%;
+        min-height: 450px;
+    }
+    
+    .map-overlay {
+        top: 18px;
+        left: 18px;
+        max-width: 280px;
+        padding: 18px;
+    }
+    
+    .map-overlay h3 {
+        font-size: 1.2rem;
+    }
+    
+    .map-overlay p {
+        font-size: 0.95rem;
+    }
+    
     .contact-cards-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 25px;
+    }
+    
+    .social-media-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        max-width: 600px;
+    }
+    
+    .social-media-row .contact-card {
+        max-width: 100%;
+        min-width: auto;
+    }
+    
+    .contact-form {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .contact-form-section {
+        padding: 40px 30px;
+        margin: 0 20px;
+    }
+    
+    .contact-info-section {
+        padding: 70px 0 50px 0;
+    }
+    
+    .contact-info-container {
+        padding: 0 25px;
+    }
+    
+    .section-title h2 {
+        font-size: 2.4rem;
     }
 }
 
+/* Mobile responsive */
 @media (max-width: 768px) {
     .map-section {
         height: 400px;
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .map-container {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .map-container iframe {
+        width: 100%;
+        height: 100%;
+        min-height: 400px;
     }
     
     .map-overlay {
@@ -501,10 +592,26 @@
         right: 15px;
         max-width: none;
         padding: 15px;
+        position: absolute;
+        z-index: 10;
+    }
+    
+    .map-overlay h3 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    
+    .map-overlay p {
+        font-size: 0.9rem;
+        line-height: 1.4;
     }
     
     .section-title h2 {
         font-size: 2.2rem;
+    }
+    
+    .section-title p {
+        font-size: 1.1rem;
     }
     
     .contact-cards-grid {
@@ -513,9 +620,9 @@
     }
     
     .social-media-row {
-        flex-direction: column;
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
-        align-items: center;
+        max-width: 100%;
     }
     
     .social-media-row .contact-card {
@@ -540,19 +647,115 @@
     .contact-info-container {
         padding: 0 20px;
     }
+    
+    .contact-card {
+        padding: 25px 20px;
+    }
+    
+    .contact-card-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 1.8rem;
+    }
+    
+    .contact-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .contact-card p {
+        font-size: 0.95rem;
+    }
+    
+    .contact-form input, 
+    .contact-form textarea {
+        padding: 15px 18px;
+        font-size: 0.95rem;
+    }
+    
+    .contact-form button {
+        padding: 15px 35px;
+        font-size: 1rem;
+    }
+    
+    .file-upload-area {
+        padding: 25px 15px;
+    }
+    
+    .file-upload-area i {
+        font-size: 2rem;
+    }
+    
+    .file-upload-area span {
+        font-size: 0.9rem;
+    }
 }
 
+/* Small mobile responsive */
 @media (max-width: 480px) {
     .map-section {
         height: 350px;
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .map-container {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .map-container iframe {
+        width: 100%;
+        height: 100%;
+        min-height: 350px;
+    }
+    
+    .map-overlay {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        padding: 12px;
+        position: absolute;
+        z-index: 10;
+    }
+    
+    .map-overlay h3 {
+        font-size: 1rem;
+        margin-bottom: 6px;
+    }
+    
+    .map-overlay p {
+        font-size: 0.85rem;
+        line-height: 1.3;
     }
     
     .section-title h2 {
         font-size: 1.8rem;
     }
     
+    .section-title p {
+        font-size: 1rem;
+    }
+    
+    .social-media-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .contact-form-section {
+        padding: 25px 15px;
+        margin: 0 10px;
+    }
+    
+    .contact-info-section {
+        padding: 50px 0 30px 0;
+    }
+    
+    .contact-info-container {
+        padding: 0 15px;
+    }
+    
     .contact-card {
-        padding: 25px 20px;
+        padding: 20px 15px;
     }
     
     .contact-card-icon {
@@ -561,9 +764,46 @@
         font-size: 1.5rem;
     }
     
-    .contact-form-section {
-        padding: 25px 15px;
-        margin: 0 10px;
+    .contact-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .contact-card p {
+        font-size: 0.9rem;
+    }
+    
+    .contact-form input, 
+    .contact-form textarea {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .contact-form button {
+        padding: 12px 30px;
+        font-size: 0.95rem;
+    }
+    
+    .file-upload-area {
+        padding: 20px 12px;
+    }
+    
+    .file-upload-area i {
+        font-size: 1.8rem;
+    }
+    
+    .file-upload-area span {
+        font-size: 0.85rem;
+    }
+    
+    .login-required-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-login, .btn-register {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
     }
 }
 </style>
@@ -575,10 +815,11 @@
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3276.1234567890123!2d10.7057047!3d34.8118905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1301d5004eb1eeef%3A0x462a50075141490c!2sSOTUMA!5e0!3m2!1sfr!2stn!4v1234567890123!5m2!1sfr!2stn"
             width="100%" 
             height="100%" 
-            style="border:0;" 
+            style="border:0; display:block; width:100%; height:100%;" 
             allowfullscreen="" 
             loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
+            referrerpolicy="no-referrer-when-downgrade"
+            title="SOTUMA Location Map">
         </iframe>
         
         <div class="map-overlay">
@@ -666,20 +907,24 @@
                     </div>
                 @endif
                 <div class="contact-form-group">
-                    <input type="text" name="name" id="name" required placeholder="Votre nom *" @auth value="{{ auth()->user()->name }}" @endauth>
+                    <label for="name">Nom *</label>
+                    <input type="text" name="name" id="name" required @auth value="{{ auth()->user()->name }}" @endauth>
                 </div>
                 <div class="contact-form-group">
-                    <input type="email" name="email" id="email" required placeholder="Votre email *" @auth value="{{ auth()->user()->email }}" @endauth>
+                    <label for="email">Email *</label>
+                    <input type="email" name="email" id="email" required @auth value="{{ auth()->user()->email }}" @endauth>
                 </div>
                 <div class="contact-form-group">
-                    <input type="tel" name="phone" id="phone" placeholder="Votre numéro de téléphone (optionnel)">
+                    <label for="phone">Téléphone</label>
+                    <input type="tel" name="phone" id="phone">
                 </div>
                 <div class="contact-form-group full-width">
-                    <input type="text" name="subject" id="subject" required placeholder="{{ __('frontend.subject') }} du message">
+                    <label for="subject">Sujet *</label>
+                    <input type="text" name="subject" id="subject" required>
                 </div>
                 <div class="contact-form-group full-width">
-                    <textarea name="message" id="message" required placeholder="Votre message (minimum 20 caractères)" minlength="20"></textarea>
-                    <small style="color: #666; font-size: 0.9rem; margin-top: 5px; display: block;">Minimum 20 caractères requis</small>
+                    <label for="message">Message *</label>
+                    <textarea name="message" id="message" required minlength="20"></textarea>
                 </div>
                 <div class="contact-form-group full-width">
                     <div class="file-upload-area" id="file-upload-area">

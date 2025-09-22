@@ -1,6 +1,13 @@
 <!-- Navigation -->
 <nav class="navbar" style="width:100%;position:relative;z-index:1050;">
     <div class="nav-container" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:0 18px;flex-wrap:nowrap;">
+        <!-- Mobile/Tablet Menu Toggle -->
+        <div class="mobile-menu-toggle" style="display:none;flex-direction:column;cursor:pointer;padding:10px;z-index:1001;">
+            <span class="hamburger-line" style="width:25px;height:3px;background:#000;margin:3px 0;transition:0.3s;"></span>
+            <span class="hamburger-line" style="width:25px;height:3px;background:#000;margin:3px 0;transition:0.3s;"></span>
+            <span class="hamburger-line" style="width:25px;height:3px;background:#000;margin:3px 0;transition:0.3s;"></span>
+        </div>
+        
         <div class="logo" style="margin-right:40px;flex-shrink:0;">
             <a href="{{ route('home') }}">
                 <img src="{{ asset('images/logo2.png') }}" alt="SOTUMA" style="height: 180px; max-width: 700px;">
@@ -31,6 +38,57 @@
             <li><a href="{{ route('certificates') }}">{{ __('frontend.certificates') }}</a></li>
             <li><a href="{{ route('contact') }}">{{ __('frontend.contact') }}</a></li>
         </ul>
+        
+        <!-- Mobile/Tablet Sidebar Overlay -->
+        <div class="mobile-sidebar-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9998;"></div>
+        
+        <!-- Mobile/Tablet Sidebar -->
+        <div class="mobile-sidebar" style="position:fixed;top:0;left:-100%;width:300px;height:100%;background:#fff;z-index:9999;transition:left 0.3s ease;overflow-y:auto;box-shadow:2px 0 10px rgba(0,0,0,0.1);">
+            <div class="sidebar-header" style="padding:20px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;">
+                <img src="{{ asset('images/logo2.png') }}" alt="SOTUMA" style="height: 60px; max-width: 200px;">
+                <button class="sidebar-close" style="background:none;border:none;font-size:24px;cursor:pointer;">&times;</button>
+            </div>
+            <ul class="sidebar-menu" style="list-style:none;padding:0;margin:0;">
+                <li style="border-bottom:1px solid #eee;"><a href="{{ route('home') }}" style="display:block;padding:15px 20px;text-decoration:none;color:#333;font-weight:500;">{{ __('frontend.home') }}</a></li>
+                <li style="border-bottom:1px solid #eee;"><a href="{{ route('about-us') }}" style="display:block;padding:15px 20px;text-decoration:none;color:#333;font-weight:500;">{{ __('frontend.about') }}</a></li>
+                <li style="border-bottom:1px solid #eee;"><a href="{{ route('media') }}" style="display:block;padding:15px 20px;text-decoration:none;color:#333;font-weight:500;">{{ __('frontend.media') }}</a></li>
+                <li style="border-bottom:1px solid #eee;">
+                    <a href="{{ route('project-categories.index') }}" style="display:block;padding:15px 20px;text-decoration:none;color:#333;font-weight:500;">{{ __('frontend.projects') }}</a>
+                    <ul style="list-style:none;padding:0;margin:0;background:#f8f9fa;">
+                        <li><a href="{{ route('project-categories.index') }}" style="display:block;padding:10px 40px;text-decoration:none;color:#666;font-size:14px;">{{ __('frontend.all') }}</a></li>
+                        @foreach(\App\Models\ProjectCategory::orderBy('name','ASC')->get() as $cat)
+                            <li><a href="{{ route('project-categories.show', $cat->slug) }}" style="display:block;padding:10px 40px;text-decoration:none;color:#666;font-size:14px;">{{ $cat->name }}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
+                <li style="border-bottom:1px solid #eee;">
+                    <a href="{{ route('categories.index') }}" style="display:block;padding:15px 20px;text-decoration:none;color:#333;font-weight:500;">{{ __('frontend.products') }}</a>
+                    <ul style="list-style:none;padding:0;margin:0;background:#f8f9fa;">
+                        <li><a href="{{ route('categories.index') }}" style="display:block;padding:10px 40px;text-decoration:none;color:#666;font-size:14px;">{{ __('frontend.all') }}</a></li>
+                        @foreach(\App\Models\Category::whereNull('parent_id')->orderBy('sort_order','ASC')->orderBy('title','ASC')->get() as $cat)
+                            <li><a href="{{ route('categories.show', $cat->slug ?? Str::slug($cat->title)) }}" style="display:block;padding:10px 40px;text-decoration:none;color:#666;font-size:14px;">{{ $cat->title }}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
+                <li style="border-bottom:1px solid #eee;"><a href="{{ route('certificates') }}" style="display:block;padding:15px 20px;text-decoration:none;color:#333;font-weight:500;">{{ __('frontend.certificates') }}</a></li>
+                <li style="border-bottom:1px solid #eee;"><a href="{{ route('contact') }}" style="display:block;padding:15px 20px;text-decoration:none;color:#333;font-weight:500;">{{ __('frontend.contact') }}</a></li>
+            </ul>
+            <div class="sidebar-auth" style="padding:20px;border-top:1px solid #eee;margin-top:auto;">
+                @if(auth()->check())
+                    @if(auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin')
+                        <a href="{{ route('register.form') }}" style="display:block;padding:10px;text-decoration:none;color:#333;text-align:center;border:1px solid #ddd;border-radius:5px;margin-bottom:10px;">{{ __('frontend.register') }}</a>
+                        <a href="{{ route('admin') }}" style="display:block;padding:10px;text-decoration:none;color:#333;text-align:center;border:1px solid #ddd;border-radius:5px;">{{ __('frontend.dashboard') }}</a>
+                    @else
+                        <a href="{{ route('register.form') }}" style="display:block;padding:10px;text-decoration:none;color:#333;text-align:center;border:1px solid #ddd;border-radius:5px;margin-bottom:10px;">{{ __('frontend.register') }}</a>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="display:block;padding:10px;text-decoration:none;color:#333;text-align:center;border:1px solid #ddd;border-radius:5px;">{{ __('frontend.logout') }}</a>
+                    @endif
+                @else
+                    <a href="{{ route('login') }}" style="display:block;padding:10px;text-decoration:none;color:#333;text-align:center;border:1px solid #ddd;border-radius:5px;margin-bottom:10px;">{{ __('frontend.login') }}</a>
+                    <a href="{{ route('register.form') }}" style="display:block;padding:10px;text-decoration:none;color:#333;text-align:center;border:1px solid #ddd;border-radius:5px;">{{ __('frontend.register') }}</a>
+                @endif
+            </div>
+        </div>
+        
         <div class="nav-auth" style="display: flex; align-items: center; gap: 15px; margin-right: 40px; flex-shrink:0;">
             @if(auth()->check())
                 @if(auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin')

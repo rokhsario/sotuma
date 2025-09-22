@@ -219,6 +219,7 @@
 	<!-- Responsive JavaScript -->
 	<script src="{{ asset('js/frontend-responsive.js') }}"></script>
 	<script src="{{ asset('js/mobile-social.js') }}"></script>
+	<script src="{{ asset('js/frontend-mobile-enhancements.js') }}"></script>
 
 </body>
 </html>

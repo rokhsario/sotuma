@@ -114,13 +114,57 @@
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 60px;
     margin-top: 50px;
     width: 100%;
     margin-left: 0;
     margin-right: 0;
     padding: 0;
+}
+
+/* Force single column on tablet and below by making minmax very large */
+@media (max-width: 1200px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100vw, 1fr)) !important;
+        gap: 25px !important;
+        margin-top: 40px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100vw, 1fr)) !important;
+        gap: 20px !important;
+        margin-top: 30px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100vw, 1fr)) !important;
+        gap: 15px !important;
+        margin-top: 25px !important;
+    }
+}
+
+/* Tablet responsive for products grid - REMOVED CONFLICTING RULE */
+/* This was causing 2 per row on tablet - now handled by 1200px breakpoint above */
+
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        margin-top: 30px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+        margin-top: 25px !important;
+    }
 }
 
 .product-card {
@@ -483,9 +527,9 @@
     }
     
     .products-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        padding: 0 10px;
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 0 10px !important;
     }
     
     .product-content {
@@ -517,9 +561,9 @@
 
 @media (max-width: 480px) {
     .products-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        padding: 0 10px;
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+        padding: 0 10px !important;
     }
     
     .product-image-container {
@@ -605,4 +649,32 @@
 </section>
 @endif
 
-@endsection 
+@endsection
+
+@push('scripts')
+<script>
+// Force mobile responsive grids immediately
+document.addEventListener('DOMContentLoaded', function() {
+    function forceMobileGrids() {
+        const isMobile = window.innerWidth <= 768;
+        const productsGrid = document.querySelector('.products-grid');
+        
+        if (isMobile && productsGrid) {
+            productsGrid.style.gridTemplateColumns = '1fr';
+            productsGrid.style.gap = '20px';
+            productsGrid.setAttribute('data-mobile-forced', 'true');
+        }
+    }
+    
+    // Run immediately
+    forceMobileGrids();
+    
+    // Run on resize
+    window.addEventListener('resize', forceMobileGrids);
+    
+    // Run every 100ms for first 3 seconds to catch any late-loading content
+    let interval = setInterval(forceMobileGrids, 100);
+    setTimeout(() => clearInterval(interval), 3000);
+});
+</script>
+@endpush 

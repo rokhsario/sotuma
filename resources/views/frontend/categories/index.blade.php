@@ -418,6 +418,14 @@
     }
 }
 
+@media (max-width: 1200px) {
+    .categories-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+        margin-top: 50px !important;
+    }
+}
+
 @media (max-width: 768px) {
     .hero-section {
         padding: 120px 0 80px;
@@ -440,9 +448,9 @@
     }
     
     .categories-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        margin-top: 40px;
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        margin-top: 40px !important;
     }
     
     .category-content {
@@ -456,8 +464,9 @@
 
 @media (max-width: 480px) {
     .categories-grid {
-        gap: 30px;
-        padding: 0 5px;
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+        padding: 0 15px !important;
     }
     
     .category-image-container {
@@ -555,4 +564,32 @@
     </div>
 </section>
 
-@endsection 
+@endsection
+
+@push('scripts')
+<script>
+// Force mobile responsive grids immediately
+document.addEventListener('DOMContentLoaded', function() {
+    function forceMobileGrids() {
+        const isMobile = window.innerWidth <= 768;
+        const categoryGrid = document.querySelector('.categories-grid');
+        
+        if (isMobile && categoryGrid) {
+            categoryGrid.style.gridTemplateColumns = '1fr';
+            categoryGrid.style.gap = '20px';
+            categoryGrid.setAttribute('data-mobile-forced', 'true');
+        }
+    }
+    
+    // Run immediately
+    forceMobileGrids();
+    
+    // Run on resize
+    window.addEventListener('resize', forceMobileGrids);
+    
+    // Run every 100ms for first 3 seconds to catch any late-loading content
+    let interval = setInterval(forceMobileGrids, 100);
+    setTimeout(() => clearInterval(interval), 3000);
+});
+</script>
+@endpush 

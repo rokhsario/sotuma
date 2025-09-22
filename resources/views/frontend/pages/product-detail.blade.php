@@ -111,6 +111,71 @@
     text-align: left !important;
 }
 
+/* Force star display for all text content */
+.product-description {
+    counter-reset: line-counter;
+}
+
+.product-description p,
+.product-description div {
+    counter-increment: line-counter;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+}
+
+.product-description p::before,
+.product-description div::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #000000 !important;
+    font-size: 1rem;
+    font-weight: bold;
+    z-index: 10;
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+}
+
+/* Format product description with stars and aligned lines */
+.product-description p {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    text-align: left !important;
+}
+
+.product-description p::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #000000;
+    font-size: 1rem;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.product-description div {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    text-align: left !important;
+}
+
+.product-description div::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #000000;
+    font-size: 1rem;
+    font-weight: bold;
+    z-index: 1;
+}
+
 .product-description * {
     text-align: left !important;
 }
@@ -121,10 +186,38 @@
 
 .product-info-section .product-description p {
     text-align: left !important;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+}
+
+.product-info-section .product-description p::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #000000;
+    font-size: 1rem;
+    font-weight: bold;
+    z-index: 1;
 }
 
 .product-info-section .product-description div {
     text-align: left !important;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+}
+
+.product-info-section .product-description div::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #000000;
+    font-size: 1rem;
+    font-weight: bold;
+    z-index: 1;
 }
 
 .product-description h1,
@@ -152,6 +245,19 @@
 .product-description p {
     margin-bottom: 20px;
     text-align: left !important;
+    position: relative;
+    padding-left: 25px;
+}
+
+.product-description p::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #000000;
+    font-size: 1rem;
+    font-weight: bold;
+    z-index: 1;
 }
 
 .product-description ul,
@@ -211,5 +317,59 @@
     }
 }
 </style>
+
+<script>
+// Add stars to product description lines
+document.addEventListener('DOMContentLoaded', function() {
+    const productDescription = document.querySelector('.product-description');
+    
+    if (productDescription) {
+        // Get all text content and split by lines
+        const textContent = productDescription.textContent || productDescription.innerText;
+        const lines = textContent.split('\n').filter(line => line.trim() !== '');
+        
+        // Clear the content
+        productDescription.innerHTML = '';
+        
+        // Add each line with a star
+        lines.forEach(line => {
+            if (line.trim() !== '') {
+                const lineDiv = document.createElement('div');
+                lineDiv.style.cssText = `
+                    position: relative;
+                    padding-left: 25px;
+                    margin-bottom: 12px;
+                    text-align: left;
+                    line-height: 1.8;
+                    font-size: 1.1rem;
+                    color: #333;
+                `;
+                
+                // Add star
+                const star = document.createElement('span');
+                star.innerHTML = '★';
+                star.style.cssText = `
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    color: #000000;
+                    font-size: 1rem;
+                    font-weight: bold;
+                    width: 20px;
+                    text-align: center;
+                `;
+                
+                // Add text
+                const text = document.createElement('span');
+                text.textContent = line.trim();
+                
+                lineDiv.appendChild(star);
+                lineDiv.appendChild(text);
+                productDescription.appendChild(lineDiv);
+            }
+        });
+    }
+});
+</script>
 
 @endsection

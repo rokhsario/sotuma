@@ -31,7 +31,7 @@
     </div>
     
     <!-- Video Background -->
-    <video class="hero-bg-video" autoplay loop muted playsinline poster="{{ asset('images/image1.png') }}" style="object-fit:cover;width:100vw;height:100vh;position:absolute;top:0;left:0;z-index:1;">
+    <video class="hero-bg-video" autoplay loop muted playsinline style="object-fit:cover;width:100vw;height:100vh;position:absolute;top:0;left:0;z-index:1;">
         <source src="{{ asset('images/video1.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>

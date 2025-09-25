@@ -216,6 +216,15 @@
 	});
 	</script>
 	
+	<!-- Instant Video Play -->
+	<script src="{{ asset('js/video-instant-play.js') }}"></script>
+	
+	<!-- Auto Desktop Mode Trigger for Mobile -->
+	<script src="{{ asset('js/auto-desktop-mode.js') }}"></script>
+	
+	<!-- Mobile Sidebar Functionality -->
+	<script src="{{ asset('js/mobile-sidebar.js') }}"></script>
+	
 	<!-- Responsive JavaScript -->
 	<script src="{{ asset('js/frontend-responsive.js') }}"></script>
 	<script src="{{ asset('js/mobile-social.js') }}"></script>

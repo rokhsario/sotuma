@@ -128,13 +128,18 @@ class AdminController extends Controller
     {
         $request->validate([
             'current_password' => ['required', new MatchOldPassword],
-            'new_password' => ['required'],
-            'new_confirm_password' => ['same:new_password'],
+            'new_password' => ['required', 'min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/'],
+            'new_confirm_password' => ['required', 'same:new_password'],
+        ], [
+            'new_password.regex' => 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
+            'new_password.min' => 'Password must be at least 8 characters long.',
+            'new_confirm_password.same' => 'Password confirmation does not match.',
+            'new_confirm_password.required' => 'Password confirmation is required.',
         ]);
 
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
 
-        return redirect()->route('admin')->with('success','Password successfully changed');
+        return redirect()->route('home')->with('success','Password successfully changed');
     }
 
     // Pie chart

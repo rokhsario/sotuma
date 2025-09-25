@@ -44,6 +44,210 @@
 <link rel="stylesheet" href="{{ asset('css/responsive-global.css') }}">
 <link rel="stylesheet" href="{{ asset('css/header-mobile-responsive.css') }}">
 
+<!-- Mobile Menu Width Override - SENIOR LEVEL NUCLEAR OPTION -->
+<style>
+/* Make the ACTUAL mobile menu wider */
+.mobile-menu {
+    width: 600px !important;
+    max-width: 600px !important;
+    min-width: 600px !important;
+}
+
+.mobile-menu-content {
+    max-height: 100vh !important;
+    overflow-y: auto !important;
+    overflow-x: visible !important;
+}
+
+.mobile-nav-list {
+    overflow: visible !important;
+    max-height: none !important;
+}
+
+.mobile-menu.active {
+    transform: translateX(0) !important;
+}
+
+/* Make mobile menu buttons MUCH BIGGER */
+.mobile-nav-link {
+    padding: 30px 35px !important;
+    font-size: 28px !important;
+    font-weight: 500 !important;
+    min-height: 80px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.mobile-nav-link i {
+    font-size: 30px !important;
+    margin-right: 20px !important;
+}
+
+.mobile-nav-link span {
+    font-size: 28px !important;
+}
+
+/* Make dropdown links MUCH BIGGER */
+.mobile-dropdown-link {
+    padding: 30px 50px !important;
+    font-size: 36px !important;
+    font-weight: 600 !important;
+    min-height: 85px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.mobile-dropdown-link img {
+    width: 24px !important;
+    height: 24px !important;
+    margin-right: 15px !important;
+}
+
+.mobile-dropdown-link span {
+    font-size: 36px !important;
+}
+
+.mobile-dropdown-link i {
+    font-size: 18px !important;
+    margin-left: auto !important;
+}
+
+/* Fix dropdown menu overflow - but keep closed by default */
+.mobile-dropdown-menu {
+    max-height: 0 !important;
+    overflow: hidden !important;
+    transition: max-height 0.3s ease !important;
+}
+
+.mobile-dropdown-item {
+    overflow: visible !important;
+}
+
+.mobile-dropdown-item .mobile-dropdown-menu {
+    max-height: none !important;
+    overflow: visible !important;
+    height: auto !important;
+}
+
+/* When dropdown is open, show all items */
+.mobile-dropdown-item.open .mobile-dropdown-menu,
+.mobile-dropdown-item[aria-expanded="true"] .mobile-dropdown-menu,
+.mobile-dropdown-menu.show {
+    max-height: 1000px !important;
+    overflow: visible !important;
+}
+
+/* Make auth buttons MUCH BIGGER */
+.mobile-auth-link {
+    padding: 25px 30px !important;
+    font-size: 26px !important;
+    font-weight: 700 !important;
+    min-height: 80px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.mobile-auth-link i {
+    font-size: 28px !important;
+    margin-right: 15px !important;
+}
+
+.mobile-auth-link span {
+    font-size: 26px !important;
+}
+
+/* Make dropdown triggers MUCH BIGGER */
+.mobile-dropdown-trigger {
+    padding: 30px 35px !important;
+    font-size: 28px !important;
+    font-weight: 500 !important;
+    min-height: 80px !important;
+}
+
+.mobile-dropdown-label {
+    font-size: 28px !important;
+}
+
+.mobile-dropdown-label i {
+    font-size: 30px !important;
+    margin-right: 20px !important;
+}
+
+.mobile-dropdown-label span {
+    font-size: 28px !important;
+}
+
+/* Make language switch buttons MUCH BIGGER */
+.mobile-lang-dropdown .mobile-dropdown-trigger {
+    padding: 30px 35px !important;
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    min-height: 80px !important;
+}
+
+.mobile-lang-dropdown .mobile-dropdown-label {
+    font-size: 28px !important;
+}
+
+.mobile-lang-dropdown .mobile-dropdown-label img {
+    width: 32px !important;
+    height: 32px !important;
+    margin-right: 20px !important;
+}
+
+.mobile-lang-dropdown .mobile-dropdown-label span {
+    font-size: 28px !important;
+}
+
+.mobile-lang-dropdown .mobile-dropdown-link {
+    padding: 30px 55px !important;
+    font-size: 30px !important;
+    font-weight: 600 !important;
+    min-height: 80px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.mobile-lang-dropdown .mobile-dropdown-link img {
+    width: 32px !important;
+    height: 32px !important;
+    margin-right: 20px !important;
+}
+
+.mobile-lang-dropdown .mobile-dropdown-link span {
+    font-size: 30px !important;
+}
+
+    .mobile-lang-dropdown .mobile-dropdown-link i {
+        font-size: 20px !important;
+        margin-left: auto !important;
+    }
+
+    /* Mobile Touch Scrolling Fix - No Viewport Needed */
+    @media (max-width: 768px) {
+        html, body {
+            -webkit-overflow-scrolling: touch !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            touch-action: pan-y !important;
+            overscroll-behavior: none !important;
+        }
+        
+        * {
+            -webkit-overflow-scrolling: touch !important;
+            touch-action: manipulation !important;
+        }
+        
+        /* Fix for mobile browsers */
+        body {
+            position: relative !important;
+            height: auto !important;
+            min-height: 100vh !important;
+        }
+    }
+    </style>
+
 <!-- SENIOR LEVEL MOBILE OVERRIDE - NUCLEAR OPTION -->
 <style>
 /* Force ALL grids to 2 columns on tablet and below - MAXIMUM SPECIFICITY */

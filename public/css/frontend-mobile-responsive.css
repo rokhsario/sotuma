@@ -1451,3 +1451,71 @@ Version: 1.0 - Production Ready
         border: 1px solid #ddd !important;
     }
 }
+
+/* ===== MOBILE SIDEBAR ENHANCEMENT ===== */
+@media (max-width: 1200px) {
+    /* Make mobile sidebar wider (450px) */
+    .mobile-sidebar {
+        width: 450px !important;
+        max-width: 450px !important;
+        min-width: 450px !important;
+    }
+    
+    /* Force mobile menu toggle to show */
+    .mobile-menu-toggle {
+        display: flex !important;
+    }
+    
+    /* Force mobile menu toggle button to show and make it 1.5x bigger */
+    .mobile-menu-toggle {
+        display: flex !important;
+        padding: 25px 40px !important;
+        width: 150px !important;
+        height: 100px !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+    }
+    
+    /* Make hamburger lines 1.5x bigger */
+    .hamburger-line {
+        width: 70px !important;
+        height: 8px !important;
+        margin: 8px 0 !important;
+        background: #000 !important;
+        transition: 0.3s !important;
+    }
+    
+    /* Make sidebar buttons wider with bigger fonts */
+    .sidebar-menu li a {
+        padding: 20px 30px !important;
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        min-height: 60px !important;
+        display: flex !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+    
+    /* Make sidebar submenu items wider with bigger fonts */
+    .sidebar-menu ul li a {
+        padding: 15px 50px !important;
+        font-size: 16px !important;
+        min-height: 50px !important;
+        width: 100% !important;
+    }
+    
+    /* Make sidebar auth buttons wider with bigger fonts */
+    .sidebar-auth a {
+        padding: 18px 25px !important;
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        min-height: 60px !important;
+        margin-bottom: 15px !important;
+        text-align: center !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+    }
+}

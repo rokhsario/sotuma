@@ -199,8 +199,9 @@
 .project-categories-page .categories-grid {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
+    gap: 50px !important;
     margin-top: 0 !important;
+    padding: 0 80px !important;
 }
 
    /* Card - EXACT MAS ENTERPRISE */
@@ -218,6 +219,46 @@
        flex-direction: column !important;
    }
 
+   /* Sort Handle */
+   .project-categories-page .sort-handle {
+       position: absolute !important;
+       top: 10px !important;
+       right: 10px !important;
+       background: rgba(0, 0, 0, 0.7) !important;
+       color: white !important;
+       padding: 8px !important;
+       border-radius: 4px !important;
+       cursor: move !important;
+       z-index: 10 !important;
+       font-size: 14px !important;
+       opacity: 0 !important;
+       transition: opacity 0.3s ease !important;
+   }
+
+   .project-categories-page .category-card:hover .sort-handle {
+       opacity: 1 !important;
+   }
+
+   .project-categories-page .sort-handle:hover {
+       background: rgba(0, 0, 0, 0.9) !important;
+   }
+
+   /* Drag and Drop Styles */
+   .project-categories-page .category-card.ui-sortable-helper {
+       transform: rotate(5deg) !important;
+       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+       z-index: 1000 !important;
+       cursor: move !important;
+   }
+
+   .project-categories-page .ui-sortable-placeholder {
+       background: #f0f0f0 !important;
+       border: 2px dashed #ccc !important;
+       border-radius: 0 !important;
+       min-height: 550px !important;
+       opacity: 0.7 !important;
+   }
+
          .project-categories-page .category-card:hover {
         /* No movement - cards stay fixed */
     }
@@ -225,7 +266,7 @@
                                                                .project-categories-page .category-image-container {
             position: relative !important;
             overflow: hidden !important;
-            height: 600px !important;
+            height: 450px !important;
             flex-shrink: 0 !important;
         }
 
@@ -259,7 +300,7 @@
  }
 
                        .project-categories-page .category-content {
-        padding: 40px !important;
+        padding: 30px !important;
         position: relative !important;
         z-index: 2 !important;
         background: #2b2931 !important;
@@ -269,14 +310,14 @@
         text-align: center !important;
         justify-content: center !important;
         align-items: center !important;
-        min-height: 120px !important;
+        min-height: 100px !important;
     }
 
            .project-categories-page .category-title {
-        font-size: 1.8rem !important;
+        font-size: 1.6rem !important;
         font-weight: bold !important;
         color: #ffffff !important;
-        margin: 0 0 15px 0 !important;
+        margin: 0 0 12px 0 !important;
         text-transform: none !important;
         letter-spacing: 0 !important;
         line-height: 1.3 !important;
@@ -353,6 +394,7 @@
         height: 140px !important;
     }
 }
+
 </style>
 
 <div class="project-categories-page">
@@ -384,20 +426,23 @@
             
 
              
-             <div class="categories-grid">
+             <div id="sortable-categories" class="categories-grid">
                  @foreach($categories as $category)
-                                   <div class="category-card" onclick="window.location.href='{{ route('project-categories.show', $category->slug) }}'">
-                      <div class="category-image-container">
-                          <img src="{{ $category->image ? asset($category->image) : asset('images/10.png') }}" 
-                               alt="{{ $category->name }}" 
-                               class="category-image"
-                               loading="lazy">
-                                                   <div class="category-overlay">
-                           </div>
-                       </div>
-                                          <div class="category-content">
-                          <h3 class="category-title">{{ $category->name }}</h3>
-                      </div>
+                 <div class="category-card sortable-item" data-category-id="{{$category->id}}" onclick="window.location.href='{{ route('project-categories.show', $category->slug) }}'">
+                     <div class="sort-handle">
+                         <i class="fas fa-grip-vertical"></i>
+                     </div>
+                     <div class="category-image-container">
+                         <img src="{{ $category->image ? asset($category->image) : asset('images/10.png') }}" 
+                              alt="{{ $category->name }}" 
+                              class="category-image"
+                              loading="lazy">
+                         <div class="category-overlay">
+                         </div>
+                     </div>
+                     <div class="category-content">
+                         <h3 class="category-title">{{ $category->name }}</h3>
+                     </div>
                  </div>
                  @endforeach
              </div>
@@ -405,4 +450,78 @@
     </section>
 </div>
 
-@endsection 
+@endsection
+
+@push('scripts')
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Initialize sortable for categories
+    $("#sortable-categories").sortable({
+        handle: '.sort-handle',
+        placeholder: 'ui-sortable-placeholder',
+        tolerance: 'pointer',
+        cursor: 'move',
+        update: function(event, ui) {
+            // Get the new order
+            const categoryIds = [];
+            $('#sortable-categories .category-card').each(function() {
+                categoryIds.push($(this).data('category-id'));
+            });
+            
+            // Save the new order via AJAX
+            $.ajax({
+                url: '{{ route("admin.projectcategory.update-order") }}',
+                method: 'POST',
+                data: {
+                    categories: categoryIds.map((id, index) => ({
+                        id: parseInt(id),
+                        sort_order: index
+                    })),
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Show success message
+                    showNotification('Ordre des catégories mis à jour avec succès!', 'success');
+                },
+                error: function(xhr) {
+                    console.error('Error:', xhr.responseText);
+                    showNotification('Erreur lors de la mise à jour', 'error');
+                }
+            });
+        }
+    });
+
+    // Prevent click on sort handle from triggering card click
+    $('.sort-handle').on('click', function(e) {
+        e.stopPropagation();
+    });
+
+    // Function to show notifications
+    function showNotification(message, type) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show`;
+        notification.style.position = 'fixed';
+        notification.style.top = '20px';
+        notification.style.right = '20px';
+        notification.style.zIndex = '9999';
+        notification.innerHTML = `
+            ${message}
+            <button type="button" class="close" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 3000);
+    }
+});
+</script>
+@endpush 

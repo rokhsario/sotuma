@@ -45,6 +45,12 @@
                                         @endforeach
                                     </select>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="sort_order">Ordre d'affichage</label>
+                                    <input type="number" name="sort_order" id="sort_order" class="form-control" value="{{ $project->sort_order }}" min="0">
+                                    <small class="form-text text-muted">Plus le nombre est petit, plus le projet apparaîtra en premier.</small>
+                                </div>
                             </div>
                             
                             <div class="col-md-4">
@@ -54,10 +60,23 @@
                                     <!-- Existing Images -->
                                     @if($project->images->count() > 0)
                                     <div class="existing-images mb-3">
-                                        <h6 class="mb-2">Images existantes:</h6>
-                                        <div class="existing-images-grid">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <h6 class="mb-0">Images existantes:</h6>
+                                            <button id="save-image-order-btn" class="btn btn-success btn-sm" disabled>
+                                                <i class="fas fa-save"></i> Sauvegarder l'ordre
+                                            </button>
+                                        </div>
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-info-circle"></i>
+                                            <strong>Instructions:</strong> Glissez-déposez les images pour les réorganiser. L'ordre sera automatiquement sauvegardé.
+                                        </div>
+                                        <div id="save-image-status" class="mb-3"></div>
+                                        <div id="sortable-images" class="existing-images-grid">
                                             @foreach($project->images as $img)
                                                 <div class="existing-image-item" data-image-id="{{ $img->id }}">
+                                                    <div class="sort-handle">
+                                                        <i class="fas fa-grip-vertical"></i>
+                                                    </div>
                                                     <img src="{{ asset($img->image) }}" alt="Project image" class="img-thumbnail">
                                                     <div class="image-overlay">
                                                         <button type="button" class="btn btn-sm btn-danger delete-image-btn" 
@@ -73,6 +92,9 @@
                                                             @endif
                                                         </button>
                                                     </div>
+                                                    <small class="text-muted d-block text-center mt-1">
+                                                        <strong>Ordre:</strong> {{ $img->sort_order ?? 0 }}
+                                                    </small>
                                                 </div>
                                             @endforeach
                                         </div>
@@ -140,6 +162,38 @@
     gap: 10px;
     max-height: 300px;
     overflow-y: auto;
+}
+
+/* Sortable styles for images */
+.existing-image-item.ui-sortable-helper {
+    transform: rotate(5deg);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+.ui-sortable-placeholder {
+    background: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    min-height: 120px;
+    min-width: 120px;
+}
+
+.sort-handle {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    cursor: move;
+    z-index: 10;
+    font-size: 12px;
+}
+
+.sort-handle:hover {
+    background: rgba(0,0,0,0.9);
 }
 
 .existing-image-item {
@@ -345,6 +399,7 @@
 </style>
 
 @push('scripts')
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 <script>
 let selectedFiles = [];
 let imagesToDelete = [];
@@ -538,6 +593,68 @@ document.addEventListener('DOMContentLoaded', function() {
         updateMainImageSelection();
         updateFileInput();
     };
+
+    // Image ordering functionality
+    if (document.getElementById('sortable-images')) {
+        let isImageOrderChanged = false;
+        
+        // Initialize sortable for images
+        $("#sortable-images").sortable({
+            handle: '.sort-handle',
+            placeholder: 'ui-sortable-placeholder',
+            tolerance: 'pointer',
+            update: function(event, ui) {
+                isImageOrderChanged = true;
+                $('#save-image-order-btn').prop('disabled', false);
+                $('#save-image-status').html('<span class="text-warning"><i class="fas fa-exclamation-triangle"></i> Ordre modifié - Sauvegardez les changements</span>');
+            }
+        });
+        
+        // Save image order
+        $('#save-image-order-btn').click(function() {
+            if (!isImageOrderChanged) return;
+            
+            const imageIds = [];
+            $('#sortable-images .existing-image-item').each(function() {
+                imageIds.push($(this).data('image-id'));
+            });
+            
+            $(this).prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Sauvegarde...');
+            $('#save-image-status').html('<span class="text-info"><i class="fas fa-spinner fa-spin"></i> Sauvegarde en cours...</span>');
+            
+            $.ajax({
+                url: '{{ route("admin.projects.images.update-order", $project->id) }}',
+                method: 'POST',
+                data: {
+                    images: imageIds.map((id, index) => ({
+                        id: parseInt(id),
+                        sort_order: index
+                    })),
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $('#save-image-status').html('<span class="text-success"><i class="fas fa-check"></i> Ordre sauvegardé avec succès!</span>');
+                    isImageOrderChanged = false;
+                    
+                    // Update sort order numbers
+                    $('#sortable-images .existing-image-item').each(function(index) {
+                        $(this).find('.text-muted small').html('<strong>Ordre:</strong> ' + index);
+                    });
+                    
+                    setTimeout(function() {
+                        $('#save-image-status').html('');
+                    }, 3000);
+                },
+                error: function(xhr) {
+                    $('#save-image-status').html('<span class="text-danger"><i class="fas fa-times"></i> Erreur lors de la sauvegarde</span>');
+                    console.error('Error:', xhr.responseText);
+                },
+                complete: function() {
+                    $('#save-image-order-btn').prop('disabled', false).html('<i class="fas fa-save"></i> Sauvegarder l\'ordre');
+                }
+            });
+        });
+    }
 });
 </script>
 @endpush

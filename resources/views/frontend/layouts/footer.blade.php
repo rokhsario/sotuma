@@ -72,7 +72,7 @@
 	    left: 0;
 	    width: 60px;
 	    height: 3px;
-	    background: linear-gradient(90deg, #ff6b35, #f7931e);
+	    background: linear-gradient(90deg, #FF0000, #CC0000);
 	    border-radius: 2px;
 	}
 
@@ -97,7 +97,7 @@
 	.stat-number {
 	    font-size: 2rem;
 	    font-weight: 700;
-	    color: #ff6b35;
+	    color: #FF0000;
 	    display: block;
 	    margin-bottom: 4px;
 	}
@@ -131,7 +131,7 @@
 	    left: 0;
 	    width: 40px;
 	    height: 2px;
-	    background: linear-gradient(90deg, #ff6b35, #f7931e);
+	    background: linear-gradient(90deg, #FF0000, #CC0000);
 	    border-radius: 1px;
 	}
 
@@ -164,7 +164,7 @@
 	    transform: translateY(-50%);
 	    width: 0;
 	    height: 2px;
-	    background: #ff6b35;
+	    background: #FF0000;
 	    transition: width 0.3s ease;
 	}
 
@@ -198,7 +198,7 @@
 	.contact-icon {
 	    width: 40px;
 	    height: 40px;
-	    background: linear-gradient(135deg, #ff6b35, #f7931e);
+	    background: linear-gradient(135deg, #FF0000, #CC0000);
 	    border-radius: 50%;
 	    display: flex;
 	    align-items: center;
@@ -234,7 +234,7 @@
 	}
 
 	.contact-value a:hover {
-	    color: #ff6b35;
+	    color: #FF0000;
 	}
 
 	.social-grid {
@@ -276,9 +276,9 @@
 	}
 
 	.social-item:hover {
-	    background: linear-gradient(135deg, #ff6b35, #f7931e);
+	    background: linear-gradient(135deg, #FF0000, #CC0000);
 	    transform: translateY(-3px);
-	    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+	    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
 	}
 
 	/* Social {{ __('frontend.media') }} Real Brand Colors */
@@ -376,7 +376,7 @@
 	}
 
 	.footer-legal a:hover {
-	    color: #ff6b35;
+	    color: #FF0000;
 	}
 
 	.back-to-top {
@@ -592,7 +592,7 @@
 	        <!-- Footer Bottom -->
 	        <div class="footer-bottom">
 	            <div class="footer-copyright">
-	                &copy; {{ date('Y') }} SOTUMA. {{ __('frontend.all_rights_reserved') }}. | Conçu avec <i class="fas fa-heart" style="color: #ff6b35;"></i> en Tunisie
+	                &copy; {{ date('Y') }} SOTUMA. {{ __('frontend.all_rights_reserved') }}. | Conçu avec <i class="fas fa-heart" style="color: #FF0000;"></i> en Tunisie
 	            </div>
 	            <div class="footer-legal">
 	                <a href="{{ route('about-us') }}">{{ __('frontend.about') }}</a>

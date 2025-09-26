@@ -27,7 +27,7 @@ class FrontendController extends Controller
         $posts=Post::where('status','active')->orderBy('id','DESC')->limit(3)->get();
         $products=Product::orderBy('id','DESC')->limit(8)->get();
         $category=Category::orderBy('sort_order','ASC')->orderBy('title','ASC')->get();
-        $projectCategories=\App\Models\ProjectCategory::orderBy('name','ASC')->get();
+        $projectCategories=\App\Models\ProjectCategory::orderBy('sort_order','ASC')->orderBy('name','ASC')->get();
         $settings=\DB::table('settings')->first();
         // return $category;
         return view('frontend.index')

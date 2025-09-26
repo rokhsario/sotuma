@@ -11,7 +11,7 @@ class ProjectCategoryController extends Controller
 {
     public function index()
     {
-        $categories = ProjectCategory::orderBy('id', 'desc')->paginate(10);
+        $categories = ProjectCategory::orderBy('sort_order')->orderBy('id', 'desc')->paginate(10);
         return view('backend.projectcategory.index', compact('categories'));
     }
 
@@ -26,6 +26,7 @@ class ProjectCategoryController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'sort_order' => 'nullable|integer|min:0',
         ]);
         
         // Generate slug from name
@@ -55,6 +56,7 @@ class ProjectCategoryController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'sort_order' => 'nullable|integer|min:0',
         ]);
         
         // Generate slug from name
@@ -88,5 +90,21 @@ class ProjectCategoryController extends Controller
         
         $category->delete();
         return redirect()->route('admin.projectcategory.index')->with('success', 'Catégorie de projet supprimée avec succès.');
+    }
+
+    public function updateOrder(Request $request)
+    {
+        $request->validate([
+            'categories' => 'required|array',
+            'categories.*.id' => 'required|integer|exists:project_categories,id',
+            'categories.*.sort_order' => 'required|integer|min:0',
+        ]);
+
+        foreach ($request->categories as $categoryData) {
+            ProjectCategory::where('id', $categoryData['id'])
+                ->update(['sort_order' => $categoryData['sort_order']]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Ordre des catégories mis à jour avec succès.']);
     }
 } 

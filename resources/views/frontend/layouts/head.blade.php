@@ -232,11 +232,32 @@
             overflow-y: auto !important;
             touch-action: pan-y !important;
             overscroll-behavior: none !important;
+            scroll-behavior: smooth !important;
+            -webkit-text-size-adjust: 100% !important;
+            -ms-text-size-adjust: 100% !important;
         }
         
         * {
             -webkit-overflow-scrolling: touch !important;
             touch-action: manipulation !important;
+        }
+        
+        /* Ensure all scrollable elements work smoothly */
+        .container, .row, .col, section, div {
+            -webkit-overflow-scrolling: touch !important;
+            scroll-behavior: smooth !important;
+        }
+        
+        /* Fix for any fixed positioned elements */
+        .fixed, [style*="position: fixed"] {
+            -webkit-transform: translateZ(0) !important;
+            transform: translateZ(0) !important;
+        }
+        
+        /* Prevent scroll blocking */
+        .modal, .popup, .overlay {
+            touch-action: pan-y !important;
+            -webkit-overflow-scrolling: touch !important;
         }
         
         /* Fix for mobile browsers */
@@ -785,11 +806,11 @@ body.sidebar-open {
     border-color: #0077b5;
 }
 
-/* Email - Red */
+/* Email - Purple */
 .social-icon a[href*="mailto"] {
-    background: #ea4335;
+    background: #8e44ad;
     color: #fff;
-    border-color: #ea4335;
+    border-color: #8e44ad;
 }
 
 /* WhatsApp - Green */
@@ -846,4 +867,259 @@ body.sidebar-open {
         height: 35px;
     }
 }
+
+/* SENIOR LEVEL DROPDOWN CAPITALIZATION FIX */
+/* This CSS will override ANY other CSS rules */
+.dropdown-item,
+.dropdown-menu a,
+.dropdown-menu .dropdown-item,
+.nav-item.dropdown .dropdown-menu a,
+.nav-item.dropdown .dropdown-menu .dropdown-item,
+.dropdown-menu a.dropdown-item,
+.dropdown-menu .dropdown-item a,
+.navbar .dropdown-item,
+.navbar .dropdown-menu a,
+.navbar .dropdown-menu .dropdown-item,
+.dropdown-item.text-uppercase,
+.dropdown-menu a.text-uppercase,
+.dropdown-menu .dropdown-item.text-uppercase,
+.navbar .dropdown-item.text-uppercase,
+.navbar .dropdown-menu a.text-uppercase,
+.navbar .dropdown-menu .dropdown-item.text-uppercase {
+    text-transform: capitalize !important;
+    font-variant: normal !important;
+    text-rendering: optimizeLegibility !important;
+}
+
+/* Override any global CSS that might be affecting dropdowns */
+*[class*="dropdown"] a,
+*[class*="dropdown"] .dropdown-item,
+.dropdown-menu *,
+.nav-item.dropdown * {
+    text-transform: capitalize !important;
+}
 </style>
+
+<script>
+// SENIOR LEVEL DROPDOWN CAPITALIZATION - ULTRA AGGRESSIVE
+(function() {
+    'use strict';
+    
+    function forceCapitalizeDropdowns() {
+        // Get ALL possible dropdown elements
+        const allSelectors = [
+            '.dropdown-item',
+            '.dropdown-menu a',
+            '.dropdown-menu .dropdown-item',
+            '.nav-item.dropdown .dropdown-menu a',
+            '.nav-item.dropdown .dropdown-menu .dropdown-item',
+            '.dropdown-menu a.dropdown-item',
+            '.dropdown-menu .dropdown-item a',
+            '.navbar .dropdown-item',
+            '.navbar .dropdown-menu a',
+            '.navbar .dropdown-menu .dropdown-item',
+            'a.dropdown-item',
+            '.dropdown-menu a.dropdown-item',
+            '.nav-item.dropdown a',
+            '.dropdown a'
+        ];
+        
+        allSelectors.forEach(function(selector) {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(function(element) {
+                if (element && element.textContent) {
+                    // Force the style with maximum priority
+                    element.style.setProperty('text-transform', 'capitalize', 'important');
+                    element.style.setProperty('font-variant', 'normal', 'important');
+                    element.style.setProperty('text-rendering', 'optimizeLegibility', 'important');
+                    
+                    // Also capitalize the text content programmatically
+                    const text = element.textContent.trim();
+                    if (text) {
+                        // First convert to lowercase, then capitalize first letter of each word
+                        const lowerText = text.toLowerCase();
+                        const capitalized = lowerText.replace(/\b\w/g, function(l) {
+                            return l.toUpperCase();
+                        });
+                        if (capitalized !== text) {
+                            element.textContent = capitalized;
+                        }
+                    }
+                }
+            });
+        });
+    }
+    
+    // Run immediately when script loads
+    forceCapitalizeDropdowns();
+    
+    // Run when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', forceCapitalizeDropdowns);
+    } else {
+        forceCapitalizeDropdowns();
+    }
+    
+    // Run after a delay to catch any dynamically loaded content
+    setTimeout(forceCapitalizeDropdowns, 100);
+    setTimeout(forceCapitalizeDropdowns, 500);
+    setTimeout(forceCapitalizeDropdowns, 1000);
+    setTimeout(forceCapitalizeDropdowns, 2000);
+    
+    // Run when dropdowns are opened/closed
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.dropdown') || e.target.closest('.nav-item')) {
+            setTimeout(forceCapitalizeDropdowns, 50);
+        }
+    });
+    
+    // Run when mouse hovers over dropdowns
+    document.addEventListener('mouseover', function(e) {
+        if (e.target.closest('.dropdown') || e.target.closest('.nav-item')) {
+            setTimeout(forceCapitalizeDropdowns, 10);
+        }
+    });
+    
+    // Run periodically to catch any changes
+    setInterval(forceCapitalizeDropdowns, 3000);
+    
+    // Run when window gains focus (in case of tab switching)
+    window.addEventListener('focus', forceCapitalizeDropdowns);
+    
+})();
+
+// ULTRA AGGRESSIVE DROPDOWN WIDTH OVERRIDE
+(function() {
+    function forceWideDropdowns() {
+        const dropdowns = document.querySelectorAll('.dropdown-menu, .dropdown-content');
+        dropdowns.forEach(dropdown => {
+            dropdown.style.minWidth = '500px !important';
+            dropdown.style.width = '500px !important';
+            dropdown.style.maxWidth = '500px !important';
+            dropdown.style.padding = '25px 0 !important';
+        });
+        
+        // Also target the links inside dropdown-content
+        const dropdownLinks = document.querySelectorAll('.dropdown-content a');
+        dropdownLinks.forEach(link => {
+            link.style.padding = '20px 40px !important';
+            link.style.display = 'block !important';
+            link.style.marginBottom = '12px !important';
+        });
+    }
+    
+    // Run immediately
+    forceWideDropdowns();
+    
+    // Run on DOM changes
+    const observer = new MutationObserver(forceWideDropdowns);
+    observer.observe(document.body, { childList: true, subtree: true });
+    
+    // Run on hover
+    document.addEventListener('mouseover', function(e) {
+        if (e.target.closest('.dropdown') || e.target.closest('.nav-item')) {
+            setTimeout(forceWideDropdowns, 10);
+        }
+    });
+    
+    // Run periodically
+    setInterval(forceWideDropdowns, 1000);
+})();
+
+</script>
+
+<style>
+/* ULTRA AGGRESSIVE DROPDOWN WIDTH OVERRIDE */
+.dropdown-menu,
+.dropdown-content {
+    min-width: 500px !important;
+    width: 500px !important;
+    max-width: 500px !important;
+}
+
+.nav-item.dropdown .dropdown-menu,
+.dropdown .dropdown-content {
+    min-width: 500px !important;
+    width: 500px !important;
+    max-width: 500px !important;
+}
+
+.dropdown-menu[aria-labelledby="projectsDropdown"],
+.dropdown-menu[aria-labelledby="productsDropdown"],
+.dropdown-content {
+    min-width: 500px !important;
+    width: 500px !important;
+    max-width: 500px !important;
+}
+
+/* TARGET THE ACTUAL RENDERED CLASSES */
+.dropdown .dropdown-content {
+    min-width: 500px !important;
+    width: 500px !important;
+    max-width: 500px !important;
+    padding: 25px 0 !important;
+}
+
+/* ENHANCED DROPDOWN ANIMATION */
+.dropdown-content a {
+    padding: 20px 40px !important;
+    display: block !important;
+    margin-bottom: 12px !important;
+    position: relative !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    border-left: 4px solid transparent !important;
+    overflow: hidden !important;
+}
+
+.dropdown-content a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(220, 53, 69, 0.1), transparent);
+    transition: left 0.6s ease;
+    z-index: 0;
+}
+
+.dropdown-content a:hover {
+    background: linear-gradient(90deg, #dc3545 0%, #dc3545 8px, rgba(220, 53, 69, 0.05) 8px) !important;
+    border-left: 8px solid #dc3545 !important;
+    border-right: 8px solid #dc3545 !important;
+    margin-right: 8px !important;
+    transform: translateX(8px) scale(1.02) !important;
+    color: #dc3545 !important;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.2) !important;
+}
+
+.dropdown-content a:hover::before {
+    left: 100%;
+}
+
+</style>
+
+<script>
+// FINAL CAPITALIZATION FIX
+document.addEventListener('DOMContentLoaded', function() {
+    function fixAllText() {
+        // Fix all dropdown content
+        const allLinks = document.querySelectorAll('.dropdown-content a, .dropdown-item, .mobile-dropdown-link');
+        allLinks.forEach(function(link) {
+            const text = link.textContent.trim();
+            if (text && text !== 'Tous' && text !== 'All' && /[a-z].*[A-Z]|[A-Z].*[a-z]/.test(text)) {
+                const words = text.split(' ');
+                const fixed = words.map(word => {
+                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                }).join(' ');
+                link.textContent = fixed;
+            }
+        });
+    }
+    
+    // Run multiple times to be sure
+    setTimeout(fixAllText, 100);
+    setTimeout(fixAllText, 500);
+});
+</script>
+

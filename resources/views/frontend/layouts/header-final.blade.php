@@ -14,7 +14,7 @@
             <li><a href="{{ route('about-us') }}">{{ __('frontend.about') }}</a></li>
             <li><a href="{{ route('media') }}">{{ __('frontend.media') }}</a></li>
             <li class="dropdown">
-                <a href="{{ route('project-categories.index') }}">{{ __('frontend.projects') }} ▼</a>
+                <a href="{{ route('project-categories.index') }}">{{ strtoupper(__('frontend.projects')) }} ▼</a>
                 <div class="dropdown-content">
                     <a href="{{ route('project-categories.index') }}">{{ __('frontend.all') }}</a>
                     @foreach(\App\Models\ProjectCategory::orderBy('name','ASC')->get() as $cat)
@@ -23,7 +23,7 @@
                 </div>
             </li>
             <li class="dropdown">
-                <a href="{{ route('categories.index') }}">{{ __('frontend.products') }} ▼</a>
+                <a href="{{ route('categories.index') }}">{{ strtoupper(__('frontend.products')) }} ▼</a>
                 <div class="dropdown-content">
                     <a href="{{ route('categories.index') }}">{{ __('frontend.all') }}</a>
                     @foreach(\App\Models\Category::whereNull('parent_id')->orderBy('sort_order','ASC')->orderBy('title','ASC')->get() as $cat)
@@ -297,7 +297,7 @@
     color: #333;
     text-decoration: none;
     font-weight: 600;
-    text-transform: uppercase;
+    text-transform: uppercase !important;
     font-size: 1.1rem;
     letter-spacing: 1px;
     padding: 12px 16px;
@@ -306,6 +306,34 @@
 
 .nav-menu a:hover {
     color: #666;
+}
+
+/* FORCE UPPERCASE FOR ALL DESKTOP NAVIGATION */
+.nav-menu a,
+.nav-menu a span,
+.nav-menu a *,
+.dropdown a,
+.dropdown button,
+.dropdown span,
+.dropdown * {
+    text-transform: uppercase !important;
+}
+
+/* ULTRA SPECIFIC DROPDOWN UPPERCASE */
+li.dropdown a,
+li.dropdown button,
+li.dropdown span,
+li.dropdown div,
+.dropdown-content,
+.dropdown-menu {
+    text-transform: uppercase !important;
+}
+
+li.dropdown a *,
+li.dropdown button *,
+li.dropdown span *,
+li.dropdown div * {
+    text-transform: uppercase !important;
 }
 
 /* Dropdown */
@@ -679,8 +707,8 @@
     justify-content: space-between;
     padding: 1rem 2rem;
     color: #333;
-    font-weight: 600;
-    font-size: 1.1rem;
+    font-weight: normal;
+    font-size: 1.625rem;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-left: 4px solid transparent;
@@ -747,14 +775,22 @@
     padding: 0.75rem 1.5rem;
     color: #555;
     text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
+    font-weight: normal !important;
+    font-size: 1.8rem !important;
     transition: all 0.3s ease;
     border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .mobile-dropdown-link:last-child {
     border-bottom: none;
+}
+
+/* ULTRA AGGRESSIVE MOBILE DROPDOWN FONT SIZE */
+.mobile-dropdown-menu .mobile-dropdown-link,
+.mobile-dropdown-menu a.mobile-dropdown-link,
+a.mobile-dropdown-link {
+    font-size: 1.8rem !important;
+    font-weight: normal !important;
 }
 
 .mobile-dropdown-link:hover {

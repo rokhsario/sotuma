@@ -55,7 +55,7 @@
 					<i class="fab fa-linkedin-in"></i>
 				</a>
 			</div>
-			<div class="social-icon">
+			<div class="social-icon email-icon">
 				<a href="mailto:anis.fakhfakh@yahoo.fr" title="Email">
 					<i class="fas fa-envelope"></i>
 				</a>

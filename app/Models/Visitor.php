@@ -186,4 +186,16 @@ class Visitor extends Model
         }
         return $data;
     }
+
+    // Get all-time unique visitors (total unique visitors ever)
+    public static function getAllTimeUniqueVisitors()
+    {
+        return self::where('is_unique', true)->count();
+    }
+
+    // Get all-time total visits (all page views ever)
+    public static function getAllTimeTotalVisits()
+    {
+        return self::count();
+    }
 }

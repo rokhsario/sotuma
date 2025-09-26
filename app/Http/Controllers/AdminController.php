@@ -31,6 +31,8 @@ class AdminController extends Controller
          'today_unique_visitors' => \App\Models\Visitor::getTodayUniqueVisitors(),
          'this_week_visits' => \App\Models\Visitor::getThisWeekVisitors(),
          'this_month_visits' => \App\Models\Visitor::getThisMonthVisitors(),
+         'all_time_unique_visitors' => \App\Models\Visitor::getAllTimeUniqueVisitors(),
+         'all_time_total_visits' => \App\Models\Visitor::getAllTimeTotalVisits(),
          'last_7_days' => \App\Models\Visitor::getLast7DaysVisitors()
      ];
      

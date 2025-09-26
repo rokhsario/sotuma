@@ -97,6 +97,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('projectcategory', App\Http\Controllers\Admin\ProjectCategoryController::class);
     Route::delete('projects/images/{image}', [App\Http\Controllers\Admin\ProjectController::class, 'destroyImage'])->name('projects.images.destroy');
     Route::patch('projects/{project}/images/{image}/set-main', [App\Http\Controllers\Admin\ProjectController::class, 'setMainImage'])->name('projects.images.set-main');
+    
+    // Ordering routes
+    Route::post('projectcategory/update-order', [App\Http\Controllers\Admin\ProjectCategoryController::class, 'updateOrder'])->name('projectcategory.update-order');
+    Route::post('projects/update-order', [App\Http\Controllers\Admin\ProjectController::class, 'updateOrder'])->name('projects.update-order');
+    Route::post('projects/{project}/images/update-order', [App\Http\Controllers\Admin\ProjectController::class, 'updateImageOrder'])->name('projects.images.update-order');
 });
 
 // Backend section start

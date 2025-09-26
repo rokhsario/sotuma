@@ -98,6 +98,45 @@
         </div>
     </div>
 
+    <!-- All-Time Statistics Row -->
+    <div class="row">
+        <!-- All-Time Unique Visitors -->
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Visiteurs Uniques (Tous Temps)</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="allTimeUnique">{{ $all_time_unique_visitors }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-globe fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- All-Time Total Visits -->
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-dark shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                                Total Visites (Tous Temps)</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="allTimeTotal">{{ $all_time_total_visits }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-chart-line fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Charts Row -->
     <div class="row">
         <!-- Visitors Chart -->

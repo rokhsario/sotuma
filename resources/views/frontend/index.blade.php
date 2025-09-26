@@ -4,7 +4,7 @@
 <!-- Enhanced Hero Section with Video Background -->
 <section class="hero-video-section position-relative" style="min-height:100vh;overflow:hidden;">
     <!-- Slogan in Top Left Corner - Outside Container -->
-    <div class="hero-slogan position-absolute" style="top:40px;left:0;z-index:10;color:#fff;text-align:left;padding-left:80px;">
+    <div class="hero-slogan position-absolute" style="top:40px;left:0;z-index:10;color:#fff;text-align:left;padding-left:120px;">
         <div class="slogan-text" style="font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;color:#fff;text-shadow:0 4px 16px rgba(0,0,0,0.8);letter-spacing:2px;line-height:1.4;max-width:700px;text-align:justify;word-spacing:0.3em;">
             @if($settings && $settings->hero_slogan)
                 @php
@@ -31,10 +31,13 @@
     </div>
     
     <!-- Video Background -->
-    <video class="hero-bg-video" autoplay loop muted playsinline style="object-fit:cover;width:100vw;height:100vh;position:absolute;top:0;left:0;z-index:1;">
+    <video class="hero-bg-video" autoplay loop muted playsinline preload="auto" style="object-fit:cover;width:100vw;height:100vh;position:absolute;top:0;left:0;z-index:1;">
         <source src="{{ asset('images/video1.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+    
+    <!-- Background Image Placeholder -->
+    <div class="hero-bg-image" style="background-image: url('{{ asset('images/img55.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat; width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; z-index: 0;"></div>
     
     <!-- Main Content -->
     <div class="container h-100 d-flex flex-column justify-content-center align-items-center position-relative" style="z-index:3;min-height:100vh;">
@@ -48,6 +51,53 @@
         <style>
             html {
                 scroll-behavior: smooth;
+            }
+            
+            /* ===== HERO VIDEO OPTIMIZATION ===== */
+            .hero-bg-video {
+                /* Ensure video loads immediately */
+                will-change: transform;
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+                /* Force hardware acceleration */
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+                /* Optimize for immediate display */
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+            
+            /* ===== MOBILE SCROLL OPTIMIZATION ===== */
+            @media (max-width: 768px) {
+                /* Ensure smooth mobile scrolling without browser settings */
+                html, body {
+                    -webkit-overflow-scrolling: touch !important;
+                    scroll-behavior: smooth !important;
+                    touch-action: pan-y !important;
+                    overscroll-behavior: none !important;
+                    -webkit-text-size-adjust: 100% !important;
+                    -ms-text-size-adjust: 100% !important;
+                }
+                
+                /* Optimize all scrollable containers */
+                .container, .row, .col, section, div, main, article {
+                    -webkit-overflow-scrolling: touch !important;
+                    scroll-behavior: smooth !important;
+                }
+                
+                /* Fix for any elements that might block scrolling */
+                .hero-video-section, .projects-categories-section, .products-section {
+                    -webkit-overflow-scrolling: touch !important;
+                    touch-action: pan-y !important;
+                }
+                
+                /* Ensure modals and overlays don't block scroll */
+                .modal, .popup, .overlay, [style*="position: fixed"] {
+                    touch-action: pan-y !important;
+                    -webkit-overflow-scrolling: touch !important;
+                }
             }
             
             .hero-btn-box {
@@ -176,150 +226,6 @@
             }
         </style>
 </section>
-
-<!-- Partners Slider Section -->
-<section class="partners-slider-section">
-    <div class="partners-slider-container">
-        <div class="partners-slider-track">
-            <!-- First set of images -->
-            <div class="partner-slide">
-                <img src="{{ asset('images/par1.png') }}" alt="Partenaire 1" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par2.png') }}" alt="Partenaire 2" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par3.jpg') }}" alt="Partenaire 3" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par4.jpg') }}" alt="Partenaire 4" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par5.png') }}" alt="Partenaire 5" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par6.jpg') }}" alt="Partenaire 6" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par7.png') }}" alt="Partenaire 7" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par8.jpg') }}" alt="Partenaire 8" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par9.jpg') }}" alt="Partenaire 9" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par10.jpg') }}" alt="Partenaire 10" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par11.jpg') }}" alt="Partenaire 11" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par12.jpg') }}" alt="Partenaire 12" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par13.jpg') }}" alt="Partenaire 13" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par14.jpg') }}" alt="Partenaire 14" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par15.jpg') }}" alt="Partenaire 15" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par16.jpg') }}" alt="Partenaire 16" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par17.jpg') }}" alt="Partenaire 17" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par18.jpg') }}" alt="Partenaire 18" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par19.jpg') }}" alt="Partenaire 19" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par20.jpg') }}" alt="Partenaire 20" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par21.jpg') }}" alt="Partenaire 21" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par22.jpg') }}" alt="Partenaire 22" class="partner-image">
-            </div>
-            
-            <!-- Duplicate images for seamless loop -->
-            <div class="partner-slide">
-                <img src="{{ asset('images/par1.png') }}" alt="Partenaire 1" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par2.png') }}" alt="Partenaire 2" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par3.jpg') }}" alt="Partenaire 3" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par4.jpg') }}" alt="Partenaire 4" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par5.png') }}" alt="Partenaire 5" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par6.jpg') }}" alt="Partenaire 6" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par7.png') }}" alt="Partenaire 7" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par8.jpg') }}" alt="Partenaire 8" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par9.jpg') }}" alt="Partenaire 9" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par10.jpg') }}" alt="Partenaire 10" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par11.jpg') }}" alt="Partenaire 11" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par12.jpg') }}" alt="Partenaire 12" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par13.jpg') }}" alt="Partenaire 13" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par14.jpg') }}" alt="Partenaire 14" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par15.jpg') }}" alt="Partenaire 15" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par16.jpg') }}" alt="Partenaire 16" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par17.jpg') }}" alt="Partenaire 17" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par18.jpg') }}" alt="Partenaire 18" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par19.jpg') }}" alt="Partenaire 19" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par20.jpg') }}" alt="Partenaire 20" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par21.jpg') }}" alt="Partenaire 21" class="partner-image">
-            </div>
-            <div class="partner-slide">
-                <img src="{{ asset('images/par22.jpg') }}" alt="Partenaire 22" class="partner-image">
-            </div>
-        </div>
-    </div>
-</section>
-
 <style>
 /* Premium Aluprof-Style Offer Grid - Google Senior Developer Level */
 .offer-grid-section {
@@ -973,20 +879,32 @@
     letter-spacing: 0.5px;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    height: 2.4rem;
+    height: 3rem !important;
+    min-height: 3rem !important;
+    max-height: 3rem !important;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .projects-categories-card:hover .projects-categories-title {
     font-size: 1.3rem;
     margin-bottom: 8px;
     text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-    height: 2.4rem;
+    height: 3rem !important;
+    min-height: 3rem !important;
+    max-height: 3rem !important;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .projects-categories-description {
@@ -1109,10 +1027,22 @@
     
     .projects-categories-title {
         font-size: 1rem;
+        height: 2.5rem !important;
+        min-height: 2.5rem !important;
+        max-height: 2.5rem !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     
     .projects-categories-card:hover .projects-categories-title {
         font-size: 1.2rem;
+        height: 2.5rem !important;
+        min-height: 2.5rem !important;
+        max-height: 2.5rem !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     
     .projects-categories-description {
@@ -1159,10 +1089,22 @@
     
     .projects-categories-title {
         font-size: 0.9rem;
+        height: 2.2rem !important;
+        min-height: 2.2rem !important;
+        max-height: 2.2rem !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     
     .projects-categories-card:hover .projects-categories-title {
         font-size: 1.1rem;
+        height: 2.2rem !important;
+        min-height: 2.2rem !important;
+        max-height: 2.2rem !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     
     .projects-categories-description {
@@ -1577,7 +1519,7 @@
 }
 
 .premium-process-badge-text {
-    background: linear-gradient(135deg, #820403, #f7c948);
+    background: linear-gradient(135deg, #820403, #FF0000);
     color: white;
     padding: 12px 24px;
     border-radius: 50px;
@@ -1620,18 +1562,18 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #f7c948, #820403);
+    background: linear-gradient(90deg, #FF0000, #820403);
     z-index: 1;
     animation: flowLine 3s ease-in-out infinite;
 }
 
 @keyframes flowLine {
     0%, 100% { 
-        background: linear-gradient(90deg, #f7c948, #820403);
-        box-shadow: 0 0 20px rgba(247, 201, 72, 0.3);
+        background: linear-gradient(90deg, #FF0000, #820403);
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
     }
     50% { 
-        background: linear-gradient(90deg, #820403, #f7c948);
+        background: linear-gradient(90deg, #820403, #FF0000);
         box-shadow: 0 0 30px rgba(130, 4, 3, 0.4);
     }
 }
@@ -1655,7 +1597,7 @@
     width: 140px;
     height: 140px;
     background: linear-gradient(135deg, #fff, #f8f9fa);
-    border: 4px solid #f7c948;
+    border: 4px solid #FF0000;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1696,7 +1638,7 @@
     position: absolute;
     top: -10px;
     left: -10px;
-    background: #f7c948;
+    background: #FF0000;
     color: #1a1a1a;
     width: 30px;
     height: 30px;
@@ -1710,12 +1652,12 @@
 
 .premium-process-icon i {
     font-size: 2rem;
-    color: #f7c948;
+    color: #FF0000;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .premium-process-icon:hover i {
-    color: #f7c948;
+    color: #FF0000;
     transform: scale(1.2);
 }
 
@@ -1755,7 +1697,7 @@
 }
 
 .premium-process-feature:hover {
-    color: #f7c948;
+    color: #FF0000;
     transform: translateX(5px);
 }
 
@@ -1766,7 +1708,7 @@
 }
 
 .premium-process-feature:hover i {
-    color: #f7c948;
+    color: #FF0000;
     transform: scale(1.2);
 }
 
@@ -1837,7 +1779,7 @@
 }
 
 .premium-process-cta-btn {
-    background: linear-gradient(135deg, #f7c948, #820403);
+    background: linear-gradient(135deg, #FF0000, #820403);
     color: white;
     padding: 16px 32px;
     border-radius: 50px;
@@ -1845,7 +1787,7 @@
     font-weight: 700;
     font-size: 1.1rem;
     letter-spacing: 0.5px;
-    border: 2px solid #d4a574;
+    border: 2px solid #FF0000;
     display: inline-block;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 8px 30px rgba(212, 165, 116, 0.3);
@@ -2189,7 +2131,7 @@
 }
 
 .premium-service-features li:hover {
-    color: #c49464;
+    color: #CC0000;
     transform: translateX(5px);
 }
 
@@ -2201,7 +2143,7 @@
 }
 
 .premium-service-features li:hover i {
-    color: #d4a574;
+    color: #FF0000;
     transform: scale(1.2);
 }
 
@@ -2215,14 +2157,14 @@
 
 .premium-service-btn {
     background: linear-gradient(135deg, #1a1a1a, #333);
-    color: #d4a574;
+    color: #FF0000;
     padding: 12px 20px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
     letter-spacing: 0.5px;
-    border: 2px solid #d4a574;
+    border: 2px solid #FF0000;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -2241,7 +2183,7 @@
 }
 
 .premium-service-btn:hover {
-    background: linear-gradient(135deg, #d4a574, #c49464);
+    background: linear-gradient(135deg, #FF0000, #CC0000);
     color: white;
     transform: translateY(-2px);
     text-decoration: none;
@@ -2261,7 +2203,7 @@
     display: block;
     font-size: 1.1rem;
     font-weight: 700;
-    color: #d4a574;
+    color: #FF0000;
     line-height: 1;
 }
 
@@ -2343,31 +2285,31 @@
 }
 
 .premium-services-cta-btn.primary {
-    background: linear-gradient(135deg, #d4a574, #c49464);
+    background: linear-gradient(135deg, #FF0000, #CC0000);
     color: white;
-    border-color: #d4a574;
-    box-shadow: 0 8px 30px rgba(212, 165, 116, 0.3);
+    border-color: #FF0000;
+    box-shadow: 0 8px 30px rgba(255, 0, 0, 0.3);
 }
 
 .premium-services-cta-btn.primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(212, 165, 116, 0.4);
+    box-shadow: 0 12px 40px rgba(255, 0, 0, 0.4);
     color: white;
     text-decoration: none;
 }
 
 .premium-services-cta-btn.secondary {
     background: transparent;
-    color: #c49464;
-    border-color: #c49464;
-    box-shadow: 0 8px 30px rgba(196, 148, 100, 0.1);
+    color: #CC0000;
+    border-color: #CC0000;
+    box-shadow: 0 8px 30px rgba(204, 0, 0, 0.1);
 }
 
 .premium-services-cta-btn.secondary:hover {
-    background: #c49464;
+    background: #CC0000;
     color: white;
     transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(196, 148, 100, 0.2);
+    box-shadow: 0 12px 40px rgba(204, 0, 0, 0.2);
     text-decoration: none;
 }
 
@@ -2522,7 +2464,7 @@
 
 .premium-certificate-card {
     background: linear-gradient(135deg, #fff, #fffbe6);
-    border: 3px solid #d4a574;
+    border: 3px solid #FF0000;
     border-radius: 24px;
     padding: 50px 40px;
     box-shadow: 0 20px 60px rgba(212, 165, 116, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -2556,8 +2498,8 @@
 
 .premium-certificate-card:hover {
     transform: translateY(-15px) rotateX(3deg) scale(1.02);
-    box-shadow: 0 30px 80px rgba(212, 165, 116, 0.25), 0 15px 40px rgba(196, 148, 100, 0.1);
-    border-color: #c49464;
+    box-shadow: 0 30px 80px rgba(255, 0, 0, 0.25), 0 15px 40px rgba(204, 0, 0, 0.1);
+    border-color: #CC0000;
     animation: pulseGlow 3s ease-in-out infinite;
 }
 
@@ -2792,61 +2734,61 @@
     background: linear-gradient(135deg, #c49464, #dbb894);
 }
 
-/* Left Certificate Card - Blue Theme */
+/* Left Certificate Card - YouTube Red Theme */
 .premium-certificate-card:nth-child(1) {
-    border: 3px solid #4a90e2;
-    box-shadow: 0 20px 60px rgba(74, 144, 226, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 3px solid #FF0000;
+    box-shadow: 0 20px 60px rgba(255, 0, 0, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .premium-certificate-card:nth-child(1) .premium-certificate-badge {
-    background: linear-gradient(135deg, #4a90e2, #6bb6ff);
+    background: linear-gradient(135deg, #FF0000, #CC0000);
 }
 
 .premium-certificate-card:nth-child(1) .premium-certificate-feature:hover i {
-    color: #4a90e2;
+    color: #FF0000;
 }
 
 .premium-certificate-card:nth-child(1) .premium-certificate-meta-item i {
-    color: #4a90e2;
+    color: #FF0000;
 }
 
-/* Right Certificate Card - Gold Theme */
+/* Right Certificate Card - YouTube Red Theme */
 .premium-certificate-card:nth-child(2) {
-    border: 3px solid #f7c948;
-    box-shadow: 0 20px 60px rgba(247, 201, 72, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 3px solid #FF0000;
+    box-shadow: 0 20px 60px rgba(255, 0, 0, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .premium-certificate-card:nth-child(2) .premium-certificate-badge {
-    background: linear-gradient(135deg, #f7c948, #fffbe6);
+    background: linear-gradient(135deg, #FF0000, #CC0000);
     color: #820403;
 }
 
 .premium-certificate-card:nth-child(2) .premium-certificate-feature:hover i {
-    color: #f7c948;
+    color: #FF0000;
 }
 
 .premium-certificate-card:nth-child(2) .premium-certificate-meta-item i {
-    color: #f7c948;
+    color: #FF0000;
 }
 
-/* Card Hover Effects - Blue Theme for Left Card */
+/* Card Hover Effects - YouTube Red Theme for Left Card */
 .premium-certificate-card:nth-child(1):hover {
     transform: translateY(-15px) rotateX(3deg) scale(1.02);
-    box-shadow: 0 30px 80px rgba(74, 144, 226, 0.25), 0 15px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 30px 80px rgba(255, 0, 0, 0.25), 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
 .premium-certificate-card:nth-child(1)::before {
-    background: linear-gradient(135deg, rgba(74, 144, 226, 0.05), rgba(107, 182, 255, 0.05));
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.05), rgba(204, 0, 0, 0.05));
 }
 
-/* Card Hover Effects - Gold Theme for Right Card */
+/* Card Hover Effects - YouTube Red Theme for Right Card */
 .premium-certificate-card:nth-child(2):hover {
     transform: translateY(-15px) rotateX(3deg) scale(1.02);
-    box-shadow: 0 30px 80px rgba(247, 201, 72, 0.25), 0 15px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 30px 80px rgba(255, 0, 0, 0.25), 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
 .premium-certificate-card:nth-child(2)::before {
-    background: linear-gradient(135deg, rgba(247, 201, 72, 0.05), rgba(255, 251, 230, 0.05));
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.05), rgba(204, 0, 0, 0.05));
 }
 
 /* Responsive Design for Certificates Section */
@@ -2884,218 +2826,6 @@
     }
 }
 
-/* Premium Reviews Section - God Level CSS */
-.premium-reviews-section {
-    background: linear-gradient(135deg, #fff 0%, #f8f5f0 50%, #fafafa 100%);
-    padding: 140px 0;
-    position: relative;
-    overflow: hidden;
-    box-shadow: inset 0 -10px 30px rgba(0, 0, 0, 0.05);
-}
-
-.premium-reviews-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(circle at 40% 60%, rgba(212, 165, 116, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 60% 40%, rgba(196, 148, 100, 0.03) 0%, transparent 50%);
-    pointer-events: none;
-}
-
-.premium-reviews-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 80px;
-}
-
-.premium-reviews-header {
-    text-align: center;
-    margin-bottom: 80px;
-}
-
-.premium-reviews-badge {
-    margin-bottom: 24px;
-}
-
-.premium-reviews-badge-text {
-    background: linear-gradient(135deg, #d4a574, #c49464);
-    color: white;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    display: inline-block;
-}
-
-.premium-reviews-title {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-weight: 800;
-    color: #1a1a1a;
-    margin: 0 0 16px 0;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-}
-
-.premium-reviews-subtitle {
-    font-size: 1.25rem;
-    color: #666;
-    margin: 0;
-    font-weight: 400;
-    line-height: 1.5;
-}
-
-.premium-reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-}
-
-.premium-review-card {
-    background: linear-gradient(135deg, #fff, #fafafa);
-    border-radius: 24px;
-    padding: 50px 40px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), 0 10px 30px rgba(212, 165, 116, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    border: 1px solid rgba(212, 165, 116, 0.1);
-}
-
-.premium-review-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, transparent 0%, rgba(212, 165, 116, 0.05) 50%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 1;
-}
-
-.premium-review-card:hover::before {
-    opacity: 1;
-}
-
-.premium-review-card:hover {
-    transform: translateY(-15px) rotateX(3deg) scale(1.02);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15), 0 15px 40px rgba(212, 165, 116, 0.2);
-    border-color: rgba(212, 165, 116, 0.3);
-}
-
-.premium-review-card::before {
-    content: '"';
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 4rem;
-    color: #d4a574;
-    opacity: 0.1;
-    font-family: serif;
-}
-
-.premium-review-stars {
-    color: #d4a574;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 4px;
-    z-index: 2;
-    position: relative;
-}
-
-.premium-review-stars i {
-    transition: all 0.3s ease;
-    animation: starTwinkle 2s ease-in-out infinite;
-}
-
-.premium-review-stars i:nth-child(1) { animation-delay: 0s; }
-.premium-review-stars i:nth-child(2) { animation-delay: 0.2s; }
-.premium-review-stars i:nth-child(3) { animation-delay: 0.4s; }
-.premium-review-stars i:nth-child(4) { animation-delay: 0.6s; }
-.premium-review-stars i:nth-child(5) { animation-delay: 0.8s; }
-
-@keyframes starTwinkle {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.1); opacity: 0.8; }
-}
-
-.premium-review-text {
-    font-size: 1.1rem;
-    color: #555;
-    line-height: 1.6;
-    margin: 0 0 24px 0;
-    font-style: italic;
-}
-
-.premium-review-author {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-}
-
-.premium-review-avatar {
-    width: 50px;
-    height: 50px;
-    background: #d4a574;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 20px rgba(212, 165, 116, 0.3);
-}
-
-.premium-review-name {
-    font-weight: 700;
-    color: #1a1a1a;
-    font-size: 1.1rem;
-}
-
-/* Responsive Design for Reviews Section */
-@media (max-width: 1200px) {
-    .premium-reviews-container {
-        padding: 0 40px;
-    }
-    
-    .premium-reviews-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
-    }
-}
-
-@media (max-width: 768px) {
-    .premium-reviews-section {
-        padding: 80px 0;
-    }
-    
-    .premium-reviews-container {
-        padding: 0 20px;
-    }
-    
-    .premium-reviews-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    
-    .premium-review-card {
-        padding: 30px 20px;
-    }
-}
 
 /* Premium Contact Section - God Level CSS */
 .premium-contact-section {
@@ -3210,13 +2940,13 @@
 .premium-contact-icon {
     width: 100px;
     height: 100px;
-    background: linear-gradient(135deg, #d4a574, #c49464);
+    background: linear-gradient(135deg, #FF0000, #CC0000);
     border-radius: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 24px;
-    box-shadow: 0 12px 40px rgba(212, 165, 116, 0.3);
+    box-shadow: 0 12px 40px rgba(255, 0, 0, 0.3);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -3241,7 +2971,7 @@
 
 .premium-contact-card:hover .premium-contact-icon {
     transform: scale(1.1);
-    box-shadow: 0 12px 40px rgba(212, 165, 116, 0.4);
+    box-shadow: 0 12px 40px rgba(255, 0, 0, 0.4);
 }
 
 .premium-contact-icon i {
@@ -3265,14 +2995,14 @@
 }
 
 .premium-contact-card-text a {
-    color: #c49464;
+    color: #CC0000;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 
 .premium-contact-card-text a:hover {
-    color: #d4a574;
+    color: #FF0000;
 }
 
 .premium-contact-card-subtext {
@@ -3302,7 +3032,7 @@
 }
 
 .premium-contact-feature:hover {
-    color: #c49464;
+    color: #CC0000;
     transform: translateX(5px);
 }
 
@@ -3313,20 +3043,20 @@
 }
 
 .premium-contact-feature:hover i {
-    color: #d4a574;
+    color: #FF0000;
     transform: scale(1.2);
 }
 
 .premium-contact-card-btn {
     background: linear-gradient(135deg, #1a1a1a, #333);
-    color: #d4a574;
+    color: #FF0000;
     padding: 14px 28px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
     letter-spacing: 0.5px;
-    border: 2px solid #d4a574;
+    border: 2px solid #FF0000;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -3353,7 +3083,7 @@
 }
 
 .premium-contact-card-btn:hover {
-    background: linear-gradient(135deg, #d4a574, #c49464);
+    background: linear-gradient(135deg, #FF0000, #CC0000);
     color: white;
     transform: translateY(-2px);
     text-decoration: none;
@@ -3823,7 +3553,6 @@
         @endforeach
     </div>
 </section>
-
 <!-- Premium Partners Section - Big Grid with Images Only -->
 <section class="premium-partners-section" id="partenaires">
     <div class="premium-partners-container">
@@ -4167,77 +3896,6 @@
     </div>
 </section>
 
-<!-- Premium Reviews Section - God Level Design -->
-<section class="premium-reviews-section">
-    <div class="premium-reviews-container">
-        <div class="premium-reviews-header">
-            <h2 class="premium-reviews-title">{{ __('frontend.what_our_clients_say') }}</h2>
-            <p class="premium-reviews-subtitle">{{ __('frontend.client_satisfaction_proud') }}</p>
-        </div>
-        
-        <div class="premium-reviews-grid">
-            <div class="premium-review-card">
-                <div class="premium-review-stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <p class="premium-review-text">{{ __('frontend.review_1') }}</p>
-                <div class="premium-review-author">
-                    <div class="premium-review-avatar">M</div>
-                    <span class="premium-review-name">Med Ali</span>
-                </div>
-            </div>
-            
-            <div class="premium-review-card">
-                <div class="premium-review-stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="premium-review-text">{{ __('frontend.review_2') }}</p>
-                <div class="premium-review-author">
-                    <div class="premium-review-avatar">A</div>
-                    <span class="premium-review-name">Ahmed</span>
-                </div>
-            </div>
-            
-            <div class="premium-review-card">
-                <div class="premium-review-stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="premium-review-text">{{ __('frontend.review_3') }}</p>
-                <div class="premium-review-author">
-                    <div class="premium-review-avatar">A</div>
-                    <span class="premium-review-name">Anis</span>
-                </div>
-            </div>
-            
-            <div class="premium-review-card">
-                <div class="premium-review-stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="premium-review-text">{{ __('frontend.review_4') }}</p>
-                <div class="premium-review-author">
-                    <div class="premium-review-avatar">H</div>
-                    <span class="premium-review-name">Hatem</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 
 <!-- Premium CTA Section - God Level Design -->
@@ -4326,6 +3984,57 @@
 <script>
 // Advanced Scroll Animations and Micro-interactions
 document.addEventListener('DOMContentLoaded', function() {
+    // Hero video optimization for instant playback
+    const heroVideo = document.querySelector('.hero-bg-video');
+    if (heroVideo) {
+        // Force video to start playing immediately
+        heroVideo.load(); // Reload the video to ensure it's ready
+        
+        // Ensure autoplay works on all devices
+        const playPromise = heroVideo.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                console.log('Hero video started playing');
+            }).catch(error => {
+                console.log('Autoplay prevented, trying to play manually:', error);
+                // If autoplay fails, try to play on first user interaction
+                document.addEventListener('click', function playVideo() {
+                    heroVideo.play();
+                    document.removeEventListener('click', playVideo);
+                }, {once: true});
+            });
+        }
+        
+        // Ensure video is ready and playing
+        heroVideo.addEventListener('loadeddata', function() {
+            this.play().catch(e => console.log('Video play failed:', e));
+        });
+        
+        // Fallback: try to play on page load
+        window.addEventListener('load', function() {
+            heroVideo.play().catch(e => console.log('Video play on load failed:', e));
+        });
+    }
+    
+    // Mobile scroll optimization
+    if (window.innerWidth <= 768) {
+        // Enable smooth scrolling for mobile
+        document.documentElement.style.scrollBehavior = 'smooth';
+        document.body.style.scrollBehavior = 'smooth';
+        
+        // Optimize touch scrolling
+        document.addEventListener('touchstart', function() {}, {passive: true});
+        document.addEventListener('touchmove', function() {}, {passive: true});
+        document.addEventListener('touchend', function() {}, {passive: true});
+        
+        // Prevent scroll blocking
+        document.addEventListener('touchmove', function(e) {
+            if (e.target.closest('.modal, .popup, .overlay')) {
+                return;
+            }
+        }, {passive: true});
+    }
+    
     // Intersection Observer for scroll animations
     const observerOptions = {
         threshold: 0.1,
@@ -4343,7 +4052,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
 
     // Observe all premium sections
-    document.querySelectorAll('.premium-about-section, .premium-process-section, .premium-services-section, .premium-certificates-section, .premium-reviews-section, .premium-contact-section').forEach(section => {
+    document.querySelectorAll('.premium-about-section, .premium-process-section, .premium-services-section, .premium-certificates-section, .premium-contact-section').forEach(section => {
         section.style.opacity = '0';
         section.style.transform = 'translateY(50px)';
         section.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
@@ -4387,7 +4096,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Enhanced hover effects for cards
-    document.querySelectorAll('.premium-service-card, .premium-certificate-card, .premium-review-card, .premium-contact-card').forEach(card => {
+    document.querySelectorAll('.premium-service-card, .premium-certificate-card, .premium-contact-card').forEach(card => {
         card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-15px) rotateX(3deg) scale(1.02)';
             this.style.boxShadow = '0 30px 80px rgba(0, 0, 0, 0.15), 0 15px 40px rgba(212, 165, 116, 0.2)';
@@ -4415,7 +4124,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Typing effect for titles
-    const titles = document.querySelectorAll('.premium-title, .premium-process-title, .premium-services-title, .premium-certificates-title, .premium-reviews-title, .premium-contact-title');
+    const titles = document.querySelectorAll('.premium-title, .premium-process-title, .premium-services-title, .premium-certificates-title, .premium-contact-title');
     titles.forEach(title => {
         const text = title.textContent;
         title.textContent = '';
@@ -4597,45 +4306,6 @@ document.addEventListener('DOMContentLoaded', function() {
     z-index: 10;
 }
 
-.partners-slider-container {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
-}
-
-.partners-slider-track {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    animation: slidePartners 60s linear infinite;
-    width: max-content;
-}
-
-.partner-slide {
-    flex-shrink: 0;
-    height: 60px;
-    margin: 0 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.partner-slide:hover {
-    transform: scale(1.1);
-}
-
-.partner-image {
-    max-height: 100%;
-    max-width: 120px;
-    object-fit: contain;
-    transition: all 0.3s ease;
-}
-
-.partner-slide:hover .partner-image {
-    transform: scale(1.05);
-}
 
 @keyframes slidePartners {
     0% {
@@ -4824,6 +4494,23 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 /* Removed overlay and content styling - images only */
+
+/* Hide Partners Slider Section Completely */
+.partners-slider-section,
+.partners-slider-container,
+.partners-slider-track,
+.partner-slide {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+}
 
 /* Duplicate responsive CSS removed */
 </style>

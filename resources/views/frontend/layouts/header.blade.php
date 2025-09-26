@@ -19,19 +19,19 @@
             <li><a href="{{ route('media') }}">{{ __('frontend.media') }}</a></li>
             <li class="nav-item dropdown" style="position:relative;">
                 <a href="{{ route('project-categories.index') }}" class="nav-link" id="projectsDropdown" role="button" aria-haspopup="true" aria-expanded="false" style="cursor:pointer;">{{ __('frontend.projects') }} <span style="font-size:0.8em;">▼</span></a>
-                <div class="dropdown-menu" aria-labelledby="projectsDropdown" style="position:absolute;top:100%;left:0;min-width:200px;z-index:99999;display:none;background:#fff;border-radius:0 0 8px 8px;box-shadow:0 4px 16px rgba(0,0,0,0.08);padding:8px 0;">
-                    <a class="dropdown-item" href="{{ route('project-categories.index') }}" style="padding:8px 18px;">{{ __('frontend.all') }}</a>
+                <div class="dropdown-menu" aria-labelledby="projectsDropdown" style="position:absolute;top:100%;left:0;min-width:500px !important;width:500px !important;z-index:99999;display:none;background:#fff;border-radius:0 0 8px 8px;box-shadow:0 4px 16px rgba(0,0,0,0.08);padding:25px 0;">
+                    <a class="dropdown-item" href="{{ route('project-categories.index') }}" style="padding:20px 40px; text-transform: capitalize !important; display: block; margin-bottom: 12px;">{{ __('frontend.all') }}</a>
                     @foreach(\App\Models\ProjectCategory::orderBy('name','ASC')->get() as $cat)
-                        <a class="dropdown-item" href="{{ route('project-categories.show', $cat->slug) }}" style="padding:8px 18px;">{{ $cat->name }}</a>
+                        <a class="dropdown-item" href="{{ route('project-categories.show', $cat->slug) }}" style="padding:20px 40px; text-transform: lowercase !important; display: block; margin-bottom: 12px;" data-original-text="{{ $cat->name }}">{{ ucwords(strtolower($cat->name)) }}</a>
                     @endforeach
                 </div>
             </li>
             <li class="nav-item dropdown" style="position:relative;">
                 <a href="{{ route('categories.index') }}" class="nav-link" id="productsDropdown" role="button" aria-haspopup="true" aria-expanded="false" style="cursor:pointer;">{{ __('frontend.products') }} <span style="font-size:0.8em;">▼</span></a>
-                <div class="dropdown-menu" aria-labelledby="productsDropdown" style="position:absolute;top:100%;left:0;min-width:200px;z-index:99999;display:none;background:#fff;border-radius:0 0 8px 8px;box-shadow:0 4px 16px rgba(0,0,0,0.08);padding:8px 0;">
-                    <a class="dropdown-item" href="{{ route('categories.index') }}" style="padding:8px 18px;">{{ __('frontend.all') }}</a>
+                <div class="dropdown-menu" aria-labelledby="productsDropdown" style="position:absolute;top:100%;left:0;min-width:500px !important;width:500px !important;z-index:99999;display:none;background:#fff;border-radius:0 0 8px 8px;box-shadow:0 4px 16px rgba(0,0,0,0.08);padding:25px 0;">
+                    <a class="dropdown-item" href="{{ route('categories.index') }}" style="padding:20px 40px; text-transform: capitalize !important; display: block; margin-bottom: 12px;">{{ __('frontend.all') }}</a>
                     @foreach(\App\Models\Category::whereNull('parent_id')->orderBy('sort_order','ASC')->orderBy('title','ASC')->get() as $cat)
-                        <a class="dropdown-item" href="{{ route('categories.show', $cat->slug ?? Str::slug($cat->title)) }}" style="padding:8px 18px;">{{ $cat->title }}</a>
+                        <a class="dropdown-item" href="{{ route('categories.show', $cat->slug ?? Str::slug($cat->title)) }}" style="padding:20px 40px; text-transform: capitalize !important; display: block; margin-bottom: 12px;">{{ $cat->title }}</a>
                     @endforeach
                 </div>
             </li>
@@ -55,18 +55,18 @@
                 <li style="border-bottom:1px solid #eee;">
                     <a href="{{ route('project-categories.index') }}" style="display:block;padding:25px 35px;text-decoration:none;color:#333;font-weight:600;font-size:22px;min-height:70px;align-items:center;">{{ __('frontend.projects') }}</a>
                     <ul style="list-style:none;padding:0;margin:0;background:#f8f9fa;">
-                        <li><a href="{{ route('project-categories.index') }}" style="display:block;padding:20px 55px;text-decoration:none;color:#666;font-size:20px;min-height:60px;align-items:center;">{{ __('frontend.all') }}</a></li>
+                        <li><a href="{{ route('project-categories.index') }}" style="display:block;padding:20px 55px;text-decoration:none;color:#666;font-size:20px;min-height:60px;align-items:center;text-transform: capitalize !important;">{{ __('frontend.all') }}</a></li>
                         @foreach(\App\Models\ProjectCategory::orderBy('name','ASC')->get() as $cat)
-                            <li><a href="{{ route('project-categories.show', $cat->slug) }}" style="display:block;padding:20px 55px;text-decoration:none;color:#666;font-size:20px;min-height:60px;align-items:center;">{{ $cat->name }}</a></li>
+                            <li><a href="{{ route('project-categories.show', $cat->slug) }}" style="display:block;padding:20px 55px;text-decoration:none;color:#666;font-size:20px;min-height:60px;align-items:center;text-transform: lowercase !important;">{{ ucwords(strtolower($cat->name)) }}</a></li>
                         @endforeach
                     </ul>
                 </li>
                 <li style="border-bottom:1px solid #eee;">
                     <a href="{{ route('categories.index') }}" style="display:block;padding:25px 35px;text-decoration:none;color:#333;font-weight:600;font-size:22px;min-height:70px;align-items:center;">{{ __('frontend.products') }}</a>
                     <ul style="list-style:none;padding:0;margin:0;background:#f8f9fa;">
-                        <li><a href="{{ route('categories.index') }}" style="display:block;padding:20px 55px;text-decoration:none;color:#666;font-size:20px;min-height:60px;align-items:center;">{{ __('frontend.all') }}</a></li>
+                        <li><a href="{{ route('categories.index') }}" style="display:block;padding:20px 55px;text-decoration:none;color:#666;font-size:20px;min-height:60px;align-items:center;text-transform: capitalize !important;">{{ __('frontend.all') }}</a></li>
                         @foreach(\App\Models\Category::whereNull('parent_id')->orderBy('sort_order','ASC')->orderBy('title','ASC')->get() as $cat)
-                            <li><a href="{{ route('categories.show', $cat->slug ?? Str::slug($cat->title)) }}" style="display:block;padding:20px 55px;text-decoration:none;color:#666;font-size:20px;min-height:60px;align-items:center;">{{ $cat->title }}</a></li>
+                            <li><a href="{{ route('categories.show', $cat->slug ?? Str::slug($cat->title)) }}" style="display:block;padding:20px 55px;text-decoration:none;color:#666;font-size:20px;min-height:60px;align-items:center;text-transform: capitalize !important;">{{ $cat->title }}</a></li>
                         @endforeach
                     </ul>
                 </li>
@@ -477,6 +477,56 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
     }
 });
+
+// FORCE DROPDOWN TEXT CAPITALIZATION
+document.addEventListener('DOMContentLoaded', function() {
+    // Force capitalize all dropdown items
+    function capitalizeDropdownText() {
+        // Target all possible dropdown selectors
+        const selectors = [
+            '.dropdown-item',
+            '.dropdown-menu a',
+            '.nav-item.dropdown .dropdown-menu a',
+            '.dropdown-menu .dropdown-item',
+            '.navbar .dropdown-item',
+            '.navbar .dropdown-menu a',
+            'a.dropdown-item',
+            '.dropdown-menu a.dropdown-item'
+        ];
+        
+        selectors.forEach(function(selector) {
+            const dropdownItems = document.querySelectorAll(selector);
+            dropdownItems.forEach(function(item) {
+                if (item.textContent) {
+                    // Capitalize first letter of each word
+                    const text = item.textContent.trim();
+                    const capitalized = text.replace(/\b\w/g, function(l) {
+                        return l.toUpperCase();
+                    });
+                    item.textContent = capitalized;
+                    item.style.textTransform = 'capitalize';
+                    item.style.setProperty('text-transform', 'capitalize', 'important');
+                }
+            });
+        });
+    }
+    
+    // Run immediately
+    capitalizeDropdownText();
+    
+    // Run again after delays to catch dynamically loaded content
+    setTimeout(capitalizeDropdownText, 100);
+    setTimeout(capitalizeDropdownText, 500);
+    setTimeout(capitalizeDropdownText, 1000);
+    setTimeout(capitalizeDropdownText, 2000);
+    
+    // Also run when dropdowns are opened
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.dropdown')) {
+            setTimeout(capitalizeDropdownText, 50);
+        }
+    });
+});
 </script>
 
 <style>
@@ -584,13 +634,43 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .dropdown-item {
-    text-transform: uppercase;
+    text-transform: capitalize !important;
     font-size: 1rem;
     font-weight: 500;
     letter-spacing: 0.5px;
     color: #333;
     text-decoration: none;
     transition: background-color 0.3s ease;
+}
+
+/* More specific rules to override any conflicting styles */
+.dropdown-menu .dropdown-item,
+.nav-item.dropdown .dropdown-menu .dropdown-item,
+.dropdown-menu a.dropdown-item {
+    text-transform: capitalize !important;
+}
+
+/* ULTRA AGGRESSIVE OVERRIDE - MUST BE LAST */
+.dropdown-item,
+.dropdown-menu a,
+.dropdown-menu .dropdown-item,
+.nav-item.dropdown .dropdown-menu a,
+.nav-item.dropdown .dropdown-menu .dropdown-item,
+.dropdown-menu a.dropdown-item,
+.dropdown-menu .dropdown-item a,
+.dropdown-item.text-uppercase,
+.dropdown-menu a.text-uppercase,
+.dropdown-menu .dropdown-item.text-uppercase {
+    text-transform: capitalize !important;
+    font-variant: normal !important;
+    text-rendering: optimizeLegibility !important;
+}
+
+/* OVERRIDE ANY GLOBAL CSS */
+.navbar .dropdown-item,
+.navbar .dropdown-menu a,
+.navbar .dropdown-menu .dropdown-item {
+    text-transform: capitalize !important;
 }
 
 .dropdown-item:hover {

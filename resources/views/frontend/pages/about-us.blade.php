@@ -4,7 +4,7 @@
 
 @section('main-content')
 <!-- Hero Section -->
-<section class="about-hero position-relative" style="min-height:60vh; background:url('{{ asset('images/propos.jpg') }}') center/cover no-repeat;">
+<section class="about-hero position-relative" style="min-height:60vh; background:url('{{ asset('images/aab.jpg') }}') center/67% no-repeat;">
     <div class="hero-overlay position-absolute w-100 h-100" style="background:rgba(30,30,30,0.55);"></div>
     <div class="container h-100 d-flex flex-column justify-content-center align-items-center position-relative" style="z-index:2; min-height:60vh;">
         <h1 class="display-3 text-white font-weight-bold mb-3" style="letter-spacing:2px;">{{ __('frontend.about_sotuma') }}</h1>
@@ -17,7 +17,7 @@
     <div class="container-fluid px-0">
         <div class="row align-items-center no-gutters">
             <div class="col-lg-6 order-lg-2 d-flex justify-content-center p-0">
-                <div class="presentation-image w-100 h-100" style="min-height:400px; background:url('{{ asset('images/propos2.jpg') }}') center/cover no-repeat;"></div>
+                <div class="presentation-image w-100 h-100" style="min-height:400px; background:url('{{ asset('images/aab.jpg') }}') center/67% no-repeat;"></div>
 					</div>
             <div class="col-lg-6 order-lg-1 d-flex align-items-center p-0">
                 <div class="presentation-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1;">
@@ -39,7 +39,7 @@
     <div class="container-fluid px-0">
         <div class="row align-items-center no-gutters">
             <div class="col-lg-6 d-flex justify-content-center p-0">
-                <div class="mission-image w-100 h-100" style="min-height:400px; background:url('{{ asset('images/propos3.jpg') }}') center/cover no-repeat;"></div>
+                <div class="mission-image w-100 h-100" style="min-height:400px; background:url('{{ asset('images/aab.jpg') }}') center/67% no-repeat;"></div>
             </div>
             <div class="col-lg-6 d-flex align-items-center p-0">
                 <div class="mission-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1;">
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="col-lg-6 d-flex justify-content-center p-0">
-                <div class="objectifs-image w-100 h-100" style="min-height:400px; background:url('{{ asset('images/propos4.jpg') }}') center/cover no-repeat;"></div>
+                <div class="objectifs-image w-100 h-100" style="min-height:400px; background:url('{{ asset('images/aab.jpg') }}') center/67% no-repeat;"></div>
 							</div>
 						</div>
 					</div>
@@ -78,7 +78,7 @@
     <div class="container-fluid px-0">
         <div class="row align-items-center no-gutters">
             <div class="col-lg-6 d-flex justify-content-center p-0">
-                <div class="expertise-image w-100 h-100" style="min-height:400px; background:url('{{ asset('images/propos5.jpg') }}') center/cover no-repeat;"></div>
+                <div class="expertise-image w-100 h-100" style="min-height:400px; background:url('{{ asset('images/aab.jpg') }}') center/67% no-repeat;"></div>
             </div>
             <div class="col-lg-6 d-flex align-items-center p-0">
                 <div class="expertise-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1; min-height:400px;">
@@ -106,7 +106,7 @@
                 </div>
             </div>
             <div class="col-lg-6 d-flex justify-content-center p-0">
-                <div class="approche-image w-100 h-100" style="min-height:400px; background:url('{{ asset('images/propos7.jpg') }}') center/cover no-repeat;"></div>
+                <div class="approche-image w-100 h-100" style="min-height:400px; background:url('{{ asset('images/aab.jpg') }}') center/67% no-repeat;"></div>
             </div>
         </div>
     </div>

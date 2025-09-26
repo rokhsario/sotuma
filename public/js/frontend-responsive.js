@@ -158,29 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
                 
-                // Add floating labels effect
-                if (input.placeholder && !input.previousElementSibling?.classList.contains('floating-label')) {
-                    const label = document.createElement('label');
-                    label.textContent = input.placeholder;
-                    label.classList.add('floating-label');
-                    input.parentNode.insertBefore(label, input);
-                    
-                    // Handle floating label behavior
-                    function handleFloatingLabel() {
-                        if (input.value || input === document.activeElement) {
-                            label.classList.add('active');
-                        } else {
-                            label.classList.remove('active');
-                        }
-                    }
-                    
-                    input.addEventListener('focus', handleFloatingLabel);
-                    input.addEventListener('blur', handleFloatingLabel);
-                    input.addEventListener('input', handleFloatingLabel);
-                    
-                    // Initial state
-                    handleFloatingLabel();
-                }
+                // Floating labels removed - using placeholders only
             });
             
             // Handle form submission with loading state
@@ -539,24 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
             top: 6px;
         }
         
-        .floating-label {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            color: #666;
-            transition: all 0.3s ease;
-            pointer-events: none;
-            font-size: 14px;
-        }
-        
-        .floating-label.active {
-            top: -8px;
-            left: 8px;
-            font-size: 12px;
-            color: var(--primary, #D2B48C);
-            background: white;
-            padding: 0 4px;
-        }
+        /* Floating labels removed */
         
         .form-group {
             position: relative;

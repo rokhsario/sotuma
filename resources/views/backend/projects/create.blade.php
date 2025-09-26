@@ -53,6 +53,12 @@
                                         @endforeach
                                     </select>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="sort_order">Ordre d'affichage</label>
+                                    <input type="number" name="sort_order" id="sort_order" class="form-control" value="{{ old('sort_order', 0) }}" min="0">
+                                    <small class="form-text text-muted">Plus le nombre est petit, plus le projet apparaîtra en premier.</small>
+                                </div>
                             </div>
 
                             <div class="col-md-4">

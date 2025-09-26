@@ -254,7 +254,7 @@ big {
 	content: "";
 	height: 2px;
 	width: 50px;
-	background: #D2B48C;
+	background: #FF0000;
 	left: 50%;
 	bottom: 0;
 	margin-left: -25px;
@@ -316,7 +316,7 @@ big {
 	display: inline-block;
 }
 .breadcrumbs ul li a:hover{
-	color:#D2B48C;
+	color:#FF0000;
 }
 /*=============================
 	Start Demos CSS 
@@ -1340,7 +1340,7 @@ object {
   width: 5px;
   height: 5px;
   border-radius: 100%;
-  background-color: #D2B48C;
+  background-color: #FF0000;
   content: "";
   left: 0;
   top: 50%;
@@ -1417,7 +1417,7 @@ object {
 }
 
 .quickview-content .quickview-action-wrap .quickview-cart a:hover {
-  background-color: #D2B48C;
+  background-color: #FF0000;
   color:#333;
 }
 
@@ -1450,7 +1450,7 @@ object {
   margin-left: 30px;
 }
 .quickview-content .quickview-action-wrap .quickview-wishlist a:hover{
-	color:#D2B48C;
+	color:#FF0000;
 }
 .quickview-content .quickview-action-wrap .quickview-compare a:hover {
   color:#D2B48C;
@@ -1703,7 +1703,7 @@ object {
 	border: none;
 }
 .quickview-content .quantity .button .btn:hover{
-	color:#D2B48C;
+	color:#FF0000;
 }
 .quickview-content .quantity .input-number {
 	border: 1px solid #eceded;

@@ -9,7 +9,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'project_category_id', 'image'];
+    protected $fillable = ['title', 'description', 'project_category_id', 'image', 'sort_order'];
 
     public function category()
     {
@@ -18,7 +18,7 @@ class Project extends Model
 
     public function images()
     {
-        return $this->hasMany(\App\Models\ProjectImage::class);
+        return $this->hasMany(\App\Models\ProjectImage::class)->orderBy('sort_order');
     }
 
     /**

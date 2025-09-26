@@ -138,36 +138,37 @@
 }
 
 .project-categories-show-page .projects-container {
-    max-width: 1400px !important;
+    max-width: 100% !important;
     margin: 0 auto !important;
-    padding: 0 20px !important;
+    padding: 0 80px !important;
 }
 
 /* Force padding override */
 .project-categories-show-page .projects-container {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-    padding: 0 20px !important;
+    padding-left: 80px !important;
+    padding-right: 80px !important;
+    padding: 0 80px !important;
 }
 
 /* Extra force override */
 .project-categories-show-page .hero-content,
 .project-categories-show-page .breadcrumb-container,
 .project-categories-show-page .projects-container {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-    padding: 0 20px !important;
+    padding-left: 80px !important;
+    padding-right: 80px !important;
+    padding: 0 80px !important;
 }
 
 .project-categories-show-page .projects-grid {
     display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 50px !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 60px !important;
     margin-top: 0 !important;
     justify-content: center !important;
     max-width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+    width: 100% !important;
 }
 
 /* Project Card - EXACT MAS ENTERPRISE */
@@ -183,6 +184,46 @@
     height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
+}
+
+/* Sort Handle for Projects */
+.project-categories-show-page .sort-handle {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    color: white !important;
+    padding: 8px !important;
+    border-radius: 4px !important;
+    cursor: move !important;
+    z-index: 10 !important;
+    font-size: 14px !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.project-categories-show-page .project-card:hover .sort-handle {
+    opacity: 1 !important;
+}
+
+.project-categories-show-page .sort-handle:hover {
+    background: rgba(0, 0, 0, 0.9) !important;
+}
+
+/* Drag and Drop Styles for Projects */
+.project-categories-show-page .project-card.ui-sortable-helper {
+    transform: rotate(5deg) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+    z-index: 1000 !important;
+    cursor: move !important;
+}
+
+.project-categories-show-page .ui-sortable-placeholder {
+    background: #f0f0f0 !important;
+    border: 2px dashed #ccc !important;
+    border-radius: 0 !important;
+    min-height: 400px !important;
+    opacity: 0.7 !important;
 }
 
 .project-categories-show-page .project-card:hover {
@@ -297,7 +338,7 @@
     }
     
     .project-categories-show-page .projects-container {
-        padding: 0 20px !important;
+        padding: 0 40px !important;
     }
     
     .project-categories-show-page .projects-grid {
@@ -338,7 +379,7 @@
     }
     
     .project-categories-show-page .projects-container {
-        padding: 0 15px !important;
+        padding: 0 20px !important;
     }
     
     .project-categories-show-page .projects-grid {
@@ -393,21 +434,32 @@
     <section class="projects-section">
         <div class="projects-container">
             @if($projects->count() > 0)
-            <div class="projects-grid">
+            @if(auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin'))
+            <div class="alert alert-info mb-3">
+                <i class="fas fa-info-circle"></i>
+                <strong>Mode Admin:</strong> Vous pouvez glisser-déposer les projets pour les réorganiser.
+            </div>
+            @endif
+            <div id="sortable-projects" class="projects-grid">
                 @foreach($projects as $project)
-                <div class="project-card" onclick="window.location.href='{{ route('projects.show', $project) }}'">
+                <div class="project-card {{ auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin') ? 'sortable-item' : '' }}" data-project-id="{{$project->id}}" onclick="window.location.href='{{ route('projects.show', $project) }}'">
+                    @if(auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin'))
+                    <div class="sort-handle">
+                        <i class="fas fa-grip-vertical"></i>
+                    </div>
+                    @endif
                     <div class="project-image-container">
-                                                                             @if($project->image)
-                                <img src="{{ asset($project->image) }}" 
-                              alt="{{ $project->title }}" 
-                              class="project-image"
-                              loading="lazy">
-                         @else
-                         <img src="{{ asset('images/10.png') }}" 
-                              alt="{{ $project->title }}" 
-                              class="project-image"
-                              loading="lazy">
-                         @endif
+                        @if($project->image)
+                            <img src="{{ asset($project->image) }}" 
+                                 alt="{{ $project->title }}" 
+                                 class="project-image"
+                                 loading="lazy">
+                        @else
+                            <img src="{{ asset('images/10.png') }}" 
+                                 alt="{{ $project->title }}" 
+                                 class="project-image"
+                                 loading="lazy">
+                        @endif
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">{{ $project->title }}</h3>
@@ -429,4 +481,80 @@
     </section>
 </div>
 
-@endsection 
+@endsection
+
+@push('scripts')
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Only initialize sortable for admin users
+    @if(auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin'))
+    $("#sortable-projects").sortable({
+        handle: '.sort-handle',
+        placeholder: 'ui-sortable-placeholder',
+        tolerance: 'pointer',
+        cursor: 'move',
+        update: function(event, ui) {
+            // Get the new order
+            const projectIds = [];
+            $('#sortable-projects .project-card').each(function() {
+                projectIds.push($(this).data('project-id'));
+            });
+            
+            // Save the new order via AJAX
+            $.ajax({
+                url: '{{ route("admin.projects.update-order") }}',
+                method: 'POST',
+                data: {
+                    projects: projectIds.map((id, index) => ({
+                        id: parseInt(id),
+                        sort_order: index
+                    })),
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Show success message
+                    showNotification('Ordre des projets mis à jour avec succès!', 'success');
+                },
+                error: function(xhr) {
+                    console.error('Error:', xhr.responseText);
+                    showNotification('Erreur lors de la mise à jour', 'error');
+                }
+            });
+        }
+    });
+    @endif
+
+    // Prevent click on sort handle from triggering card click
+    $('.sort-handle').on('click', function(e) {
+        e.stopPropagation();
+    });
+
+    // Function to show notifications
+    function showNotification(message, type) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show`;
+        notification.style.position = 'fixed';
+        notification.style.top = '20px';
+        notification.style.right = '20px';
+        notification.style.zIndex = '9999';
+        notification.innerHTML = `
+            ${message}
+            <button type="button" class="close" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 3000);
+    }
+});
+</script>
+@endpush 

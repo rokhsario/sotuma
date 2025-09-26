@@ -30,6 +30,15 @@
                 @enderror
             </div>
             
+            <div class="form-group">
+                <label for="inputSortOrder" class="col-form-label">Ordre d'affichage</label>
+                <input id="inputSortOrder" type="number" name="sort_order" placeholder="0" value="{{old('sort_order', 0)}}" class="form-control" min="0">
+                @error('sort_order')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+                <small class="form-text text-muted">Plus le nombre est petit, plus la catégorie apparaîtra en premier.</small>
+            </div>
+            
             <div class="form-group mb-3">
                 <button type="reset" class="btn btn-warning">Réinitialiser</button>
                 <button class="btn btn-success" type="submit">Soumettre</button>

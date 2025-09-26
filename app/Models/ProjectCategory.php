@@ -10,7 +10,7 @@ class ProjectCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'image', 'description', 'slug'];
+    protected $fillable = ['name', 'image', 'description', 'slug', 'sort_order'];
 
     protected static function boot()
     {
@@ -31,6 +31,6 @@ class ProjectCategory extends Model
 
     public function projects()
     {
-        return $this->hasMany(\App\Models\Project::class, 'project_category_id');
+        return $this->hasMany(\App\Models\Project::class, 'project_category_id')->orderBy('sort_order');
     }
 }

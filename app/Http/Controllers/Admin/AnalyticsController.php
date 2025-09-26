@@ -16,6 +16,8 @@ class AnalyticsController extends Controller
             'today_unique_visitors' => Visitor::getTodayVisitors(),
             'this_week_visitors' => Visitor::getThisWeekVisitors(),
             'this_month_visitors' => Visitor::getThisMonthVisitors(),
+            'all_time_unique_visitors' => Visitor::getAllTimeUniqueVisitors(),
+            'all_time_total_visits' => Visitor::getAllTimeTotalVisits(),
             'last_7_days' => Visitor::getLast7DaysVisitors(),
             'last_30_days' => Visitor::getLast30DaysVisitors(),
             'top_pages' => Visitor::getTopVisitedPages(10),
@@ -65,6 +67,10 @@ class AnalyticsController extends Controller
             ],
             'month' => [
                 'total' => Visitor::getThisMonthVisitors()
+            ],
+            'all_time' => [
+                'total' => Visitor::getAllTimeTotalVisits(),
+                'unique' => Visitor::getAllTimeUniqueVisitors()
             ]
         ];
 

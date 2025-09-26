@@ -106,56 +106,44 @@
     margin: 0;
 }
 
-.products-section .container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 10px;
-}
+/* Container removed - full width */
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 60px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
     margin-top: 50px;
     width: 100%;
     margin-left: 0;
     margin-right: 0;
-    padding: 0;
+    padding: 20px 80px;
 }
 
-/* Force single column on tablet and below by making minmax very large */
-@media (max-width: 1200px) {
+/* Responsive breakpoints for different screen sizes */
+@media (max-width: 1400px) {
     .products-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100vw, 1fr)) !important;
+        grid-template-columns: repeat(3, 1fr) !important;
         gap: 25px !important;
         margin-top: 40px !important;
+        padding: 20px 60px !important;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     .products-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100vw, 1fr)) !important;
+        grid-template-columns: repeat(2, 1fr) !important;
         gap: 20px !important;
         margin-top: 30px !important;
+        padding: 20px 40px !important;
     }
 }
-
-@media (max-width: 480px) {
-    .products-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100vw, 1fr)) !important;
-        gap: 15px !important;
-        margin-top: 25px !important;
-    }
-}
-
-/* Tablet responsive for products grid - REMOVED CONFLICTING RULE */
-/* This was causing 2 per row on tablet - now handled by 1200px breakpoint above */
 
 @media (max-width: 768px) {
     .products-grid {
         grid-template-columns: 1fr !important;
         gap: 20px !important;
         margin-top: 30px !important;
+        padding: 20px 30px !important;
     }
 }
 
@@ -164,8 +152,11 @@
         grid-template-columns: 1fr !important;
         gap: 15px !important;
         margin-top: 25px !important;
+        padding: 15px 20px !important;
     }
 }
+
+/* Removed duplicate responsive rules - now handled above */
 
 .product-card {
     background: white;
@@ -301,6 +292,11 @@
     text-align: center;
     transform: translateY(20px);
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .product-overlay-content i {
@@ -322,6 +318,7 @@
 .product-detail-indicator {
     margin-top: auto;
     padding-top: 15px;
+    text-align: center;
 }
 
 .detail-badge {
@@ -354,6 +351,7 @@
     color: #2c3e50;
     margin-bottom: 12px;
     line-height: 1.3;
+    text-align: center;
 }
 
 .product-category {
@@ -529,7 +527,7 @@
     .products-grid {
         grid-template-columns: 1fr !important;
         gap: 20px !important;
-        padding: 0 10px !important;
+        padding: 20px !important;
     }
     
     .product-content {
@@ -538,6 +536,7 @@
     
     .product-title {
         font-size: 1.1rem;
+        text-align: center;
     }
     
     .product-image-container {
@@ -563,7 +562,7 @@
     .products-grid {
         grid-template-columns: 1fr !important;
         gap: 15px !important;
-        padding: 0 10px !important;
+        padding: 15px !important;
     }
     
     .product-image-container {
@@ -603,8 +602,7 @@
 <!-- Products Section (Show First) -->
 @if($products->count() > 0)
 <section class="products-section">
-    <div class="container">
-        <div class="products-grid">
+    <div class="products-grid">
             @foreach($products as $product)
             <div class="product-card {{ $product->has_details && $product->slug ? 'clickable' : '' }}" {{ $product->has_details && $product->slug ? 'onclick="console.log(\'Card clicked for: ' . $product->title . '\'); window.location.href=\'' . route('product-detail', $product->slug) . '\'"' : '' }}>
                 <div class="product-image-container">
@@ -622,9 +620,6 @@
                 </div>
                 <div class="product-content">
                     <h3 class="product-title">{{ $product->title }}</h3>
-                    @if($product->category)
-                        <p class="product-category">{{ $product->category->title }}</p>
-                    @endif
                     @if($product->has_details && $product->slug)
                         <div class="product-detail-indicator">
                             <span class="detail-badge">{{ __('frontend.view_details') }}</span>

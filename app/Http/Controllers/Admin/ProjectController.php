@@ -16,7 +16,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::with('category')->orderBy('created_at', 'desc')->paginate(10);
+        $projects = Project::with('category')->orderBy('sort_order')->orderBy('created_at', 'desc')->paginate(10);
         return view('backend.projects.index', compact('projects'));
     }
 
@@ -40,6 +40,7 @@ class ProjectController extends Controller
             'project_category_id' => 'required|exists:project_categories,id',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:51200', // 50MB
             'main_image_index' => 'nullable|integer|min:0',
+            'sort_order' => 'nullable|integer|min:0',
         ]);
 
         try {
@@ -47,6 +48,7 @@ class ProjectController extends Controller
                 'title' => $validated['title'],
                 'description' => $validated['description'],
                 'project_category_id' => $validated['project_category_id'],
+                'sort_order' => $validated['sort_order'] ?? 0,
                 'image' => '', // Will be set after first image upload
             ]);
 
@@ -125,6 +127,7 @@ class ProjectController extends Controller
             'images_to_delete' => 'nullable|string',
             'main_image_index' => 'nullable|integer|min:0',
             'existing_main_image' => 'nullable|string',
+            'sort_order' => 'nullable|integer|min:0',
         ]);
 
         try {
@@ -133,6 +136,7 @@ class ProjectController extends Controller
                 'title' => $validated['title'],
                 'description' => $validated['description'],
                 'project_category_id' => $validated['project_category_id'],
+                'sort_order' => $validated['sort_order'] ?? $project->sort_order,
             ]);
 
             // Handle image deletions
@@ -303,5 +307,37 @@ class ProjectController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', 'Erreur lors de la mise à jour de l\'image principale: ' . $e->getMessage());
         }
+    }
+
+    public function updateOrder(Request $request)
+    {
+        $request->validate([
+            'projects' => 'required|array',
+            'projects.*.id' => 'required|integer|exists:projects,id',
+            'projects.*.sort_order' => 'required|integer|min:0',
+        ]);
+
+        foreach ($request->projects as $projectData) {
+            Project::where('id', $projectData['id'])
+                ->update(['sort_order' => $projectData['sort_order']]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Ordre des projets mis à jour avec succès.']);
+    }
+
+    public function updateImageOrder(Request $request, $projectId)
+    {
+        $request->validate([
+            'images' => 'required|array',
+            'images.*.id' => 'required|integer|exists:project_images,id',
+            'images.*.sort_order' => 'required|integer|min:0',
+        ]);
+
+        foreach ($request->images as $imageData) {
+            ProjectImage::where('id', $imageData['id'])
+                ->update(['sort_order' => $imageData['sort_order']]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Ordre des images mis à jour avec succès.']);
     }
 }

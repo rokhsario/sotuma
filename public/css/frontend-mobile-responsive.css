@@ -332,6 +332,7 @@ Version: 1.0 - Production Ready
     
     .product-title {
         font-size: 1.1rem !important;
+        text-align: center !important;
     }
     
     .product-category {

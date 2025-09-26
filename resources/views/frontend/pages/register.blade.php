@@ -3,131 +3,192 @@
 @section('title','SOTUMA || ' . __('frontend.register'))
 
 @section('main-content')
-    <!-- Modern Register Section -->
-    <section class="modern-register-section">
+    <!-- Elegant Register Section -->
+    <section class="elegant-register-section">
+
         <div class="register-container">
             <div class="register-card">
                 <!-- Left Side - Branding -->
                 <div class="register-branding">
                     <div class="branding-content">
                         <div class="brand-logo">
-                            <div class="logo-icon">
-                                <i class="fas fa-building"></i>
+                            <div class="logo-container">
+                                <div class="logo-icon">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <div class="logo-glow"></div>
                             </div>
                             <h1 class="brand-title">SOTUMA</h1>
+                            <div class="brand-subtitle">Excellence & Innovation</div>
                         </div>
+                        
                         <div class="brand-description">
                             <h2>{{ __('frontend.join_sotuma_community') }}</h2>
                             <p>{{ __('frontend.create_account_description') }}</p>
                         </div>
+                        
                         <div class="brand-benefits">
                             <div class="benefit-item">
-                                <i class="fas fa-gift"></i>
-                                <span>{{ __('frontend.exclusive_access') }}</span>
+                                <div class="benefit-icon">
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                                <div class="benefit-content">
+                                    <span class="benefit-title">{{ __('frontend.exclusive_access') }}</span>
+                                    <span class="benefit-desc">Premium features</span>
+                                </div>
                             </div>
                             <div class="benefit-item">
-                                <i class="fas fa-comments"></i>
-                                <span>{{ __('frontend.priority_support') }}</span>
+                                <div class="benefit-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <div class="benefit-content">
+                                    <span class="benefit-title">{{ __('frontend.priority_support') }}</span>
+                                    <span class="benefit-desc">24/7 assistance</span>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <div class="benefit-content">
+                                    <span class="benefit-title">Fast Setup</span>
+                                    <span class="benefit-desc">Get started instantly</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="branding-background">
-                        <div class="floating-elements">
-                            <div class="floating-element" style="--delay: 0s"></div>
-                            <div class="floating-element" style="--delay: 2s"></div>
-                            <div class="floating-element" style="--delay: 4s"></div>
-                            <div class="floating-element" style="--delay: 6s"></div>
-                            <div class="floating-element" style="--delay: 8s"></div>
+                    
                 </div>
-            </div>
-        </div>
 
                 <!-- Right Side - Register Form -->
                 <div class="register-form-container">
                     <div class="form-header">
+                        <div class="form-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
                         <h2>{{ __('frontend.create_account') }}</h2>
                         <p>{{ __('frontend.join_sotuma_steps') }}</p>
-    </div>
+                    </div>
 
-                    <form class="modern-register-form" method="POST" action="{{ route('register.submit') }}">
-                            @csrf
+                    <form class="elegant-register-form" method="POST" action="{{ route('register.submit') }}">
+                        @csrf
                         
-                        <div class="form-row">
-                                    <div class="form-group">
-                                <div class="input-wrapper">
-                                    <i class="fas fa-user input-icon"></i>
-                                    <input type="text" name="name" id="name" placeholder="{{ __('frontend.full_name') }}" required value="{{old('name')}}" autocomplete="name">
-                                    <label for="name" class="input-label">{{ __('frontend.full_name') }}</label>
-                                </div>
-                                        @error('name')
-                                    <span class="error-message">{{$message}}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                    <div class="form-group">
+                        <div class="form-group">
                             <div class="input-wrapper">
-                                <i class="fas fa-envelope input-icon"></i>
-                                                                    <input type="email" name="email" id="email" placeholder="{{ __('frontend.email_address') }}" required value="{{old('email')}}" autocomplete="email">
-                                <label for="email" class="input-label">{{ __('frontend.email') }}</label>
+                                <div class="input-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <input type="text" name="name" id="name" placeholder="{{ __('frontend.full_name') }}" required value="{{old('name')}}" autocomplete="name">
+                                <div class="input-border"></div>
                             </div>
-                                        @error('email')
-                                <span class="error-message">{{$message}}</span>
-                                        @enderror
-                                    </div>
+                            @error('name')
+                                <span class="error-message">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{$message}}
+                                </span>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <div class="input-wrapper">
-                                <i class="fas fa-lock input-icon"></i>
+                                <div class="input-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <input type="email" name="email" id="email" placeholder="{{ __('frontend.email_address') }}" required value="{{old('email')}}" autocomplete="email">
+                                <div class="input-border"></div>
+                            </div>
+                            @error('email')
+                                <span class="error-message">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{$message}}
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <div class="input-icon">
+                                    <i class="fas fa-lock"></i>
+                                </div>
                                 <input type="password" name="password" id="password" placeholder="{{ __('frontend.password') }}" required autocomplete="new-password">
-                                <label for="password" class="input-label">{{ __('frontend.password') }}</label>
                                 <button type="button" class="password-toggle" onclick="togglePassword('password')">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                </div>
-                                        @error('password')
-                                <span class="error-message">{{$message}}</span>
-                                        @enderror
-                                    </div>
+                                <div class="input-border"></div>
+                            </div>
+                            @error('password')
+                                <span class="error-message">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{$message}}
+                                </span>
+                            @enderror
+                        </div>
 
-                                    <div class="form-group">
+                        <div class="form-group">
                             <div class="input-wrapper">
-                                <i class="fas fa-lock input-icon"></i>
+                                <div class="input-icon">
+                                    <i class="fas fa-lock"></i>
+                                </div>
                                 <input type="password" name="password_confirmation" id="password_confirmation" placeholder="{{ __('frontend.confirm_password') }}" required autocomplete="new-password">
-                                <label for="password_confirmation" class="input-label">{{ __('frontend.confirm_password') }}</label>
                                 <button type="button" class="password-toggle" onclick="togglePassword('password_confirmation')">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                    </div>
-                                </div>
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
 
                         <div class="password-strength" id="passwordStrength">
+                            <div class="strength-header">
+                                <span class="strength-label">{{ __('frontend.password_strength') }}</span>
+                                <span class="strength-text" id="strengthText">Weak</span>
+                            </div>
                             <div class="strength-bar">
                                 <div class="strength-fill" id="strengthFill"></div>
                             </div>
-                            <span class="strength-text" id="strengthText">{{ __('frontend.password_strength') }}</span>
-                                    </div>
-
+                            <div class="strength-requirements">
+                                <div class="requirement" id="req-length">
+                                    <i class="fas fa-check"></i>
+                                    <span>At least 8 characters</span>
+                                </div>
+                                <div class="requirement" id="req-uppercase">
+                                    <i class="fas fa-check"></i>
+                                    <span>One uppercase letter</span>
+                                </div>
+                                <div class="requirement" id="req-lowercase">
+                                    <i class="fas fa-check"></i>
+                                    <span>One lowercase letter</span>
+                                </div>
+                                <div class="requirement" id="req-number">
+                                    <i class="fas fa-check"></i>
+                                    <span>One number</span>
+                                </div>
+                            </div>
+                        </div>
 
                         <button type="submit" class="register-btn">
-                            <span class="btn-text">{{ __('frontend.create_my_account') }}</span>
-                            <span class="btn-icon">
-                                <i class="fas fa-arrow-right"></i>
+                            <span class="btn-content">
+                                <span class="btn-text">{{ __('frontend.create_my_account') }}</span>
+                                <span class="btn-icon">
+                                    <i class="fas fa-arrow-right"></i>
+                                </span>
                             </span>
                             <div class="btn-loading">
                                 <div class="spinner"></div>
                             </div>
+                            <div class="btn-ripple"></div>
                         </button>
-                        </form>
+                    </form>
 
                     <div class="divider">
-                        <span>{{ __('frontend.or') }}</span>
+                        <span class="divider-text">{{ __('frontend.or') }}</span>
                     </div>
-
 
                     <div class="login-link">
                         <p>{{ __('frontend.already_have_account') }} 
-                            <a href="{{route('login.form')}}" class="link-highlight">{{ __('frontend.login') }}</a>
+                            <a href="{{route('login.form')}}" class="link-highlight">
+                                <span>{{ __('frontend.login') }}</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
                         </p>
                     </div>
                 </div>
@@ -138,42 +199,19 @@
 
 @push('styles')
 <style>
-/* Modern Register Styles */
-.modern-register-section {
+/* Elegant Register Styles */
+.elegant-register-section {
     min-height: 100vh;
-    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
     position: relative;
     overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-.modern-register-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-    opacity: 0.3;
-    animation: grain 20s linear infinite;
-}
-
-@keyframes grain {
-    0%, 100% { transform: translate(0, 0); }
-    10% { transform: translate(-5%, -5%); }
-    20% { transform: translate(-10%, 5%); }
-    30% { transform: translate(5%, -10%); }
-    40% { transform: translate(-5%, 15%); }
-    50% { transform: translate(-10%, 5%); }
-    60% { transform: translate(15%, 0%); }
-    70% { transform: translate(0%, 10%); }
-    80% { transform: translate(-15%, 0%); }
-    90% { transform: translate(10%, 5%); }
-}
 
 .register-container {
     width: 100%;
@@ -184,296 +222,408 @@
 }
 
 .register-card {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    backdrop-filter: blur(20px);
-    border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(30px);
+    border-radius: 32px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
     overflow: hidden;
     display: flex;
     min-height: 800px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* Left Side - Branding */
 .register-branding {
     flex: 1;
-    background: linear-gradient(135deg, #2e4157 0%, #34495e 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 60px 40px;
+    padding: 80px 60px;
     color: white;
     overflow: hidden;
 }
 
 .branding-content {
     text-align: center;
-    z-index: 2;
+    z-index: 3;
     position: relative;
+    max-width: 400px;
 }
 
 .brand-logo {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+}
+
+.logo-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
 }
 
 .logo-icon {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 16px;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.logo-icon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
 }
 
 .logo-icon i {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: white;
 }
 
+.logo-glow {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 3s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.1); }
+}
+
 .brand-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 0;
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    letter-spacing: 3px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.brand-subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.9;
     letter-spacing: 2px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+    margin-bottom: 40px;
 }
 
 .brand-description h2 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 16px;
-    line-height: 1.3;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
 }
 
 .brand-description p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.6;
     opacity: 0.9;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    color: white;
 }
 
 .brand-benefits {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
 }
 
 .benefit-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 0.95rem;
-    font-weight: 500;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
 }
 
-.benefit-item i {
-    width: 20px;
-    color: #74b9ff;
+.benefit-item:hover {
+    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.15);
 }
 
-.branding-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-}
-
-.floating-elements {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.floating-element {
-    position: absolute;
+.benefit-icon {
     width: 50px;
     height: 50px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    animation: float 8s ease-in-out infinite;
-    animation-delay: var(--delay);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
-.floating-element:nth-child(1) { top: 15%; left: 15%; }
-.floating-element:nth-child(2) { top: 45%; right: 15%; }
-.floating-element:nth-child(3) { bottom: 25%; left: 25%; }
-.floating-element:nth-child(4) { top: 35%; right: 35%; }
-.floating-element:nth-child(5) { bottom: 45%; right: 25%; }
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-15px) rotate(180deg); }
+.benefit-icon i {
+    font-size: 1.5rem;
+    color: white;
 }
+
+.benefit-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.benefit-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+}
+
+.benefit-desc {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    color: white;
+}
+
+
 
 /* Right Side - Form */
 .register-form-container {
     flex: 1;
-    padding: 60px 50px;
+    padding: 80px 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    color: white;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
 }
 
 .form-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+}
+
+.form-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.form-icon i {
+    font-size: 1.5rem;
+    color: white;
 }
 
 .form-header h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    color: white;
-    margin-bottom: 8px;
+    color: #333;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
 }
 
 .form-header p {
-    color: #bdc3c7;
-    font-size: 1rem;
+    color: #666;
+    font-size: 1.1rem;
+    font-weight: 400;
 }
 
-.modern-register-form {
+.elegant-register-form {
     width: 100%;
 }
 
-.form-row {
-    display: flex;
-    gap: 16px;
-}
-
-.form-row .form-group {
-    flex: 1;
-}
-
 .form-group {
-    margin-bottom: 24px;
+    margin-bottom: 30px;
 }
 
 .input-wrapper {
     position: relative;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    border: 2px solid rgba(102, 126, 234, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
     backdrop-filter: blur(10px);
 }
 
 .input-wrapper:focus-within {
-    border-color: #2e4157;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 0 4px rgba(46, 65, 87, 0.2);
+    border-color: #667eea;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1),
+                0 10px 30px rgba(102, 126, 234, 0.15);
+    transform: translateY(-2px);
 }
 
 .input-icon {
     position: absolute;
-    left: 16px;
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    color: #bdc3c7;
-    font-size: 16px;
-    transition: color 0.3s ease;
+    color: #667eea;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    z-index: 2;
 }
 
 .input-wrapper:focus-within .input-icon {
-    color: #74b9ff;
+    color: #764ba2;
+    transform: translateY(-50%) scale(1.1);
 }
 
 .input-wrapper input {
     width: 100%;
-    padding: 16px 16px 16px 48px;
+    padding: 20px 20px 20px 60px;
     border: none;
     background: transparent;
     font-size: 16px;
-    color: white;
+    color: #333;
     outline: none;
+    font-weight: 500;
 }
 
 .input-wrapper input::placeholder {
-    color: #bdc3c7;
+    color: #999;
     transition: opacity 0.3s ease;
+    font-weight: 400;
 }
 
 .input-wrapper:focus-within input::placeholder {
     opacity: 0.7;
 }
 
-.input-label {
+
+.input-border {
     position: absolute;
-    left: 48px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #bdc3c7;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    pointer-events: none;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
 }
 
-.input-wrapper:focus-within .input-label,
-.input-wrapper input:not(:placeholder-shown) + .input-label {
-    top: 8px;
-    left: 16px;
-    font-size: 12px;
-    color: #74b9ff;
-    font-weight: 600;
+.input-wrapper:focus-within .input-border {
+    transform: scaleX(1);
 }
 
 .password-toggle {
     position: absolute;
-    right: 16px;
+    right: 20px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: #bdc3c7;
+    color: #999;
     cursor: pointer;
-    padding: 4px;
-    transition: color 0.3s ease;
+    padding: 8px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
 }
 
 .password-toggle:hover {
-    color: #74b9ff;
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
 }
 
 .error-message {
     color: #e74c3c;
     font-size: 14px;
     margin-top: 8px;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.error-message i {
+    font-size: 12px;
 }
 
 /* Password Strength Indicator */
 .password-strength {
-    margin-bottom: 24px;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    border: 2px solid rgba(102, 126, 234, 0.1);
     backdrop-filter: blur(10px);
+}
+
+.strength-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.strength-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.strength-text {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.strength-text.weak {
+    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.strength-text.fair {
+    color: #f39c12;
+    background: rgba(243, 156, 18, 0.1);
+}
+
+.strength-text.good {
+    color: #3498db;
+    background: rgba(52, 152, 219, 0.1);
+}
+
+.strength-text.strong {
+    color: #27ae60;
+    background: rgba(39, 174, 96, 0.1);
 }
 
 .strength-bar {
     width: 100%;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
+    height: 6px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 3px;
     overflow: hidden;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 
 .strength-fill {
     height: 100%;
     width: 0%;
     transition: all 0.3s ease;
-    border-radius: 2px;
+    border-radius: 3px;
 }
 
 .strength-fill.weak { width: 25%; background: #e74c3c; }
@@ -481,90 +631,89 @@
 .strength-fill.good { width: 75%; background: #3498db; }
 .strength-fill.strong { width: 100%; background: #27ae60; }
 
-.strength-text {
+.strength-requirements {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.requirement {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 12px;
-    color: #bdc3c7;
-    font-weight: 500;
-}
-
-.form-options {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 32px;
-}
-
-.checkbox-wrapper {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    cursor: pointer;
-    font-size: 14px;
-    color: #bdc3c7;
-    line-height: 1.4;
-}
-
-.checkbox-wrapper input[type="checkbox"] {
-    display: none;
-}
-
-.checkmark {
-    width: 18px;
-    height: 18px;
-    border: 2px solid #bdc3c7;
-    border-radius: 4px;
-    position: relative;
+    color: #666;
     transition: all 0.3s ease;
-    flex-shrink: 0;
-    margin-top: 2px;
 }
 
-.checkbox-wrapper input[type="checkbox"]:checked + .checkmark {
-    background: #2e4157;
-    border-color: #2e4157;
+.requirement i {
+    font-size: 10px;
+    transition: all 0.3s ease;
 }
 
-.checkbox-wrapper input[type="checkbox"]:checked + .checkmark::after {
-    content: '✓';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
+.requirement.valid {
+    color: #27ae60;
 }
 
-.checkbox-label {
-    flex: 1;
+.requirement.valid i {
+    color: #27ae60;
+}
+
+.requirement.invalid {
+    color: #e74c3c;
+}
+
+.requirement.invalid i {
+    color: #e74c3c;
 }
 
 .register-btn {
     width: 100%;
-    background: linear-gradient(135deg, #2e4157 0%, #34495e 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    border-radius: 12px;
-    padding: 16px;
+    border-radius: 16px;
+    padding: 20px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
 }
 
 .register-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(46, 65, 87, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
 }
 
 .register-btn:active {
-    transform: translateY(0);
+    transform: translateY(-1px);
+}
+
+.btn-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-text {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.btn-icon {
+    transition: transform 0.3s ease;
+}
+
+.register-btn:hover .btn-icon {
+    transform: translateX(4px);
 }
 
 .btn-loading {
@@ -573,10 +722,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 3;
 }
 
-.register-btn.loading .btn-text,
-.register-btn.loading .btn-icon {
+.register-btn.loading .btn-content {
     opacity: 0;
 }
 
@@ -585,10 +734,10 @@
 }
 
 .spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: 2px solid white;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -598,9 +747,27 @@
     100% { transform: rotate(360deg); }
 }
 
+.btn-ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.6s ease;
+    pointer-events: none;
+}
+
+.register-btn:active .btn-ripple {
+    width: 300px;
+    height: 300px;
+}
+
 .divider {
     text-align: center;
-    margin: 32px 0;
+    margin: 40px 0;
     position: relative;
 }
 
@@ -611,32 +778,48 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(90deg, transparent 0%, #ddd 50%, transparent 100%);
 }
 
-.divider span {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    padding: 0 16px;
-    color: #bdc3c7;
+.divider-text {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0 20px;
+    color: #999;
     font-size: 14px;
+    font-weight: 500;
 }
-
 
 .login-link {
     text-align: center;
-    color: #bdc3c7;
+    color: #666;
     font-size: 14px;
+    font-weight: 500;
 }
 
 .link-highlight {
-    color: #74b9ff;
+    color: #667eea;
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
 }
 
 .link-highlight:hover {
-    color: #0984e3;
+    color: #764ba2;
+    background: rgba(102, 126, 234, 0.1);
+    transform: translateX(4px);
+}
+
+.link-highlight i {
+    transition: transform 0.3s ease;
+}
+
+.link-highlight:hover i {
+    transform: translateX(4px);
 }
 
 /* Responsive Design */
@@ -644,9 +827,40 @@
     .register-card {
         flex-direction: column;
         min-height: auto;
+        border-radius: 24px;
     }
     
     .register-branding {
+        padding: 60px 40px;
+    }
+    
+    .brand-title {
+        font-size: 2.5rem;
+    }
+    
+    .brand-description h2 {
+        font-size: 1.8rem;
+    }
+    
+    .register-form-container {
+        padding: 60px 40px;
+    }
+    
+    .strength-requirements {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .elegant-register-section {
+        padding: 10px;
+    }
+    
+    .register-branding {
+        padding: 40px 20px;
+    }
+    
+    .register-form-container {
         padding: 40px 20px;
     }
     
@@ -654,38 +868,10 @@
         font-size: 2rem;
     }
     
-    .brand-description h2 {
-        font-size: 1.5rem;
-    }
-    
-    .register-form-container {
-        padding: 40px 30px;
-    }
-    
-    .form-row {
-        flex-direction: column;
-        gap: 0;
+    .form-header h2 {
+        font-size: 2rem;
     }
 }
-
-@media (max-width: 480px) {
-    .modern-register-section {
-        padding: 10px;
-    }
-    
-    .register-form-container {
-        padding: 30px 20px;
-    }
-    
-    .social-register {
-        gap: 8px;
-    }
-    
-    .social-btn {
-        padding: 12px;
-        font-size: 13px;
-    }
-    }
 </style>
 @endpush
 
@@ -704,40 +890,53 @@ function togglePassword(inputId) {
     }
 }
 
-// Password strength checker
+// Enhanced password strength checker
 function checkPasswordStrength(password) {
-    let strength = 0;
-    let feedback = '';
-    
-    if (password.length >= 8) strength += 1;
-    if (password.match(/[a-z]/)) strength += 1;
-    if (password.match(/[A-Z]/)) strength += 1;
-    if (password.match(/[0-9]/)) strength += 1;
-    if (password.match(/[^a-zA-Z0-9]/)) strength += 1;
+    const requirements = {
+        length: password.length >= 8,
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number: /[0-9]/.test(password),
+        special: /[^a-zA-Z0-9]/.test(password)
+    };
     
     const strengthFill = document.getElementById('strengthFill');
     const strengthText = document.getElementById('strengthText');
     
-    strengthFill.className = 'strength-fill';
+    // Update requirement indicators
+    Object.keys(requirements).forEach(req => {
+        const element = document.getElementById(`req-${req}`);
+        if (element) {
+            if (requirements[req]) {
+                element.classList.add('valid');
+                element.classList.remove('invalid');
+            } else {
+                element.classList.add('invalid');
+                element.classList.remove('valid');
+            }
+        }
+    });
     
-    if (strength === 0) {
-        strengthFill.classList.add('weak');
-        feedback = 'Très faible';
-    } else if (strength <= 2) {
-        strengthFill.classList.add('weak');
-        feedback = 'Faible';
-    } else if (strength === 3) {
-        strengthFill.classList.add('fair');
-        feedback = 'Moyen';
-    } else if (strength === 4) {
-        strengthFill.classList.add('good');
-        feedback = 'Bon';
-    } else {
-        strengthFill.classList.add('strong');
-        feedback = 'Fort';
+    // Calculate strength
+    const validRequirements = Object.values(requirements).filter(Boolean).length;
+    let strength = 'weak';
+    let strengthClass = 'weak';
+    
+    if (validRequirements >= 5) {
+        strength = 'strong';
+        strengthClass = 'strong';
+    } else if (validRequirements >= 4) {
+        strength = 'good';
+        strengthClass = 'good';
+    } else if (validRequirements >= 3) {
+        strength = 'fair';
+        strengthClass = 'fair';
     }
     
-    strengthText.textContent = feedback;
+    // Update strength indicator
+    strengthFill.className = `strength-fill ${strengthClass}`;
+    strengthText.textContent = strength.charAt(0).toUpperCase() + strength.slice(1);
+    strengthText.className = `strength-text ${strengthClass}`;
 }
 
 // Password strength monitoring
@@ -746,7 +945,7 @@ document.getElementById('password').addEventListener('input', function() {
 });
 
 // Form submission with loading state
-document.querySelector('.modern-register-form').addEventListener('submit', function(e) {
+document.querySelector('.elegant-register-form').addEventListener('submit', function(e) {
     const btn = this.querySelector('.register-btn');
     btn.classList.add('loading');
     
@@ -756,23 +955,7 @@ document.querySelector('.modern-register-form').addEventListener('submit', funct
     }, 3000);
 });
 
-// Input focus effects
-document.querySelectorAll('.input-wrapper input').forEach(input => {
-    input.addEventListener('focus', function() {
-        this.parentElement.classList.add('focused');
-    });
-    
-    input.addEventListener('blur', function() {
-        if (!this.value) {
-            this.parentElement.classList.remove('focused');
-        }
-    });
-    
-    // Check if input has value on page load
-    if (input.value) {
-        input.parentElement.classList.add('focused');
-    }
-});
+// Input focus effects removed - no floating labels
 
 // Password confirmation validation
 document.getElementById('password_confirmation').addEventListener('input', function() {
@@ -786,6 +969,23 @@ document.getElementById('password_confirmation').addEventListener('input', funct
         this.style.borderColor = '';
         this.parentElement.style.borderColor = '';
     }
+});
+
+// Button ripple effect
+document.querySelector('.register-btn').addEventListener('click', function(e) {
+    const ripple = this.querySelector('.btn-ripple');
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    
+    setTimeout(() => {
+        ripple.style.width = ripple.style.height = '0px';
+    }, 600);
 });
 </script>
 @endpush

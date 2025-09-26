@@ -9,7 +9,7 @@ class ProjectImage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['project_id', 'image'];
+    protected $fillable = ['project_id', 'image', 'sort_order'];
 
     public function project()
     {

@@ -4936,7 +4936,7 @@ Version:1.0
 	display: block;
 }
 .footer .about .call a {
-	color: #f7941d;
+	color: #FF0000;
 	font-size: 20px;
 	font-weight: 600;
 }
@@ -4953,7 +4953,7 @@ Version:1.0
 	font-weight: 400;
 }
 .footer .links ul li a:hover{
-	color:#D2B48C;
+	color:#FF0000;
 	padding-left:10px;
 }
 .footer .social{}
@@ -4984,7 +4984,7 @@ Version:1.0
 	font-size:16px;
 }
 .footer .social ul li a:hover{
-	color:#D2B48C;
+	color:#FF0000;
 }
 /* Copyright */
 .footer .copyright{

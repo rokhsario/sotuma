@@ -7,7 +7,7 @@
 <style>
 /* Modern Contact Page - Google Maps First Design */
 :root {
-    --sotuma-red: rgb(130,4,3);
+    --sotuma-red: #FF0000;
     --sotuma-gold: #D2B48C;
     --facebook-blue: #1877f2;
     --instagram-purple: #e4405f;
@@ -15,7 +15,7 @@
     --whatsapp-green: #25d366;
     --glass-bg: rgba(255,255,255,0.95);
     --glass-blur: blur(15px);
-    --card-shadow: 0 12px 40px rgba(130,4,3,0.15);
+    --card-shadow: 0 12px 40px rgba(255,0,0,0.15);
     --border-radius: 20px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -60,10 +60,11 @@
 
 .map-overlay h3 {
     color: var(--sotuma-red);
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin: 0 0 10px 0;
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0 0 15px 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .map-overlay p {
@@ -75,10 +76,42 @@
 }
 
 .map-overlay .address {
-    font-weight: 600;
+    font-weight: 700;
     color: var(--sotuma-red);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
+
+/* Directions Button */
+.directions-btn {
+    background: linear-gradient(135deg, var(--sotuma-red), #CC0000);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 15px rgba(255,0,0,0.3);
+}
+
+.directions-btn:hover {
+    background: linear-gradient(135deg, #CC0000, var(--sotuma-red));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,0,0,0.4);
+}
+
+.directions-btn i {
+    font-size: 1rem;
+}
+
 
 /* Contact Info Section */
 .contact-info-section {
@@ -159,7 +192,7 @@
 
 .contact-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(130,4,3,0.25);
+    box-shadow: 0 20px 50px rgba(255,0,0,0.25);
 }
 
 .contact-card-icon {
@@ -177,7 +210,7 @@
 }
 
 .contact-card-icon.address-icon {
-    background: linear-gradient(135deg, var(--sotuma-red), #a00000);
+    background: linear-gradient(135deg, var(--sotuma-red), #CC0000);
 }
 
 .contact-card-icon.phone-icon {
@@ -185,7 +218,7 @@
 }
 
 .contact-card-icon.email-icon {
-    background: linear-gradient(135deg, var(--sotuma-red), #dc3545);
+    background: linear-gradient(135deg, var(--sotuma-red), #CC0000);
 }
 
 .contact-card-icon.facebook-icon {
@@ -248,7 +281,7 @@
     text-decoration: none;
     color: inherit;
     transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(130,4,3,0.25);
+    box-shadow: 0 20px 50px rgba(255,0,0,0.25);
 }
 
 .clickable-card:hover .contact-card-icon {
@@ -346,7 +379,7 @@
 .contact-form textarea:focus {
     border-color: var(--sotuma-red);
     background: white;
-    box-shadow: 0 0 0 4px rgba(130,4,3,0.1);
+    box-shadow: 0 0 0 4px rgba(255,0,0,0.1);
 }
 
 .contact-form textarea {
@@ -356,7 +389,7 @@
 }
 
 .contact-form button {
-    background: linear-gradient(135deg, var(--sotuma-red), #a00000);
+    background: linear-gradient(135deg, var(--sotuma-red), #CC0000);
     color: white;
     border: none;
     border-radius: 12px;
@@ -372,9 +405,9 @@
 }
 
 .contact-form button:hover {
-    background: linear-gradient(135deg, #a00000, var(--sotuma-red));
+    background: linear-gradient(135deg, #CC0000, var(--sotuma-red));
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(130,4,3,0.3);
+    box-shadow: 0 8px 25px rgba(255,0,0,0.3);
 }
 
 /* File Upload */
@@ -394,7 +427,7 @@
 .file-upload-area.dragover {
     border-color: var(--sotuma-gold);
     background: linear-gradient(135deg, #fff8e1, #fff3cd);
-    box-shadow: 0 4px 15px rgba(130,4,3,0.1);
+    box-shadow: 0 4px 15px rgba(255,0,0,0.1);
 }
 
 .file-upload-area i {
@@ -475,14 +508,14 @@
 }
 
 .btn-login {
-    background: linear-gradient(135deg, var(--sotuma-red), #a00000);
+    background: linear-gradient(135deg, var(--sotuma-red), #CC0000);
     color: white;
 }
 
 .btn-login:hover {
-    background: linear-gradient(135deg, #a00000, var(--sotuma-red));
+    background: linear-gradient(135deg, #CC0000, var(--sotuma-red));
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(130,4,3,0.3);
+    box-shadow: 0 8px 25px rgba(255,0,0,0.3);
 }
 
 .btn-register {
@@ -604,6 +637,12 @@
     .map-overlay p {
         font-size: 0.9rem;
         line-height: 1.4;
+    }
+    
+    .directions-btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        margin-top: 12px;
     }
     
     .section-title h2 {
@@ -728,6 +767,12 @@
         line-height: 1.3;
     }
     
+    .directions-btn {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+        margin-top: 10px;
+    }
+    
     .section-title h2 {
         font-size: 1.8rem;
     }
@@ -812,7 +857,7 @@
 <section class="map-section">
     <div class="map-container">
         <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3276.1234567890123!2d10.7057047!3d34.8118905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1301d5004eb1eeef%3A0x462a50075141490c!2sSOTUMA!5e0!3m2!1sfr!2stn!4v1234567890123!5m2!1sfr!2stn"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3275.783147715462!2d10.707045780123575!3d34.811397183960686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1301d5004eb1eeef%3A0x462a50075141490c!2sSOTUMA!5e0!3m2!1sen!2stn!4v1758808157206!5m2!1sen!2stn&hl=fr&zoom=19"
             width="100%" 
             height="100%" 
             style="border:0; display:block; width:100%; height:100%;" 
@@ -826,6 +871,10 @@
             <h3>📍 Notre Localisation</h3>
             <p class="address">{{ $settings->address ?? 'Route gremda km8, Sfax, TUNISIE' }}</p>
             <p>Venez nous rendre visite !</p>
+            <button class="directions-btn" onclick="openDirections()">
+                <i class="fas fa-directions"></i>
+                Obtenir l'itinéraire
+            </button>
         </div>
     </div>
 </section>
@@ -1009,6 +1058,27 @@ document.querySelectorAll('.clickable-card').forEach(card => {
     card.setAttribute('tabindex', '0');
     card.setAttribute('role', 'button');
 });
+
+// Open Google Maps with directions to SOTUMA
+function openDirections() {
+    // SOTUMA coordinates: 34.811397183960686, 10.707045780123575
+    const latitude = 34.811397183960686;
+    const longitude = 10.707045780123575;
+    const address = "SOTUMA, Route gremda km8, Sfax, TUNISIE";
+    
+    // Check if user is on mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // Open in Google Maps app on mobile
+        const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}&destination_place_id=ChIJN1t_tDeuRUcRkM8G_kgVGF0`;
+        window.open(mapsUrl, '_blank');
+    } else {
+        // Open in new tab on desktop
+        const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}&destination_place_id=ChIJN1t_tDeuRUcRkM8G_kgVGF0`;
+        window.open(mapsUrl, '_blank');
+    }
+}
 
 // Real-time form validation
 document.addEventListener('DOMContentLoaded', function() {

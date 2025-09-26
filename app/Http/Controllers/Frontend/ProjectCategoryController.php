@@ -11,7 +11,7 @@ class ProjectCategoryController extends Controller
     // Frontend: show all project categories as cards
     public function index()
     {
-        $categories = ProjectCategory::orderBy('name', 'ASC')->get();
+        $categories = ProjectCategory::orderBy('sort_order')->orderBy('name', 'ASC')->get();
         return view('frontend.project-categories.index', compact('categories'));
     }
 

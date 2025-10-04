@@ -30,6 +30,8 @@
     // STORAGE LINKED ROUTE
     Route::get('storage-link',[AdminController::class,'storageLink'])->name('storage.link');
 
+    // SEO Routes
+    Route::get('sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 
     Auth::routes(['register' => false]);
 
@@ -179,6 +181,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('/analytics/chart-data', [App\Http\Controllers\Admin\AnalyticsController::class, 'getChartData'])->name('admin.analytics.chart-data');
         Route::get('/analytics/stats', [App\Http\Controllers\Admin\AnalyticsController::class, 'getVisitorStats'])->name('admin.analytics.stats');
         Route::post('/analytics/initialize', [App\Http\Controllers\Admin\AnalyticsController::class, 'initialize'])->name('admin.analytics.initialize');
+
+        // About Us Images Management
+        Route::resource('about-us-images', App\Http\Controllers\Admin\AboutUsImageController::class);
+        Route::post('about-us-images/update-sort-order', [App\Http\Controllers\Admin\AboutUsImageController::class, 'updateSortOrder'])->name('about-us-images.update-sort-order');
+        Route::patch('about-us-images/{aboutUsImage}/toggle-active', [App\Http\Controllers\Admin\AboutUsImageController::class, 'toggleActive'])->name('about-us-images.toggle-active');
     });
 
 

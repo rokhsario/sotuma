@@ -231,9 +231,20 @@ body, .aluprof-category-grid, .aluprof-category-block, .aluprof-heading, .alupro
 }
 @media (max-width: 800px) {
     .aluprof-category-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: var(--aluprof-gap-mobile);
-        padding: 0 2px;
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+        padding: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin-left: calc(-50vw + 50%) !important;
+        margin-right: calc(-50vw + 50%) !important;
+    }
+    
+    .aluprof-category-block {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
     }
     .aluprof-category-block {
         min-height: 170px;

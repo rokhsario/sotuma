@@ -3,9 +3,9 @@
     <div class="nav-container" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:0 18px;flex-wrap:nowrap;">
         <!-- Mobile/Tablet Menu Toggle -->
         <div class="mobile-menu-toggle" style="display:flex;flex-direction:column;cursor:pointer;padding:15px;width:80px;height:80px;justify-content:center;align-items:center;z-index:1001;" onclick="toggleMobileSidebar()">
-            <span class="hamburger-line" style="width:40px;height:5px;background:#000;margin:5px 0;transition:0.3s;"></span>
-            <span class="hamburger-line" style="width:40px;height:5px;background:#000;margin:5px 0;transition:0.3s;"></span>
-            <span class="hamburger-line" style="width:40px;height:5px;background:#000;margin:5px 0;transition:0.3s;"></span>
+            <span class="hamburger-line" style="width:40px;height:5px;background:#FF0000;margin:2px 0;transition:0.3s;"></span>
+            <span class="hamburger-line" style="width:40px;height:5px;background:#FF0000;margin:2px 0;transition:0.3s;"></span>
+            <span class="hamburger-line" style="width:40px;height:5px;background:#FF0000;margin:2px 0;transition:0.3s;"></span>
         </div>
         
         <div class="logo" style="margin-right:40px;flex-shrink:0;">
@@ -239,7 +239,7 @@
             <li><a href="{{ route('contact') }}">{{ __('frontend.contact') }}</a></li>
             @if(auth()->check())
                 @if(auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin')
-                    <li><a href="{{ route('admin') }}" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); color: white; font-weight: 600; text-transform: uppercase; border-radius: 8px; padding: 1rem; margin: 0.5rem 0;">{{ __('frontend.dashboard') }}</a></li>
+                    <li><a href="{{ route('admin') }}" style="background: linear-gradient(135deg, #FF0000 0%, #FF0000 100%); color: white; font-weight: 600; text-transform: uppercase; border-radius: 8px; padding: 1rem; margin: 0.5rem 0;">{{ __('frontend.dashboard') }}</a></li>
                 @endif
                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">{{ __('frontend.logout') }}</a></li>
                 <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>

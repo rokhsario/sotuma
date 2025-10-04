@@ -1087,68 +1087,243 @@
 
 /* Responsive Design */
 @media (max-width: 1200px) {
+    /* Tablet Breadcrumb */
+    .breadcrumb-container {
+        padding: 0 40px !important;
+    }
+    
+    /* Tablet Slider */
+    .enhanced-slider-section {
+        padding: 0 40px !important;
+    }
+    
+    .main-slider-container {
+        height: 600px !important;
+        border-radius: 15px !important;
+    }
+    
+    .slider-nav {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 18px !important;
+    }
+    
+    .slider-nav.prev {
+        left: 20px !important;
+    }
+    
+    .slider-nav.next {
+        right: 20px !important;
+    }
+    
+    .thumbnail-item {
+        flex: 0 0 150px !important;
+        height: 100px !important;
+    }
+    
+    /* Tablet Project Info */
     .project-info-container {
         grid-template-columns: 1fr !important;
-        gap: 30px !important;
+        gap: 25px !important;
+        padding: 0 40px !important;
+    }
+    
+    .project-info-card {
+        padding: 25px !important;
     }
 }
 
 @media (max-width: 768px) {
+    /* Breadcrumb Mobile */
+    .breadcrumb-container {
+        padding: 0 20px !important;
+    }
+    
+    .breadcrumb {
+        font-size: 0.9rem !important;
+        gap: 8px !important;
+    }
+    
+    /* Slider Section Mobile */
+    .enhanced-slider-section {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
     
     .main-slider-container {
-        height: 500px;
+        height: 400px !important;
+        border-radius: 0 !important;
+        margin-bottom: 20px !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin-left: calc(-50vw + 50%) !important;
+        margin-right: calc(-50vw + 50%) !important;
     }
     
     .slider-nav {
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 16px !important;
     }
     
     .slider-nav.prev {
-        left: 15px;
+        left: 10px !important;
     }
     
     .slider-nav.next {
-        right: 15px;
+        right: 10px !important;
     }
     
     .image-counter {
-        bottom: 20px;
-        right: 20px;
-        padding: 8px 16px;
-        font-size: 0.8rem;
+        bottom: 15px !important;
+        right: 15px !important;
+        padding: 6px 12px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    /* Thumbnail Navigation Mobile */
+    .thumbnail-navigation {
+        padding: 15px 0 !important;
+        margin: 0 20px !important;
+    }
+    
+    .thumbnail-container {
+        gap: 10px !important;
+        padding: 5px 0 !important;
     }
     
     .thumbnail-item {
-        flex: 0 0 200px;
-        height: 120px;
+        flex: 0 0 120px !important;
+        height: 80px !important;
+        border-radius: 8px !important;
     }
     
+    .thumbnail-nav {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 12px !important;
+    }
+    
+    .prev-thumb {
+        left: 10px !important;
+    }
+    
+    .next-thumb {
+        right: 10px !important;
+    }
+    
+    /* Project Info Mobile */
     .project-info-container {
-        padding: 0 20px;
+        padding: 0 20px !important;
+        margin: 20px 0 !important;
+    }
+    
+    .project-info-card {
+        padding: 20px !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .project-info-card h3 {
+        font-size: 1.1rem !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .project-info-card p {
+        font-size: 0.9rem !important;
+        line-height: 1.5 !important;
     }
 }
 
 @media (max-width: 480px) {
+    /* Breadcrumb Small Mobile */
+    .breadcrumb-container {
+        padding: 0 15px !important;
+    }
     
+    .breadcrumb {
+        font-size: 0.8rem !important;
+        gap: 6px !important;
+        flex-wrap: wrap !important;
+    }
+    
+    /* Slider Section Small Mobile */
     .main-slider-container {
-        height: 400px;
+        height: 350px !important;
+        border-radius: 0 !important;
+        margin-bottom: 15px !important;
     }
     
     .slider-nav {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 14px !important;
+    }
+    
+    .slider-nav.prev {
+        left: 8px !important;
+    }
+    
+    .slider-nav.next {
+        right: 8px !important;
+    }
+    
+    .image-counter {
+        bottom: 12px !important;
+        right: 12px !important;
+        padding: 4px 8px !important;
+        font-size: 0.7rem !important;
+    }
+    
+    /* Thumbnail Navigation Small Mobile */
+    .thumbnail-navigation {
+        padding: 10px 0 !important;
+        margin: 0 15px !important;
+    }
+    
+    .thumbnail-container {
+        gap: 8px !important;
+        padding: 3px 0 !important;
     }
     
     .thumbnail-item {
-        flex: 0 0 120px;
-        height: 80px;
+        flex: 0 0 100px !important;
+        height: 70px !important;
+        border-radius: 6px !important;
     }
     
+    .thumbnail-nav {
+        width: 25px !important;
+        height: 25px !important;
+        font-size: 10px !important;
+    }
+    
+    .prev-thumb {
+        left: 8px !important;
+    }
+    
+    .next-thumb {
+        right: 8px !important;
+    }
+    
+    /* Project Info Small Mobile */
     .project-info-container {
-        padding: 0 15px;
+        padding: 0 15px !important;
+        margin: 15px 0 !important;
+    }
+    
+    .project-info-card {
+        padding: 15px !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .project-info-card h3 {
+        font-size: 1rem !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .project-info-card p {
+        font-size: 0.85rem !important;
+        line-height: 1.4 !important;
     }
 }
 </style>
@@ -1196,25 +1371,31 @@
                         </div>
                     </div>
                 @endif
+                @php $galleryIndex = 0; @endphp
                 @foreach($project->images as $index => $image)
-                    <div class="slide {{ $index === 0 && !$project->image ? 'active' : '' }}" 
-                         data-index="{{ $project->image ? $index + 1 : $index }}"
-                         onclick="openModalWithIndex({{ $project->image ? $index + 1 : $index }}, '{{ asset($image->image) }}', '{{ $project->title }}')">
-                        <div class="slide-image-container">
-                            <img src="{{ asset($image->image) }}" 
-                 alt="{{ $project->title }}" 
-                                 class="slide-image"
-                                 loading="lazy">
-                        </div>
-                        <div class="slide-overlay">
-                            <div class="slide-content">
-                                <h3 class="slide-title">{{ $project->title }}</h3>
-                                @if($project->architect)
-                                    <p class="slide-architect">Architecte: {{ $project->architect }}</p>
-                                @endif
+                    @if($project->image !== $image->image)
+                        <div class="slide {{ $galleryIndex === 0 && !$project->image ? 'active' : '' }}" 
+                             data-index="{{ $project->image ? $galleryIndex + 1 : $galleryIndex }}"
+                             onclick="openModalWithIndex({{ $project->image ? $galleryIndex + 1 : $galleryIndex }}, '{{ asset($image->image) }}', '{{ $project->title }}')">
+                            <div class="slide-image-container">
+                                <img src="{{ asset($image->image) }}" 
+                     alt="{{ $project->title }}" 
+                                     class="slide-image"
+                                     loading="lazy">
+                            </div>
+                            <div class="slide-overlay">
+                                <div class="slide-content">
+                                    <h3 class="slide-title">{{ $project->title }}</h3>
+                                    @if($project->architect)
+                                        <p class="slide-architect">Architecte: {{ $project->architect }}</p>
+                                    @endif
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        @php $galleryIndex++; @endphp
+                    @else
+                        <!-- Skipping duplicate image: {{ $image->image }} -->
+                    @endif
                 @endforeach
             </div>
             
@@ -1252,27 +1433,12 @@
             </div>
             @endif
             <div class="thumbnail-container {{ auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin') ? 'sortable-thumbnails' : '' }}" id="thumbnailContainer">
-                @if($project->image)
-                    <div class="thumbnail-item active {{ auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin') ? 'sortable-thumbnail' : '' }}" data-index="0" data-image-id="main">
-                        @if(auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin'))
-                        <div class="thumbnail-sort-handle">
-                            <i class="fas fa-grip-vertical"></i>
-                        </div>
-                        @endif
-                        <div class="thumbnail-image-container">
-                            <img src="{{ asset($project->image) }}" 
-                                 alt="{{ $project->title }}" 
-                                 class="thumbnail-image"
-                                 loading="lazy">
-                        </div>
-                        <div class="thumbnail-overlay">
-                            <span class="thumbnail-title">{{ $project->title }}</span>
-                        </div>
-                    </div>
-                @endif
+                <!-- Principal image removed from thumbnails to avoid duplication -->
+            @php $thumbIndex = 0; @endphp
             @foreach($project->images as $index => $image)
-                    <div class="thumbnail-item {{ $index === 0 && !$project->image ? 'active' : '' }} {{ auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin') ? 'sortable-thumbnail' : '' }}" 
-                         data-index="{{ $project->image ? $index + 1 : $index }}" 
+                @if($project->image !== $image->image)
+                    <div class="thumbnail-item {{ $thumbIndex === 0 && !$project->image ? 'active' : '' }} {{ auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin') ? 'sortable-thumbnail' : '' }}" 
+                         data-index="{{ $thumbIndex }}" 
                          data-image-id="{{ $image->id }}">
                         @if(auth()->check() && (auth()->user()->role === 'admin' || auth()->user()->role === 'co-admin'))
                         <div class="thumbnail-sort-handle">
@@ -1288,7 +1454,11 @@
                         <div class="thumbnail-overlay">
                             <span class="thumbnail-title">{{ $project->title }}</span>
                         </div>
-                </div>
+                    </div>
+                    @php $thumbIndex++; @endphp
+                @else
+                    <!-- Skipping duplicate thumbnail: {{ $image->image }} -->
+                @endif
             @endforeach
             </div>
             
@@ -1361,27 +1531,7 @@
     </div>
 </section>
 
-<!-- SIMPLE FULL IMAGE MODAL -->
-<div id="imageModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; cursor: pointer;" onclick="closeModal()">
-    <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 20px;">
-        <!-- Close Button -->
-        <button onclick="closeModal()" style="position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.7); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 24px; z-index: 10001;">&times;</button>
-        
-        <!-- Previous Button -->
-        <button onclick="event.stopPropagation(); prevImage();" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; font-size: 24px; z-index: 10001;">‹</button>
-        
-        <!-- Next Button -->
-        <button onclick="event.stopPropagation(); nextImage();" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; font-size: 24px; z-index: 10001;">›</button>
-        
-        <!-- Image -->
-        <img id="modalImage" style="max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" alt="Full size image">
-        
-        <!-- Counter -->
-        <div id="modalCounter" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: white; padding: 10px 20px; border-radius: 25px; font-size: 16px; font-weight: bold;">
-            <span id="modalCurrent">1</span> / <span id="modalTotal">{{ $project->images->count() + ($project->image ? 1 : 0) }}</span>
-        </div>
-    </div>
-</div>
+<!-- Modal is created dynamically by JavaScript -->
 
 <script>
 // ENHANCED SLIDER - SENIOR DEVELOPER LEVEL
@@ -1423,7 +1573,11 @@ class ProjectSlider {
         
         // Thumbnail navigation
         this.thumbnails.forEach((thumb, index) => {
-            thumb.addEventListener('click', () => this.goToSlide(index));
+            thumb.addEventListener('click', () => {
+                // If principal image exists, add 1 to the index since principal is at index 0
+                const slideIndex = @if($project->image) index + 1 @else index @endif;
+                this.goToSlide(slideIndex);
+            });
         });
         
         // Thumbnail scroll buttons
@@ -1479,10 +1633,12 @@ class ProjectSlider {
         
         // Update thumbnails
         this.thumbnails.forEach((thumb, index) => {
-            thumb.classList.toggle('active', index === this.currentIndex);
+            // If principal image exists, thumbnail index 0 corresponds to slide index 1
+            const correspondingSlideIndex = @if($project->image) index + 1 @else index @endif;
+            thumb.classList.toggle('active', correspondingSlideIndex === this.currentIndex);
             
             // Scroll to active thumbnail
-            if (index === this.currentIndex) {
+            if (correspondingSlideIndex === this.currentIndex) {
                 thumb.scrollIntoView({ 
                     behavior: 'smooth', 
                     block: 'nearest', 
@@ -1580,24 +1736,49 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize slider
     new ProjectSlider();
     
-    // Initialize modal images array in the EXACT order as slides
+    // Initialize modal images array - include ALL images in the correct order
     modalImages = [];
     
-    // Add images in the exact order they appear in the HTML
+    // Add principal image first (if it exists)
     @if($project->image)
         modalImages.push('{{ asset($project->image) }}');
     @endif
+    
+    // Then add gallery images (excluding duplicates of principal image)
     @foreach($project->images as $image)
-        modalImages.push('{{ asset($image->image) }}');
+        @if($project->image !== $image->image)
+            modalImages.push('{{ asset($image->image) }}');
+        @else
+            console.warn('Skipping duplicate gallery image:', '{{ $image->image }}');
+        @endif
     @endforeach
     
     console.log('Modal images array order:', modalImages);
     console.log('Array length:', modalImages.length);
+    console.log('Principal image exists:', @if($project->image) true @else false @endif);
+    console.log('Principal image path:', @if($project->image) '{{ $project->image }}' @else 'null' @endif);
+    console.log('Gallery images count:', {{ $project->images->count() }});
+    
+    // Debug: Check if principal image is duplicated in gallery
+    @if($project->image)
+        @foreach($project->images as $galleryImage)
+            @if($galleryImage->image === $project->image)
+                console.error('DUPLICATION FOUND: Principal image also exists in gallery!');
+                console.error('Principal:', '{{ $project->image }}');
+                console.error('Gallery duplicate:', '{{ $galleryImage->image }}');
+            @endif
+        @endforeach
+    @endif
 });
 
 // NEW FUNCTION - Opens modal with specific index
 function openModalWithIndex(index, imageSrc, title) {
-    console.log('Opening modal with index:', index, 'image:', imageSrc);
+    console.log('=== OPENING MODAL ===');
+    console.log('Index:', index);
+    console.log('Image source:', imageSrc);
+    console.log('Title:', title);
+    console.log('Modal images array:', modalImages);
+    console.log('Array length:', modalImages.length);
     
     // Set the current index directly
     modalCurrentIndex = index;
@@ -1723,21 +1904,15 @@ function openModal(imageSrc) {
 // Test function to ensure modal works
 function testModal() {
     console.log('Testing modal...');
-    const modal = document.getElementById('imageModal');
-    if (modal) {
-        modal.style.display = 'block';
+    if (modalImages.length > 0) {
+        openModalWithIndex(0, modalImages[0], 'Test Image');
         console.log('Modal should be visible now');
     } else {
-        console.error('Modal not found!');
+        console.error('No images available for modal');
     }
 }
 
-// Close modal when clicking outside the image
-document.getElementById('imageModal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeModal();
-    }
-});
+// Modal click events are handled in the dynamically created modal
 
 // Keyboard navigation for modal
 document.addEventListener('keydown', function(e) {
@@ -1765,16 +1940,8 @@ function testNavigation() {
 function testModalWithImage() {
     if (modalImages.length > 0) {
         console.log('Opening modal with first image:', modalImages[0]);
-        modalCurrentIndex = 0;
-        const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('modalImage');
-        
-        if (modal && modalImg) {
-            modal.style.display = 'block';
-            modalImg.src = modalImages[0];
-            document.body.style.overflow = 'hidden';
-            console.log('Modal opened with image:', modalImages[0]);
-        }
+        openModalWithIndex(0, modalImages[0], 'Test Image');
+        console.log('Modal opened with image:', modalImages[0]);
     } else {
         console.error('No images available in modalImages array');
     }

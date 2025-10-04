@@ -4,7 +4,7 @@
 <!-- Enhanced Hero Section with Video Background -->
 <section class="hero-video-section position-relative" style="min-height:100vh;overflow:hidden;">
     <!-- Slogan in Top Left Corner - Outside Container -->
-    <div class="hero-slogan position-absolute" style="top:40px;left:0;z-index:10;color:#fff;text-align:left;padding-left:120px;">
+    <div class="hero-slogan position-absolute" style="top:40px;left:0;z-index:10;color:#fff;text-align:left;padding-left:115px;">
         <div class="slogan-text" style="font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;color:#fff;text-shadow:0 4px 16px rgba(0,0,0,0.8);letter-spacing:2px;line-height:1.4;max-width:700px;text-align:justify;word-spacing:0.3em;">
             @if($settings && $settings->hero_slogan)
                 @php
@@ -31,13 +31,10 @@
     </div>
     
     <!-- Video Background -->
-    <video class="hero-bg-video" autoplay loop muted playsinline preload="auto" style="object-fit:cover;width:100vw;height:100vh;position:absolute;top:0;left:0;z-index:1;">
+    <video class="hero-bg-video" autoplay loop muted playsinline style="object-fit:cover;width:100vw;height:100vh;position:absolute;top:0;left:0;z-index:1;">
         <source src="{{ asset('images/video1.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-    
-    <!-- Background Image Placeholder -->
-    <div class="hero-bg-image" style="background-image: url('{{ asset('images/img55.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat; width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; z-index: 0;"></div>
     
     <!-- Main Content -->
     <div class="container h-100 d-flex flex-column justify-content-center align-items-center position-relative" style="z-index:3;min-height:100vh;">
@@ -51,53 +48,6 @@
         <style>
             html {
                 scroll-behavior: smooth;
-            }
-            
-            /* ===== HERO VIDEO OPTIMIZATION ===== */
-            .hero-bg-video {
-                /* Ensure video loads immediately */
-                will-change: transform;
-                transform: translateZ(0);
-                -webkit-transform: translateZ(0);
-                backface-visibility: hidden;
-                -webkit-backface-visibility: hidden;
-                /* Force hardware acceleration */
-                -webkit-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-                /* Optimize for immediate display */
-                image-rendering: -webkit-optimize-contrast;
-                image-rendering: crisp-edges;
-            }
-            
-            /* ===== MOBILE SCROLL OPTIMIZATION ===== */
-            @media (max-width: 768px) {
-                /* Ensure smooth mobile scrolling without browser settings */
-                html, body {
-                    -webkit-overflow-scrolling: touch !important;
-                    scroll-behavior: smooth !important;
-                    touch-action: pan-y !important;
-                    overscroll-behavior: none !important;
-                    -webkit-text-size-adjust: 100% !important;
-                    -ms-text-size-adjust: 100% !important;
-                }
-                
-                /* Optimize all scrollable containers */
-                .container, .row, .col, section, div, main, article {
-                    -webkit-overflow-scrolling: touch !important;
-                    scroll-behavior: smooth !important;
-                }
-                
-                /* Fix for any elements that might block scrolling */
-                .hero-video-section, .projects-categories-section, .products-section {
-                    -webkit-overflow-scrolling: touch !important;
-                    touch-action: pan-y !important;
-                }
-                
-                /* Ensure modals and overlays don't block scroll */
-                .modal, .popup, .overlay, [style*="position: fixed"] {
-                    touch-action: pan-y !important;
-                    -webkit-overflow-scrolling: touch !important;
-                }
             }
             
             .hero-btn-box {
@@ -185,7 +135,7 @@
             
             .hero-slogan {
                 top: 30px !important;
-                padding-left: 40px !important;
+                padding-left: 75px !important;
             }
             
             .slogan-text {
@@ -198,7 +148,7 @@
         @media (max-width: 480px) {
             .hero-slogan {
                 top: 20px !important;
-                padding-left: 20px !important;
+                padding-left: 55px !important;
             }
             
             .slogan-text {
@@ -226,6 +176,8 @@
             }
         </style>
 </section>
+
+
 <style>
 /* Premium Aluprof-Style Offer Grid - Google Senior Developer Level */
 .offer-grid-section {
@@ -879,32 +831,20 @@
     letter-spacing: 0.5px;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    height: 3rem !important;
-    min-height: 3rem !important;
-    max-height: 3rem !important;
+    height: 2.4rem;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    line-height: 1.2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .projects-categories-card:hover .projects-categories-title {
     font-size: 1.3rem;
     margin-bottom: 8px;
     text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-    height: 3rem !important;
-    min-height: 3rem !important;
-    max-height: 3rem !important;
+    height: 2.4rem;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    line-height: 1.2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .projects-categories-description {
@@ -1027,22 +967,10 @@
     
     .projects-categories-title {
         font-size: 1rem;
-        height: 2.5rem !important;
-        min-height: 2.5rem !important;
-        max-height: 2.5rem !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
     
     .projects-categories-card:hover .projects-categories-title {
         font-size: 1.2rem;
-        height: 2.5rem !important;
-        min-height: 2.5rem !important;
-        max-height: 2.5rem !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
     
     .projects-categories-description {
@@ -1089,22 +1017,10 @@
     
     .projects-categories-title {
         font-size: 0.9rem;
-        height: 2.2rem !important;
-        min-height: 2.2rem !important;
-        max-height: 2.2rem !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
     
     .projects-categories-card:hover .projects-categories-title {
         font-size: 1.1rem;
-        height: 2.2rem !important;
-        min-height: 2.2rem !important;
-        max-height: 2.2rem !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
     
     .projects-categories-description {
@@ -1519,7 +1435,7 @@
 }
 
 .premium-process-badge-text {
-    background: linear-gradient(135deg, #820403, #FF0000);
+    background: linear-gradient(135deg, #820403, #f7c948);
     color: white;
     padding: 12px 24px;
     border-radius: 50px;
@@ -1562,19 +1478,19 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #FF0000, #820403);
+    background: linear-gradient(90deg, #FF0000, #CC0000);
     z-index: 1;
     animation: flowLine 3s ease-in-out infinite;
 }
 
 @keyframes flowLine {
     0%, 100% { 
-        background: linear-gradient(90deg, #FF0000, #820403);
+        background: linear-gradient(90deg, #FF0000, #CC0000);
         box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
     }
     50% { 
-        background: linear-gradient(90deg, #820403, #FF0000);
-        box-shadow: 0 0 30px rgba(130, 4, 3, 0.4);
+        background: linear-gradient(90deg, #CC0000, #FF0000);
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
     }
 }
 
@@ -1603,7 +1519,7 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 24px;
-    box-shadow: 0 15px 40px rgba(247, 201, 72, 0.3), 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 40px rgba(255, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.1);
     position: relative;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
@@ -1617,7 +1533,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: conic-gradient(from 0deg, transparent, rgba(247, 201, 72, 0.1), transparent);
+    background: conic-gradient(from 0deg, transparent, rgba(255, 0, 0, 0.1), transparent);
     animation: rotate 3s linear infinite;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -1629,8 +1545,8 @@
 
 .premium-process-icon:hover {
     transform: translateY(-8px) rotateY(10deg);
-    box-shadow: 0 25px 60px rgba(247, 201, 72, 0.4);
-    border-color: #820403;
+    box-shadow: 0 25px 60px rgba(255, 0, 0, 0.4);
+    border-color: #CC0000;
     animation: pulseGlow 2s ease-in-out infinite;
 }
 
@@ -1718,7 +1634,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle, rgba(212, 165, 116, 0.2) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.2) 0%, transparent 70%);
     border-radius: 50%;
     opacity: 0;
     transition: all 0.3s ease;
@@ -1735,9 +1651,9 @@
     margin-top: 80px;
     text-align: center;
     padding: 60px 40px;
-    background: linear-gradient(135deg, rgba(212, 165, 116, 0.05) 0%, rgba(196, 148, 100, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(204, 0, 0, 0.05) 100%);
     border-radius: 24px;
-    border: 2px solid rgba(212, 165, 116, 0.1);
+    border: 2px solid rgba(255, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
 }
@@ -1779,7 +1695,7 @@
 }
 
 .premium-process-cta-btn {
-    background: linear-gradient(135deg, #FF0000, #820403);
+    background: linear-gradient(135deg, #f7c948, #820403);
     color: white;
     padding: 16px 32px;
     border-radius: 50px;
@@ -1787,7 +1703,7 @@
     font-weight: 700;
     font-size: 1.1rem;
     letter-spacing: 0.5px;
-    border: 2px solid #FF0000;
+    border: 2px solid #d4a574;
     display: inline-block;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 8px 30px rgba(212, 165, 116, 0.3);
@@ -2131,7 +2047,7 @@
 }
 
 .premium-service-features li:hover {
-    color: #CC0000;
+    color: #c49464;
     transform: translateX(5px);
 }
 
@@ -2143,7 +2059,7 @@
 }
 
 .premium-service-features li:hover i {
-    color: #FF0000;
+    color: #d4a574;
     transform: scale(1.2);
 }
 
@@ -2157,14 +2073,14 @@
 
 .premium-service-btn {
     background: linear-gradient(135deg, #1a1a1a, #333);
-    color: #FF0000;
+    color: #d4a574;
     padding: 12px 20px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
     letter-spacing: 0.5px;
-    border: 2px solid #FF0000;
+    border: 2px solid #d4a574;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -2183,7 +2099,7 @@
 }
 
 .premium-service-btn:hover {
-    background: linear-gradient(135deg, #FF0000, #CC0000);
+    background: linear-gradient(135deg, #d4a574, #c49464);
     color: white;
     transform: translateY(-2px);
     text-decoration: none;
@@ -2203,7 +2119,7 @@
     display: block;
     font-size: 1.1rem;
     font-weight: 700;
-    color: #FF0000;
+    color: #d4a574;
     line-height: 1;
 }
 
@@ -2285,31 +2201,31 @@
 }
 
 .premium-services-cta-btn.primary {
-    background: linear-gradient(135deg, #FF0000, #CC0000);
+    background: linear-gradient(135deg, #d4a574, #c49464);
     color: white;
-    border-color: #FF0000;
-    box-shadow: 0 8px 30px rgba(255, 0, 0, 0.3);
+    border-color: #d4a574;
+    box-shadow: 0 8px 30px rgba(212, 165, 116, 0.3);
 }
 
 .premium-services-cta-btn.primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(255, 0, 0, 0.4);
+    box-shadow: 0 12px 40px rgba(212, 165, 116, 0.4);
     color: white;
     text-decoration: none;
 }
 
 .premium-services-cta-btn.secondary {
     background: transparent;
-    color: #CC0000;
-    border-color: #CC0000;
-    box-shadow: 0 8px 30px rgba(204, 0, 0, 0.1);
+    color: #c49464;
+    border-color: #c49464;
+    box-shadow: 0 8px 30px rgba(196, 148, 100, 0.1);
 }
 
 .premium-services-cta-btn.secondary:hover {
-    background: #CC0000;
+    background: #c49464;
     color: white;
     transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(204, 0, 0, 0.2);
+    box-shadow: 0 12px 40px rgba(196, 148, 100, 0.2);
     text-decoration: none;
 }
 
@@ -2464,7 +2380,7 @@
 
 .premium-certificate-card {
     background: linear-gradient(135deg, #fff, #fffbe6);
-    border: 3px solid #FF0000;
+    border: 3px solid #d4a574;
     border-radius: 24px;
     padding: 50px 40px;
     box-shadow: 0 20px 60px rgba(212, 165, 116, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -2498,8 +2414,8 @@
 
 .premium-certificate-card:hover {
     transform: translateY(-15px) rotateX(3deg) scale(1.02);
-    box-shadow: 0 30px 80px rgba(255, 0, 0, 0.25), 0 15px 40px rgba(204, 0, 0, 0.1);
-    border-color: #CC0000;
+    box-shadow: 0 30px 80px rgba(212, 165, 116, 0.25), 0 15px 40px rgba(196, 148, 100, 0.1);
+    border-color: #c49464;
     animation: pulseGlow 3s ease-in-out infinite;
 }
 
@@ -2760,7 +2676,7 @@
 
 .premium-certificate-card:nth-child(2) .premium-certificate-badge {
     background: linear-gradient(135deg, #FF0000, #CC0000);
-    color: #820403;
+    color: white;
 }
 
 .premium-certificate-card:nth-child(2) .premium-certificate-feature:hover i {
@@ -2940,13 +2856,13 @@
 .premium-contact-icon {
     width: 100px;
     height: 100px;
-    background: linear-gradient(135deg, #FF0000, #CC0000);
+    background: linear-gradient(135deg, #d4a574, #c49464);
     border-radius: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 24px;
-    box-shadow: 0 12px 40px rgba(255, 0, 0, 0.3);
+    box-shadow: 0 12px 40px rgba(212, 165, 116, 0.3);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -2971,7 +2887,7 @@
 
 .premium-contact-card:hover .premium-contact-icon {
     transform: scale(1.1);
-    box-shadow: 0 12px 40px rgba(255, 0, 0, 0.4);
+    box-shadow: 0 12px 40px rgba(212, 165, 116, 0.4);
 }
 
 .premium-contact-icon i {
@@ -2995,14 +2911,14 @@
 }
 
 .premium-contact-card-text a {
-    color: #CC0000;
+    color: #c49464;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 
 .premium-contact-card-text a:hover {
-    color: #FF0000;
+    color: #d4a574;
 }
 
 .premium-contact-card-subtext {
@@ -3032,7 +2948,7 @@
 }
 
 .premium-contact-feature:hover {
-    color: #CC0000;
+    color: #c49464;
     transform: translateX(5px);
 }
 
@@ -3043,20 +2959,20 @@
 }
 
 .premium-contact-feature:hover i {
-    color: #FF0000;
+    color: #d4a574;
     transform: scale(1.2);
 }
 
 .premium-contact-card-btn {
     background: linear-gradient(135deg, #1a1a1a, #333);
-    color: #FF0000;
+    color: #d4a574;
     padding: 14px 28px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
     letter-spacing: 0.5px;
-    border: 2px solid #FF0000;
+    border: 2px solid #d4a574;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -3083,7 +2999,7 @@
 }
 
 .premium-contact-card-btn:hover {
-    background: linear-gradient(135deg, #FF0000, #CC0000);
+    background: linear-gradient(135deg, #d4a574, #c49464);
     color: white;
     transform: translateY(-2px);
     text-decoration: none;
@@ -3553,6 +3469,7 @@
         @endforeach
     </div>
 </section>
+
 <!-- Premium Partners Section - Big Grid with Images Only -->
 <section class="premium-partners-section" id="partenaires">
     <div class="premium-partners-container">
@@ -3979,62 +3896,714 @@
 }
 </style>
 
+<!-- Mobile Sections - Only visible on mobile/tablet -->
+<!-- Mobile Hero Section -->
+<section class="mobile-hero-section" style="display:none;">
+    <div class="mobile-hero-container">
+        <!-- Hero Logo -->
+        <div class="mobile-hero-logo-wrapper">
+            <img src="{{ asset('images/hethahou1.png') }}" alt="SOTUMA" class="mobile-hero-logo" loading="lazy">
+        </div>
+        
+        <!-- Hero Slogan -->
+        <div class="mobile-hero-slogan-wrapper">
+            @php
+                $sloganSingle = isset($settings) && $settings->hero_slogan ? strtoupper($settings->hero_slogan) : 'LE MONDE SE REFLÈTE DANS NOS CRÉATIONS';
+                // Fix capitalization for accented characters - make è and é capital
+                $sloganSingle = str_replace(['è', 'é'], ['È', 'É'], $sloganSingle);
+            @endphp
+            <h1 class="mobile-hero-slogan">{{ $sloganSingle }}</h1>
+        </div>
+        
+        <!-- Hero Decorative Elements -->
+        <div class="mobile-hero-decoration">
+            <div class="hero-line hero-line-1"></div>
+            <div class="hero-line hero-line-2"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Mobile Projects Categories -->
+<section class="mobile-proj-cats" style="display:none;">
+    <div class="mobile-section-header">
+        <h2 class="mobile-section-title">NOS PROJETS</h2>
+    </div>
+    
+    <div class="mobile-cards-list">
+        @foreach($project_categories as $category)
+        <a href="{{ route('project-categories.show', $category->slug ?? Str::slug($category->name)) }}" class="mobile-card">
+            <div class="mobile-card-media" style="background-image:url('{{ $category->image ? asset($category->image) : asset('images/no-image.png') }}');"></div>
+            <div class="mobile-card-info">
+                <div class="mobile-card-title">{{ strtoupper($category->name) }}</div>
+                <div class="mobile-card-cta">
+                    <span>VOIR PROJETS</span>
+                    <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                    </svg>
+                </div>
+            </div>
+        </a>
+        @endforeach
+    </div>
+</section>
+
+<!-- Mobile Process Section -->
+<section class="mobile-process" style="display:none;">
+    <div class="mobile-section-header">
+        <h2 class="mobile-section-title">PROCESSUS D'EXCELLENCE</h2>
+    </div>
+    
+    <div class="mobile-process-steps">
+        <div class="mobile-process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h3>3D Design</h3>
+                <p>Visualisation précise et modélisation personnalisée</p>
+            </div>
+        </div>
+        <div class="mobile-process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h3>Fabrication</h3>
+                <p>Production avec matériaux premium et techniques avancées</p>
+            </div>
+        </div>
+        <div class="mobile-process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h3>Installation</h3>
+                <p>Installation professionnelle et finitions impeccables</p>
+            </div>
+        </div>
+        <div class="mobile-process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h3>Garantie 10 ans</h3>
+                <p>Assurance qualité et service après-vente</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mobile Products Categories -->
+<section class="mobile-prod-cats" style="display:none;">
+    <div class="mobile-section-header">
+        <h2 class="mobile-section-title">NOS PRODUITS</h2>
+    </div>
+    
+    <div class="mobile-cards-list">
+        @foreach($category_lists as $category)
+        <a href="{{ route('categories.show', $category->slug ?? Str::slug($category->title)) }}" class="mobile-card">
+            <div class="mobile-card-media" style="background-image:url('{{ $category->image ? asset($category->image) : asset('images/no-image.png') }}');"></div>
+            <div class="mobile-card-info">
+                <div class="mobile-card-title">{{ strtoupper($category->title) }}</div>
+                <div class="mobile-card-cta">
+                    <span>VOIR PRODUITS</span>
+                    <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                    </svg>
+                </div>
+            </div>
+        </a>
+        @endforeach
+    </div>
+</section>
+
+<style>
+/* Desktop Only Styles - Ensure desktop elements are visible on desktop */
+@media (min-width: 1025px) {
+    /* Force show ALL desktop sections on desktop */
+    .hero-video-section,
+    .presentation-section,
+    .premium-presentation-section,
+    .projects-categories-grid-section,
+    .premium-process-section,
+    .offer-grid-section,
+    .premium-partners-section,
+    .premium-certificates-section,
+    .premium-cta-section,
+    .floating-guarantee,
+    .presentation-floating-element,
+    .premium-floating-element,
+    .premium-image-container {
+        display: block !important;
+    }
+    
+    /* Force hide mobile sections on desktop */
+    .mobile-hero-section,
+    .mobile-proj-cats,
+    .mobile-process,
+    .mobile-prod-cats {
+        display: none !important;
+    }
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 1024px) {
+    /* Hide desktop sections on mobile/tablet */
+    .hero-video-section,
+    .partners-slider-section,
+    .presentation-section,
+    .premium-presentation-section,
+    .projects-categories-grid-section,
+    .premium-process-section,
+    .offer-grid-section,
+    .premium-partners-section,
+    .premium-certificates-section,
+    .premium-cta-section,
+    .floating-guarantee,
+    .presentation-floating-element,
+    .premium-floating-element,
+    .premium-image-container {
+        display: none !important;
+    }
+    
+    /* Show mobile sections on mobile/tablet */
+    .mobile-hero-section,
+    .mobile-proj-cats,
+    .mobile-process,
+    .mobile-prod-cats {
+        display: block !important;
+    }
+    
+    /* Mobile Hero Section */
+    .mobile-hero-section {
+        position: relative;
+        width: 100vw;
+        height: 280px;
+        max-width: 100%;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        padding: 0 1rem 10px 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    /* Ensure hero section maintains dimensions on larger screens */
+    @media (min-width: 1025px) {
+        .mobile-hero-section {
+            width: 372px;
+            height: 280px;
+            max-width: 372px;
+            margin: 0 auto;
+        }
+    }
+    
+    .mobile-hero-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        max-width: 100%;
+        padding-top: 0;
+        margin-top: 0;
+        box-sizing: border-box;
+    }
+    
+    .mobile-hero-logo-wrapper {
+        text-align: center;
+        margin-bottom: 0.8rem; /* Reduced from 1.5rem */
+        padding-top: 0;
+        margin-top: 0;
+    }
+    
+    .mobile-hero-logo {
+        height: 120px;
+        width: auto;
+        max-width: 100%;
+    }
+    
+    .mobile-hero-slogan {
+        font-family: 'Arial', 'Helvetica', sans-serif;
+        font-weight: 800;
+        font-size: clamp(1rem, 4.2vw, 1.7rem); /* Increased from 0.8rem-1.4rem to 1rem-1.7rem */
+        line-height: 1.2;
+        letter-spacing: 0.05em;
+        margin: 0;
+        text-transform: uppercase;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        word-spacing: 0.1em;
+        
+        /* Gradient Red - No Shadow */
+        color: #DC143C; /* Fallback color */
+        background: linear-gradient(135deg, #FF0000, #DC143C, #B71C1C, #FF4444);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: metallic-shine 3s ease-in-out infinite;
+    }
+    
+    /* Ensure full width on tablet devices */
+    @media (max-width: 1024px) {
+        .mobile-hero-section {
+            width: 100vw;
+            margin: 0;
+        }
+    }
+    
+    /* Mobile Hero Responsive Breakpoints */
+    @media (max-width: 768px) {
+        .mobile-hero-section {
+            width: 100vw;
+            height: min(280px, 35vh);
+            padding: 0 0.5rem 5px 0.5rem; /* Reduced bottom padding from 10px to 5px */
+        }
+        
+        .mobile-hero-logo {
+            height: 100px;
+        }
+        
+        .mobile-hero-slogan {
+            font-size: clamp(0.9rem, 3.8vw, 1.4rem); /* Increased from 0.7rem-1.2rem to 0.9rem-1.4rem */
+            letter-spacing: 0.03em;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .mobile-hero-section {
+            width: 100vw;
+            height: min(280px, 30vh);
+            padding: 0 0.25rem 5px 0.25rem; /* Reduced bottom padding from 10px to 5px */
+        }
+        
+        .mobile-hero-logo {
+            height: 90px;
+        }
+        
+        .mobile-hero-slogan {
+            font-size: clamp(0.8rem, 3.2vw, 1.2rem); /* Increased from 0.6rem-1rem to 0.8rem-1.2rem */
+            letter-spacing: 0.02em;
+            word-spacing: 0.05em;
+        }
+    }
+    
+    @media (max-width: 360px) {
+        .mobile-hero-section {
+            width: 100vw;
+            height: min(280px, 25vh);
+            padding: 0 0.15rem 5px 0.15rem; /* Reduced bottom padding from 10px to 5px */
+        }
+        
+        .mobile-hero-logo {
+            height: 80px;
+        }
+        
+        .mobile-hero-slogan {
+            font-size: clamp(0.7rem, 2.8vw, 1.1rem); /* Increased from 0.5rem-0.9rem to 0.7rem-1.1rem */
+            letter-spacing: 0.01em;
+        }
+    }
+    
+    /* Mobile Section Headers */
+    .mobile-section-header {
+        text-align: center;
+        margin-bottom: 0.5rem;
+        padding: 1rem 1rem 0.5rem 1rem;
+    }
+    
+    /* First mobile section (Nos projets) - ensure proper spacing from hero */
+    .mobile-proj-cats .mobile-section-header {
+        margin-top: 0;
+        padding-top: 0.5rem;
+    }
+    
+    .mobile-section-title {
+        background: linear-gradient(135deg, #FF0000 0%, #000000 50%, #FF0000 100%);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 900;
+        letter-spacing: 1.2px; /* Same as PROCESSUS D'EXCELLENCE */
+        font-size: clamp(24px, 6vw, 32px); /* Same as PROCESSUS D'EXCELLENCE */
+        white-space: nowrap; /* Same as PROCESSUS D'EXCELLENCE */
+        overflow: hidden; /* Same as PROCESSUS D'EXCELLENCE */
+        text-overflow: ellipsis; /* Same as PROCESSUS D'EXCELLENCE */
+        margin: 0 0 12px 0;
+        text-transform: uppercase;
+        text-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+        animation: gradientShift 3s ease-in-out infinite;
+    }
+    
+    /* Specific styling for PROCESSUS D'EXCELLENCE - Smaller text, single line */
+    .mobile-process .mobile-section-title {
+        font-size: clamp(16px, 4vw, 22px); /* Further reduced from clamp(20px, 5vw, 26px) */
+        letter-spacing: 0.8px; /* Reduced from 1px */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 900;
+    }
+    
+    /* Responsive adjustments for ALL mobile section titles */
+    @media (max-width: 768px) {
+        .mobile-section-title {
+            font-size: clamp(22px, 5.5vw, 28px);
+            letter-spacing: 0.8px;
+        }
+        
+        /* PROCESSUS D'EXCELLENCE - Smaller on mobile */
+        .mobile-process .mobile-section-title {
+            font-size: clamp(14px, 3.5vw, 20px) !important; /* Further reduced from clamp(18px, 4.5vw, 24px) */
+            letter-spacing: 0.6px !important; /* Reduced from 0.8px */
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .mobile-section-title {
+            font-size: clamp(20px, 5vw, 24px);
+            letter-spacing: 0.6px;
+        }
+        
+        /* PROCESSUS D'EXCELLENCE - Smaller for small mobile */
+        .mobile-process .mobile-section-title {
+            font-size: clamp(12px, 3vw, 16px) !important; /* Further reduced from clamp(16px, 4vw, 20px) */
+            letter-spacing: 0.4px !important; /* Reduced from 0.6px */
+        }
+    }
+    
+    @media (max-width: 360px) {
+        .mobile-section-title {
+            font-size: clamp(18px, 4.5vw, 22px);
+            letter-spacing: 0.4px;
+        }
+        
+        /* PROCESSUS D'EXCELLENCE - Very small mobile */
+        .mobile-process .mobile-section-title {
+            font-size: clamp(10px, 2.5vw, 14px) !important; /* Further reduced from clamp(14px, 3.5vw, 18px) */
+            letter-spacing: 0.3px !important; /* Reduced from 0.5px */
+        }
+    }
+    
+    @keyframes gradientShift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+    
+    @keyframes metallic-shine {
+        0%, 100% { 
+            background-position: 0% 50%;
+            filter: brightness(1);
+        }
+        50% { 
+            background-position: 100% 50%;
+            filter: brightness(1.2);
+        }
+    }
+    
+    .mobile-section-sub {
+        color: #666;
+        font-size: 1rem;
+        margin: 0;
+    }
+    
+    /* Mobile Cards List - Original Edge to Edge Taller Design */
+    .mobile-cards-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        padding-bottom: 2rem;
+    }
+    
+    .mobile-card {
+        background: #fff;
+        border-radius: 0;
+        overflow: hidden;
+        box-shadow: none;
+        transition: background-color 0.3s ease;
+        border-bottom: 1px solid #eee;
+        margin: 0;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        width: 100%;
+    }
+    
+    .mobile-card:last-child {
+        border-bottom: none;
+    }
+    
+    .mobile-card:hover {
+        background: #f8f9fa;
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    .mobile-card-media {
+        height: 350px;
+        overflow: hidden;
+        width: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    
+    .mobile-card-info {
+        padding: 2rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        min-height: 140px;
+        background: #fff;
+    }
+    
+    .mobile-card-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 1.5rem;
+        line-height: 1.3;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .mobile-card-cta {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #FF0000;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .arrow-icon {
+        transition: transform 0.3s ease;
+    }
+    
+    .mobile-card:hover .arrow-icon {
+        transform: translateX(4px);
+    }
+    
+    /* Mobile Cards - Tablet Responsive */
+    @media (max-width: 768px) {
+        .mobile-card-media {
+            height: 300px;
+        }
+        
+        .mobile-card-info {
+            padding: 1.75rem 1.25rem;
+            min-height: 130px;
+        }
+        
+        .mobile-card-title {
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .mobile-card-cta {
+            font-size: 0.85rem;
+        }
+    }
+    
+    /* Mobile Cards - Small Mobile Responsive */
+    @media (max-width: 480px) {
+        .mobile-card-media {
+            height: 280px;
+        }
+        
+        .mobile-card-info {
+            padding: 1.5rem 1rem;
+            min-height: 120px;
+        }
+        
+        .mobile-card-title {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .mobile-card-cta {
+            font-size: 0.8rem;
+        }
+    }
+    
+    /* Hide Mobile Social Menu on Index Page - Maximum Force */
+    .mobile-social-toggle,
+    .mobile-social-menu,
+    .mobile-social-overlay {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        position: absolute !important;
+        left: -9999px !important;
+        top: -9999px !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        pointer-events: none !important;
+        z-index: -1 !important;
+    }
+    
+    /* Force hide social sidebar on mobile/tablet index page */
+    .social-sidebar {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        position: absolute !important;
+        left: -9999px !important;
+        top: -9999px !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        pointer-events: none !important;
+        z-index: -1 !important;
+    }
+    
+    /* Additional targeting for any dynamically created elements */
+    button[class*="mobile-social"],
+    div[class*="mobile-social"],
+    [aria-label*="Toggle social media menu"],
+    [aria-label*="social media"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+    
+    /* Mobile Process Steps - Simple Design */
+    .mobile-process-steps {
+        padding: 0 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .mobile-process-step {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: #fff;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #FF0000;
+    }
+    
+    .step-number {
+        background: linear-gradient(135deg, #FF0000, #CC0000);
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1rem;
+        flex-shrink: 0;
+    }
+    
+    .step-content h3 {
+        margin: 0 0 0.3rem 0;
+        color: #333;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+    
+    .step-content p {
+        margin: 0;
+        color: #666;
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+}
+
+/* Show desktop sections on desktop */
+@media (min-width: 1025px) {
+    .hero-video-section,
+    .partners-slider-section,
+    .premium-presentation-section,
+    .projects-categories-grid-section,
+    .offer-grid-section,
+    .premium-partners-section,
+    .premium-certificates-section,
+    .premium-cta-section {
+        display: block !important;
+    }
+    
+    .mobile-hero-section,
+    .mobile-proj-cats,
+    .mobile-process,
+    .mobile-prod-cats {
+        display: none !important;
+    }
+}
+</style>
+
+<!-- Remove Mobile Social Menu Script - Index Page Only -->
+<script src="{{ asset('js/remove-mobile-social.js') }}"></script>
+
 @endsection
 
 <script>
 // Advanced Scroll Animations and Micro-interactions
 document.addEventListener('DOMContentLoaded', function() {
-    // Hero video optimization for instant playback
-    const heroVideo = document.querySelector('.hero-bg-video');
-    if (heroVideo) {
-        // Force video to start playing immediately
-        heroVideo.load(); // Reload the video to ensure it's ready
+    // Responsive behavior handler
+    function handleResponsive() {
+        const isDesktop = window.innerWidth >= 1025;
         
-        // Ensure autoplay works on all devices
-        const playPromise = heroVideo.play();
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                console.log('Hero video started playing');
-            }).catch(error => {
-                console.log('Autoplay prevented, trying to play manually:', error);
-                // If autoplay fails, try to play on first user interaction
-                document.addEventListener('click', function playVideo() {
-                    heroVideo.play();
-                    document.removeEventListener('click', playVideo);
-                }, {once: true});
+        if (isDesktop) {
+            // Force show desktop sections on desktop
+            const desktopSections = document.querySelectorAll('.hero-video-section, .partners-slider-section, .presentation-section, .premium-presentation-section, .projects-categories-grid-section, .premium-process-section, .offer-grid-section, .premium-partners-section, .premium-certificates-section, .premium-cta-section, .floating-guarantee, .presentation-floating-element, .premium-floating-element, .premium-image-container');
+            desktopSections.forEach(section => {
+                if (section) {
+                    section.style.display = 'block';
+                    section.style.visibility = 'visible';
+                    section.style.opacity = '1';
+                }
+            });
+            
+            // Force hide mobile sections on desktop
+            const mobileSections = document.querySelectorAll('.mobile-hero-section, .mobile-proj-cats, .mobile-process, .mobile-prod-cats');
+            mobileSections.forEach(section => {
+                if (section) {
+                    section.style.display = 'none';
+                    section.style.visibility = 'hidden';
+                    section.style.opacity = '0';
+                }
+            });
+        } else {
+            // Force hide desktop sections on mobile/tablet
+            const desktopSections = document.querySelectorAll('.hero-video-section, .partners-slider-section, .presentation-section, .premium-presentation-section, .projects-categories-grid-section, .premium-process-section, .offer-grid-section, .premium-partners-section, .premium-certificates-section, .premium-cta-section, .floating-guarantee, .presentation-floating-element, .premium-floating-element, .premium-image-container');
+            desktopSections.forEach(section => {
+                if (section) {
+                    section.style.display = 'none';
+                    section.style.visibility = 'hidden';
+                    section.style.opacity = '0';
+                }
+            });
+            
+            // Force show mobile sections on mobile/tablet
+            const mobileSections = document.querySelectorAll('.mobile-hero-section, .mobile-proj-cats, .mobile-process, .mobile-prod-cats');
+            mobileSections.forEach(section => {
+                if (section) {
+                    section.style.display = 'block';
+                    section.style.visibility = 'visible';
+                    section.style.opacity = '1';
+                }
             });
         }
-        
-        // Ensure video is ready and playing
-        heroVideo.addEventListener('loadeddata', function() {
-            this.play().catch(e => console.log('Video play failed:', e));
-        });
-        
-        // Fallback: try to play on page load
-        window.addEventListener('load', function() {
-            heroVideo.play().catch(e => console.log('Video play on load failed:', e));
-        });
     }
     
-    // Mobile scroll optimization
-    if (window.innerWidth <= 768) {
-        // Enable smooth scrolling for mobile
-        document.documentElement.style.scrollBehavior = 'smooth';
-        document.body.style.scrollBehavior = 'smooth';
-        
-        // Optimize touch scrolling
-        document.addEventListener('touchstart', function() {}, {passive: true});
-        document.addEventListener('touchmove', function() {}, {passive: true});
-        document.addEventListener('touchend', function() {}, {passive: true});
-        
-        // Prevent scroll blocking
-        document.addEventListener('touchmove', function(e) {
-            if (e.target.closest('.modal, .popup, .overlay')) {
-                return;
-            }
-        }, {passive: true});
-    }
+    // Run on load
+    handleResponsive();
     
+    // Run on resize
+    window.addEventListener('resize', handleResponsive);
     // Intersection Observer for scroll animations
     const observerOptions = {
         threshold: 0.1,
@@ -4306,6 +4875,45 @@ document.addEventListener('DOMContentLoaded', function() {
     z-index: 10;
 }
 
+.partners-slider-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.partners-slider-track {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    animation: slidePartners 60s linear infinite;
+    width: max-content;
+}
+
+.partner-slide {
+    flex-shrink: 0;
+    height: 60px;
+    margin: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.partner-slide:hover {
+    transform: scale(1.1);
+}
+
+.partner-image {
+    max-height: 100%;
+    max-width: 120px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.partner-slide:hover .partner-image {
+    transform: scale(1.05);
+}
 
 @keyframes slidePartners {
     0% {
@@ -4494,23 +5102,6 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 /* Removed overlay and content styling - images only */
-
-/* Hide Partners Slider Section Completely */
-.partners-slider-section,
-.partners-slider-container,
-.partners-slider-track,
-.partner-slide {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    width: 0 !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    position: absolute !important;
-    left: -9999px !important;
-    top: -9999px !important;
-}
 
 /* Duplicate responsive CSS removed */
 </style>

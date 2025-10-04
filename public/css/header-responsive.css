@@ -180,7 +180,7 @@ Version: 1.0
     }
     
     .nav-responsive .nav-menu .mobile-only-nav-item.admin-nav-item a {
-        background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%) !important;
+        background: linear-gradient(135deg, #FF0000 0%, #FF0000 100%) !important;
         color: white !important;
         padding: 1rem !important;
         border-radius: 8px !important;
@@ -193,9 +193,9 @@ Version: 1.0
     }
     
     .nav-responsive .nav-menu .mobile-only-nav-item.admin-nav-item a:hover {
-        background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%) !important;
+        background: linear-gradient(135deg, #CC0000 0%, #990000 100%) !important;
         transform: translateY(-1px) !important;
-        box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4) !important;
+        box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4) !important;
     }
     
     .nav-responsive .nav-menu .mobile-only-nav-item a i {
@@ -552,7 +552,7 @@ Version: 1.0
 
 /* Dashboard Auth Link Special Styling */
 .nav-auth .dashboard-auth-link {
-    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%) !important;
+    background: linear-gradient(135deg, #FF0000 0%, #FF0000 100%) !important;
     color: white !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
@@ -609,6 +609,6 @@ Version: 1.0
     }
     
     .nav-auth .dashboard-link {
-        border: 2px solid #ffc107 !important;
+        border: 2px solid #FF0000 !important;
     }
 }

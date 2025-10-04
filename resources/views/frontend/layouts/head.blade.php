@@ -1,7 +1,55 @@
 <!-- Meta Tag -->
 @yield('meta')
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FF0000">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+
+<!-- SEO Meta Tags -->
+@php
+    $seoService = app(\App\Services\SeoService::class);
+    $seoData = $seoService->getMetaTags($page ?? 'home', $seoData ?? []);
+@endphp
+
+<meta name="description" content="{{ $seoData['description'] ?? 'SOTUMA - Leader en menuiserie aluminium à Sfax, Tunisie' }}">
+<meta name="keywords" content="{{ $seoData['keywords'] ?? 'aluminium, sotuma, menuiserie, volets roulants, sfax, tunisie' }}">
+<meta name="author" content="SOTUMA">
+<meta name="robots" content="index, follow">
+<meta name="language" content="fr">
+<meta name="revisit-after" content="7 days">
+
+<!-- Open Graph Meta Tags -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SOTUMA">
+<meta property="og:title" content="{{ $seoData['og_title'] ?? $seoData['title'] ?? 'SOTUMA - Menuiserie Aluminium Sfax' }}">
+<meta property="og:description" content="{{ $seoData['og_description'] ?? $seoData['description'] ?? 'SOTUMA - Leader en menuiserie aluminium à Sfax' }}">
+<meta property="og:url" content="{{ url()->current() }}">
+<meta property="og:image" content="{{ $seoData['og_image'] ?? asset('images/sotuma-logo.jpg') }}">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@sotuma_aluminium">
+<meta name="twitter:title" content="{{ $seoData['title'] ?? 'SOTUMA - Menuiserie Aluminium Sfax' }}">
+<meta name="twitter:description" content="{{ $seoData['description'] ?? 'SOTUMA - Leader en menuiserie aluminium à Sfax' }}">
+<meta name="twitter:image" content="{{ $seoData['og_image'] ?? asset('images/sotuma-logo.jpg') }}">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ $seoData['canonical'] ?? url()->current() }}">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{!! $seoService->getStructuredData($page ?? 'home', $seoData ?? []) !!}
+</script>
+
 <!-- Title Tag  -->
-<title>@yield('title')</title>
+<title>{{ $seoData['title'] ?? 'SOTUMA - Menuiserie Aluminium Sfax' }}</title>
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}?v=1">
 <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon-new.ico') }}?v=1">
@@ -12,6 +60,8 @@
 <link rel="manifest" href="/manifest.json">
 <!-- Bootstrap -->
 <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.css')}}">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <!-- Magnific Popup -->
 <link rel="stylesheet" href="{{asset('frontend/css/magnific-popup.min.css')}}">
 <!-- Font Awesome -->
@@ -43,14 +93,633 @@
 <link rel="stylesheet" href="{{ asset('css/frontend-mobile-responsive.css') }}">
 <link rel="stylesheet" href="{{ asset('css/responsive-global.css') }}">
 <link rel="stylesheet" href="{{ asset('css/header-mobile-responsive.css') }}">
+<link rel="stylesheet" href="{{ asset('css/ios-mobile-fixes.css') }}">
+<link rel="stylesheet" href="{{ asset('css/mobile-preloader.css') }}">
+
+<!-- Hamburger Menu YouTube Red Click Styles -->
+<style>
+/* Hamburger Menu Click/Hover States - YouTube Red Primary */
+@media (max-width: 1200px) {
+    /* Normal state - YouTube Red primary */
+    .mobile-menu-toggle .hamburger-line {
+        background: #FF0000 !important; /* YouTube Red primary */
+        transition: all 0.3s ease !important;
+    }
+    
+    /* Hover state - Enhanced YouTube Red */
+    .mobile-menu-toggle:hover .hamburger-line {
+        background: #FF0000 !important; /* YouTube Red */
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.6) !important; /* Red glow */
+        transition: all 0.3s ease !important;
+        transform: scale(1.1); /* Slightly bigger on hover */
+    }
+    
+    /* Active/Click state - Enhanced YouTube Red */
+    .mobile-menu-toggle:active .hamburger-line,
+    .mobile-menu-toggle:focus .hamburger-line {
+        background: #CC0000 !important; /* Darker red on click */
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.8) !important; /* Stronger red glow */
+        transition: all 0.1s ease !important;
+        transform: scale(0.95); /* Slightly smaller on click */
+    }
+    
+    /* Container hover effects */
+    .mobile-menu-toggle:hover {
+        transform: scale(1.05) !important;
+        transition: transform 0.2s ease !important;
+        background: rgba(255, 0, 0, 0.1) !important; /* Red background on hover */
+    }
+    
+    .mobile-menu-toggle:active {
+        transform: scale(0.95) !important;
+        transition: transform 0.1s ease !important;
+        background: rgba(255, 0, 0, 0.2) !important; /* Red background on click */
+    }
+    
+    /* Change any brown colors to YouTube red */
+    .mobile-menu-toggle * {
+        color: #FF0000 !important; /* YouTube Red for any text */
+    }
+    
+    .mobile-menu-toggle:hover * {
+        color: #FF0000 !important; /* YouTube Red on hover */
+    }
+    
+    .mobile-menu-toggle:active * {
+        color: #FF0000 !important; /* YouTube Red on click */
+    }
+}
+
+@media (max-width: 768px) {
+    /* Normal state - YouTube Red primary */
+    .mobile-menu-toggle .hamburger-line {
+        background: #FF0000 !important; /* YouTube Red primary */
+        transition: all 0.3s ease !important;
+    }
+    
+    /* Hover state - Enhanced YouTube Red */
+    .mobile-menu-toggle:hover .hamburger-line {
+        background: #FF0000 !important; /* YouTube Red */
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.7) !important; /* Enhanced red glow */
+        transition: all 0.3s ease !important;
+        transform: scale(1.1); /* Slightly bigger on hover */
+    }
+    
+    /* Active/Click state - Enhanced YouTube Red */
+    .mobile-menu-toggle:active .hamburger-line,
+    .mobile-menu-toggle:focus .hamburger-line {
+        background: #CC0000 !important; /* Darker red on click */
+        box-shadow: 0 0 25px rgba(255, 0, 0, 0.9) !important; /* Strongest red glow */
+        transition: all 0.1s ease !important;
+        transform: scale(0.95); /* Slightly smaller on click */
+    }
+    
+    /* Container hover effects */
+    .mobile-menu-toggle:hover {
+        transform: scale(1.08) !important;
+        transition: transform 0.2s ease !important;
+        background: rgba(255, 0, 0, 0.15) !important; /* Red background on hover */
+    }
+    
+    .mobile-menu-toggle:active {
+        transform: scale(0.92) !important;
+        transition: transform 0.1s ease !important;
+        background: rgba(255, 0, 0, 0.25) !important; /* Red background on click */
+    }
+    
+    /* Change any brown colors to YouTube red */
+    .mobile-menu-toggle * {
+        color: #FF0000 !important; /* YouTube Red for any text */
+    }
+    
+    .mobile-menu-toggle:hover * {
+        color: #FF0000 !important; /* YouTube Red on hover */
+    }
+    
+    .mobile-menu-toggle:active * {
+        color: #FF0000 !important; /* YouTube Red on click */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Normal state - YouTube Red primary */
+    .mobile-menu-toggle .hamburger-line {
+        background: #FF0000 !important; /* YouTube Red primary */
+        transition: all 0.3s ease !important;
+    }
+    
+    /* Hover state - Enhanced YouTube Red */
+    .mobile-menu-toggle:hover .hamburger-line {
+        background: #FF0000 !important; /* YouTube Red */
+        box-shadow: 0 0 25px rgba(255, 0, 0, 0.8) !important; /* Strong red glow */
+        transition: all 0.3s ease !important;
+        transform: scale(1.1); /* Slightly bigger on hover */
+    }
+    
+    /* Active/Click state - Enhanced YouTube Red */
+    .mobile-menu-toggle:active .hamburger-line,
+    .mobile-menu-toggle:focus .hamburger-line {
+        background: #CC0000 !important; /* Darker red on click */
+        box-shadow: 0 0 30px rgba(255, 0, 0, 1) !important; /* Maximum red glow */
+        transition: all 0.1s ease !important;
+        transform: scale(0.95); /* Slightly smaller on click */
+    }
+    
+    /* Container hover effects */
+    .mobile-menu-toggle:hover {
+        transform: scale(1.1) !important;
+        transition: transform 0.2s ease !important;
+        background: rgba(255, 0, 0, 0.2) !important; /* Red background on hover */
+    }
+    
+    .mobile-menu-toggle:active {
+        transform: scale(0.9) !important;
+        transition: transform 0.1s ease !important;
+        background: rgba(255, 0, 0, 0.3) !important; /* Red background on click */
+    }
+    
+    /* Change any brown colors to YouTube red */
+    .mobile-menu-toggle * {
+        color: #FF0000 !important; /* YouTube Red for any text */
+    }
+    
+    .mobile-menu-toggle:hover * {
+        color: #FF0000 !important; /* YouTube Red on hover */
+    }
+    
+    .mobile-menu-toggle:active * {
+        color: #FF0000 !important; /* YouTube Red on click */
+    }
+}
+
+/* Comprehensive Hamburger Menu Color Override - YouTube Red */
+@media (max-width: 1200px) {
+    /* Override any brown colors in hamburger menu */
+    .mobile-menu-toggle,
+    .mobile-menu-toggle *,
+    .hamburger-line,
+    .hamburger-line::before,
+    .hamburger-line::after {
+        color: #FF0000 !important; /* YouTube Red for text */
+        border-color: #FF0000 !important; /* YouTube Red for borders */
+    }
+    
+    /* Override any existing brown/other colors */
+    .mobile-menu-toggle[style*="brown"],
+    .mobile-menu-toggle[style*="#8B4513"],
+    .mobile-menu-toggle[style*="#A0522D"],
+    .mobile-menu-toggle[style*="#D2691E"],
+    .mobile-menu-toggle[style*="#CD853F"],
+    .mobile-menu-toggle[style*="#BC8F8F"],
+    .mobile-menu-toggle[style*="#DEB887"] {
+        color: #FF0000 !important;
+        background: rgba(255, 0, 0, 0.1) !important;
+    }
+    
+    /* Force YouTube red on all states */
+    .mobile-menu-toggle:not(:hover):not(:active) {
+        color: #FF0000 !important;
+    }
+    
+    .mobile-menu-toggle:hover {
+        color: #FF0000 !important;
+        background: rgba(255, 0, 0, 0.15) !important;
+    }
+    
+    .mobile-menu-toggle:active {
+        color: #FF0000 !important;
+        background: rgba(255, 0, 0, 0.25) !important;
+    }
+}
+
+/* Desktop Scroll Up Button - Big Rectangular 160x160px */
+@media (min-width: 769px) {
+    #scrollUp {
+        background: #FF0000 !important; /* YouTube Red */
+        width: 160px !important; /* Exactly 160px width */
+        height: 160px !important; /* Exactly 160px height */
+        min-width: 160px !important; /* Prevent shrinking */
+        min-height: 160px !important; /* Prevent shrinking */
+        max-width: 160px !important; /* Prevent growing */
+        max-height: 160px !important; /* Prevent growing */
+        border-radius: 0 !important; /* Perfect rectangle */
+        box-shadow: 0px 6px 25px rgba(255, 0, 0, 0.5) !important;
+        border: 2px solid rgba(255, 255, 255, 0.3) !important;
+        transition: opacity 0.1s ease, transform 0.1s ease !important; /* Faster transitions */
+        opacity: 0;
+        transform: translateY(20px);
+        position: fixed !important;
+        right: 20px !important;
+        bottom: 20px !important;
+        z-index: 2147483647 !important;
+        display: none !important;
+        cursor: pointer !important;
+        text-decoration: none !important;
+        outline: none !important;
+    }
+    
+    #scrollUp:hover {
+        background: #CC0000 !important; /* Darker red on hover */
+        box-shadow: 0px 8px 30px rgba(255, 0, 0, 0.7) !important;
+        transform: translateY(0) scale(1.05) !important;
+    }
+    
+    #scrollUp span {
+        width: 160px !important;
+        height: 160px !important;
+        min-width: 160px !important;
+        min-height: 160px !important;
+        max-width: 160px !important;
+        max-height: 160px !important;
+        line-height: 160px !important;
+        border-radius: 0 !important; /* Perfect rectangle */
+        font-size: 48px !important;
+        display: block !important;
+        text-align: center !important;
+    }
+    
+    #scrollUp i {
+        font-size: 48px !important;
+        color: #fff !important;
+        line-height: 160px !important;
+    }
+}
+
+/* Hide desktop scroll up on mobile */
+@media (max-width: 768px) {
+    #scrollUp {
+        display: none !important;
+    }
+}
+
+/* Desktop scroll up button positioning - handled in main rule above */
+
+/* Hide CTA Overlay on Mobile and Tablet */
+@media (max-width: 1024px) {
+    .cta-overlay {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+}
+
+/* Reduce About Section Title Font Size on Mobile - Override Inline Styles */
+@media (max-width: 768px) {
+    .about-hero h1[class*="display-3"][style*="letter-spacing:2px"] {
+        font-size: 0.8rem !important; /* Override inline styles */
+        letter-spacing: 0.3px !important;
+        line-height: 1.0 !important;
+        max-width: 100% !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    /* Alternative selectors for maximum coverage */
+    .about-hero .container h1,
+    .about-hero .container .display-3,
+    .about-hero h1.display-3,
+    .about-hero .display-3.text-white.font-weight-bold {
+        font-size: 0.8rem !important;
+        letter-spacing: 0.3px !important;
+        line-height: 1.0 !important;
+        max-width: 100% !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+}
+    
+    .lead.text-white {
+        font-size: 1rem !important; /* Further reduced for better mobile fit */
+        max-width: 95% !important; /* Better fit on mobile */
+        padding: 0 10px !important; /* Add some padding */
+        display: none !important; /* Hide paragraph on mobile/tablet */
+    }
+}
+
+@media (max-width: 480px) {
+    .about-hero .display-3.text-white.font-weight-bold,
+    .about-hero h1.display-3.text-white.font-weight-bold,
+    .about-hero .container .display-3.text-white.font-weight-bold,
+    .about-hero .container h1.display-3.text-white.font-weight-bold {
+        font-size: 0.7rem !important; /* Fixed size - no clamp */
+        letter-spacing: 0.2px !important;
+        line-height: 1.0 !important;
+        max-width: 100% !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+    }
+}
+    
+    .lead.text-white {
+        font-size: 0.9rem !important; /* Further reduced for small mobile */
+        max-width: 98% !important; /* Better fit on small screens */
+        padding: 0 5px !important; /* Minimal padding */
+        display: none !important; /* Hide paragraph on mobile/tablet */
+    }
+}
+
+@media (max-width: 360px) {
+    .about-hero .display-3.text-white.font-weight-bold,
+    .about-hero h1.display-3.text-white.font-weight-bold,
+    .about-hero .container .display-3.text-white.font-weight-bold,
+    .about-hero .container h1.display-3.text-white.font-weight-bold {
+        font-size: 0.6rem !important; /* Fixed size - no clamp */
+        letter-spacing: 0.1px !important;
+        line-height: 1.0 !important;
+        max-width: 100% !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+    }
+}
+    
+    .lead.text-white {
+        font-size: 0.8rem !important; /* Very small for tiny screens */
+        max-width: 99% !important; /* Almost full width */
+        padding: 0 3px !important; /* Minimal padding for tiny screens */
+        line-height: 1.3 !important; /* Better line height for readability */
+        display: none !important; /* Hide paragraph on mobile/tablet */
+    }
+}
+</style>
+
+<script>
+// Desktop and Mobile Scroll Up Buttons
+document.addEventListener('DOMContentLoaded', function() {
+    // Wait for preloader to finish before initializing scroll up buttons
+    setTimeout(function() {
+        initDesktopScrollUpButton();
+        initMobileScrollUpButton();
+    }, 2500); // Wait 2.5 seconds for preloader
+});
+
+// Desktop Scroll Up Button - Big Rectangular 160x160px, optimized performance
+function initDesktopScrollUpButton() {
+    // Only apply to desktop
+    if (window.innerWidth <= 768) return;
+    
+    const desktopScrollUp = document.getElementById('scrollUp');
+    if (!desktopScrollUp) return;
+    
+    let isVisible = false;
+    let isScrolling = false;
+    const scrollDistance = 300;
+    
+    // Throttled scroll handler for better performance
+    function handleDesktopScroll() {
+        if (isScrolling) return;
+        isScrolling = true;
+        
+        requestAnimationFrame(() => {
+            // Only apply to desktop
+            if (window.innerWidth <= 768) {
+                isScrolling = false;
+                return;
+            }
+            
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > scrollDistance) {
+                if (!isVisible) {
+                    isVisible = true;
+                    desktopScrollUp.style.display = 'block';
+                    // Force reflow
+                    desktopScrollUp.offsetHeight;
+                    desktopScrollUp.style.opacity = '1';
+                    desktopScrollUp.style.transform = 'translateY(0)';
+                }
+            } else {
+                if (isVisible) {
+                    isVisible = false;
+                    desktopScrollUp.style.opacity = '0';
+                    desktopScrollUp.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        if (!isVisible) {
+                            desktopScrollUp.style.display = 'none';
+                        }
+                    }, 100); // Faster hide
+                }
+            }
+            
+            isScrolling = false;
+        });
+    }
+    
+    // Optimized click functionality - instant scroll to top
+    desktopScrollUp.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Instant scroll to top for better performance
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Add optimized scroll listener
+    window.addEventListener('scroll', handleDesktopScroll, { passive: true });
+    
+    // Throttled resize handler
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (window.innerWidth <= 768) {
+                // Hide on mobile
+                desktopScrollUp.style.display = 'none';
+                isVisible = false;
+            } else {
+                // Re-check on desktop
+                handleDesktopScroll();
+            }
+        }, 100);
+    });
+    
+    // Initial check
+    handleDesktopScroll();
+}
+
+function initMobileScrollUpButton() {
+    // Only apply to mobile/tablet
+    if (window.innerWidth > 768) return;
+    
+    // Create mobile scroll up button
+    let mobileScrollUp = document.getElementById('mobileScrollUp');
+    if (!mobileScrollUp) {
+        mobileScrollUp = document.createElement('a');
+        mobileScrollUp.id = 'mobileScrollUp';
+        mobileScrollUp.href = '#top';
+        mobileScrollUp.innerHTML = '<span><i class="fa fa-angle-up"></i></span>';
+        mobileScrollUp.setAttribute('title', 'Scroll to top');
+        document.body.appendChild(mobileScrollUp);
+    }
+    
+    // Apply optimized mobile styles
+    mobileScrollUp.style.position = 'fixed';
+    mobileScrollUp.style.right = '15px';
+    mobileScrollUp.style.bottom = '20px';
+    mobileScrollUp.style.zIndex = '2147483647';
+    mobileScrollUp.style.display = 'none';
+    mobileScrollUp.style.cursor = 'pointer';
+    mobileScrollUp.style.transition = 'opacity 0.1s ease, transform 0.1s ease'; // Faster transitions
+    mobileScrollUp.style.textDecoration = 'none';
+    mobileScrollUp.style.outline = 'none';
+    mobileScrollUp.style.willChange = 'opacity, transform'; // Optimize for animations
+    
+    // Style the span and icon - Rounded
+    const span = mobileScrollUp.querySelector('span');
+    const icon = mobileScrollUp.querySelector('i');
+    
+    if (span) {
+        span.style.display = 'block';
+        span.style.height = '50px';
+        span.style.width = '50px';
+        span.style.lineHeight = '50px';
+        span.style.background = '#FF0000'; // YouTube Red
+        span.style.color = '#fff';
+        span.style.borderRadius = '50%'; // Rounded
+        span.style.boxShadow = '0px 6px 25px rgba(255, 0, 0, 0.5)';
+        span.style.border = '2px solid rgba(255, 255, 255, 0.3)';
+        span.style.textAlign = 'center';
+        span.style.fontSize = '20px';
+        span.style.transition = 'transform 0.1s ease, background 0.1s ease'; // Faster transitions
+        span.style.willChange = 'transform, background'; // Optimize for animations
+    }
+    
+    if (icon) {
+        icon.style.color = '#fff';
+        icon.style.fontSize = '20px';
+    }
+    
+    // Optimized scroll functionality
+    let isVisible = false;
+    let isScrolling = false;
+    const scrollDistance = 300;
+    
+    function handleScroll() {
+        if (isScrolling) return;
+        isScrolling = true;
+        
+        requestAnimationFrame(() => {
+            // Only apply to mobile/tablet
+            if (window.innerWidth > 768) {
+                isScrolling = false;
+                return;
+            }
+            
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > scrollDistance) {
+                if (!isVisible) {
+                    isVisible = true;
+                    mobileScrollUp.style.display = 'block';
+                    // Force reflow
+                    mobileScrollUp.offsetHeight;
+                    mobileScrollUp.style.opacity = '1';
+                    mobileScrollUp.style.transform = 'translateY(0)';
+                }
+            } else {
+                if (isVisible) {
+                    isVisible = false;
+                    mobileScrollUp.style.opacity = '0';
+                    mobileScrollUp.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        if (!isVisible) {
+                            mobileScrollUp.style.display = 'none';
+                        }
+                    }, 100); // Faster hide
+                }
+            }
+            
+            isScrolling = false;
+        });
+    }
+    
+    // Optimized click functionality - instant scroll
+    mobileScrollUp.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Use native smooth scroll for better performance
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Touch events for better mobile support
+    mobileScrollUp.addEventListener('touchstart', function(e) {
+        if (span) {
+            span.style.transform = 'scale(0.95)';
+            span.style.background = '#CC0000';
+            span.style.transition = 'all 0.1s ease';
+        }
+    });
+    
+    mobileScrollUp.addEventListener('touchend', function(e) {
+        if (span) {
+            span.style.transform = 'scale(1)';
+            span.style.background = '#FF0000';
+            span.style.transition = 'all 0.15s ease';
+        }
+    });
+    
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Throttled resize handler
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (window.innerWidth > 768) {
+                // Hide on desktop
+                mobileScrollUp.style.display = 'none';
+                isVisible = false;
+            } else {
+                // Re-check on mobile
+                handleScroll();
+            }
+        }, 100);
+    });
+    
+    // Initial check
+    handleScroll();
+}
+</script>
+        <link rel="stylesheet" href="{{ asset('css/mobile-cards-enhancement.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/projects-products-mobile-enhancement.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/hero-titles-mobile.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/enhanced-mobile-cards.css') }}">
 
 <!-- Mobile Menu Width Override - SENIOR LEVEL NUCLEAR OPTION -->
 <style>
-/* Make the ACTUAL mobile menu wider */
+/* Make the ACTUAL mobile menu responsive */
 .mobile-menu {
     width: 600px !important;
     max-width: 600px !important;
     min-width: 600px !important;
+}
+@media (max-width: 991px) {
+    .mobile-menu {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        min-width: 100vw !important;
+    }
 }
 
 .mobile-menu-content {
@@ -68,47 +737,47 @@
     transform: translateX(0) !important;
 }
 
-/* Make mobile menu buttons MUCH BIGGER */
+/* Make mobile menu buttons smaller */
 .mobile-nav-link {
-    padding: 30px 35px !important;
-    font-size: 28px !important;
+    padding: 15px 20px !important;
+    font-size: 16px !important;
     font-weight: 500 !important;
-    min-height: 80px !important;
+    min-height: 50px !important;
     display: flex !important;
     align-items: center !important;
 }
 
 .mobile-nav-link i {
-    font-size: 30px !important;
-    margin-right: 20px !important;
+    font-size: 18px !important;
+    margin-right: 12px !important;
 }
 
 .mobile-nav-link span {
-    font-size: 28px !important;
+    font-size: 16px !important;
 }
 
-/* Make dropdown links MUCH BIGGER */
+/* Make dropdown links smaller */
 .mobile-dropdown-link {
-    padding: 30px 50px !important;
-    font-size: 36px !important;
-    font-weight: 600 !important;
-    min-height: 85px !important;
+    padding: 12px 25px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    min-height: 45px !important;
     display: flex !important;
     align-items: center !important;
 }
 
 .mobile-dropdown-link img {
-    width: 24px !important;
-    height: 24px !important;
-    margin-right: 15px !important;
+    width: 16px !important;
+    height: 16px !important;
+    margin-right: 10px !important;
 }
 
 .mobile-dropdown-link span {
-    font-size: 36px !important;
+    font-size: 14px !important;
 }
 
 .mobile-dropdown-link i {
-    font-size: 18px !important;
+    font-size: 12px !important;
     margin-left: auto !important;
 }
 
@@ -137,90 +806,90 @@
     overflow: visible !important;
 }
 
-/* Make auth buttons MUCH BIGGER */
+/* Make auth buttons smaller */
 .mobile-auth-link {
-    padding: 25px 30px !important;
-    font-size: 26px !important;
-    font-weight: 700 !important;
-    min-height: 80px !important;
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    min-height: 45px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
 }
 
 .mobile-auth-link i {
-    font-size: 28px !important;
-    margin-right: 15px !important;
+    font-size: 16px !important;
+    margin-right: 8px !important;
 }
 
 .mobile-auth-link span {
-    font-size: 26px !important;
+    font-size: 14px !important;
 }
 
-/* Make dropdown triggers MUCH BIGGER */
+/* Make dropdown triggers smaller */
 .mobile-dropdown-trigger {
-    padding: 30px 35px !important;
-    font-size: 28px !important;
+    padding: 15px 20px !important;
+    font-size: 16px !important;
     font-weight: 500 !important;
-    min-height: 80px !important;
+    min-height: 50px !important;
 }
 
 .mobile-dropdown-label {
-    font-size: 28px !important;
+    font-size: 16px !important;
 }
 
 .mobile-dropdown-label i {
-    font-size: 30px !important;
-    margin-right: 20px !important;
+    font-size: 18px !important;
+    margin-right: 12px !important;
 }
 
 .mobile-dropdown-label span {
-    font-size: 28px !important;
+    font-size: 16px !important;
 }
 
-/* Make language switch buttons MUCH BIGGER */
+/* Make language switch buttons smaller */
 .mobile-lang-dropdown .mobile-dropdown-trigger {
-    padding: 30px 35px !important;
-    font-size: 28px !important;
-    font-weight: 700 !important;
-    min-height: 80px !important;
+    padding: 15px 20px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    min-height: 50px !important;
 }
 
 .mobile-lang-dropdown .mobile-dropdown-label {
-    font-size: 28px !important;
+    font-size: 16px !important;
 }
 
 .mobile-lang-dropdown .mobile-dropdown-label img {
-    width: 32px !important;
-    height: 32px !important;
-    margin-right: 20px !important;
+    width: 20px !important;
+    height: 15px !important;
+    margin-right: 10px !important;
 }
 
 .mobile-lang-dropdown .mobile-dropdown-label span {
-    font-size: 28px !important;
+    font-size: 16px !important;
 }
 
 .mobile-lang-dropdown .mobile-dropdown-link {
-    padding: 30px 55px !important;
-    font-size: 30px !important;
-    font-weight: 600 !important;
-    min-height: 80px !important;
+    padding: 12px 25px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    min-height: 45px !important;
     display: flex !important;
     align-items: center !important;
 }
 
 .mobile-lang-dropdown .mobile-dropdown-link img {
-    width: 32px !important;
-    height: 32px !important;
-    margin-right: 20px !important;
+    width: 16px !important;
+    height: 12px !important;
+    margin-right: 10px !important;
 }
 
 .mobile-lang-dropdown .mobile-dropdown-link span {
-    font-size: 30px !important;
+    font-size: 14px !important;
 }
 
     .mobile-lang-dropdown .mobile-dropdown-link i {
-        font-size: 20px !important;
+        font-size: 12px !important;
         margin-left: auto !important;
     }
 
@@ -269,427 +938,28 @@
     }
     </style>
 
-<!-- SENIOR LEVEL MOBILE OVERRIDE - NUCLEAR OPTION -->
+<!-- CONFLICTING 2-COLUMN GRID STYLES REMOVED - SINGLE COLUMN LAYOUT ENFORCED -->
 <style>
-/* Force ALL grids to 2 columns on tablet and below - MAXIMUM SPECIFICITY */
-@media (max-width: 1200px) {
-    *[class*="grid"] {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 25px !important;
-    }
-    
-    .products-grid,
-    .project-info-container,
-    .categories-grid,
-    .aluprof-category-grid,
-    .main-content .products-grid,
-    .main-content .project-info-container,
-    .main-content .categories-grid,
-    .main-content .aluprof-category-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 25px !important;
-        display: grid !important;
-    }
-    
-    /* Special override for auto-fit grids */
-    [style*="repeat(auto-fit"],
-    [style*="repeat(auto-fit"],
-    .products-grid[style*="auto-fit"] {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-    
-    /* Override any inline styles */
-    [style*="grid-template-columns"] {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-}
-
-/* Force ALL grids to 2 columns on mobile - MAXIMUM SPECIFICITY */
-@media (max-width: 768px) {
-    *[class*="grid"] {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 20px !important;
-    }
-    
-    .products-grid,
-    .project-info-container,
-    .categories-grid,
-    .aluprof-category-grid,
-    .main-content .products-grid,
-    .main-content .project-info-container,
-    .main-content .categories-grid,
-    .main-content .aluprof-category-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 20px !important;
-        display: grid !important;
-    }
-    
-    /* Special override for auto-fit grids */
-    [style*="repeat(auto-fit"],
-    [style*="repeat(auto-fit"],
-    .products-grid[style*="auto-fit"] {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-    
-    /* Override any inline styles */
-    [style*="grid-template-columns"] {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-}
-
-@media (max-width: 480px) {
-    *[class*="grid"] {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 15px !important;
-    }
-    
-    .products-grid,
-    .project-info-container,
-    .categories-grid,
-    .aluprof-category-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 15px !important;
-    }
-}
-
-/* Debug indicators removed */
-
-/* NUCLEAR OPTION: Force products grid to 2 columns */
-@media (max-width: 1200px) {
-    .products-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 25px !important;
-    }
-    
-    /* Override any auto-fit in products grid */
-    .products-grid[style*="auto-fit"] {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-    
-    /* Force all products grid children to half width */
-    .products-grid > * {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-}
-
-@media (max-width: 768px) {
-    .products-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 20px !important;
-    }
-    
-    /* Override any auto-fit in products grid */
-    .products-grid[style*="auto-fit"] {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-    
-    /* Force all products grid children to half width */
-    .products-grid > * {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-}
-
-/* ===== RESPONSIVE HEADER SIDEBAR ===== */
-/* Tablet and below - show sidebar */
-@media (max-width: 1200px) {
-    /* Show mobile menu toggle */
-    .mobile-menu-toggle {
-        display: flex !important;
-    }
-    
-    /* Hide desktop navigation */
-    .nav-menu {
-        display: none !important;
-    }
-    
-    /* Hide desktop auth */
-    .nav-auth {
-        display: none !important;
-    }
-    
-    /* Adjust logo size for tablet */
-    .logo img {
-        height: 120px !important;
-        max-width: 400px !important;
-    }
-    
-    /* Adjust nav container padding */
-    .nav-container {
-        padding: 0 15px !important;
-    }
-}
-
-@media (max-width: 768px) {
-    /* Further adjust logo for mobile */
-    .logo img {
-        height: 80px !important;
-        max-width: 250px !important;
-    }
-    
-    /* Adjust mobile sidebar width */
-    .mobile-sidebar {
-        width: 280px !important;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Mobile sidebar full width on small screens */
-    .mobile-sidebar {
-        width: 100% !important;
-    }
-    
-    /* Smaller logo for small mobile */
-    .logo img {
-        height: 60px !important;
-        max-width: 200px !important;
-    }
-}
-
-/* Hamburger animation */
-.mobile-menu-toggle.active .hamburger-line:nth-child(1) {
-    transform: rotate(-45deg) translate(-5px, 6px);
-}
-
-.mobile-menu-toggle.active .hamburger-line:nth-child(2) {
-    opacity: 0;
-}
-
-.mobile-menu-toggle.active .hamburger-line:nth-child(3) {
-    transform: rotate(45deg) translate(-5px, -6px);
-}
-
-/* Sidebar animations */
-.mobile-sidebar.active {
-    left: 0 !important;
-}
-
-.mobile-sidebar-overlay.active {
-    display: block !important;
-}
-
-/* Prevent body scroll when sidebar is open */
-body.sidebar-open {
-    overflow: hidden;
-}
-
-/* ULTRA-AGGRESSIVE PRODUCTS GRID OVERRIDE */
-@media (max-width: 1200px) {
-    .products-grid,
-    .products-grid[style*="auto-fit"],
-    .products-grid[style*="minmax(250px"],
-    .products-grid[style*="minmax(300px"],
-    .products-grid[style*="repeat(4, 1fr)"],
-    .products-grid[style*="repeat(3, 1fr)"],
-    .products-grid[style*="repeat(2, 1fr)"] {
-        grid-template-columns: 1fr !important;
-        gap: 25px !important;
-    }
-    
-    .products-grid > * {
-        width: 100% !important;
-        max-width: 100% !important;
-        flex: none !important;
-    }
-}
-</style>
 
 
 
 <script src="{{ asset('frontend/js/script.js') }}"></script>
 
-<!-- SENIOR LEVEL MOBILE FORCE SCRIPT -->
+<!-- iOS/Safari viewport height fix -->
 <script>
+// Set --vh to account for iOS dynamic toolbars
 (function() {
-    'use strict';
-    
-    // Senior level debugging and force function
-    function forceMobileLayout() {
-        const isMobile = window.innerWidth <= 768;
-        const isTablet = window.innerWidth <= 1200 && window.innerWidth > 768;
-        const isTabletOrMobile = window.innerWidth <= 1200;
-        
-        // Debug logging removed
-        
-        if (isTabletOrMobile) {
-            // Find ALL grid elements (excluding media grids)
-            const gridSelectors = [
-                '.products-grid',
-                '.project-info-container', 
-                '.categories-grid',
-                '.aluprof-category-grid',
-                '[class*="grid"]:not(.tiktok-feed-grid)'
-            ];
-            
-            let gridsFound = 0;
-            let gridsForced = 0;
-            
-            gridSelectors.forEach(selector => {
-                const grids = document.querySelectorAll(selector);
-                grids.forEach(grid => {
-                    gridsFound++;
-                    
-                    // Check if this is a products grid with auto-fit
-                    const isProductsGrid = grid.classList.contains('products-grid');
-                    const hasAutoFit = grid.style.gridTemplateColumns && grid.style.gridTemplateColumns.includes('auto-fit');
-                    
-                    // Remove any existing inline styles
-                    grid.style.removeProperty('grid-template-columns');
-                    grid.style.removeProperty('grid-template-rows');
-                    
-                    // Force 2 columns with special handling for products grid
-                    if (isProductsGrid) {
-                        // Force 2 columns - no auto-fit on tablet/mobile
-                        grid.style.setProperty('grid-template-columns', 'repeat(2, 1fr)', 'important');
-                    } else {
-                        grid.style.setProperty('grid-template-columns', 'repeat(2, 1fr)', 'important');
-                    }
-                    
-                    // Set gap based on screen size
-                    const gap = isMobile ? '20px' : '25px';
-                    grid.style.setProperty('gap', gap, 'important');
-                    grid.style.setProperty('display', 'grid', 'important');
-                    
-                    // Add tracking attribute
-                    grid.setAttribute('data-mobile-forced', 'true');
-                    
-                    gridsForced++;
-                });
-            });
-            
-            // Handle media grids with flexbox for proper centering
-            const mediaGrids = document.querySelectorAll('.tiktok-feed-grid');
-            mediaGrids.forEach(grid => {
-                // Remove any existing inline styles
-                grid.style.removeProperty('grid-template-columns');
-                grid.style.removeProperty('display');
-                
-                // Force flexbox with centered layout
-                grid.style.setProperty('display', 'flex', 'important');
-                grid.style.setProperty('flex-wrap', 'wrap', 'important');
-                grid.style.setProperty('justify-content', 'center', 'important');
-                grid.style.setProperty('gap', '15px', 'important');
-                
-                // Set items to 45% width for 2 columns
-                const items = grid.querySelectorAll('.tiktok-feed-item');
-                items.forEach(item => {
-                    item.style.setProperty('width', '45%', 'important');
-                    item.style.setProperty('max-width', '45%', 'important');
-                    item.style.setProperty('flex', '0 0 45%', 'important');
-                });
-                
-                grid.setAttribute('data-mobile-forced', 'true');
-            });
-            
-            // Visual debugging removed
-        }
+    function setDocVh() {
+        var vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', vh + 'px');
     }
-    
-    // Run immediately
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', forceMobileLayout);
-    } else {
-        forceMobileLayout();
-    }
-    
-    // Run on resize
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(forceMobileLayout, 100);
-    });
-    
-    // Run every 500ms for first 5 seconds to catch any late-loading content
-    let interval = setInterval(forceMobileLayout, 500);
-    setTimeout(() => clearInterval(interval), 5000);
-    
-    // Expose function globally for debugging
-    window.SOTUMAMobileForce = forceMobileLayout;
-    
-})();
-
-// ===== RESPONSIVE HEADER SIDEBAR FUNCTIONALITY =====
-(function() {
-    'use strict';
-    
-    function initSidebar() {
-        const menuToggle = document.querySelector('.mobile-menu-toggle');
-        const sidebar = document.querySelector('.mobile-sidebar');
-        const overlay = document.querySelector('.mobile-sidebar-overlay');
-        const closeBtn = document.querySelector('.sidebar-close');
-        const body = document.body;
-        
-        if (!menuToggle || !sidebar || !overlay) {
-            return;
-        }
-        
-        function openSidebar() {
-            sidebar.classList.add('active');
-            overlay.classList.add('active');
-            menuToggle.classList.add('active');
-            body.classList.add('sidebar-open');
-            // Sidebar opened
-        }
-        
-        function closeSidebar() {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-            menuToggle.classList.remove('active');
-            body.classList.remove('sidebar-open');
-            // Sidebar closed
-        }
-        
-        // Toggle sidebar
-        menuToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            if (sidebar.classList.contains('active')) {
-                closeSidebar();
-            } else {
-                openSidebar();
-            }
-        });
-        
-        // Close sidebar
-        closeBtn.addEventListener('click', closeSidebar);
-        overlay.addEventListener('click', closeSidebar);
-        
-        // Close on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && sidebar.classList.contains('active')) {
-                closeSidebar();
-            }
-        });
-        
-        // Close on window resize to desktop
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 1200 && sidebar.classList.contains('active')) {
-                closeSidebar();
-            }
-        });
-        
-        // Close sidebar when clicking on sidebar links
-        const sidebarLinks = sidebar.querySelectorAll('a');
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                setTimeout(closeSidebar, 100); // Small delay for better UX
-            });
-        });
-        
-        // Sidebar functionality initialized
-    }
-    
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initSidebar);
-    } else {
-        initSidebar();
-    }
-    
+    setDocVh();
+    window.addEventListener('resize', setDocVh);
+    window.addEventListener('orientationchange', setDocVh);
+    window.addEventListener('pageshow', setDocVh);
 })();
 </script>
+
 <style>
     /* Multilevel dropdown */
     .dropdown-submenu {
@@ -828,43 +1098,40 @@ body.sidebar-open {
 
 
 
-/* Responsive for sidebar */
-@media (max-width: 768px) {
+/* Hide social sidebar on mobile and tablets */
+@media (max-width: 1024px) {
     .social-sidebar {
-        left: -70px;
-        transition: left 0.3s ease;
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
     }
     
-    .social-sidebar:hover {
-        left: 0;
-        transform: translateY(-50%);
-    }
-    
-    .social-sidebar-content {
-        padding: 15px 12px;
-        gap: 12px;
-    }
-    
-    .social-icon a {
-        font-size: 1.4rem;
-        width: 40px;
-        height: 40px;
-    }
-    
-    .social-header span {
-        font-size: 0.7rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .social-sidebar {
-        left: -65px;
-    }
-    
-    .social-icon a {
-        font-size: 1.3rem;
-        width: 35px;
-        height: 35px;
+    /* Force hide mobile social toggle and menu on all pages */
+    .mobile-social-toggle,
+    .mobile-social-menu,
+    .mobile-social-overlay,
+    button[class*="mobile-social"],
+    div[class*="mobile-social"],
+    [aria-label*="Toggle social media menu"],
+    [aria-label*="social media menu"],
+    button i.fa-share-alt,
+    button .fas.fa-share-alt {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        position: absolute !important;
+        left: -9999px !important;
+        top: -9999px !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        pointer-events: none !important;
+        z-index: -1 !important;
+        transform: scale(0) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
     }
 }
 

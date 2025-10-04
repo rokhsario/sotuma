@@ -396,14 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Accessibility Enhancements
     function enhanceAccessibility() {
-        // Add skip links
-        if (!document.querySelector('.skip-link')) {
-            const skipLink = document.createElement('a');
-            skipLink.href = '#main-content';
-            skipLink.className = 'skip-link';
-            skipLink.textContent = 'Skip to main content';
-            document.body.insertBefore(skipLink, document.body.firstChild);
-        }
+        // Skip-link injection disabled per UI requirements
         
         // Enhance focus management
         document.addEventListener('keydown', function(e) {

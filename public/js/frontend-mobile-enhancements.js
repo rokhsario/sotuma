@@ -419,6 +419,76 @@ Version: 1.0 - Production Ready
         });
     }
 
+    // ===== ENHANCED INDEX PAGE SECTION HIDING =====
+    function forceHideIndexPageSections() {
+        // Only apply to index page
+        const isIndexPage = window.location.pathname === '/' || window.location.pathname === '/home';
+        if (!isIndexPage) return;
+        
+        const isMobileWidth = window.innerWidth <= 1024; // Include tablets
+        
+        if (isMobileWidth) {
+            // Target specific sections mentioned in the request
+            const targetSections = [
+                '.projects-categories-grid-section',
+                '.offer-grid-section'
+            ];
+            
+            targetSections.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(element => {
+                    if (element) {
+                        // Maximum force hiding
+                        element.style.setProperty('display', 'none', 'important');
+                        element.style.setProperty('visibility', 'hidden', 'important');
+                        element.style.setProperty('opacity', '0', 'important');
+                        element.style.setProperty('height', '0', 'important');
+                        element.style.setProperty('overflow', 'hidden', 'important');
+                        element.style.setProperty('margin', '0', 'important');
+                        element.style.setProperty('padding', '0', 'important');
+                        element.setAttribute('data-sotuma-force-hidden', 'true');
+                        
+                        // Hide all child elements too
+                        const children = element.querySelectorAll('*');
+                        children.forEach(child => {
+                            child.style.setProperty('display', 'none', 'important');
+                            child.style.setProperty('visibility', 'hidden', 'important');
+                        });
+                    }
+                });
+            });
+        } else {
+            // Show sections on desktop
+            const targetSections = [
+                '.projects-categories-grid-section',
+                '.offer-grid-section'
+            ];
+            
+            targetSections.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(element => {
+                    if (element && element.hasAttribute('data-sotuma-force-hidden')) {
+                        element.style.removeProperty('display');
+                        element.style.removeProperty('visibility');
+                        element.style.removeProperty('opacity');
+                        element.style.removeProperty('height');
+                        element.style.removeProperty('overflow');
+                        element.style.removeProperty('margin');
+                        element.style.removeProperty('padding');
+                        element.removeAttribute('data-sotuma-force-hidden');
+                        
+                        // Show all child elements
+                        const children = element.querySelectorAll('*');
+                        children.forEach(child => {
+                            child.style.removeProperty('display');
+                            child.style.removeProperty('visibility');
+                        });
+                    }
+                });
+            });
+        }
+    }
+
     // ===== IMMEDIATE MOBILE RESPONSIVE FORCE =====
     function immediateMobileForce() {
         // Clean up index page elements first
@@ -438,22 +508,27 @@ Version: 1.0 - Production Ready
                 }
             });
             
-            // Handle media grids with flexbox immediately
+            // Handle media grids with single column layout for mobile/tablet
             const mediaGrids = document.querySelectorAll('.tiktok-feed-grid');
             mediaGrids.forEach(grid => {
                 if (grid) {
-                    // Force flexbox with centered layout
-                    grid.style.setProperty('display', 'flex', 'important');
-                    grid.style.setProperty('flex-wrap', 'wrap', 'important');
-                    grid.style.setProperty('justify-content', 'center', 'important');
-                    grid.style.setProperty('gap', '15px', 'important');
+                    // Force single column layout for mobile/tablet
+                    grid.style.setProperty('display', 'block', 'important');
+                    grid.style.setProperty('grid-template-columns', 'none', 'important');
+                    grid.style.setProperty('gap', '0', 'important');
+                    grid.style.setProperty('padding', '0', 'important');
+                    grid.style.setProperty('margin', '0', 'important');
+                    grid.style.setProperty('width', '100vw', 'important');
+                    grid.style.setProperty('max-width', '100vw', 'important');
                     
-                    // Set items to 45% width for 2 columns
+                    // Set items to full width for single column
                     const items = grid.querySelectorAll('.tiktok-feed-item');
                     items.forEach(item => {
-                        item.style.setProperty('width', '45%', 'important');
-                        item.style.setProperty('max-width', '45%', 'important');
-                        item.style.setProperty('flex', '0 0 45%', 'important');
+                        item.style.setProperty('width', '100vw', 'important');
+                        item.style.setProperty('max-width', '100vw', 'important');
+                        item.style.setProperty('margin', '0', 'important');
+                        item.style.setProperty('border-radius', '0', 'important');
+                        item.style.setProperty('display', 'block', 'important');
                     });
                     
                     grid.setAttribute('data-mobile-forced', 'true');
@@ -482,6 +557,9 @@ Version: 1.0 - Production Ready
         immediateMobileForce();
         forceMobileResponsive();
         
+        // Force hide index page sections
+        forceHideIndexPageSections();
+        
         // Add mobile class to body for CSS targeting
         if (isMobile) {
             document.body.classList.add('mobile-device');
@@ -495,11 +573,17 @@ Version: 1.0 - Production Ready
         let resizeTimeout;
         window.addEventListener('resize', function() {
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(forceMobileResponsive, 250);
+            resizeTimeout = setTimeout(() => {
+                forceMobileResponsive();
+                forceHideIndexPageSections();
+            }, 250);
         });
         
         // Run mobile force every 100ms for first 2 seconds to catch any late-loading content
-        let forceInterval = setInterval(immediateMobileForce, 100);
+        let forceInterval = setInterval(() => {
+            immediateMobileForce();
+            forceHideIndexPageSections();
+        }, 100);
         setTimeout(() => clearInterval(forceInterval), 2000);
         
         console.log('SOTUMA Mobile Enhancements initialized');
@@ -515,6 +599,7 @@ Version: 1.0 - Production Ready
         closeModal: closeModal,
         forceMobileResponsive: forceMobileResponsive,
         immediateMobileForce: immediateMobileForce,
+        forceHideIndexPageSections: forceHideIndexPageSections,
         
         // Utility function to debounce events
         debounce: function(func, wait) {

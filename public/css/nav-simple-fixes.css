@@ -30,7 +30,7 @@ Version: 1.0
 
 /* Special styling for dashboard auth link */
 .dashboard-auth-link {
-    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    background: linear-gradient(135deg, #FF0000 0%, #FF0000 100%);
     color: white;
     font-weight: 600;
     text-transform: uppercase;

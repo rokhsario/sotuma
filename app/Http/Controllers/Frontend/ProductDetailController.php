@@ -11,12 +11,11 @@ class ProductDetailController extends Controller
     public function show($slug)
     {
         $product = Product::where('slug', $slug)
-            ->where('has_details', true)
             ->with('category')
             ->first();
             
         if (!$product) {
-            abort(404, 'Product not found or has no details');
+            abort(404, 'Product not found');
         }
         
         return view('frontend.pages.product-detail', compact('product'));

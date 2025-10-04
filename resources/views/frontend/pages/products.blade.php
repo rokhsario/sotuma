@@ -81,27 +81,128 @@ body, .aluprof-category-grid, .aluprof-category-block, .aluprof-heading, .alupro
 @media (max-width: 1200px) {
     .aluprof-category-grid {
         grid-template-columns: 1fr !important;
-        gap: 25px !important;
+        gap: 0 !important;
         margin: 50px 0 70px 0 !important;
-        padding: 0 30px !important;
+        padding: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin-left: calc(-50vw + 50%) !important;
+        margin-right: calc(-50vw + 50%) !important;
+    }
+    
+    .aluprof-category-block {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
     }
 }
 
 @media (max-width: 768px) {
     .aluprof-category-grid {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
+        display: block !important;
+        grid-template-columns: none !important;
+        gap: 0 !important;
         margin: 40px 0 60px 0 !important;
-        padding: 0 20px !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+    }
+    
+    .aluprof-category-block {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 20px 0 !important;
+        border-radius: 0 !important;
+        background: #fff !important;
+        border: none !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+    }
+    
+    .aluprof-category-block .image-container {
+        height: 350px !important;
+        width: 100% !important;
+        overflow: hidden !important;
+        position: relative !important;
+    }
+    
+    .aluprof-category-block .content {
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        background: #fff !important;
+        padding: 20px !important;
+        z-index: 1 !important;
+        text-align: center !important;
+        display: block !important;
+    }
+    
+    .aluprof-category-block .title {
+        color: #333 !important;
+        font-size: 0.85rem !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        margin: 0 !important;
+        text-shadow: none !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        position: relative !important;
+        display: block !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        line-height: 1.2 !important;
+    }
+    
+    .aluprof-category-block .description {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 }
 
 @media (max-width: 480px) {
     .aluprof-category-grid {
-        grid-template-columns: 1fr !important;
-        gap: 15px !important;
+        display: block !important;
+        grid-template-columns: none !important;
+        gap: 0 !important;
         margin: 30px 0 50px 0 !important;
-        padding: 0 15px !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+    }
+    
+    .aluprof-category-block {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 15px 0 !important;
+        border-radius: 0 !important;
+        background: #fff !important;
+        border: none !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+    }
+    
+    .aluprof-category-block .image-container {
+        height: 300px !important;
+    }
+    
+    .aluprof-category-block .content {
+        padding: 15px !important;
+    }
+    
+    .aluprof-category-block .title {
+        font-size: 0.75rem !important;
     }
 }
 @keyframes fadeInGrid {

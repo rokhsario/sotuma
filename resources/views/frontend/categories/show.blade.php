@@ -131,28 +131,61 @@
 
 @media (max-width: 1000px) {
     .products-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 20px !important;
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
         margin-top: 30px !important;
-        padding: 20px 40px !important;
+        padding: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin-left: calc(-50vw + 50%) !important;
+        margin-right: calc(-50vw + 50%) !important;
+    }
+    
+    .product-card {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
     }
 }
 
 @media (max-width: 768px) {
     .products-grid {
         grid-template-columns: 1fr !important;
-        gap: 20px !important;
+        gap: 0 !important;
         margin-top: 30px !important;
-        padding: 20px 30px !important;
+        padding: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin-left: calc(-50vw + 50%) !important;
+        margin-right: calc(-50vw + 50%) !important;
+    }
+    
+    .product-card {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
     }
 }
 
 @media (max-width: 480px) {
     .products-grid {
         grid-template-columns: 1fr !important;
-        gap: 15px !important;
+        gap: 0 !important;
         margin-top: 25px !important;
-        padding: 15px 20px !important;
+        padding: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin-left: calc(-50vw + 50%) !important;
+        margin-right: calc(-50vw + 50%) !important;
+    }
+    
+    .product-card {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
     }
 }
 
@@ -525,22 +558,186 @@
     }
     
     .products-grid {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
-        padding: 20px !important;
+        display: block !important;
+        grid-template-columns: none !important;
+        gap: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: visible !important;
     }
     
-    .product-content {
-        padding: 20px;
+    .product-card {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 20px 0 !important;
+        border-radius: 0 !important;
+        background: #fff !important;
+        border: none !important;
+        box-shadow: none !important;
+        overflow: hidden !important;
+        cursor: pointer !important;
+        text-decoration: none !important;
+        color: inherit !important;
+        pointer-events: auto !important;
+        position: relative !important;
+        box-sizing: border-box !important;
     }
     
-    .product-title {
-        font-size: 1.1rem;
-        text-align: center;
+    /* Allow clicks on all elements */
+    .product-card * {
+        pointer-events: auto !important;
+    }
+    
+    .product-card:hover {
+        background: #fff !important;
+        text-decoration: none !important;
+        color: inherit !important;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* Remove all hover effects completely for mobile */
+    .product-card:hover,
+    .product-card:active,
+    .product-card:focus,
+    .product-card:focus-visible,
+    .product-card:focus-within {
+        background: #fff !important;
+        text-decoration: none !important;
+        color: inherit !important;
+        transform: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+        border: none !important;
+    }
+    
+    /* Remove hover effects from all child elements */
+    .product-card *:hover,
+    .product-card *:active,
+    .product-card *:focus {
+        transform: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+        background: inherit !important;
+    }
+    
+    /* Ensure click functionality works */
+    .product-card.clickable {
+        cursor: pointer !important;
+    }
+    
+    /* Remove all transform and transition effects */
+    .product-card,
+    .product-card::before,
+    .product-card::after {
+        transform: none !important;
+        transition: none !important;
+    }
+    
+    /* Ensure click functionality works properly */
+    .product-card.clickable {
+        cursor: pointer !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+    }
+    
+    /* Make sure images don't interfere with clicks */
+    .product-card img {
+        pointer-events: auto !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
     }
     
     .product-image-container {
-        height: 250px;
+        height: 350px !important;
+        width: 100% !important;
+        overflow: hidden !important;
+        position: relative !important;
+        display: block !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .product-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        display: block !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .product-content {
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        background: #fff !important;
+        padding: 20px !important;
+        z-index: 1 !important;
+        text-align: center !important;
+        display: block !important;
+    }
+    
+    .product-title {
+        color: #333 !important;
+        font-size: 0.85rem !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        margin: 0 !important;
+        text-shadow: none !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        position: relative !important;
+        display: block !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        line-height: 1.2 !important;
+    }
+    
+    .product-description {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .product-overlay {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .product-detail-indicator {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
     
     .subcategories-grid {
@@ -552,25 +749,145 @@
         font-size: 2rem;
     }
     
-    /* Better mobile card hover effects */
+    /* Remove all hover effects for mobile */
     .product-card:hover {
-        transform: translateX(0) translateY(-4px);
+        transform: none !important;
+        box-shadow: none !important;
+        background: #fff !important;
     }
 }
 
 @media (max-width: 480px) {
     .products-grid {
-        grid-template-columns: 1fr !important;
-        gap: 15px !important;
-        padding: 15px !important;
+        display: block !important;
+        grid-template-columns: none !important;
+        gap: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+    }
+    
+    .product-card {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 15px 0 !important;
+        border-radius: 0 !important;
+        background: #fff !important;
+        border: none !important;
+        box-shadow: none !important;
+        overflow: hidden !important;
+        cursor: pointer !important;
+        text-decoration: none !important;
+        color: inherit !important;
+        pointer-events: auto !important;
+        position: relative !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Allow clicks on all elements */
+    .product-card * {
+        pointer-events: auto !important;
+    }
+    
+    .product-card:hover {
+        background: #fff !important;
+        text-decoration: none !important;
+        color: inherit !important;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* Remove all hover effects completely for mobile */
+    .product-card:hover,
+    .product-card:active,
+    .product-card:focus,
+    .product-card:focus-visible,
+    .product-card:focus-within {
+        background: #fff !important;
+        text-decoration: none !important;
+        color: inherit !important;
+        transform: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+        border: none !important;
+    }
+    
+    /* Remove hover effects from all child elements */
+    .product-card *:hover,
+    .product-card *:active,
+    .product-card *:focus {
+        transform: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+        background: inherit !important;
+    }
+    
+    /* Ensure click functionality works */
+    .product-card.clickable {
+        cursor: pointer !important;
+    }
+    
+    /* Remove all transform and transition effects */
+    .product-card,
+    .product-card::before,
+    .product-card::after {
+        transform: none !important;
+        transition: none !important;
+    }
+    
+    /* Ensure click functionality works properly */
+    .product-card.clickable {
+        cursor: pointer !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+    }
+    
+    /* Make sure images don't interfere with clicks */
+    .product-card img {
+        pointer-events: auto !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
     }
     
     .product-image-container {
-        height: 300px;
+        height: 300px !important;
+        width: 100% !important;
+        overflow: hidden !important;
+        position: relative !important;
+        display: block !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .product-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        display: block !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
     
     .product-content {
-        padding: 25px;
+        padding: 15px !important;
+    }
+    
+    .product-title {
+        font-size: 0.75rem !important;
     }
 }
 </style>
@@ -604,13 +921,13 @@
 <section class="products-section">
     <div class="products-grid">
             @foreach($products as $product)
-            <div class="product-card {{ $product->has_details && $product->slug ? 'clickable' : '' }}" {{ $product->has_details && $product->slug ? 'onclick="console.log(\'Card clicked for: ' . $product->title . '\'); window.location.href=\'' . route('product-detail', $product->slug) . '\'"' : '' }}>
+            <div class="product-card {{ $product->slug ? 'clickable' : '' }}" @if($product->slug) data-product-url="{{ route('product-detail', $product->slug) }}" @endif>
                 <div class="product-image-container">
                     <img src="{{ $product->image ? asset($product->image) : asset('images/no-image.png') }}" 
                          alt="{{ $product->title }}" 
                          class="product-image">
-                    @if($product->has_details && $product->slug)
-                        <div class="product-overlay" onclick="console.log('Overlay clicked for: {{ $product->title }}'); window.location.href='{{ route('product-detail', $product->slug) }}'">
+                    @if($product->slug)
+                        <div class="product-overlay">
                             <div class="product-overlay-content">
                                 <i class="fas fa-eye"></i>
                                 <span>{{ __('frontend.view_details') }}</span>
@@ -620,7 +937,7 @@
                 </div>
                 <div class="product-content">
                     <h3 class="product-title">{{ $product->title }}</h3>
-                    @if($product->has_details && $product->slug)
+                    @if($product->slug)
                         <div class="product-detail-indicator">
                             <span class="detail-badge">{{ __('frontend.view_details') }}</span>
                         </div>

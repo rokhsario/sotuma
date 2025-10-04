@@ -1,0 +1,412 @@
+/* =====================================
+SOTUMA Projects & Products Mobile Enhancement
+Removes breadcrumbs and simplifies cards for mobile/tablet
+Edge-to-edge images with centered black titles
+===================================== */
+
+/* Hide breadcrumbs on mobile/tablet for all project and product pages */
+@media (max-width: 1024px) {
+    /* Project Categories Pages */
+    .project-categories-page .breadcrumb-section,
+    .project-categories-show-page .breadcrumb-section {
+        display: none !important;
+    }
+    
+    /* Product Categories Pages */
+    .breadcrumb-section,
+    .breadcrumb-custom {
+        display: none !important;
+    }
+    
+    /* Products Pages */
+    .products-page .breadcrumb-section,
+    .product-detail-page .breadcrumb-section {
+        display: none !important;
+    }
+}
+
+/* ===== SIMPLIFIED CARD DESIGN FOR MOBILE/TABLET ===== */
+
+/* Project Categories Index Page - Simplified Cards */
+@media (max-width: 1024px) {
+    .project-categories-page .category-card {
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        overflow: hidden !important;
+    }
+    
+    .project-categories-page .category-image-container {
+        width: 100% !important;
+        height: 250px !important;
+        overflow: hidden !important;
+        position: relative !important;
+    }
+    
+    .project-categories-page .category-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+    }
+    
+    .project-categories-page .category-content {
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)) !important;
+        padding: 20px !important;
+        z-index: 2 !important;
+    }
+    
+    .project-categories-page .category-title {
+        color: #fff !important;
+        font-size: 1.2rem !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        margin: 0 !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+    
+    /* Remove all overlays and effects */
+    .project-categories-page .category-card::before,
+    .project-categories-page .category-overlay,
+    .project-categories-page .category-card:hover::before,
+    .project-categories-page .category-card:hover .category-overlay {
+        display: none !important;
+    }
+    
+    .project-categories-page .category-card:hover {
+        transform: none !important;
+    }
+    
+    .project-categories-page .category-card:hover .category-image {
+        transform: none !important;
+    }
+}
+
+/* Project Categories Show Page - Simplified Cards */
+@media (max-width: 1024px) {
+    .project-categories-show-page .project-card {
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        overflow: hidden !important;
+    }
+    
+    .project-categories-show-page .project-image-container {
+        width: 100% !important;
+        height: 250px !important;
+        overflow: hidden !important;
+        position: relative !important;
+    }
+    
+    .project-categories-show-page .project-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+    }
+    
+    .project-categories-show-page .project-content {
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)) !important;
+        padding: 20px !important;
+        z-index: 2 !important;
+    }
+    
+    .project-categories-show-page .project-title {
+        color: #fff !important;
+        font-size: 1.2rem !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        margin: 0 !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+    
+    /* Remove all overlays and effects */
+    .project-categories-show-page .project-card::before,
+    .project-categories-show-page .project-overlay,
+    .project-categories-show-page .project-card:hover::before,
+    .project-categories-show-page .project-card:hover .project-overlay {
+        display: none !important;
+    }
+    
+    .project-categories-show-page .project-card:hover {
+        transform: none !important;
+    }
+    
+    .project-categories-show-page .project-card:hover .project-image {
+        transform: none !important;
+    }
+}
+
+/* Product Categories Index Page - Simplified Cards */
+@media (max-width: 1024px) {
+    .category-card {
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        overflow: hidden !important;
+        aspect-ratio: unset !important;
+        min-height: unset !important;
+        max-width: unset !important;
+    }
+    
+    .category-image-container {
+        width: 100% !important;
+        height: 250px !important;
+        overflow: hidden !important;
+        position: relative !important;
+        background: transparent !important;
+    }
+    
+    .category-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+    }
+    
+    .category-content {
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)) !important;
+        padding: 20px !important;
+        z-index: 2 !important;
+        text-align: left !important;
+    }
+    
+    .category-title {
+        color: #fff !important;
+        font-size: 1.2rem !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        margin: 0 !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+    
+    /* Remove all overlays and effects */
+    .category-card::before,
+    .category-overlay,
+    .category-card:hover::before,
+    .category-card:hover .category-overlay {
+        display: none !important;
+    }
+    
+    .category-card:hover {
+        transform: none !important;
+    }
+    
+    .category-card:hover .category-image {
+        transform: none !important;
+    }
+}
+
+/* Product Categories Show Page - Simplified Cards */
+@media (max-width: 1024px) {
+    .product-card {
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        overflow: hidden !important;
+    }
+    
+    .product-image-container {
+        width: 100% !important;
+        height: 250px !important;
+        overflow: hidden !important;
+        position: relative !important;
+    }
+    
+    .product-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+    }
+    
+    .product-content {
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)) !important;
+        padding: 20px !important;
+        z-index: 2 !important;
+    }
+    
+    .product-title {
+        color: #fff !important;
+        font-size: 1.2rem !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        margin: 0 !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+    
+    /* Remove all overlays and effects */
+    .product-card::before,
+    .product-overlay,
+    .product-card:hover::before,
+    .product-card:hover .product-overlay {
+        display: none !important;
+    }
+    
+    .product-card:hover {
+        transform: none !important;
+    }
+    
+    .product-card:hover .product-image {
+        transform: none !important;
+    }
+}
+
+/* Products Page - Simplified Cards */
+@media (max-width: 1024px) {
+    .aluprof-category-block {
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        overflow: hidden !important;
+    }
+    
+    .aluprof-category-block .category-image-container {
+        width: 100% !important;
+        height: 250px !important;
+        overflow: hidden !important;
+        position: relative !important;
+    }
+    
+    .aluprof-category-block .category-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+    }
+    
+    .aluprof-category-block .category-content {
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)) !important;
+        padding: 20px !important;
+        z-index: 2 !important;
+    }
+    
+    .aluprof-category-block .category-title {
+        color: #fff !important;
+        font-size: 1.2rem !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        margin: 0 !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+}
+
+/* Products All Page - Simplified Cards */
+@media (max-width: 1024px) {
+    .row.g-4 .card {
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        overflow: hidden !important;
+    }
+    
+    .row.g-4 .card-img-top {
+        width: 100% !important;
+        height: 250px !important;
+        object-fit: cover !important;
+        object-position: center !important;
+    }
+    
+    .row.g-4 .card-body {
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)) !important;
+        padding: 20px !important;
+        z-index: 2 !important;
+    }
+    
+    .row.g-4 .card-title {
+        color: #fff !important;
+        font-size: 1.2rem !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        margin: 0 !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+}
+
+/* Mobile specific adjustments */
+@media (max-width: 480px) {
+    .project-categories-page .category-image-container,
+    .project-categories-show-page .project-image-container,
+    .category-image-container,
+    .product-image-container,
+    .aluprof-category-block .category-image-container,
+    .row.g-4 .card-img-top {
+        height: 200px !important;
+    }
+    
+    .project-categories-page .category-title,
+    .project-categories-show-page .project-title,
+    .category-title,
+    .product-title,
+    .aluprof-category-block .category-title,
+    .row.g-4 .card-title {
+        font-size: 1rem !important;
+        padding: 15px !important;
+    }
+}

@@ -536,7 +536,7 @@
 /* Tablet and below - show sidebar */
 @media (max-width: 1200px) {
     .map-section {
-        height: 450px;
+        display: none !important; /* Hide map section on tablets */
     }
     
     .map-container iframe {
@@ -603,9 +603,7 @@
 /* Mobile responsive */
 @media (max-width: 768px) {
     .map-section {
-        height: 400px;
-        margin: 0;
-        border-radius: 0;
+        display: none !important; /* Hide map section on mobile/tablets */
     }
     
     .map-container {
@@ -732,9 +730,7 @@
 /* Small mobile responsive */
 @media (max-width: 480px) {
     .map-section {
-        height: 350px;
-        margin: 0;
-        border-radius: 0;
+        display: none !important; /* Hide map section on small mobile */
     }
     
     .map-container {

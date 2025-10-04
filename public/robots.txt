@@ -1,2 +1,46 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# Disallow admin area
+Disallow: /admin/
+Disallow: /admin/*
+Disallow: /login
+Disallow: /register
+Disallow: /password/
+Disallow: /email/
+Disallow: /home
+
+# Disallow temporary files
+Disallow: /storage/logs/
+Disallow: /storage/framework/
+Disallow: /bootstrap/cache/
+Disallow: /vendor/
+
+# Disallow search and filters
+Disallow: /*?*
+Disallow: /search*
+Disallow: /filter*
+
+# Allow important pages
+Allow: /
+Allow: /about
+Allow: /contact
+Allow: /products
+Allow: /categories/
+Allow: /project-categories/
+Allow: /projects/
+Allow: /blog
+Allow: /certificates
+
+# Allow static assets
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /frontend/
+Allow: /assets/
+
+# Sitemap location
+Sitemap: https://sotuma.com/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1

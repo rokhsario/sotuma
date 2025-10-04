@@ -1,0 +1,61 @@
+/* iOS/Safari Global Mobile Fixes */
+/* Viewport and safe-area handling for iOS notch devices */
+:root {
+    --vh: 1vh; /* JS will update to exact innerHeight */
+}
+
+@supports (height: 100svh) {
+    .use-svh { height: 100svh; }
+    .min-use-svh { min-height: 100svh; }
+}
+
+@supports (height: 100dvh) {
+    .use-dvh { height: 100dvh; }
+    .min-use-dvh { min-height: 100dvh; }
+}
+
+.use-vh { height: calc(var(--vh, 1vh) * 100); }
+.min-use-vh { min-height: calc(var(--vh, 1vh) * 100); }
+
+/* Prevent iOS font autosizing and tap delays */
+html { -webkit-text-size-adjust: 100%; }
+input, select, textarea { font-size: 16px; }
+
+/* Enable momentum scrolling and better touch */
+html, body, .scrollable {
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+}
+
+/* Respect safe areas */
+.safe-area-pad {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-top: max(16px, env(safe-area-inset-top));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+.safe-area-pad-x {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+}
+.safe-area-pad-y {
+    padding-top: max(16px, env(safe-area-inset-top));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+/* Fix position: fixed elements on iOS */
+.ios-fixed {
+    position: fixed;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+/* Utility for mobile-only visibility */
+@media (max-width: 991.98px) {
+    .mobile-only { display: block !important; }
+    .desktop-only { display: none !important; }
+}
+
+

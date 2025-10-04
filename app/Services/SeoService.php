@@ -1,0 +1,316 @@
+<?php
+
+namespace App\Services;
+
+class SeoService
+{
+    private $siteName = 'SOTUMA';
+    private $siteUrl = 'https://sotuma.com';
+    private $siteDescription = 'SOTUMA - Leader en fabrication et installation de menuiserie aluminium, volets roulants, portes et fenêtres à Sfax, Tunisie. Solutions innovantes et durables pour votre habitat.';
+    
+    private $keywords = [
+        // Main keywords
+        'aluminium', 'sotuma', 'tpr', 'sotuma sfax', 'menuiserie aluminium', 'volets roulants',
+        'portes aluminium', 'fenêtres aluminium', 'climatisation', 'chauffage', 'isolation thermique',
+        'isolation phonique', 'sécurité', 'qualité', 'durabilité', 'innovation', 'excellence',
+        
+        // Location-based keywords
+        'sfax tunisie', 'sfax aluminium', 'menuiserie sfax', 'volets sfax', 'portes sfax',
+        'fenêtres sfax', 'climatisation sfax', 'chauffage sfax', 'isolation sfax',
+        'tunisie aluminium', 'menuiserie tunisie', 'volets tunisie', 'portes tunisie',
+        
+        // Product-specific keywords
+        'menuiserie pvc', 'menuiserie bois', 'store bannes', 'porte blindée', 'porte coulissante',
+        'porte battante', 'fenêtre coulissante', 'fenêtre battante', 'fenêtre oscillo-battante',
+        'baie vitrée', 'véranda', 'pergola', 'brise soleil', 'grille de protection',
+        'moustiquaire', 'volet roulant électrique', 'volet roulant manuel', 'porte de garage',
+        'porte sectionnelle', 'porte basculante', 'clôture aluminium', 'portail aluminium',
+        
+        // Technical keywords
+        'rupture de pont thermique', 'double vitrage', 'triple vitrage', 'vitrage feuilleté',
+        'vitrage trempé', 'vitrage sécurit', 'profilé aluminium', 'profilé pvc',
+        'système coulissant', 'système oscillo-battant', 'système battant', 'système pivotant',
+        'moteur volet roulant', 'télécommande volet', 'domotique', 'automatisation',
+        
+        // Service keywords
+        'installation aluminium', 'pose menuiserie', 'maintenance aluminium', 'réparation volet',
+        'dépannage climatisation', 'entretien chauffage', 'devis gratuit', 'conseil technique',
+        'garantie produit', 'service après-vente', 'livraison gratuite', 'installation gratuite',
+        
+        // Brand and company keywords
+        'sotuma aluminium', 'sotuma sfax', 'sotuma tunisie', 'entreprise sotuma',
+        'société sotuma', 'marque sotuma', 'leader aluminium', 'expert menuiserie',
+        'spécialiste volets', 'professionnel climatisation', 'référence qualité',
+        
+        // Industry keywords
+        'construction tunisie', 'bâtiment tunisie', 'rénovation tunisie', 'amélioration habitat',
+        'efficacité énergétique', 'économie énergie', 'confort thermique', 'confort acoustique',
+        'sécurité domicile', 'protection domicile', 'esthétique maison', 'décoration extérieure',
+        
+        // Long-tail keywords
+        'meilleur fabricant aluminium sfax', 'prix menuiserie aluminium sfax', 'devis volet roulant sfax',
+        'installation climatisation sfax', 'réparation chauffage sfax', 'isolation maison sfax',
+        'menuiserie sur mesure sfax', 'porte blindée sfax', 'fenêtre sécurisée sfax',
+        'véranda aluminium sfax', 'pergola sfax', 'store banne sfax', 'brise soleil sfax',
+        'grille protection sfax', 'moustiquaire sfax', 'porte garage sfax', 'clôture sfax',
+        'portail automatique sfax', 'domotique maison sfax', 'automatisation maison sfax',
+        
+        // Seasonal and promotional keywords
+        'promotion aluminium', 'offre spéciale menuiserie', 'réduction volets', 'bon plan climatisation',
+        'soldes chauffage', 'fin de série', 'liquidation stock', 'prix cassé', 'devis rapide',
+        'installation express', 'livraison rapide', 'paiement échelonné', 'crédit consommation'
+    ];
+    
+    public function getMetaTags($page = 'home', $data = [])
+    {
+        $meta = [];
+        
+        switch ($page) {
+            case 'home':
+                $meta = $this->getHomeMeta();
+                break;
+            case 'about':
+                $meta = $this->getAboutMeta();
+                break;
+            case 'contact':
+                $meta = $this->getContactMeta();
+                break;
+            case 'products':
+                $meta = $this->getProductsMeta();
+                break;
+            case 'categories':
+                $meta = $this->getCategoriesMeta();
+                break;
+            case 'project-categories':
+                $meta = $this->getProjectCategoriesMeta();
+                break;
+            case 'blog':
+                $meta = $this->getBlogMeta();
+                break;
+            case 'certificates':
+                $meta = $this->getCertificatesMeta();
+                break;
+            case 'product-detail':
+                $meta = $this->getProductDetailMeta($data);
+                break;
+            case 'project-detail':
+                $meta = $this->getProjectDetailMeta($data);
+                break;
+            case 'category-detail':
+                $meta = $this->getCategoryDetailMeta($data);
+                break;
+            case 'project-category-detail':
+                $meta = $this->getProjectCategoryDetailMeta($data);
+                break;
+            default:
+                $meta = $this->getDefaultMeta();
+        }
+        
+        return $meta;
+    }
+    
+    private function getHomeMeta()
+    {
+        return [
+            'title' => 'SOTUMA - Leader Menuiserie Aluminium Sfax | Volets Roulants, Portes, Fenêtres',
+            'description' => 'SOTUMA, leader en menuiserie aluminium à Sfax, Tunisie. Volets roulants, portes, fenêtres, climatisation et chauffage. Qualité, innovation et service après-vente garantis. Devis gratuit.',
+            'keywords' => $this->getKeywordsString(),
+            'og_title' => 'SOTUMA - Menuiserie Aluminium Sfax',
+            'og_description' => 'Solutions complètes en menuiserie aluminium, volets roulants et climatisation à Sfax',
+            'og_image' => $this->siteUrl . '/images/sotuma-logo.jpg',
+            'canonical' => $this->siteUrl
+        ];
+    }
+    
+    private function getAboutMeta()
+    {
+        return [
+            'title' => 'À Propos de SOTUMA - Expertise Menuiserie Aluminium Sfax',
+            'description' => 'Découvrez l\'histoire de SOTUMA, entreprise leader en menuiserie aluminium à Sfax. 20+ ans d\'expertise, innovation et qualité au service de vos projets.',
+            'keywords' => 'sotuma histoire, entreprise aluminium sfax, expertise menuiserie, qualité sotuma, innovation aluminium',
+            'og_title' => 'À Propos de SOTUMA',
+            'og_description' => 'Leader en menuiserie aluminium à Sfax depuis plus de 20 ans',
+            'canonical' => $this->siteUrl . '/about'
+        ];
+    }
+    
+    private function getContactMeta()
+    {
+        return [
+            'title' => 'Contact SOTUMA Sfax - Devis Gratuit Menuiserie Aluminium',
+            'description' => 'Contactez SOTUMA à Sfax pour vos projets de menuiserie aluminium. Devis gratuit, conseils experts et installation professionnelle. Adresse, téléphone, email.',
+            'keywords' => 'contact sotuma, devis gratuit aluminium, adresse sotuma sfax, téléphone sotuma, email sotuma',
+            'og_title' => 'Contact SOTUMA',
+            'og_description' => 'Contactez-nous pour vos projets de menuiserie aluminium',
+            'canonical' => $this->siteUrl . '/contact'
+        ];
+    }
+    
+    private function getProductsMeta()
+    {
+        return [
+            'title' => 'Produits SOTUMA - Menuiserie Aluminium, Volets, Climatisation Sfax',
+            'description' => 'Découvrez notre gamme complète de produits : menuiserie aluminium, volets roulants, portes, fenêtres, climatisation et chauffage. Qualité et innovation garanties.',
+            'keywords' => 'produits sotuma, gamme aluminium, catalogue menuiserie, volets roulants, climatisation, chauffage',
+            'og_title' => 'Produits SOTUMA',
+            'og_description' => 'Gamme complète de menuiserie aluminium et climatisation',
+            'canonical' => $this->siteUrl . '/products'
+        ];
+    }
+    
+    private function getCategoriesMeta()
+    {
+        return [
+            'title' => 'Catégories Produits SOTUMA - Menuiserie Aluminium Sfax',
+            'description' => 'Explorez nos catégories de produits : portes aluminium, fenêtres, volets roulants, climatisation, chauffage. Solutions sur mesure pour votre habitat.',
+            'keywords' => 'catégories produits, portes aluminium, fenêtres aluminium, volets roulants, climatisation sfax',
+            'og_title' => 'Catégories Produits',
+            'og_description' => 'Découvrez nos catégories de produits aluminium',
+            'canonical' => $this->siteUrl . '/categories'
+        ];
+    }
+    
+    private function getProjectCategoriesMeta()
+    {
+        return [
+            'title' => 'Nos Projets SOTUMA - Réalisations Menuiserie Aluminium Sfax',
+            'description' => 'Découvrez nos réalisations et projets de menuiserie aluminium à Sfax. Galerie photos de nos travaux : résidentiel, commercial, industriel.',
+            'keywords' => 'projets sotuma, réalisations aluminium, galerie photos, travaux résidentiel, commercial, industriel',
+            'og_title' => 'Nos Projets',
+            'og_description' => 'Découvrez nos réalisations en menuiserie aluminium',
+            'canonical' => $this->siteUrl . '/project-categories'
+        ];
+    }
+    
+    private function getBlogMeta()
+    {
+        return [
+            'title' => 'Blog SOTUMA - Actualités Menuiserie Aluminium Sfax',
+            'description' => 'Restez informé des dernières tendances en menuiserie aluminium, conseils d\'entretien et actualités SOTUMA. Articles experts et guides pratiques.',
+            'keywords' => 'blog sotuma, actualités aluminium, conseils menuiserie, entretien volets, tendances',
+            'og_title' => 'Blog SOTUMA',
+            'og_description' => 'Actualités et conseils en menuiserie aluminium',
+            'canonical' => $this->siteUrl . '/blog'
+        ];
+    }
+    
+    private function getCertificatesMeta()
+    {
+        return [
+            'title' => 'Certifications SOTUMA - Qualité et Normes Menuiserie Aluminium',
+            'description' => 'Découvrez les certifications et normes qualité de SOTUMA. Garanties, labels et attestations de nos produits et services.',
+            'keywords' => 'certifications sotuma, normes qualité, garanties aluminium, labels, attestations',
+            'og_title' => 'Certifications SOTUMA',
+            'og_description' => 'Nos certifications et normes qualité',
+            'canonical' => $this->siteUrl . '/certificates'
+        ];
+    }
+    
+    private function getProductDetailMeta($data)
+    {
+        $product = $data['product'] ?? null;
+        if (!$product) return $this->getDefaultMeta();
+        
+        return [
+            'title' => $product->title . ' - SOTUMA Sfax | Menuiserie Aluminium',
+            'description' => 'Découvrez ' . $product->title . ' chez SOTUMA. Qualité premium, installation professionnelle et garantie. Devis gratuit à Sfax.',
+            'keywords' => strtolower($product->title) . ', sotuma, aluminium sfax, menuiserie, devis gratuit',
+            'og_title' => $product->title . ' - SOTUMA',
+            'og_description' => 'Découvrez ce produit de qualité chez SOTUMA',
+            'canonical' => $this->siteUrl . '/product/' . $product->slug
+        ];
+    }
+    
+    private function getProjectDetailMeta($data)
+    {
+        $project = $data['project'] ?? null;
+        if (!$project) return $this->getDefaultMeta();
+        
+        return [
+            'title' => $project->title . ' - Projet SOTUMA | Menuiserie Aluminium Sfax',
+            'description' => 'Découvrez le projet ' . $project->title . ' réalisé par SOTUMA. Expertise en menuiserie aluminium à Sfax.',
+            'keywords' => strtolower($project->title) . ', projet sotuma, réalisation aluminium, sfax',
+            'og_title' => $project->title . ' - Projet SOTUMA',
+            'og_description' => 'Découvrez cette réalisation SOTUMA',
+            'canonical' => $this->siteUrl . '/projet/' . $project->slug
+        ];
+    }
+    
+    private function getCategoryDetailMeta($data)
+    {
+        $category = $data['category'] ?? null;
+        if (!$category) return $this->getDefaultMeta();
+        
+        return [
+            'title' => $category->title . ' - SOTUMA Sfax | Menuiserie Aluminium',
+            'description' => 'Découvrez notre gamme ' . $category->title . ' chez SOTUMA. Qualité premium et installation professionnelle à Sfax.',
+            'keywords' => strtolower($category->title) . ', sotuma, aluminium sfax, menuiserie, devis gratuit',
+            'og_title' => $category->title . ' - SOTUMA',
+            'og_description' => 'Découvrez cette catégorie de produits SOTUMA',
+            'canonical' => $this->siteUrl . '/categories/' . $category->slug
+        ];
+    }
+    
+    private function getProjectCategoryDetailMeta($data)
+    {
+        $category = $data['category'] ?? null;
+        if (!$category) return $this->getDefaultMeta();
+        
+        return [
+            'title' => $category->title . ' - Projets SOTUMA | Menuiserie Aluminium Sfax',
+            'description' => 'Découvrez nos projets ' . $category->title . ' réalisés par SOTUMA. Expertise en menuiserie aluminium à Sfax.',
+            'keywords' => strtolower($category->title) . ', projets sotuma, réalisations aluminium, sfax',
+            'og_title' => $category->title . ' - Projets SOTUMA',
+            'og_description' => 'Découvrez nos projets dans cette catégorie',
+            'canonical' => $this->siteUrl . '/categories-projets/' . $category->slug
+        ];
+    }
+    
+    private function getDefaultMeta()
+    {
+        return [
+            'title' => 'SOTUMA - Menuiserie Aluminium Sfax',
+            'description' => $this->siteDescription,
+            'keywords' => $this->getKeywordsString(),
+            'canonical' => $this->siteUrl
+        ];
+    }
+    
+    private function getKeywordsString()
+    {
+        return implode(', ', $this->keywords);
+    }
+    
+    public function getStructuredData($page = 'home', $data = [])
+    {
+        $structuredData = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => 'SOTUMA',
+            'url' => $this->siteUrl,
+            'logo' => $this->siteUrl . '/images/sotuma-logo.png',
+            'description' => $this->siteDescription,
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => 'Adresse SOTUMA',
+                'addressLocality' => 'Sfax',
+                'addressCountry' => 'TN'
+            ],
+            'contactPoint' => [
+                '@type' => 'ContactPoint',
+                'telephone' => '+216-XX-XXX-XXX',
+                'contactType' => 'customer service',
+                'areaServed' => 'TN',
+                'availableLanguage' => ['French', 'Arabic']
+            ],
+            'sameAs' => [
+                'https://www.facebook.com/sotumasfax',
+                'https://www.instagram.com/sotuma_aluminium/',
+                'https://www.linkedin.com/company/sotuma/',
+                'https://www.tiktok.com/@sotumasotuma'
+            ]
+        ];
+        
+        return json_encode($structuredData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
+}

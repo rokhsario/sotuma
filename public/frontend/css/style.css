@@ -302,23 +302,26 @@ Version:1.0
 	text-align: center;
 }
 #scrollUp i{
-	height: 40px;
-    width: 40px;
-    line-height: 40px;
-	background:transparent;
-    background:#222;
-    border-radius: 0;
-	font-size: 18px;
+	height: 60px;
+    width: 160px; /* Double width - 2x times */
+    line-height: 60px;
+	background: #FF0000; /* YouTube Red */
+    border-radius: 8px; /* Slightly rounded corners */
+	font-size: 24px;
 	-webkit-transition: all 500ms ease;
     -moz-transition: all 500ms ease;
     transition: all 500ms ease;
-	display:block;
+	display: block;
 	color: #fff;
-	box-shadow: 0px 4px 19px #00000038;
+	box-shadow: 0px 6px 25px rgba(255, 0, 0, 0.4); /* Red shadow */
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	text-align: center;
 }
 #scrollUp i:hover{
-	background:#D2B48C;
-	color:#fff;
+	background: #CC0000; /* Darker red on hover */
+	color: #fff;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0px 10px 35px rgba(255, 0, 0, 0.6);
 }
 /*======================================
 	01. Header CSS

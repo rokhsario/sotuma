@@ -383,23 +383,23 @@
 	    position: fixed;
 	    bottom: 30px;
 	    right: 30px;
-	    width: 120px;
-	    height: 60px;
-	    background: linear-gradient(135deg, #d2b48c, #bc8f8f);
-	    border-radius: 12px;
+	    width: 160px;
+	    height: 80px;
+	    background: #FF0000; /* YouTube Red */
+	    border-radius: 0; /* Rectangle shape */
 	    display: flex;
 	    align-items: center;
 	    justify-content: center;
 	    color: white;
 	    text-decoration: none;
-	    font-size: 1.5rem;
+	    font-size: 2.5rem; /* Adjusted icon size for shorter button */
 	    font-weight: bold;
 	    opacity: 0;
 	    visibility: hidden;
 	    transform: translateY(20px);
 	    transition: all 0.3s ease;
 	    z-index: 1000;
-	    box-shadow: 0 6px 20px rgba(247, 201, 72, 0.4);
+	    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4); /* Red shadow */
 	    border: 2px solid rgba(255, 255, 255, 0.2);
 	}
 
@@ -411,8 +411,8 @@
 
 	.back-to-top:hover {
 	    transform: translateY(-5px) scale(1.05);
-	    box-shadow: 0 10px 30px rgba(210, 180, 140, 0.6);
-	    background: linear-gradient(135deg, #bc8f8f, #d2b48c);
+	    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.6); /* Red shadow on hover */
+	    background: #CC0000; /* Darker red on hover */
 	}
 
 	/* Responsive Design */
@@ -444,6 +444,40 @@
 	        grid-template-columns: repeat(3, 1fr);
 	        max-width: 200px;
 	        margin: 20px auto 0;
+	    }
+	    
+	    /* Mobile Back to Top Button - Larger and more prominent */
+	    .back-to-top {
+	        width: 70px !important;
+	        height: 70px !important;
+	        bottom: 20px !important;
+	        right: 20px !important;
+	        font-size: 1.8rem !important;
+	        box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5) !important;
+	        border: 3px solid rgba(255, 255, 255, 0.3) !important;
+	    }
+	    
+	    .back-to-top:hover {
+	        transform: translateY(-8px) scale(1.1) !important;
+	        box-shadow: 0 15px 40px rgba(255, 0, 0, 0.7) !important;
+	    }
+	}
+	
+	@media (max-width: 480px) {
+	    /* Small Mobile Back to Top Button */
+	    .back-to-top {
+	        width: 65px !important;
+	        height: 65px !important;
+	        bottom: 15px !important;
+	        right: 15px !important;
+	        font-size: 1.6rem !important;
+	        box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6) !important;
+	        border: 2px solid rgba(255, 255, 255, 0.4) !important;
+	    }
+	    
+	    .back-to-top:hover {
+	        transform: translateY(-6px) scale(1.08) !important;
+	        box-shadow: 0 12px 35px rgba(255, 0, 0, 0.8) !important;
 	    }
 	}
 
@@ -632,8 +666,8 @@
 	<script src="{{asset('frontend/js/nicesellect.js')}}"></script>
 	<!-- Flex Slider JS -->
 	<script src="{{asset('frontend/js/flex-slider.js')}}"></script>
-	<!-- ScrollUp JS -->
-	<script src="{{asset('frontend/js/scrollup.js')}}"></script>
+	<!-- ScrollUp JS - Removed to use custom implementation -->
+	<!-- <script src="{{asset('frontend/js/scrollup.js')}}"></script> -->
 	<!-- Onepage Nav JS -->
 	<script src="{{asset('frontend/js/onepage-nav.min.js')}}"></script>
 	{{-- Isotope --}}

@@ -136,6 +136,29 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
+        Gestion des Pages
+    </div>
+
+    <!-- About Us Images Management -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#aboutUsCollapse" aria-expanded="true" aria-controls="aboutUsCollapse">
+        <i class="fas fa-images"></i>
+        <span>{{ __('admin.about_us_images') }}</span>
+      </a>
+      <div id="aboutUsCollapse" class="collapse" aria-labelledby="headingAboutUs" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">{{ __('admin.about_us_options') }}:</h6>
+          <a class="collapse-item" href="{{ route('about-us-images.index') }}">{{ __('admin.about_us_images_list') }}</a>
+          <a class="collapse-item" href="{{ route('about-us-images.create') }}">{{ __('admin.add_about_us_image') }}</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
         Gestion des Utilisateurs
     </div>
 

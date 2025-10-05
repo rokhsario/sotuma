@@ -1661,6 +1661,10 @@ class ProjectSlider {
             if (currentSlide) {
                 currentSlide.textContent = this.currentIndex + 1;
             }
+            const totalSlidesEl = counter.querySelector('.total-slides');
+            if (totalSlidesEl) {
+                totalSlidesEl.textContent = this.totalSlides;
+            }
         }
     }
     

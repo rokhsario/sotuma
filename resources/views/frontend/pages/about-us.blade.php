@@ -2,13 +2,19 @@
 
 @section('title','SOTUMA')
 
-
 @section('main-content')
+
 <!-- Hero Section -->
-<section class="about-hero position-relative" style="min-height:60vh; background:url('{{ isset($aboutUsImages['hero_bg'][0]) ? asset($aboutUsImages['hero_bg'][0]->image_path) : asset('images/about-us/hero-bg-default.jpg') }}') center/67% no-repeat;">
-    <div class="hero-overlay position-absolute w-100 h-100" style="background:rgba(30,30,30,0.55);"></div>
-    <div class="container h-100 d-flex flex-column justify-content-center align-items-center position-relative" style="z-index:2; min-height:60vh;">
-        <h1 class="display-3 text-white font-weight-bold mb-3" style="letter-spacing: 2px; touch-action: manipulation !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; line-height: 1.2 !important; max-width: 100% !important; text-align: center !important; margin: 0px auto !important; display: block !important; box-sizing: border-box !important; font-size: clamp(1.4rem, 10vw, 2rem) !important;">À propos</h1>
+<section class="about-hero position-relative" style="min-height:60vh; background:url('{{ isset($settings) && $settings->about_hero_bg ? asset($settings->about_hero_bg) : asset('images/about-us/hero-bg-default.jpg') }}') center/67% no-repeat;">
+    <!-- Media layer: contains the visual hero only -->
+    <div class="hero-media position-absolute w-100 h-100" style="inset:0; z-index:0; pointer-events:none;">
+        <!-- Mobile/Tablet hero image element for better rendering -->
+        <img class="about-hero-img d-block d-lg-none" src="{{ isset($settings) && $settings->about_hero_bg ? asset($settings->about_hero_bg) : asset('images/about-us/hero-bg-default.jpg') }}" alt="A propos" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:top center;"/>
+        <!-- Overlay limited to hero media on desktop only -->
+        <div class="hero-overlay d-none d-lg-block position-absolute w-100 h-100" style="background: rgba(30, 30, 30, 0.55); touch-action: manipulation !important;"></div>
+    </div>
+    <div class="container h-100 d-flex flex-column justify-content-center align-items-center position-relative" style="z-index:2;">
+        <h1 class="display-3 text-white font-weight-bold mb-3" style="letter-spacing: 2px; touch-action: manipulation !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; line-height: 1.2 !important; max-width: 100% !important; text-align: center !important; margin: 0px auto !important; display: block !important; box-sizing: border-box !important;">À propos</h1>
         <p class="lead text-white" style="font-size:1.5rem; max-width:700px;">{{ __('frontend.about_excellence') }}</p>
     </div>
 </section>
@@ -18,21 +24,17 @@
     <div class="container-fluid px-0">
         <div class="row align-items-center no-gutters">
             <div class="col-lg-6 order-lg-2 d-flex justify-content-center p-0">
-                <div class="presentation-image w-100 h-100" style="min-height:400px; background:url('{{ isset($aboutUsImages['hero_bg'][0]) ? asset($aboutUsImages['hero_bg'][0]->image_path) : asset('images/about-us/hero-bg-default.jpg') }}') center/67% no-repeat;"></div>
-					</div>
+                <div class="presentation-image w-100 h-100" style="min-height:400px; background:url('{{ isset($settings) && $settings->about_presentation_image ? asset($settings->about_presentation_image) : asset('images/about-us/hero-bg-default.jpg') }}') center/67% no-repeat;"></div>
+            </div>
             <div class="col-lg-6 order-lg-1 d-flex align-items-center p-0">
                 <div class="presentation-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1;">
                     <h2 class="section-title mb-4" style="font-size:2.5rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.presentation') }}</h2>
-                    <p>
-                        {{ __('frontend.presentation_text_1') }}
-                    </p>
-                    <p>
-                        {{ __('frontend.presentation_text_2') }}
-                    </p>
-				</div>
-			</div>
-		</div>
-	</div>
+                    <p>{{ __('frontend.presentation_text_1') }}</p>
+                    <p>{{ __('frontend.presentation_text_2') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- Notre Mission Section -->
@@ -40,14 +42,12 @@
     <div class="container-fluid px-0">
         <div class="row align-items-center no-gutters">
             <div class="col-lg-6 d-flex justify-content-center p-0">
-                <div class="mission-image w-100 h-100" style="min-height:400px; background:url('{{ isset($aboutUsImages['hero_bg'][0]) ? asset($aboutUsImages['hero_bg'][0]->image_path) : asset('images/about-us/hero-bg-default.jpg') }}') center/67% no-repeat;"></div>
+                <div class="mission-image w-100 h-100" style="min-height:400px; background:url('{{ isset($settings) && $settings->about_mission_image ? asset($settings->about_mission_image) : asset('images/about-us/hero-bg-default.jpg') }}') center/67% no-repeat;"></div>
             </div>
             <div class="col-lg-6 d-flex align-items-center p-0">
                 <div class="mission-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1;">
                     <h2 class="section-title mb-4" style="font-size:2.5rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.our_mission') }}</h2>
-                    <p>
-                        {!! __('frontend.mission_text') !!}
-                    </p>
+                    <p>{!! __('frontend.mission_text') !!}</p>
                 </div>
             </div>
         </div>
@@ -61,17 +61,14 @@
             <div class="col-lg-6 d-flex align-items-center p-0">
                 <div class="objectifs-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1; min-height:400px;">
                     <h2 class="section-title mb-4" style="font-size:2.5rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.our_objectives') }}</h2>
-                    <p>
-                        {!! __('frontend.objectives_text_1') !!}<br><br>
-                        {!! __('frontend.objectives_text_2') !!}
-                    </p>
+                    <p>{!! __('frontend.objectives_text_1') !!}<br><br>{!! __('frontend.objectives_text_2') !!}</p>
                 </div>
             </div>
             <div class="col-lg-6 d-flex justify-content-center p-0">
-                <div class="objectifs-image w-100 h-100" style="min-height:400px; background:url('{{ isset($aboutUsImages['hero_bg'][0]) ? asset($aboutUsImages['hero_bg'][0]->image_path) : asset('images/about-us/hero-bg-default.jpg') }}') center/67% no-repeat;"></div>
-							</div>
-						</div>
-					</div>
+                <div class="objectifs-image w-100 h-100" style="min-height:400px; background:url('{{ isset($settings) && $settings->about_objectives_image ? asset($settings->about_objectives_image) : asset('images/about-us/hero-bg-default.jpg') }}') center/67% no-repeat;"></div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- Notre Expertise Section -->
@@ -79,20 +76,17 @@
     <div class="container-fluid px-0">
         <div class="row align-items-center no-gutters">
             <div class="col-lg-6 d-flex justify-content-center p-0">
-                <div class="expertise-image w-100 h-100" style="min-height:400px; background:url('{{ isset($aboutUsImages['hero_bg'][0]) ? asset($aboutUsImages['hero_bg'][0]->image_path) : asset('images/about-us/hero-bg-default.jpg') }}') center/67% no-repeat;"></div>
+                <div class="expertise-image w-100 h-100" style="min-height:400px; background:url('{{ isset($settings) && $settings->about_expertise_image ? asset($settings->about_expertise_image) : asset('images/about-us/hero-bg-default.jpg') }}') center/67% no-repeat;"></div>
             </div>
             <div class="col-lg-6 d-flex align-items-center p-0">
                 <div class="expertise-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1; min-height:400px;">
                     <h2 class="section-title mb-4" style="font-size:2.5rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.our_expertise') }}</h2>
-                    <p>
-                        {!! __('frontend.expertise_text_1') !!}<br><br>
-                        {!! __('frontend.expertise_text_2') !!}
-                    </p>
-						</div>
-					</div>
-				</div>
-			</div>
-	</section>
+                    <p>{!! __('frontend.expertise_text_1') !!}<br><br>{!! __('frontend.expertise_text_2') !!}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Notre Approche Section -->
 <section class="about-approche py-5" style="background:linear-gradient(90deg, #f8f5f0 60%, #fff 100%);">
@@ -101,13 +95,11 @@
             <div class="col-lg-6 d-flex align-items-center p-0">
                 <div class="approche-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1; min-height:400px;">
                     <h2 class="section-title mb-4" style="font-size:2.5rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.our_approach') }}</h2>
-                    <p>
-                        {{ __('frontend.approach_text') }}
-                    </p>
+                    <p>{{ __('frontend.approach_text') }}</p>
                 </div>
             </div>
             <div class="col-lg-6 d-flex justify-content-center p-0">
-                <div class="approche-image w-100 h-100" style="min-height:400px; background:url('{{ isset($aboutUsImages['hero_bg'][0]) ? asset($aboutUsImages['hero_bg'][0]->image_path) : asset('images/about-us/hero-bg-default.jpg') }}') center/67% no-repeat;"></div>
+                <div class="approche-image w-100 h-100" style="min-height:400px; background:url('{{ isset($settings) && $settings->about_approach_image ? asset($settings->about_approach_image) : asset('images/about-us/hero-bg-default.jpg') }}') center/67% no-repeat;"></div>
             </div>
         </div>
     </div>
@@ -261,9 +253,44 @@
 @media (max-width: 1024px) {
     /* Hero Section - Mobile Optimization */
     .about-hero {
-        min-height: 50vh !important;
-        background-size: 80% !important;
+        min-height: auto !important;
+        background: none !important;
+        padding: 0 !important; /* hero only */
     }
+    .hero-media {
+        position: relative !important; /* keep media as stacking context */
+        inset: auto !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+    .about-hero-img {
+        position: static !important;
+        width: 100% !important;
+        height: 35vh !important; /* shorter hero height */
+        object-fit: contain !important;
+        object-position: top center !important;
+        display: block !important;
+    }
+    .about-hero .container {
+        position: absolute !important;
+        inset: 0 !important;
+        min-height: auto !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        padding-top: 8px !important;
+        max-width: 100% !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+        pointer-events: none !important; /* title only overlay */
+    }
+    .about-hero h1 {
+        text-transform: uppercase !important;
+        font-size: clamp(1.1rem, 6vw, 1.8rem) !important;
+        margin: 0 !important;
+        padding: 0 10px !important;
+        text-shadow: 0 2px 6px rgba(0,0,0,0.5) !important;
+    }
+    .about-hero .lead { display: none !important; }
     
     .about-hero h1 {
         font-size: clamp(1.5rem, 6vw, 2.5rem) !important;
@@ -287,10 +314,7 @@
     }
     
     .about-presentation .presentation-image {
-        order: 1 !important;
-        min-height: 300px !important;
-        background-size: 80% !important;
-        margin-bottom: 0 !important;
+        display: none !important;
     }
     
     .about-presentation .presentation-text {
@@ -347,9 +371,13 @@
         width: 100% !important;
         flex: none !important;
     }
+    /* Force Objectifs image first, then text on mobile/tablet */
+    .about-objectifs .row { display: flex !important; flex-direction: column !important; }
+    .about-objectifs .col-lg-6:first-child { order: 2 !important; }
+    .about-objectifs .col-lg-6:last-child { order: 1 !important; }
     
     .about-objectifs .objectifs-text {
-        order: 1 !important;
+        order: 2 !important;
         margin: 20px !important;
         padding: 30px 20px !important;
         font-size: 1.1rem !important;
@@ -363,7 +391,7 @@
     }
     
     .about-objectifs .objectifs-image {
-        order: 2 !important;
+        order: 1 !important;
         min-height: 300px !important;
         background-size: 80% !important;
         margin-bottom: 0 !important;
@@ -409,9 +437,13 @@
         width: 100% !important;
         flex: none !important;
     }
+    /* Force Approche image first, then text on mobile/tablet */
+    .about-approche .row { display: flex !important; flex-direction: column !important; }
+    .about-approche .col-lg-6:first-child { order: 2 !important; }
+    .about-approche .col-lg-6:last-child { order: 1 !important; }
     
     .about-approche .approche-text {
-        order: 1 !important;
+        order: 2 !important;
         margin: 20px !important;
         padding: 30px 20px !important;
         font-size: 1.1rem !important;
@@ -425,7 +457,7 @@
     }
     
     .about-approche .approche-image {
-        order: 2 !important;
+        order: 1 !important;
         min-height: 300px !important;
         background-size: 80% !important;
         margin-bottom: 0 !important;
@@ -466,8 +498,10 @@
 @media (max-width: 768px) {
     /* Further mobile optimizations */
     .about-hero {
-        min-height: 40vh !important;
-        background-size: 90% !important;
+        min-height: 42vh !important;
+        background-size: contain !important;
+        background-position: center top !important;
+        background-repeat: no-repeat !important;
     }
     
     .about-presentation .presentation-image,
@@ -503,8 +537,10 @@
 @media (max-width: 480px) {
     /* Small mobile optimizations */
     .about-hero {
-        min-height: 35vh !important;
-        background-size: 95% !important;
+        min-height: 38vh !important;
+        background-size: contain !important;
+        background-position: center top !important;
+        background-repeat: no-repeat !important;
     }
     
     .about-presentation .presentation-image,
@@ -534,6 +570,28 @@
     .about-approche .approche-text h2 {
         font-size: clamp(1.4rem, 6vw, 1.8rem) !important;
         margin-bottom: 15px !important;
+    }
+}
+/* Desktop centering for hero title */
+@media (min-width: 1025px) {
+    .about-hero {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: 60vh !important;
+    }
+    .about-hero .container {
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        height: auto !important; /* prevent extra vertical stretch */
+    }
+    .about-hero h1 {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        font-size: clamp(2.2rem, 6vw, 4rem) !important; /* bigger desktop title */
+        letter-spacing: 2px !important;
     }
 }
 </style>

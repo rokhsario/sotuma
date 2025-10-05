@@ -78,6 +78,12 @@ class AdminController extends Controller
             'short_des'=>'required|string',
             'hero_slogan'=>'nullable|string|max:255',
             'presentation_image'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:92160', // 90MB
+            'about_hero_bg'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:92160', // 90MB
+            'about_presentation_image'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:92160',
+            'about_mission_image'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:92160',
+            'about_objectives_image'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:92160',
+            'about_expertise_image'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:92160',
+            'about_approach_image'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:92160',
             'address'=>'required|string',
             'email'=>'required|email',
             'phone'=>'required|string',
@@ -109,6 +115,53 @@ class AdminController extends Controller
             // Move file to public directory (creates a copy)
             $file->move($uploadPath, $filename);
             $data['presentation_image'] = 'images/presentation/' . $filename;
+        }
+
+        // Handle About Us hero background upload
+        if ($request->hasFile('about_hero_bg')) {
+            $settings = Settings::first();
+
+            if ($settings->about_hero_bg && file_exists(public_path($settings->about_hero_bg))) {
+                @unlink(public_path($settings->about_hero_bg));
+            }
+
+            $file = $request->file('about_hero_bg');
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+
+            $uploadPath = public_path('images/about-us');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+
+            $file->move($uploadPath, $filename);
+            $data['about_hero_bg'] = 'images/about-us/' . $filename;
+        }
+
+        // Handle About Us section images uploads
+        $sectionFields = [
+            'about_presentation_image',
+            'about_mission_image',
+            'about_objectives_image',
+            'about_expertise_image',
+            'about_approach_image',
+        ];
+
+        foreach ($sectionFields as $field) {
+            if ($request->hasFile($field)) {
+                $settings = Settings::first();
+                if ($settings->{$field} && file_exists(public_path($settings->{$field}))) {
+                    @unlink(public_path($settings->{$field}));
+                }
+
+                $file = $request->file($field);
+                $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+                $uploadPath = public_path('images/about-us');
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath, 0755, true);
+                }
+                $file->move($uploadPath, $filename);
+                $data[$field] = 'images/about-us/' . $filename;
+            }
         }
         
         $settings = Settings::first();

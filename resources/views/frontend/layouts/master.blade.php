@@ -171,6 +171,14 @@
         .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
         .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
         .loading-dots span:nth-child(3) { animation-delay: 0s; }
+
+		/* Desktop preloader warnings */
+		.preloader-warning {
+			margin-top: 6px;
+			font-size: 0.85rem;
+			font-weight: 700;
+			color: #c0392b;
+		}
     }
     
     /* Desktop Animation Keyframes */
@@ -354,92 +362,95 @@
 </style>
 
 	<script>
-	// Original preloader hide logic
+	// Enhanced desktop-only preloader with timing + conflict detection
 	(function(){
+		const isDesktop = window.innerWidth > 1024;
 		let preloaderHidden = false;
+		let conflictDetected = false;
+		let intervalId = null;
+		
+		function showWarning(p, message){
+			const inner = p && p.querySelector('.preloader-inner');
+			if(!inner) return;
+			let warn = p.querySelector('.preloader-warning');
+			if(!warn){
+				warn = document.createElement('div');
+				warn.className = 'preloader-warning';
+				inner.appendChild(warn);
+			}
+			warn.textContent = message;
+		}
+		
 		
 		function hidePreloader(){
 			if(preloaderHidden) return;
-			
 			const p = document.querySelector('.preloader');
-			if(p && !p.classList.contains('is-hidden')){
-				preloaderHidden = true;
-				
-				// Desktop: Smoother transition with double RAF
-				if (isDesktop) {
-					requestAnimationFrame(() => {
-						requestAnimationFrame(() => {
-							p.classList.add('is-hidden');
-							
-							// Remove from DOM after transition completes
-							setTimeout(() => {
-								if(p.parentNode) {
-									p.parentNode.removeChild(p);
-								}
-							}, 350); // Longer for smoother desktop transition
-						});
-					});
-				} else {
-					// Mobile: Standard transition
+			if(!p) return;
+			if(p.classList.contains('is-hidden')) { preloaderHidden = true; return; }
+			preloaderHidden = true;
+			
+			// no timing label
+			
+			if (isDesktop) {
+				requestAnimationFrame(() => {
 					requestAnimationFrame(() => {
 						p.classList.add('is-hidden');
-						
-						setTimeout(() => {
-							if(p.parentNode) {
-								p.parentNode.removeChild(p);
-							}
-						}, 200);
+						setTimeout(() => { if(p.parentNode) { p.parentNode.removeChild(p); } }, 350);
 					});
-				}
+				});
+			} else {
+				requestAnimationFrame(() => {
+					p.classList.add('is-hidden');
+					setTimeout(() => { if(p.parentNode) { p.parentNode.removeChild(p); } }, 200);
+				});
 			}
 		}
 		
-		// Desktop preloader stays longer for better animation
-		const isDesktop = window.innerWidth > 1024;
-		
+		// Only enhance on desktop
 		if (isDesktop) {
-			// Desktop: Continuous smooth experience
+			const p = document.querySelector('.preloader');
+			if (p) {
+				// Detect external modifications/removal (conflicts)
+				const observer = new MutationObserver((mutations) => {
+					for (const m of mutations) {
+						if (m.type === 'attributes' && (m.attributeName === 'class' || m.attributeName === 'style')) {
+							const hiddenByOther = !p.classList.contains('is-hidden') && (getComputedStyle(p).display === 'none' || getComputedStyle(p).visibility === 'hidden');
+							if (hiddenByOther && !conflictDetected) {
+								conflictDetected = true;
+								showWarning(p, 'Conflict: another script modified preloader');
+								console.warn('[Preloader] Conflict detected: external modification');
+							}
+						}
+						if (m.type === 'childList' && m.removedNodes && m.removedNodes.length) {
+							m.removedNodes.forEach(node => {
+								if (node === p && !preloaderHidden && !conflictDetected) {
+									conflictDetected = true;
+									console.warn('[Preloader] Conflict detected: preloader removed from DOM');
+								}
+							});
+						}
+					}
+				});
+				observer.observe(document.documentElement, { attributes: true, childList: true, subtree: true, attributeFilter: ['class','style'] });
+				// Stop observing once hidden
+				const stopObs = () => { try { observer.disconnect(); } catch(e){} };
+				window.addEventListener('load', () => setTimeout(stopObs, 4000));
+			}
+			
+			// Start and hide sequence
 			let pageLoaded = false;
 			let animationStarted = false;
-			
-			// Start animation immediately when DOM is ready
 			if (document.readyState === 'loading') {
-				document.addEventListener('DOMContentLoaded', () => {
-					animationStarted = true;
-					setTimeout(hidePreloader, 2000); // 2 seconds of smooth animation
-				});
+				document.addEventListener('DOMContentLoaded', () => { animationStarted = true; setTimeout(hidePreloader, 2000); });
 			} else {
-				animationStarted = true;
-				setTimeout(hidePreloader, 2000); // 2 seconds of smooth animation
+				animationStarted = true; setTimeout(hidePreloader, 2000);
 			}
-			
-			// Handle window load
-			window.addEventListener('load', () => {
-				pageLoaded = true;
-				if (!animationStarted) {
-					animationStarted = true;
-					setTimeout(hidePreloader, 2000); // 2 seconds of smooth animation
-				}
-			});
-			
-			// Fallback timeout - only if nothing else triggered
-			setTimeout(() => {
-				if (!pageLoaded && !animationStarted) {
-					hidePreloader();
-				}
-			}, 3500);
+			window.addEventListener('load', () => { pageLoaded = true; if (!animationStarted) { animationStarted = true; setTimeout(hidePreloader, 2000); } });
+			setTimeout(() => { if (!pageLoaded && !animationStarted) { hidePreloader(); } }, 3500);
 		} else {
-			// Mobile: Hide on DOM ready for faster perceived performance
-			if(document.readyState === 'loading') {
-				document.addEventListener('DOMContentLoaded', hidePreloader);
-			} else {
-				hidePreloader();
-			}
-			
-			// Fallback on window load
+			// Mobile/tablet: keep current quick behavior
+			if(document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', hidePreloader); } else { hidePreloader(); }
 			window.addEventListener('load', hidePreloader);
-			
-			// Maximum timeout fallback
 			setTimeout(hidePreloader, 3000);
 		}
 	})();

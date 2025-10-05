@@ -70,13 +70,28 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    background: #fff;
+    padding: 10px; /* add inner padding to create visual zoom-out */
 }
 
 .product-image {
     width: 100%;
     height: auto;
     display: block;
-    object-fit: cover;
+    object-fit: contain; /* ensure full image fits */
+    transform: scale(0.8); /* zoomed out ~20% */
+    transform-origin: center center;
+}
+
+/* Ensure 20% zoom-out specifically on mobile and tablets */
+@media (max-width: 1024px) {
+    .product-image-container {
+        padding: 10px !important;
+    }
+    .product-image {
+        transform: scale(0.8) !important;
+        transform-origin: center center !important;
+    }
 }
 
 /* Product Info Section */

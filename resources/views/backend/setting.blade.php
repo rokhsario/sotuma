@@ -44,6 +44,95 @@
           @enderror
         </div>
 
+        <h6 class="mb-3 mt-4 text-primary">Page À propos – Images (ordre d’affichage)</h6>
+
+        <div class="form-group">
+          <label for="about_hero_bg" class="col-form-label">1) À propos – Image de fond (Hero)</label>
+          @if($data->about_hero_bg)
+            <div class="mb-2">
+              <img src="{{ asset($data->about_hero_bg) }}" alt="Image actuelle de la page À propos" style="max-width:300px;max-height:200px;" class="img-thumbnail">
+              <p class="text-muted small">Image actuelle de la page À propos</p>
+            </div>
+          @endif
+          <input type="file" name="about_hero_bg" class="form-control" accept="image/*">
+          <small class="form-text text-muted">Formats acceptés: JPEG, PNG, JPG, GIF, SVG, WEBP (Max: 90MB). Laisser vide pour conserver l'image actuelle.</small>
+          @error('about_hero_bg')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="about_presentation_image" class="col-form-label">2) À propos – Image Présentation</label>
+          @if($data->about_presentation_image)
+            <div class="mb-2">
+              <img src="{{ asset($data->about_presentation_image) }}" alt="Image Présentation actuelle" style="max-width:300px;max-height:200px;" class="img-thumbnail">
+              <p class="text-muted small">Image actuelle</p>
+            </div>
+          @endif
+          <input type="file" name="about_presentation_image" class="form-control" accept="image/*">
+          @error('about_presentation_image')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="about_mission_image" class="col-form-label">3) À propos – Image Mission</label>
+          @if($data->about_mission_image)
+            <div class="mb-2">
+              <img src="{{ asset($data->about_mission_image) }}" alt="Image Mission actuelle" style="max-width:300px;max-height:200px;" class="img-thumbnail">
+              <p class="text-muted small">Image actuelle</p>
+            </div>
+          @endif
+          <input type="file" name="about_mission_image" class="form-control" accept="image/*">
+          @error('about_mission_image')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="about_objectives_image" class="col-form-label">4) À propos – Image Objectifs</label>
+          @if($data->about_objectives_image)
+            <div class="mb-2">
+              <img src="{{ asset($data->about_objectives_image) }}" alt="Image Objectifs actuelle" style="max-width:300px;max-height:200px;" class="img-thumbnail">
+              <p class="text-muted small">Image actuelle</p>
+            </div>
+          @endif
+          <input type="file" name="about_objectives_image" class="form-control" accept="image/*">
+          @error('about_objectives_image')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="about_expertise_image" class="col-form-label">5) À propos – Image Expertise</label>
+          @if($data->about_expertise_image)
+            <div class="mb-2">
+              <img src="{{ asset($data->about_expertise_image) }}" alt="Image Expertise actuelle" style="max-width:300px;max-height:200px;" class="img-thumbnail">
+              <p class="text-muted small">Image actuelle</p>
+            </div>
+          @endif
+          <input type="file" name="about_expertise_image" class="form-control" accept="image/*">
+          @error('about_expertise_image')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="about_approach_image" class="col-form-label">6) À propos – Image Approche</label>
+          @if($data->about_approach_image)
+            <div class="mb-2">
+              <img src="{{ asset($data->about_approach_image) }}" alt="Image Approche actuelle" style="max-width:300px;max-height:200px;" class="img-thumbnail">
+              <p class="text-muted small">Image actuelle</p>
+            </div>
+          @endif
+          <input type="file" name="about_approach_image" class="form-control" accept="image/*">
+          @error('about_approach_image')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        
+
         <h6 class="mb-3 mt-4 text-primary">Informations de Contact</h6>
 
         <div class="form-group">

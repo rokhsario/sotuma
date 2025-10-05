@@ -183,9 +183,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::post('/analytics/initialize', [App\Http\Controllers\Admin\AnalyticsController::class, 'initialize'])->name('admin.analytics.initialize');
 
         // About Us Images Management
-        Route::resource('about-us-images', App\Http\Controllers\Admin\AboutUsImageController::class);
-        Route::post('about-us-images/update-sort-order', [App\Http\Controllers\Admin\AboutUsImageController::class, 'updateSortOrder'])->name('about-us-images.update-sort-order');
-        Route::patch('about-us-images/{aboutUsImage}/toggle-active', [App\Http\Controllers\Admin\AboutUsImageController::class, 'toggleActive'])->name('about-us-images.toggle-active');
+        // About Us Images CRUD retired and replaced by Settings-managed image
     });
 
 

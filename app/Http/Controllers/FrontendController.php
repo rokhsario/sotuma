@@ -39,13 +39,8 @@ class FrontendController extends Controller
     }   
 
     public function aboutUs(){
-        // Get About Us images from database
-        $aboutUsImages = \App\Models\AboutUsImage::active()
-            ->ordered()
-            ->get()
-            ->groupBy('type');
-        
-        return view('frontend.pages.about-us', compact('aboutUsImages'));
+        // About Us images are now managed via Settings
+        return view('frontend.pages.about-us');
     }
 
     public function contact(){

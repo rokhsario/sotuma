@@ -197,11 +197,22 @@
 																<span>${{number_format($after_discount,2)}}</span>
 																<del>${{number_format($product->price,2)}}</del>
 															</div>
-															<h3 class="title"><a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}">{{$product->title}}</a></h3>
+                                                        <h3 class="title">
+                                                            @if($product->has_details)
+                                                                <a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}">{{$product->title}}</a>
+                                                            @else
+                                                                <span>{{$product->title}}</span>
+                                                            @endif
+                                                        </h3>
+                                                        @if($product->has_details)
+                                                        <div class="d-block d-md-none" style="margin-top:6px;">
+                                                            <a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}" style="color:#FF0000; font-weight:700; font-size:0.9rem; text-transform:uppercase; letter-spacing:0.5px;">Voir Détails</a>
+                                                        </div>
+                                                        @endif
 														{{-- <p>{!! html_entity_decode($product->summary) !!}</p> --}}
 														</div>
 														<p class="des pt-2">{!! html_entity_decode($product->summary) !!}</p>
-														<a href="javascript:void(0)" class="btn cart" data-id="{{$product->id}}">Buy Now!</a>
+                                                        <a href="javascript:void(0)" class="btn cart d-none d-md-inline-block" data-id="{{$product->id}}">Buy Now!</a>
 													</div>
 												</div>
 											</div>

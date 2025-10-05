@@ -351,16 +351,17 @@ body {
     .certificates-grid {
         grid-template-columns: 1fr !important;
         gap: 0 !important;
-        margin: 0 !important;
+        margin: 0 auto !important;
         padding: 0 !important;
-        width: 100vw !important;
-        max-width: 100vw !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-items: center !important;
     }
     
     .certificate-card {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
+        width: 100% !important;
+        max-width: 640px !important;
+        margin: 0 auto !important;
         border-radius: 0 !important;
     }
 }
@@ -374,16 +375,17 @@ body {
     .certificates-grid {
         grid-template-columns: 1fr !important;
         gap: 0 !important;
-        margin: 0 !important;
+        margin: 0 auto !important;
         padding: 0 !important;
-        width: 100vw !important;
-        max-width: 100vw !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-items: center !important;
     }
     
     .certificate-card {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
+        width: 100% !important;
+        max-width: 640px !important;
+        margin: 0 auto !important;
         border-radius: 0 !important;
     }
     
@@ -404,6 +406,17 @@ body {
     
     .certificate-image-container {
         height: 200px;
+    }
+    /* Keep card centered and avoid viewport width overflow */
+    .certificates-grid {
+        margin: 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-items: center !important;
+    }
+    .certificate-card {
+        max-width: 540px !important;
+        margin: 0 auto !important;
     }
 }
 

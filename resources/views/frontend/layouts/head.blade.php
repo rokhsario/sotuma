@@ -1,6 +1,11 @@
 <!-- Meta Tag -->
 @yield('meta')
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- iOS/Safari mobile enhancements -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
+<meta name="msapplication-tap-highlight" content="no">
 <meta name="theme-color" content="#FF0000">
 
 <!-- Google Tag Manager -->
@@ -42,6 +47,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <!-- Canonical URL -->
 <link rel="canonical" href="{{ $seoData['canonical'] ?? url()->current() }}">
+
+<!-- Mobile Safari/iOS CSS fixes -->
+<style>
+  html, body { height: -webkit-fill-available; }
+  body { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  .vh-safe-100 { min-height: 100vh; min-height: -webkit-fill-available; }
+  .ios-scroll { -webkit-overflow-scrolling: touch; }
+  img { image-rendering: -webkit-optimize-contrast; }
+  /* Safe area helpers */
+  .pad-safe { padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
+</style>
+
+<!-- JSON-LD Organization schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "SOTUMA",
+  "url": "{{ url('/') }}",
+  "logo": "{{ asset('images/sotuma-logo.jpg') }}",
+  "sameAs": [
+    "https://www.instagram.com/sotuma_aluminium/",
+    "https://www.facebook.com/sotumasfax",
+    "https://www.linkedin.com/company/sotuma/"
+  ],
+  "contactPoint": [{
+    "@type": "ContactPoint",
+    "contactType": "customer support",
+    "telephone": "{{ $settings->phone ?? '' }}",
+    "email": "{{ $settings->email ?? '' }}"
+  }],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ $settings->address ?? '' }}",
+    "addressCountry": "TN"
+  }
+}
+</script>
 
 <!-- Structured Data -->
 <script type="application/ld+json">

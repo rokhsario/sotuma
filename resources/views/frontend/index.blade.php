@@ -4132,14 +4132,14 @@
         max-width: 100%;
         word-spacing: 0.1em;
         
-        /* Gradient Red - No Shadow */
-        color: #DC143C; /* Fallback color */
-        background: linear-gradient(135deg, #FF0000, #DC143C, #B71C1C, #FF4444);
-        background-size: 200% 200%;
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: metallic-shine 3s ease-in-out infinite;
+        /* Dark gray that's clearly gray (not near-black) */
+        color: #5a5a5a !important;
+        background: none !important;
+        background-size: auto !important;
+        -webkit-background-clip: initial !important;
+        background-clip: initial !important;
+        -webkit-text-fill-color: inherit !important;
+        animation: none;
     }
     
     /* Ensure full width on tablet devices */
@@ -4217,11 +4217,12 @@
     }
     
     .mobile-section-title {
-        background: linear-gradient(135deg, #FF0000 0%, #000000 50%, #FF0000 100%);
-        background-size: 200% 200%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: rgb(164, 117, 87);
+        background: none !important;
+        background-size: auto !important;
+        -webkit-background-clip: initial !important;
+        -webkit-text-fill-color: inherit !important;
+        background-clip: initial !important;
         font-weight: 900;
         letter-spacing: 1.2px; /* Same as PROCESSUS D'EXCELLENCE */
         font-size: clamp(24px, 6vw, 32px); /* Same as PROCESSUS D'EXCELLENCE */
@@ -4230,8 +4231,8 @@
         text-overflow: ellipsis; /* Same as PROCESSUS D'EXCELLENCE */
         margin: 0 0 12px 0;
         text-transform: uppercase;
-        text-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
-        animation: gradientShift 3s ease-in-out infinite;
+        text-shadow: none;
+        animation: none;
     }
     
     /* Specific styling for PROCESSUS D'EXCELLENCE - Smaller text, single line */

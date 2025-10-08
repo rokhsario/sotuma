@@ -74,26 +74,32 @@
     }
     
     .footer-social-links a {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: transparent;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: #ffffff;
         color: #333;
         display: flex;
         align-items: center;
         justify-content: center;
         text-decoration: none;
-        transition: all 0.3s ease;
-        font-size: 16px;
-        border: 2px solid #ddd;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease, background 0.25s ease;
+        font-size: 18px;
+        border: 1px solid #e9e9e9;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     
     .footer-social-links a:hover {
-        background: #f8f9fa;
-        color: #FF0000;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background: #FF0000;
+        color: #fff;
+        transform: translateY(-3px) scale(1.03);
+        box-shadow: 0 8px 18px rgba(255,0,0,0.25);
         border-color: #FF0000;
+    }
+    
+    .footer-social-links a:active {
+        transform: translateY(-1px) scale(0.98);
+        box-shadow: 0 4px 10px rgba(255,0,0,0.2);
     }
     
     /* Footer Dropdown Sections - Rosace Style */
@@ -102,102 +108,37 @@
         border-top: 1px solid #f0f0f0;
     }
     
-    .footer-dropdown {
-        border-bottom: 2px solid #FF0000;
-        position: relative;
-    }
-    
-    .footer-dropdown::before {
-        content: '';
-        position: absolute;
-        bottom: -1px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60px;
-        height: 2px;
-        background: linear-gradient(90deg, #FF0000, #DC143C, #FF0000);
-        border-radius: 1px;
-        box-shadow: 0 1px 3px rgba(255, 0, 0, 0.3);
-    }
+    /* Minimal list style exactly like reference */
+    .footer-dropdown { position: relative; margin: 0; border: none; border-radius: 0; background:#fff; box-shadow:none; }
     
     .footer-dropdown:last-child {
         border-bottom: none;
     }
     
-    .footer-dropdown-btn {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 20px; /* Reduced padding for smaller buttons */
-        background: #fff;
-        border: none;
-        cursor: pointer;
-        font-size: 14px; /* Smaller font size */
-        font-weight: 600;
-        color: #333;
-        text-align: left;
-        transition: all 0.3s ease;
-    }
+    .footer-dropdown-btn { width:100%; display:flex; justify-content:space-between; align-items:center; padding:14px 12px; background:#fff; border:none; border-bottom:2px solid #e39b9b; cursor:pointer; font-size:16px; font-weight:400; color:#111; text-align:left; border-radius:0; transition:background .15s ease; }
+    .footer-dropdown-btn:hover { background:#fafafa; }
+    .footer-dropdown-btn.active { background:#f9f9f9; }
     
-    .footer-dropdown-btn:hover {
-        background: #f8f9fa;
-    }
+    .footer-dropdown-btn span:first-child { font-weight:400; color:#222; }
     
-    .footer-dropdown-btn.active {
-        background: #f8f9fa;
-    }
-    
-    .footer-dropdown-btn span:first-child {
-        font-weight: 600;
-        color: #333;
-    }
-    
-    .dropdown-icon {
-        font-size: 16px; /* Smaller icon to match smaller button */
-        font-weight: 300;
-        color: #333;
-        transition: transform 0.3s ease;
-    }
-    
-    .footer-dropdown-btn.active .dropdown-icon {
-        transform: rotate(45deg);
-    }
+    .dropdown-icon { font-size:22px; font-weight:400; color:#111; transition: none; width:auto; height:auto; border:none; }
+    /* keep plus as plus in reference (no rotation) */
     
     
-    .footer-dropdown-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-        background: #f8f9fa;
-    }
+    .footer-dropdown-content { max-height:0; overflow:hidden; transition:max-height .3s ease, padding .2s ease; background:#fff; padding:0 0; }
     
-    .footer-dropdown-content.active {
-        max-height: 300px;
-    }
+    .footer-dropdown-content.active { max-height:380px; padding:10px 0 12px 0; }
     
-    .footer-dropdown-content ul {
-        list-style: none;
-        margin: 0;
-        padding: 15px 20px 20px 20px;
-    }
+    .footer-dropdown-content ul { list-style:none; margin:0; padding:0 12px 8px 12px; }
     
-    .footer-dropdown-content li {
-        margin-bottom: 12px;
-    }
+    .footer-dropdown-content li { margin-bottom: 10px; }
+    .footer-dropdown-content li + li { border-top: 1px dashed #ececec; padding-top: 10px; }
     
-    .footer-dropdown-content a {
-        color: #666;
-        text-decoration: none;
-        font-size: 14px;
-        transition: color 0.3s ease;
-        line-height: 1.4;
-        display: block;
-    }
-    
-    .footer-dropdown-content a:hover {
-        color: #FF0000;
-    }
+    .footer-dropdown-content a { color:#111; text-decoration:none; font-size:15px; line-height:1.5; display:block; padding:8px 0; }
+    .footer-dropdown-content a:hover { color:#FF0000; }
+
+    /* Add subtle divider hover and active accents */
+    .footer-dropdown:hover::before { opacity: 0.9; filter: saturate(1.2); }
     
     /* Contact Items with Icons */
     .contact-item {
@@ -233,6 +174,18 @@
     .contact-item a:hover {
         color: #FF0000;
     }
+
+    /* Brand colors for "Suivez Nous" dropdown */
+    #socials-content .contact-item { color: inherit; }
+    #socials-content .contact-item i { color: inherit; }
+    #socials-content .contact-item a { color: inherit; }
+    #socials-content .contact-item a:hover { color: inherit !important; }
+
+    #socials-content .social-facebook { color: #1877F2; }
+    #socials-content .social-instagram { color: #E4405F; }
+    #socials-content .social-linkedin { color: #0A66C2; }
+    #socials-content .social-tiktok { color: #000000; }
+    #socials-content .social-whatsapp { color: #25D366; }
     
     
     /* Map Section */
@@ -305,13 +258,8 @@
         z-index: 10;
     }
     
-    .footer-directions-btn:hover {
-        background: linear-gradient(135deg, #CC0000, #FF0000);
-        transform: translateY(-1px);
-        box-shadow: 0 6px 16px rgba(255,0,0,0.4);
-        color: white;
-        text-decoration: none;
-    }
+    .footer-directions-btn:hover { background: linear-gradient(135deg, #CC0000, #FF0000); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(255,0,0,0.4); color: white; text-decoration: none; }
+    .footer-directions-btn:active { transform: translateY(0); box-shadow: 0 3px 10px rgba(255,0,0,0.25); }
     
     .footer-directions-btn i {
         font-size: 12px;
@@ -398,6 +346,39 @@
                 <div class="footer-dropdown-content" id="discover-content">
                     <ul>
                         <li><a href="{{ route('about-us') }}">À Propos</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <!-- Suivez Nous Dropdown -->
+            <div class="footer-dropdown">
+                <button class="footer-dropdown-btn" onclick="toggleDropdown('socials')">
+                    <span>Suivez Nous</span>
+                    <span class="dropdown-icon">+</span>
+                </button>
+                <div class="footer-dropdown-content" id="socials-content">
+                    <ul>
+                        <li class="contact-item social-facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            <a href="https://www.facebook.com/sotumasfax" target="_blank" rel="noopener">Facebook</a>
+                        </li>
+                        <li class="contact-item social-instagram">
+                            <i class="fab fa-instagram"></i>
+                            <a href="https://www.instagram.com/sotuma_aluminium/" target="_blank" rel="noopener">Instagram</a>
+                        </li>
+                        <li class="contact-item social-tiktok">
+                            <i class="fab fa-tiktok"></i>
+                            <a href="https://www.tiktok.com/@sotumasotuma" target="_blank" rel="noopener">TikTok</a>
+                        </li>
+                        <li class="contact-item social-linkedin">
+                            <i class="fab fa-linkedin-in"></i>
+                            <a href="https://www.linkedin.com/company/sotuma/" target="_blank" rel="noopener">LinkedIn</a>
+                        </li>
+                        <li class="contact-item social-whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                            <a href="https://wa.me/21658844717" target="_blank" rel="noopener">WhatsApp</a>
+                        </li>
                     </ul>
                 </div>
             </div>

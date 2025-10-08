@@ -199,9 +199,9 @@
 															</div>
                                                         <h3 class="title">
                                                             @if($product->has_details)
-                                                                <a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}">{{$product->title}}</a>
+                                                                <a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}" style="color: inherit; text-decoration: none; font-weight: inherit;">{{$product->title}}</a>
                                                             @else
-                                                                <span>{{$product->title}}</span>
+                                                                <span style="font-weight: inherit; color: inherit;">{{$product->title}}</span>
                                                             @endif
                                                         </h3>
                                                         @if($product->has_details)

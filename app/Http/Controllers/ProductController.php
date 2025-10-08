@@ -21,12 +21,17 @@ class ProductController extends Controller
     public function store(Request $request) {
         $validated = $request->validate([
             'title' => 'required|string',
+            'title_break_index' => 'nullable|integer|min:0',
+            'title_break_index_2' => 'nullable|integer|min:0',
             'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'has_details' => 'boolean',
             'description' => 'nullable|string',
             'specifications' => 'nullable|string',
             'features' => 'nullable|string',
+            'title_line1' => 'nullable|string',
+            'title_line2' => 'nullable|string',
+            'title_line3' => 'nullable|string',
         ]);
         
         if ($request->hasFile('image')) {
@@ -52,12 +57,17 @@ class ProductController extends Controller
     public function update(Request $request, Product $product) {
         $validated = $request->validate([
             'title' => 'required|string',
+            'title_break_index' => 'nullable|integer|min:0',
+            'title_break_index_2' => 'nullable|integer|min:0',
             'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'has_details' => 'boolean',
             'description' => 'nullable|string',
             'specifications' => 'nullable|string',
             'features' => 'nullable|string',
+            'title_line1' => 'nullable|string',
+            'title_line2' => 'nullable|string',
+            'title_line3' => 'nullable|string',
         ]);
         
         if ($request->hasFile('image')) {

@@ -132,13 +132,14 @@
 @media (max-width: 1000px) {
     .products-grid {
         grid-template-columns: 1fr !important;
-        gap: 0 !important;
+        gap: 20px !important;
         margin-top: 30px !important;
-        padding: 0 !important;
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin-left: calc(-50vw + 50%) !important;
-        margin-right: calc(-50vw + 50%) !important;
+        padding: 0 5px !important; /* 5px side margins */
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
     }
     
     .product-card {
@@ -152,19 +153,20 @@
 @media (max-width: 768px) {
     .products-grid {
         grid-template-columns: 1fr !important;
-        gap: 0 !important;
+        gap: 20px !important;
         margin-top: 30px !important;
-        padding: 0 !important;
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin-left: calc(-50vw + 50%) !important;
-        margin-right: calc(-50vw + 50%) !important;
+        padding: 0 5px !important; /* 5px side margins */
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
     }
     
     .product-card {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 20px 0 !important; /* rely on grid padding (5px) */
         border-radius: 0 !important;
     }
 }
@@ -172,13 +174,14 @@
 @media (max-width: 480px) {
     .products-grid {
         grid-template-columns: 1fr !important;
-        gap: 0 !important;
+        gap: 15px !important;
         margin-top: 25px !important;
-        padding: 0 !important;
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin-left: calc(-50vw + 50%) !important;
-        margin-right: calc(-50vw + 50%) !important;
+        padding: 0 5px !important; /* 5px side margins */
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
     }
     
     .product-card {
@@ -366,7 +369,7 @@
 }
 
 .product-content {
-    padding: 40px;
+    padding: 24px 28px; /* wider usable area for title */
     position: relative;
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     display: flex;
@@ -385,6 +388,9 @@
     margin-bottom: 12px;
     line-height: 1.3;
     text-align: center;
+    max-width: 98%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .product-category {
@@ -773,7 +779,7 @@
         display: block !important;
         width: 100% !important;
         max-width: 100% !important;
-        margin: 0 0 15px 0 !important;
+        margin: 0 0 15px 0 !important; /* rely on grid padding (5px) */
         border-radius: 0 !important;
         background: #fff !important;
         border: none !important;
@@ -937,11 +943,56 @@
                 </div>
                 <div class="product-content">
                     <h3 class="product-title">
-                        @if($product->has_details)
-                            <a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}" style="color: inherit; text-decoration: none; font-weight: inherit;">{{ $product->title }}</a>
-                        @else
-                            <span style="font-weight: inherit; color: inherit;">{{ $product->title }}</span>
-                        @endif
+                        @php
+                            $hasManual = (!is_null($product->title_line1) || !is_null($product->title_line2) || !is_null($product->title_line3));
+                            if ($hasManual) {
+                                $seg1 = $product->title_line1 ?? '';
+                                $seg2 = $product->title_line2 ?? '';
+                                $seg3 = $product->title_line3 ?? '';
+                                $break = $break2 = null; // ignore automatic when manual exists
+                            } else {
+                                $words = preg_split('/\s+/', trim($product->title));
+                                $break = is_numeric($product->title_break_index) ? (int) $product->title_break_index : null;
+                                $break2 = is_numeric($product->title_break_index_2) ? (int) $product->title_break_index_2 : null;
+                                $seg1 = '';$seg2 = '';$seg3 = '';
+                                if ($break !== null && $break > 0 && $break < count($words)) {
+                                    // If a second explicit break is valid and greater than first, use both
+                                    if ($break2 !== null && $break2 > $break && $break2 < count($words)) {
+                                        $seg1 = implode(' ', array_slice($words, 0, $break));
+                                        $seg2 = implode(' ', array_slice($words, $break, $break2 - $break));
+                                        $seg3 = implode(' ', array_slice($words, $break2));
+                                    } else {
+                                        $seg1 = implode(' ', array_slice($words, 0, $break));
+                                        $remaining = array_slice($words, $break);
+                                        $half2 = (int) ceil(count($remaining) / 2);
+                                        $seg2 = implode(' ', array_slice($remaining, 0, $half2));
+                                        $seg3 = implode(' ', array_slice($remaining, $half2));
+                                    }
+                                } else {
+                                    $n = count($words);
+                                    $third1 = (int) ceil($n / 3);
+                                    $third2 = (int) ceil(($n - $third1) / 2);
+                                    $seg1 = implode(' ', array_slice($words, 0, $third1));
+                                    $seg2 = implode(' ', array_slice($words, $third1, $third2));
+                                    $seg3 = implode(' ', array_slice($words, $third1 + $third2));
+                                }
+                            }
+                            $singleLine = (!$hasManual && $break === null && $break2 === null && mb_strlen($product->title) <= 22);
+                        @endphp
+                        @php
+                            $tag = ($product->has_details && $product->slug) ? 'a' : 'span';
+                            $href = ($tag === 'a') ? route('product-detail', $product->slug) : null;
+                            $attrs = $href ? ' href="'.$href.'"' : '';
+                        @endphp
+                        <{{ $tag }} {!! $attrs !!} style="color: inherit; text-decoration: none; font-weight: inherit; display:block; text-align:center; width:100%; white-space: normal;">
+                            @if($singleLine)
+                                {{ $product->title }}
+                            @else
+                                {!! $seg1 !== '' ? '<span>'.e($seg1).'</span>' : '' !!}
+                                {!! $seg2 !== '' ? '<br><span>'.e($seg2).'</span>' : '' !!}
+                                {!! $seg3 !== '' ? '<br><span>'.e($seg3).'</span>' : '' !!}
+                            @endif
+                        </{{ $tag }}>
                     </h3>
                     @if($product->has_details)
                         <div class="d-block d-md-none" style="margin-top:6px;">
@@ -976,28 +1027,38 @@
 
 @push('scripts')
 <script>
-// Force mobile responsive grids immediately
+// Force mobile responsive grids immediately and enforce 5px side padding with !important
 document.addEventListener('DOMContentLoaded', function() {
-    function forceMobileGrids() {
+    function enforceMobileLayout() {
         const isMobile = window.innerWidth <= 768;
         const productsGrid = document.querySelector('.products-grid');
-        
         if (isMobile && productsGrid) {
-            productsGrid.style.gridTemplateColumns = '1fr';
-            productsGrid.style.gap = '20px';
+            productsGrid.style.setProperty('grid-template-columns', '1fr', '');
+            productsGrid.style.setProperty('gap', '20px', '');
+            productsGrid.style.setProperty('padding-left', '5px', 'important');
+            productsGrid.style.setProperty('padding-right', '5px', 'important');
+            productsGrid.style.setProperty('box-sizing', 'border-box', 'important');
             productsGrid.setAttribute('data-mobile-forced', 'true');
         }
+        // Ensure product cards add no side margin; rely on grid padding
+        if (isMobile) {
+            document.querySelectorAll('.product-card').forEach(function(card){
+                card.style.setProperty('margin-left', '0', 'important');
+                card.style.setProperty('margin-right', '0', 'important');
+            });
+        }
     }
-    
+
     // Run immediately
-    forceMobileGrids();
-    
+    enforceMobileLayout();
     // Run on resize
-    window.addEventListener('resize', forceMobileGrids);
-    
-    // Run every 100ms for first 3 seconds to catch any late-loading content
-    let interval = setInterval(forceMobileGrids, 100);
-    setTimeout(() => clearInterval(interval), 3000);
+    window.addEventListener('resize', enforceMobileLayout);
+    // Observe style changes
+    const productsGrid = document.querySelector('.products-grid');
+    if (productsGrid) {
+        const obs = new MutationObserver(() => enforceMobileLayout());
+        obs.observe(productsGrid, { attributes: true, attributeFilter: ['style'] });
+    }
 });
 </script>
 @endpush 

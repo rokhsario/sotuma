@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'image', 'category_id', 'has_details', 'description', 'specifications', 'features', 'slug', 'sort_order'];
+    protected $fillable = ['title', 'title_break_index', 'title_break_index_2', 'title_line1', 'title_line2', 'title_line3', 'image', 'category_id', 'has_details', 'description', 'specifications', 'features', 'slug', 'sort_order'];
 
     protected static function boot()
     {

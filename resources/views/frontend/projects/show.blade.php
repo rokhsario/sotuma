@@ -1408,7 +1408,7 @@ class ProjectSlider {
         this.thumbnails.forEach((thumb, index) => {
             thumb.addEventListener('click', () => {
                 // If principal image exists, add 1 to the index since principal is at index 0
-                const slideIndex = @if($project->image) index + 1 @else index @endif;
+                const slideIndex = ({!! $project->image ? 'index + 1' : 'index' !!});
                 this.goToSlide(slideIndex);
             });
         });
@@ -1467,7 +1467,7 @@ class ProjectSlider {
         // Update thumbnails
         this.thumbnails.forEach((thumb, index) => {
             // If principal image exists, thumbnail index 0 corresponds to slide index 1
-            const correspondingSlideIndex = @if($project->image) index + 1 @else index @endif;
+            const correspondingSlideIndex = ({!! $project->image ? 'index + 1' : 'index' !!});
             thumb.classList.toggle('active', correspondingSlideIndex === this.currentIndex);
             
             // Scroll to active thumbnail
@@ -1592,8 +1592,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Modal images array order:', modalImages);
     console.log('Array length:', modalImages.length);
-    console.log('Principal image exists:', @if($project->image) true @else false @endif);
-    console.log('Principal image path:', @if($project->image) '{{ $project->image }}' @else 'null' @endif);
+    console.log('Principal image exists:', {!! $project->image ? 'true' : 'false' !!});
+    console.log('Principal image path:', {!! $project->image ? "'".addslashes($project->image)."'" : "'null'" !!});
     console.log('Gallery images count:', {{ $project->images->count() }});
     
     // Debug: Check if principal image is duplicated in gallery

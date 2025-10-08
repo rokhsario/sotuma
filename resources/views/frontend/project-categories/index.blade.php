@@ -354,6 +354,17 @@
   }
 
 /* Responsive - EXACT MAS */
+@media (max-width: 1024px) {
+    .project-categories-page .categories-container {
+        padding: 0 15px !important; /* 15px side margins */
+        box-sizing: border-box !important;
+    }
+    .project-categories-page .categories-grid {
+        padding: 0 15px !important; /* 15px side margins */
+        box-sizing: border-box !important;
+        gap: 20px !important;
+    }
+}
 @media (max-width: 768px) {
     .project-categories-page .hero-section {
         padding: 72px 0 48px !important; /* Reduced by 2.5x: 180px->72px, 120px->48px */
@@ -375,24 +386,31 @@
     .project-categories-page .categories-grid {
         display: block !important;
         grid-template-columns: none !important;
-        gap: 0 !important;
+        gap: 20px !important;
         padding: 0 !important;
         margin: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
         overflow: visible !important;
+        box-sizing: border-box !important;
     }
     
     .project-categories-page .category-card {
         display: block !important;
         width: 100% !important;
         max-width: 100% !important;
-        margin: 0 0 20px 0 !important;
+        margin: 0 15px 20px 15px !important; /* 15px side margins */
         border-radius: 0 !important;
         background: #fff !important;
         border: none !important;
         box-shadow: none !important;
         overflow: visible !important;
+    }
+
+    .project-categories-page .category-image-container {
+        width: calc(100% - 30px) !important; /* respect 15px sides */
+        margin-left: 15px !important;
+        margin-right: 15px !important;
     }
     
     .project-categories-page .category-content {
@@ -461,7 +479,7 @@
     }
     
     .project-categories-page .categories-container {
-        padding: 0 !important;
+        padding: 0 15px !important; /* 15px side margins */
         width: 100% !important;
         max-width: 100% !important;
         margin: 0 !important;
@@ -475,18 +493,26 @@
         margin: 0 !important;
         padding: 0 !important;
         overflow: visible !important;
+        gap: 15px !important;
+        box-sizing: border-box !important;
     }
     
     .project-categories-page .category-card {
         display: block !important;
         width: 100% !important;
         max-width: 100% !important;
-        margin: 0 0 15px 0 !important;
+        margin: 0 15px 15px 15px !important; /* 15px side margins */
         border-radius: 0 !important;
         background: #fff !important;
         border: none !important;
         box-shadow: none !important;
         overflow: visible !important;
+    }
+
+    .project-categories-page .category-image-container {
+        width: calc(100% - 30px) !important;
+        margin-left: 15px !important;
+        margin-right: 15px !important;
     }
     
     .project-categories-page .category-content {
@@ -573,7 +599,7 @@
                      <div class="sort-handle">
                          <i class="fas fa-grip-vertical"></i>
                      </div>
-                     <div class="category-image-container">
+                     <div class="category-image-container" data-mobile-pad>
                          <img src="{{ $category->image ? asset($category->image) : asset('images/10.png') }}" 
                               alt="{{ $category->name }}" 
                               class="category-image"
@@ -662,6 +688,54 @@ $(document).ready(function() {
                 notification.parentNode.removeChild(notification);
             }
         }, 3000);
+    }
+});
+
+// Force symmetric 15px side padding only on the grid/container; let images be 100% of their card
+document.addEventListener('DOMContentLoaded', function() {
+    function enforceSidePadding() {
+        var isMobile = window.innerWidth <= 1024;
+        var grid = document.querySelector('.project-categories-page .categories-grid');
+        var container = document.querySelector('.project-categories-page .categories-container');
+        if (container) {
+            if (isMobile) {
+                container.style.setProperty('padding-left', '5px', 'important');
+                container.style.setProperty('padding-right', '5px', 'important');
+            } else {
+                container.style.removeProperty('padding-left');
+                container.style.removeProperty('padding-right');
+            }
+        }
+        if (grid) {
+            if (isMobile) {
+                grid.style.setProperty('padding-left', '5px', 'important');
+                grid.style.setProperty('padding-right', '5px', 'important');
+                grid.style.setProperty('box-sizing', 'border-box', 'important');
+            } else {
+                grid.style.removeProperty('padding-left');
+                grid.style.removeProperty('padding-right');
+                grid.style.removeProperty('box-sizing');
+            }
+        }
+        // Ensure cards/images do NOT add extra margins; force zero with !important
+        document.querySelectorAll('.project-categories-page .category-card').forEach(function(card){
+            card.style.setProperty('margin-left', '0', 'important');
+            card.style.setProperty('margin-right', '0', 'important');
+        });
+        document.querySelectorAll('.project-categories-page .category-image-container').forEach(function(el){
+            el.style.setProperty('margin-left', '0', 'important');
+            el.style.setProperty('margin-right', '0', 'important');
+            el.style.setProperty('width', '100%', 'important'); // image container full card width
+        });
+    }
+    enforceSidePadding();
+    window.addEventListener('resize', enforceSidePadding);
+
+    // Watch for style changes that may override and re-apply container/grid padding
+    var gridNode = document.querySelector('.project-categories-page .categories-grid');
+    if (gridNode) {
+        var observer = new MutationObserver(function(){ enforceSidePadding(); });
+        observer.observe(gridNode, { attributes: true, subtree: false, attributeFilter: ['style'] });
     }
 });
 </script>

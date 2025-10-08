@@ -17,6 +17,53 @@
         </div>
 
         <div class="form-group">
+          <label for="title_break_index" class="col-form-label">Rupture du titre (après le N-ième mot)</label>
+          <input id="title_break_index" type="number" name="title_break_index" min="0" step="1" value="{{ old('title_break_index', $product->title_break_index) }}" class="form-control" placeholder="Ex: 2 pour couper après 2 mots">
+          <small class="form-text text-muted">Définit où couper le titre en 2 lignes. L'ordre des mots reste identique.</small>
+          @error('title_break_index')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="title_break_index_2" class="col-form-label">Deuxième rupture (optionnelle)</label>
+          <input id="title_break_index_2" type="number" name="title_break_index_2" min="0" step="1" value="{{ old('title_break_index_2', $product->title_break_index_2) }}" class="form-control" placeholder="Ex: 4 pour une 3ème ligne">
+          <small class="form-text text-muted">Laisser vide pour n'utiliser que 2 lignes. Doit être supérieur à la première rupture.</small>
+          @error('title_break_index_2')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label class="col-form-label">Aperçu du titre sur la carte produit</label>
+          <div id="titleSplitPreview"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-form-label">Réglage par glisser (entre les mots)</label>
+          <div id="titleSplitChips" style="display:flex; flex-wrap:wrap; gap:6px; align-items:center;"></div>
+          <div style="display:flex; gap:10px; align-items:center; margin-top:8px;">
+            <div style="flex:1;">
+              <label style="font-size:12px; margin:0;">Rupture 1</label>
+              <input id="title_break_slider" type="range" min="0" max="0" step="1" value="0" class="form-control"/>
+            </div>
+            <div style="flex:1;">
+              <label style="font-size:12px; margin:0;">Rupture 2 (optionnelle)</label>
+              <input id="title_break_slider_2" type="range" min="0" max="0" step="1" value="0" class="form-control"/>
+            </div>
+          </div>
+          <small class="form-text text-muted">Glissez pour choisir 1 ou 2 coupures. Cliquer sur un mot place la coupure après ce mot.</small>
+        </div>
+
+        <div class="form-group">
+          <label class="col-form-label">Contrôle manuel des 3 lignes (prioritaire)</label>
+          <input type="text" name="title_line1" class="form-control mb-2" placeholder="Ligne 1 (laisser vide pour ignorer)" value="{{ old('title_line1', $product->title_line1) }}">
+          <input type="text" name="title_line2" class="form-control mb-2" placeholder="Ligne 2 (laisser vide pour ignorer)" value="{{ old('title_line2', $product->title_line2) }}">
+          <input type="text" name="title_line3" class="form-control" placeholder="Ligne 3 (laisser vide pour ignorer)" value="{{ old('title_line3', $product->title_line3) }}">
+          <small class="form-text text-muted">Si vous remplissez ces champs, ils remplacent les coupures automatiques. Vous pouvez laisser une ligne vide, n'utiliser qu'une ligne, etc.</small>
+        </div>
+
+        <div class="form-group">
           <label for="category_id">Catégorie <span class="text-danger">*</span></label>
           <select name="category_id" id="category_id" class="form-control">
               <option value="">--Sélectionnez une catégorie--</option>
@@ -74,6 +121,122 @@
 </div>
 
 <script>
+// Live preview of the split based on title_break_index
+function renderTitlePreview() {
+    const title = document.getElementById('inputTitle').value || '';
+    const idx = parseInt(document.getElementById('title_break_index').value, 10);
+    const preview = document.getElementById('titleSplitPreview');
+    if (!preview) return;
+    const words = title.trim().split(/\s+/).filter(Boolean);
+    if (!words.length) { preview.innerHTML = ''; return; }
+    let line1 = title, line2 = '';
+    if (!isNaN(idx) && idx > 0 && idx < words.length) {
+        line1 = words.slice(0, idx).join(' ');
+        line2 = words.slice(idx).join(' ');
+    } else {
+        const half = Math.ceil(words.length / 2);
+        line1 = words.slice(0, half).join(' ');
+        line2 = words.slice(half).join(' ');
+    }
+    // Split remaining into two for a 3-line preview
+    const remaining = (line2 || '').trim().length ? (line2.split(/\s+/)) : [];
+    let l2 = line2, l3 = '';
+    if (remaining.length > 1) {
+        const half2 = Math.ceil(remaining.length / 2);
+        l2 = remaining.slice(0, half2).join(' ');
+        l3 = remaining.slice(half2).join(' ');
+    }
+    preview.innerHTML = '<div style="border:1px dashed #ddd;border-radius:6px;padding:10px;text-align:center;max-width:520px;">'
+        + (line1 ? '<div style="font-weight:700;">' + line1 + '</div>' : '')
+        + (l2 ? '<div style="font-weight:700;">' + l2 + '</div>' : '')
+        + (l3 ? '<div style="font-weight:700;">' + l3 + '</div>' : '')
+        + '</div>';
+}
+
+document.getElementById('inputTitle').addEventListener('input', renderTitlePreview);
+document.getElementById('title_break_index').addEventListener('input', renderTitlePreview);
+document.addEventListener('DOMContentLoaded', renderTitlePreview);
+
+// Draggable slider + chips to pick split
+function initSplitControls() {
+    const titleInput = document.getElementById('inputTitle');
+    const slider = document.getElementById('title_break_slider');
+    const slider2 = document.getElementById('title_break_slider_2');
+    const indexInput = document.getElementById('title_break_index');
+    const indexInput2 = document.getElementById('title_break_index_2');
+    const chips = document.getElementById('titleSplitChips');
+    if (!titleInput || !slider || !indexInput || !chips) return;
+
+    function rebuild() {
+        const words = (titleInput.value || '').trim().split(/\s+/).filter(Boolean);
+        const maxIndex = Math.max(0, words.length - 1);
+        slider.max = String(maxIndex);
+        slider2.max = String(maxIndex);
+        // Set slider to index input or default
+        const idx = Math.max(0, Math.min(parseInt(indexInput.value || '0', 10) || 0, maxIndex));
+        slider.value = String(idx);
+        indexInput.value = String(idx);
+        let idx2 = Math.max(0, Math.min(parseInt(indexInput2.value || '0', 10) || 0, maxIndex));
+        if (idx2 <= idx) idx2 = 0; // enforce order
+        slider2.value = String(idx2);
+        indexInput2.value = String(idx2 || '');
+        chips.innerHTML = '';
+        // Build chips; clicking a chip sets break after this chip index
+        words.forEach((w, i) => {
+            const chip = document.createElement('button');
+            chip.type = 'button';
+            chip.textContent = w;
+            chip.style.cssText = 'border:1px solid #ddd;border-radius:14px;padding:4px 10px;background:#f8f9fa;cursor:pointer;line-height:1;';
+            if (i === idx - 1 || (i === idx2 - 1 && idx2 > 0)) {
+                chip.style.borderColor = '#28a745';
+            }
+            chip.addEventListener('click', () => {
+                // place break after this word => index = i+1
+                const newIdx = Math.min(i + 1, maxIndex);
+                if (!idx || newIdx <= idx) {
+                    slider.value = String(newIdx);
+                    indexInput.value = String(newIdx);
+                } else {
+                    slider2.value = String(newIdx);
+                    indexInput2.value = String(newIdx);
+                }
+                renderTitlePreview();
+                rebuild();
+            });
+            chips.appendChild(chip);
+        });
+    }
+
+    slider.addEventListener('input', () => {
+        indexInput.value = slider.value;
+        renderTitlePreview();
+        rebuild();
+    });
+    slider2.addEventListener('input', () => {
+        // ensure slider2 > slider
+        if (parseInt(slider2.value, 10) <= parseInt(slider.value, 10)) {
+            slider2.value = slider.value;
+        }
+        indexInput2.value = slider2.value;
+        renderTitlePreview();
+        rebuild();
+    });
+    indexInput.addEventListener('input', () => {
+        slider.value = indexInput.value || '0';
+        renderTitlePreview();
+        rebuild();
+    });
+    indexInput2.addEventListener('input', () => {
+        slider2.value = indexInput2.value || '0';
+        renderTitlePreview();
+        rebuild();
+    });
+    titleInput.addEventListener('input', rebuild);
+    document.addEventListener('DOMContentLoaded', rebuild);
+    rebuild();
+}
+
+initSplitControls();
 document.getElementById('image').addEventListener('change', function(e) {
     const [file] = this.files;
     if (file) {

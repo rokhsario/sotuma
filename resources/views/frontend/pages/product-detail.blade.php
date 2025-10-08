@@ -126,6 +126,11 @@
     text-align: left !important;
 }
 
+/* Remove any inline absolute-positioned star spans coming from rich text to avoid duplicates */
+.product-description span[style*="position: absolute"] {
+    display: none !important;
+}
+
 /* Force star display for all text content */
 .product-description {
     counter-reset: line-counter;
@@ -139,17 +144,17 @@
     margin-bottom: 12px;
 }
 
-.product-description p::before,
-.product-description div::before {
+/* Single star bullet; apply only to direct children to avoid duplicates */
+.product-description > p::before,
+.product-description > div::before {
     content: "★";
     position: absolute;
     left: 0;
-    top: 0;
+    top: 0.1em; /* slight vertical align */
     color: #000000 !important;
     font-size: 1rem;
-    font-weight: bold;
-    z-index: 10;
-    display: inline-block;
+    font-weight: 700;
+    z-index: 1;
     width: 20px;
     text-align: center;
 }
@@ -162,16 +167,8 @@
     text-align: left !important;
 }
 
-.product-description p::before {
-    content: "★";
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #000000;
-    font-size: 1rem;
-    font-weight: bold;
-    z-index: 1;
-}
+/* Remove duplicate star definition to prevent overlap */
+.product-description p::before { }
 
 .product-description div {
     position: relative;
@@ -180,16 +177,8 @@
     text-align: left !important;
 }
 
-.product-description div::before {
-    content: "★";
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #000000;
-    font-size: 1rem;
-    font-weight: bold;
-    z-index: 1;
-}
+/* Remove duplicate star definition to prevent overlap */
+.product-description div::before { }
 
 .product-description * {
     text-align: left !important;
@@ -206,16 +195,8 @@
     margin-bottom: 12px;
 }
 
-.product-info-section .product-description p::before {
-    content: "★";
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #000000;
-    font-size: 1rem;
-    font-weight: bold;
-    z-index: 1;
-}
+/* Keep single star in nested contexts */
+.product-info-section .product-description p::before { }
 
 .product-info-section .product-description div {
     text-align: left !important;
@@ -224,16 +205,7 @@
     margin-bottom: 12px;
 }
 
-.product-info-section .product-description div::before {
-    content: "★";
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #000000;
-    font-size: 1rem;
-    font-weight: bold;
-    z-index: 1;
-}
+.product-info-section .product-description div::before { }
 
 .product-description h1,
 .product-description h2,

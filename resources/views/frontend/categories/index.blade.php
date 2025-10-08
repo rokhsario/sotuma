@@ -444,7 +444,8 @@
     }
     
     .categories-container {
-        padding: 0 60px;
+        padding: 0 5px; /* 5px side margins */
+        box-sizing: border-box;
     }
     
     .categories-grid {
@@ -452,10 +453,11 @@
         grid-template-columns: none !important;
         gap: 0 !important;
         margin-top: 40px !important;
-        padding: 0 !important;
+        padding: 0 5px !important; /* symmetric sides */
         width: 100% !important;
         max-width: 100% !important;
         overflow: visible !important;
+        box-sizing: border-box !important;
     }
     
     .category-card {
@@ -522,10 +524,11 @@
         display: block !important;
         grid-template-columns: none !important;
         gap: 0 !important;
-        padding: 0 !important;
+        padding: 0 5px !important; /* symmetric sides */
         width: 100% !important;
         max-width: 100% !important;
         overflow: visible !important;
+        box-sizing: border-box !important;
     }
     
     .category-card {
@@ -639,28 +642,43 @@
 
 @push('scripts')
 <script>
-// Force mobile responsive grids immediately
+// Force mobile responsive grids immediately and enforce 5px side padding with !important
 document.addEventListener('DOMContentLoaded', function() {
-    function forceMobileGrids() {
+    function forceMobile() {
         const isMobile = window.innerWidth <= 768;
         const categoryGrid = document.querySelector('.categories-grid');
-        
-        if (isMobile && categoryGrid) {
-            categoryGrid.style.gridTemplateColumns = '1fr';
-            categoryGrid.style.gap = '20px';
-            categoryGrid.setAttribute('data-mobile-forced', 'true');
+        const container = document.querySelector('.categories-container');
+        if (isMobile) {
+            if (container) {
+                container.style.setProperty('padding-left', '5px', 'important');
+                container.style.setProperty('padding-right', '5px', 'important');
+            }
+            if (categoryGrid) {
+                categoryGrid.style.setProperty('grid-template-columns', '1fr', '');
+                categoryGrid.style.setProperty('gap', '20px', '');
+                categoryGrid.style.setProperty('padding-left', '5px', 'important');
+                categoryGrid.style.setProperty('padding-right', '5px', 'important');
+                categoryGrid.style.setProperty('box-sizing', 'border-box', 'important');
+                categoryGrid.setAttribute('data-mobile-forced', 'true');
+            }
+            // Ensure cards have no side margin that could offset symmetry
+            document.querySelectorAll('.category-card').forEach(function(card){
+                card.style.setProperty('margin-left', '0', 'important');
+                card.style.setProperty('margin-right', '0', 'important');
+            });
         }
     }
-    
+
     // Run immediately
-    forceMobileGrids();
-    
+    forceMobile();
     // Run on resize
-    window.addEventListener('resize', forceMobileGrids);
-    
-    // Run every 100ms for first 3 seconds to catch any late-loading content
-    let interval = setInterval(forceMobileGrids, 100);
-    setTimeout(() => clearInterval(interval), 3000);
+    window.addEventListener('resize', forceMobile);
+    // Observe style mutations that may reset padding
+    const grid = document.querySelector('.categories-grid');
+    if (grid) {
+        const obs = new MutationObserver(() => forceMobile());
+        obs.observe(grid, { attributes: true, attributeFilter: ['style'] });
+    }
 });
 </script>
 @endpush 

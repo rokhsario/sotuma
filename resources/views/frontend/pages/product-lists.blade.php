@@ -187,7 +187,7 @@
 														</div>
 													</div>
 												</div>
-												<div class="col-lg-8 col-md-6 col-12">
+                                                <div class="col-lg-8 col-md-6 col-12">
 													<div class="list-content">
 														<div class="product-content">
 															<div class="product-price">
@@ -197,11 +197,62 @@
 																<span>${{number_format($after_discount,2)}}</span>
 																<del>${{number_format($product->price,2)}}</del>
 															</div>
-                                                        <h3 class="title">
+                                                        <h3 class="title" style="text-align:center; max-width:98%; margin-left:auto; margin-right:auto;">
+                                                            @php
+                                                                $hasManual = (!is_null($product->title_line1) || !is_null($product->title_line2) || !is_null($product->title_line3));
+                                                                if ($hasManual) {
+                                                                    $seg1 = $product->title_line1 ?? '';
+                                                                    $seg2 = $product->title_line2 ?? '';
+                                                                    $seg3 = $product->title_line3 ?? '';
+                                                                    $break = $break2 = null;
+                                                                } else {
+                                                                    $words = preg_split('/\s+/', trim($product->title));
+                                                                    $break = is_numeric($product->title_break_index) ? (int) $product->title_break_index : null;
+                                                                    $break2 = is_numeric($product->title_break_index_2) ? (int) $product->title_break_index_2 : null;
+                                                                    $seg1 = '';$seg2 = '';$seg3 = '';
+                                                                    if ($break !== null && $break > 0 && $break < count($words)) {
+                                                                        if ($break2 !== null && $break2 > $break && $break2 < count($words)) {
+                                                                            $seg1 = implode(' ', array_slice($words, 0, $break));
+                                                                            $seg2 = implode(' ', array_slice($words, $break, $break2 - $break));
+                                                                            $seg3 = implode(' ', array_slice($words, $break2));
+                                                                        } else {
+                                                                            $seg1 = implode(' ', array_slice($words, 0, $break));
+                                                                            $remaining = array_slice($words, $break);
+                                                                            $half2 = (int) ceil(count($remaining) / 2);
+                                                                            $seg2 = implode(' ', array_slice($remaining, 0, $half2));
+                                                                            $seg3 = implode(' ', array_slice($remaining, $half2));
+                                                                        }
+                                                                    } else {
+                                                                        $n = count($words);
+                                                                        $third1 = (int) ceil($n / 3);
+                                                                        $third2 = (int) ceil(($n - $third1) / 2);
+                                                                        $seg1 = implode(' ', array_slice($words, 0, $third1));
+                                                                        $seg2 = implode(' ', array_slice($words, $third1, $third2));
+                                                                        $seg3 = implode(' ', array_slice($words, $third1 + $third2));
+                                                                    }
+                                                                }
+                                                            $singleLine = (!$hasManual && $break === null && $break2 === null && mb_strlen($product->title) <= 22);
+                                                            @endphp
                                                             @if($product->has_details)
-                                                                <a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}" style="color: inherit; text-decoration: none; font-weight: inherit;">{{$product->title}}</a>
+                                                                <a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}" style="color: inherit; text-decoration: none; font-weight: inherit; display:block; width:100%; white-space: normal; text-align:center;">
+                                                                    @if($singleLine)
+                                                                        {{ $product->title }}
+                                                                    @else
+                                                                        {!! $seg1 !== '' ? '<span>'.e($seg1).'</span>' : '' !!}
+                                                                        {!! $seg2 !== '' ? '<br><span>'.e($seg2).'</span>' : '' !!}
+                                                                        {!! $seg3 !== '' ? '<br><span>'.e($seg3).'</span>' : '' !!}
+                                                                    @endif
+                                                                </a>
                                                             @else
-                                                                <span style="font-weight: inherit; color: inherit;">{{$product->title}}</span>
+                                                                <span style="font-weight: inherit; color: inherit; display:block; width:100%; white-space: normal; text-align:center;">
+                                                                    @if($singleLine)
+                                                                        {{ $product->title }}
+                                                                    @else
+                                                                        {!! $seg1 !== '' ? '<span>'.e($seg1).'</span>' : '' !!}
+                                                                        {!! $seg2 !== '' ? '<br><span>'.e($seg2).'</span>' : '' !!}
+                                                                        {!! $seg3 !== '' ? '<br><span>'.e($seg3).'</span>' : '' !!}
+                                                                    @endif
+                                                                </span>
                                                             @endif
                                                         </h3>
                                                         @if($product->has_details)

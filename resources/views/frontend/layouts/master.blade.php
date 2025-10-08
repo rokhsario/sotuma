@@ -10,27 +10,27 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     
-    <!-- Preloader -->
-    <div class="preloader">
-		<div class="preloader-inner">
-			<div class="preloader-icon">
-				<div class="sotuma-logo">
-					<span class="letter">S</span>
-					<span class="letter">O</span>
-					<span class="letter">T</span>
-					<span class="letter">U</span>
-					<span class="letter">M</span>
-					<span class="letter">A</span>
-				</div>
-				<div class="loading-dots">
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End Preloader -->
+    <!-- Preloader (desktop only) -->
+    <div class="preloader d-none d-lg-flex">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <div class="sotuma-logo">
+                    <span class="letter">S</span>
+                    <span class="letter">O</span>
+                    <span class="letter">T</span>
+                    <span class="letter">U</span>
+                    <span class="letter">M</span>
+                    <span class="letter">A</span>
+                </div>
+                <div class="loading-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Preloader -->
 	
 	@include('frontend.layouts.notification')
 	
@@ -204,6 +204,11 @@
         }
     }
 
+    /* Explicitly disable preloader on mobile/tablet */
+    @media (max-width: 1024px) {
+        .preloader { display: none !important; }
+    }
+
     /* Mobile-fit preloader */
     @media (max-width: 767px) {
         .preloader {
@@ -362,97 +367,30 @@
 </style>
 
 	<script>
-	// Enhanced desktop-only preloader with timing + conflict detection
+	// Desktop-only preloader: smooth, non-flashing
 	(function(){
-		const isDesktop = window.innerWidth > 1024;
-		let preloaderHidden = false;
-		let conflictDetected = false;
-		let intervalId = null;
-		
-		function showWarning(p, message){
-			const inner = p && p.querySelector('.preloader-inner');
-			if(!inner) return;
-			let warn = p.querySelector('.preloader-warning');
-			if(!warn){
-				warn = document.createElement('div');
-				warn.className = 'preloader-warning';
-				inner.appendChild(warn);
-			}
-			warn.textContent = message;
-		}
-		
-		
-		function hidePreloader(){
-			if(preloaderHidden) return;
+		const isDesktop = window.matchMedia('(min-width:1025px)').matches;
+		function hidePreloaderSmooth() {
 			const p = document.querySelector('.preloader');
-			if(!p) return;
-			if(p.classList.contains('is-hidden')) { preloaderHidden = true; return; }
-			preloaderHidden = true;
-			
-			// no timing label
-			
-			if (isDesktop) {
-				requestAnimationFrame(() => {
-					requestAnimationFrame(() => {
-						p.classList.add('is-hidden');
-						setTimeout(() => { if(p.parentNode) { p.parentNode.removeChild(p); } }, 350);
-					});
-				});
-			} else {
-				requestAnimationFrame(() => {
-					p.classList.add('is-hidden');
-					setTimeout(() => { if(p.parentNode) { p.parentNode.removeChild(p); } }, 200);
-				});
-			}
+			if (!p) return;
+			requestAnimationFrame(() => {
+				p.classList.add('is-hidden');
+				setTimeout(() => { if (p && p.parentNode) p.parentNode.removeChild(p); }, 320);
+			});
 		}
-		
-		// Only enhance on desktop
-		if (isDesktop) {
+
+		if (!isDesktop) {
 			const p = document.querySelector('.preloader');
-			if (p) {
-				// Detect external modifications/removal (conflicts)
-				const observer = new MutationObserver((mutations) => {
-					for (const m of mutations) {
-						if (m.type === 'attributes' && (m.attributeName === 'class' || m.attributeName === 'style')) {
-							const hiddenByOther = !p.classList.contains('is-hidden') && (getComputedStyle(p).display === 'none' || getComputedStyle(p).visibility === 'hidden');
-							if (hiddenByOther && !conflictDetected) {
-								conflictDetected = true;
-								showWarning(p, 'Conflict: another script modified preloader');
-								console.warn('[Preloader] Conflict detected: external modification');
-							}
-						}
-						if (m.type === 'childList' && m.removedNodes && m.removedNodes.length) {
-							m.removedNodes.forEach(node => {
-								if (node === p && !preloaderHidden && !conflictDetected) {
-									conflictDetected = true;
-									console.warn('[Preloader] Conflict detected: preloader removed from DOM');
-								}
-							});
-						}
-					}
-				});
-				observer.observe(document.documentElement, { attributes: true, childList: true, subtree: true, attributeFilter: ['class','style'] });
-				// Stop observing once hidden
-				const stopObs = () => { try { observer.disconnect(); } catch(e){} };
-				window.addEventListener('load', () => setTimeout(stopObs, 4000));
-			}
-			
-			// Start and hide sequence
-			let pageLoaded = false;
-			let animationStarted = false;
-			if (document.readyState === 'loading') {
-				document.addEventListener('DOMContentLoaded', () => { animationStarted = true; setTimeout(hidePreloader, 2000); });
-			} else {
-				animationStarted = true; setTimeout(hidePreloader, 2000);
-			}
-			window.addEventListener('load', () => { pageLoaded = true; if (!animationStarted) { animationStarted = true; setTimeout(hidePreloader, 2000); } });
-			setTimeout(() => { if (!pageLoaded && !animationStarted) { hidePreloader(); } }, 3500);
+			if (p) p.style.display = 'none';
+			return;
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', () => setTimeout(hidePreloaderSmooth, 1000));
 		} else {
-			// Mobile/tablet: keep current quick behavior
-			if(document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', hidePreloader); } else { hidePreloader(); }
-			window.addEventListener('load', hidePreloader);
-			setTimeout(hidePreloader, 3000);
+			setTimeout(hidePreloaderSmooth, 1000);
 		}
+		window.addEventListener('load', () => setTimeout(hidePreloaderSmooth, 200));
 	})();
 	</script>
 

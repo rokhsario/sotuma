@@ -1,0 +1,341 @@
+/* =====================================
+SOTUMA Mobile Scroll Fix
+Correction complète du problème de scroll sur mobile
+Version: 1.0 - Production Ready
+===================================== */
+
+/* ===== CORRECTIONS GLOBALES POUR LE SCROLL MOBILE ===== */
+
+/* 1. Correction du body et html pour permettre le scroll */
+html, body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important;
+    position: relative !important;
+}
+
+/* 2. Correction spécifique pour iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    html, body {
+        height: -webkit-fill-available !important;
+    }
+    
+    .preloader {
+        height: -webkit-fill-available !important;
+    }
+}
+
+/* 3. Correction du viewport et du scroll pour tous les appareils mobiles */
+@media (max-width: 1024px) {
+    html {
+        -webkit-text-size-adjust: 100% !important;
+        -ms-text-size-adjust: 100% !important;
+        touch-action: pan-y !important;
+    }
+    
+    body {
+        position: relative !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y !important;
+        min-height: 100vh !important;
+        min-height: -webkit-fill-available !important;
+    }
+}
+
+/* 4. Correction des éléments qui peuvent bloquer le scroll */
+@media (max-width: 1024px) {
+    /* Désactiver les éléments qui bloquent le scroll */
+    .preloader {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: -webkit-fill-available !important;
+        z-index: 999999999 !important;
+        pointer-events: none !important;
+        overflow: hidden !important;
+    }
+    
+    /* S'assurer que le contenu principal n'est pas bloqué */
+    .main-content {
+        position: relative !important;
+        overflow: visible !important;
+        min-height: 100vh !important;
+        min-height: -webkit-fill-available !important;
+    }
+}
+
+/* 5. Correction des modales et overlays qui peuvent bloquer le scroll */
+@media (max-width: 1024px) {
+    .modal, .popup, .mobile-sidebar-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: -webkit-fill-available !important;
+        z-index: 999999 !important;
+        overflow: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    .mobile-sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: -100% !important;
+        width: 450px !important;
+        max-width: 90vw !important;
+        height: 100vh !important;
+        height: -webkit-fill-available !important;
+        z-index: 1000000 !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        transition: left 0.3s ease !important;
+    }
+    
+    .mobile-sidebar.active {
+        left: 0 !important;
+    }
+}
+
+/* 6. Correction des éléments sticky qui peuvent causer des problèmes */
+@media (max-width: 1024px) {
+    .social-sidebar {
+        position: fixed !important;
+        right: 0 !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: 1000 !important;
+        pointer-events: auto !important;
+    }
+    
+    /* S'assurer que les éléments sticky ne bloquent pas le scroll */
+    .navbar, .header, .sticky-header {
+        position: relative !important;
+        z-index: 100 !important;
+    }
+}
+
+/* 7. Correction des conteneurs de contenu */
+@media (max-width: 1024px) {
+    .container, .container-fluid {
+        position: relative !important;
+        overflow: visible !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    
+    /* Correction des sections principales */
+    section, .section {
+        position: relative !important;
+        overflow: visible !important;
+        min-height: auto !important;
+    }
+}
+
+/* 8. Correction spécifique pour les grilles et flexbox */
+@media (max-width: 1024px) {
+    .products-grid, .categories-grid, .project-info-container, .tiktok-feed-grid {
+        display: block !important;
+        overflow: visible !important;
+        position: relative !important;
+    }
+    
+    .products-grid > *, .categories-grid > *, .project-info-container > *, .tiktok-feed-grid > * {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 20px !important;
+        position: relative !important;
+    }
+}
+
+/* 9. Correction des images et médias */
+@media (max-width: 1024px) {
+    img, video, iframe {
+        max-width: 100% !important;
+        height: auto !important;
+        position: relative !important;
+    }
+    
+    .product-image-container, .category-image-container, .certificate-image-container {
+        position: relative !important;
+        overflow: hidden !important;
+        width: 100% !important;
+    }
+}
+
+/* 10. Correction des formulaires */
+@media (max-width: 1024px) {
+    form, .contact-form, .search-form {
+        position: relative !important;
+        overflow: visible !important;
+        width: 100% !important;
+    }
+    
+    input, textarea, select {
+        position: relative !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* 11. Correction du footer mobile */
+@media (max-width: 1024px) {
+    .mobile-footer, .footer-mobile {
+        position: relative !important;
+        bottom: auto !important;
+        width: 100% !important;
+        margin-top: auto !important;
+    }
+    
+    .desktop-footer-wrapper {
+        display: none !important;
+    }
+}
+
+/* 12. Correction des animations et transitions qui peuvent bloquer le scroll */
+@media (max-width: 1024px) {
+    * {
+        -webkit-transform: translateZ(0) !important;
+        transform: translateZ(0) !important;
+        -webkit-backface-visibility: hidden !important;
+        backface-visibility: hidden !important;
+    }
+    
+    /* Réduire les animations sur mobile pour améliorer les performances */
+    .animate, .animated, [class*="animate-"] {
+        animation-duration: 0.3s !important;
+        animation-fill-mode: both !important;
+    }
+}
+
+/* 13. Correction spécifique pour les appareils iOS */
+@media (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+    body {
+        -webkit-transform: translateZ(0) !important;
+        transform: translateZ(0) !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    .main-content {
+        -webkit-transform: translateZ(0) !important;
+        transform: translateZ(0) !important;
+    }
+}
+
+/* 14. Correction des problèmes de hauteur sur mobile */
+@media (max-width: 1024px) {
+    /* Utiliser une hauteur dynamique basée sur la fenêtre */
+    .hero-section, .about-hero, .tiktok-hero, .blog-hero {
+        min-height: 50vh !important;
+        min-height: -webkit-fill-available !important;
+        position: relative !important;
+        overflow: visible !important;
+    }
+    
+    /* S'assurer que les sections ne dépassent pas la hauteur de l'écran */
+    section {
+        min-height: auto !important;
+        height: auto !important;
+    }
+}
+
+/* 15. Correction finale pour forcer le scroll */
+@media (max-width: 1024px) {
+    /* Force le scroll sur le body */
+    body {
+        overflow: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y !important;
+        position: relative !important;
+        height: auto !important;
+        min-height: 100vh !important;
+    }
+    
+    /* S'assurer que le contenu principal est scrollable */
+    .main-content, .content, main {
+        overflow: visible !important;
+        position: relative !important;
+        height: auto !important;
+        min-height: 100vh !important;
+    }
+}
+
+/* 16. Correction pour les appareils avec des encoches (notch) */
+@supports (padding: max(0px)) {
+    @media (max-width: 1024px) {
+        .main-content {
+            padding-top: max(0px, env(safe-area-inset-top)) !important;
+            padding-bottom: max(0px, env(safe-area-inset-bottom)) !important;
+        }
+        
+        .mobile-sidebar {
+            padding-top: max(0px, env(safe-area-inset-top)) !important;
+            padding-bottom: max(0px, env(safe-area-inset-bottom)) !important;
+        }
+    }
+}
+
+/* 17. Correction pour les navigateurs mobiles spécifiques */
+@media (max-width: 1024px) {
+    /* Chrome Mobile */
+    @supports (-webkit-appearance: none) {
+        body {
+            -webkit-overflow-scrolling: touch !important;
+            overflow-scrolling: touch !important;
+        }
+    }
+    
+    /* Firefox Mobile */
+    @supports (-moz-appearance: none) {
+        body {
+            overflow: auto !important;
+            scroll-behavior: smooth !important;
+        }
+    }
+    
+    /* Safari Mobile */
+    @supports (-webkit-touch-callout: none) {
+        body {
+            -webkit-overflow-scrolling: touch !important;
+            position: relative !important;
+        }
+    }
+}
+
+/* 18. Correction finale pour tous les cas de figure */
+@media (max-width: 1024px) {
+    /* Force le scroll sur tous les éléments parents */
+    html, body, .main-content, .content, main {
+        overflow: visible !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        position: relative !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        min-height: -webkit-fill-available !important;
+    }
+    
+    /* S'assurer qu'aucun élément ne bloque le scroll */
+    * {
+        pointer-events: auto !important;
+    }
+    
+    /* Exception pour les éléments qui doivent bloquer les interactions */
+    .preloader, .loading-overlay {
+        pointer-events: none !important;
+    }
+    
+    .modal, .popup, .mobile-sidebar-overlay {
+        pointer-events: auto !important;
+    }
+}

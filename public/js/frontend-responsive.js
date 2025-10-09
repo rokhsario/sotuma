@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     navMenu.classList.remove('active');
                     navOverlay.classList.remove('active');
                     document.body.style.overflow = '';
+                    document.body.style.position = '';
                 }
                 
                 // Close dropdowns
@@ -218,6 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (e.target === modal) {
                     modal.style.display = 'none';
                     document.body.style.overflow = '';
+                    document.body.style.position = '';
                 }
             });
             
@@ -226,6 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (e.key === 'Escape' && modal.style.display !== 'none') {
                     modal.style.display = 'none';
                     document.body.style.overflow = '';
+                    document.body.style.position = '';
                 }
             });
             
@@ -347,7 +350,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (navMenu && navOverlay && !navMenu.classList.contains('active')) {
                         navMenu.classList.add('active');
                         navOverlay.classList.add('active');
-                        document.body.style.overflow = 'hidden';
+                        document.body.style.overflow = 'auto';
+                        document.body.style.position = 'relative';
                     }
                 }
                 
@@ -356,6 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     navMenu.classList.remove('active');
                     navOverlay.classList.remove('active');
                     document.body.style.overflow = '';
+                    document.body.style.position = '';
                 }
             }
         }, { passive: true });

@@ -51,19 +51,20 @@ Version: 1.0 - Production Ready
         // Smooth scrolling for mobile
         document.documentElement.style.scrollBehavior = 'smooth';
         
-        // Prevent overscroll bounce on iOS
+        // Allow natural scrolling on mobile - don't prevent default scroll behavior
         document.addEventListener('touchmove', function(e) {
-            if (e.target.closest('.tiktok-feed-grid, .thumbnail-slider, .partners-scroll-content')) {
-                return; // Allow scrolling in these containers
-            }
-            
+            // Allow all scrolling by default - don't prevent default
+            // Only prevent scrolling for specific modal or overlay elements
             const target = e.target;
-            const scrollableParent = target.closest('.scrollable');
+            const modalParent = target.closest('.modal, .popup, .mobile-sidebar-overlay');
             
-            if (!scrollableParent) {
-                e.preventDefault();
+            if (modalParent) {
+                // Allow scrolling within modals
+                return;
             }
-        }, { passive: false });
+            
+            // Allow all other scrolling
+        }, { passive: true });
     }
 
     // ===== MODAL ENHANCEMENTS =====
@@ -99,14 +100,19 @@ Version: 1.0 - Production Ready
                 });
             }
             
-            // Prevent body scroll when modal is open
+            // Handle modal visibility without blocking body scroll
             const observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
                     if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                        const isVisible = modal.style.display !== 'none';
+                        const isVisible = modal.style.display !== 'none' && 
+                                        modal.style.visibility !== 'hidden' && 
+                                        modal.style.opacity !== '0';
                         if (isVisible) {
-                            document.body.style.overflow = 'hidden';
+                            // Don't block body scroll completely - just prevent background interaction
+                            document.body.style.position = 'relative';
+                            document.body.style.overflow = 'auto';
                         } else {
+                            document.body.style.position = '';
                             document.body.style.overflow = '';
                         }
                     }

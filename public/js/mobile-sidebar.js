@@ -41,7 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
             mobileSidebar.style.left = '0px';
             mobileSidebar.classList.add('active');
             mobileSidebarOverlay.style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            // Don't block body scroll - just prevent background interaction
+            document.body.style.position = 'relative';
+            document.body.style.overflow = 'auto';
         }
     }
     
@@ -51,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
             mobileSidebar.style.left = '-100%';
             mobileSidebar.classList.remove('active');
             mobileSidebarOverlay.style.display = 'none';
+            document.body.style.position = '';
             document.body.style.overflow = '';
         }
     }

@@ -449,6 +449,15 @@
 	<!-- Global Mobile Social Removal -->
 	<script src="{{ asset('js/remove-mobile-social-global.js') }}"></script>
 	
+	<!-- Mobile Scroll Fix -->
+	<link rel="stylesheet" href="{{ asset('css/mobile-scroll-fix.css') }}">
+	<script src="{{ asset('js/mobile-scroll-fix.js') }}"></script>
+	
+	<!-- Mobile Scroll Test (à supprimer en production) -->
+	@if(config('app.debug'))
+	<script src="{{ asset('js/test-mobile-scroll.js') }}"></script>
+	@endif
+	
 	<script src="{{ asset('js/frontend-mobile-enhancements.js') }}"></script>
 	
 	<!-- Mobile Cards Enhancement -->

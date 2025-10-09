@@ -30,9 +30,9 @@
         display: block;
         max-width: 100%;
         width: 100%;
-        height: 120px; /* Further reduced for better fit */
+        height: 144px; /* +20% */
         background-image: url('{{ asset("images/hethahou1.png") }}');
-        background-size: 70%; /* Smaller logo */
+        background-size: 84%; /* +20% */
         background-repeat: no-repeat;
         background-position: center top;
         position: relative;
@@ -268,10 +268,10 @@
     /* Mobile Footer Logo Responsive Adjustments */
     @media (max-width: 768px) {
         .footer-logo-container {
-            height: 100px !important; /* Further reduced for better fit */
+            height: 120px !important; /* +20% */
             max-width: 90% !important;
             margin: 0 auto 0 auto !important; /* No margin bottom - touching text */
-            background-size: 65% !important; /* Smaller logo */
+            background-size: 78% !important; /* +20% */
         }
         
         .footer-social-title {
@@ -283,10 +283,10 @@
     
     @media (max-width: 480px) {
         .footer-logo-container {
-            height: 90px !important; /* Further reduced for better fit */
+            height: 108px !important; /* +20% */
             max-width: 95% !important;
             margin: 0 auto 0 auto !important; /* No margin bottom - touching text */
-            background-size: 60% !important; /* Smaller logo */
+            background-size: 72% !important; /* +20% */
         }
         
         .footer-social-title {

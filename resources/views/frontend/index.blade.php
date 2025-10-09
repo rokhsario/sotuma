@@ -4115,9 +4115,10 @@
     }
     
     .mobile-hero-logo {
-        height: 120px;
-        width: auto;
+        height: 160px;
+        width: 160px;
         max-width: 100%;
+        object-fit: contain;
     }
     
     .mobile-hero-slogan {
@@ -4162,7 +4163,8 @@
         }
         
         .mobile-hero-logo {
-            height: 100px;
+            height: 160px;
+            width: 160px;
         }
         
         .mobile-hero-slogan {
@@ -4179,7 +4181,8 @@
         }
         
         .mobile-hero-logo {
-            height: 90px;
+            height: 160px;
+            width: 160px;
         }
         
         .mobile-hero-slogan {
@@ -4197,7 +4200,8 @@
         }
         
         .mobile-hero-logo {
-            height: 80px;
+            height: 160px;
+            width: 160px;
         }
         
         .mobile-hero-slogan {
@@ -4453,19 +4457,21 @@
         z-index: -1 !important;
     }
     
-    /* Force hide social sidebar on mobile/tablet index page */
-    .social-sidebar {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        position: absolute !important;
-        left: -9999px !important;
-        top: -9999px !important;
-        width: 0 !important;
-        height: 0 !important;
-        overflow: hidden !important;
-        pointer-events: none !important;
-        z-index: -1 !important;
+    /* Hide social sidebar only on mobile/tablet for index page */
+    @media (max-width: 1024px) {
+        .social-sidebar {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            position: absolute !important;
+            left: -9999px !important;
+            top: -9999px !important;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
+            pointer-events: none !important;
+            z-index: -1 !important;
+        }
     }
     
     /* Additional targeting for any dynamically created elements */

@@ -118,7 +118,7 @@
     <!-- Professional Mobile Menu -->
     <div class="mobile-menu" role="navigation" aria-hidden="true">
         <div class="mobile-menu-header">
-            <img src="{{ asset('images/logo2.png') }}" alt="SOTUMA" class="mobile-menu-logo">
+            <img src="{{ asset('images/hethahou1.png') }}" alt="SOTUMA" class="mobile-menu-logo">
             <button class="mobile-close" aria-label="Close menu">
                 <i class="fas fa-times"></i>
             </button>
@@ -617,6 +617,24 @@
     height: 50px;
     width: auto;
     max-width: 150px;
+}
+
+/* Tiny logo fixed to top-left inside hamburger menu */
+.mobile-menu-header { position: relative; }
+.mobile-menu .mobile-menu-logo {
+    position: absolute !important;
+    top: 16px !important; /* move slightly down */
+    left: 16px !important;
+    height: 56px !important; /* 2x bigger */
+    width: auto !important;
+    max-width: none !important;
+    object-fit: contain !important;
+}
+/* Ensure close button is on the right inside the hamburger header */
+.mobile-menu .mobile-close {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
 }
 
 .mobile-close {
@@ -1236,17 +1254,37 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         init() {
+            this.ensureInBody();
+            this.forceClosedState();
             this.bindEvents();
             this.setupDropdowns();
             this.setupAccessibility();
+            // Reinitialize on pageshow (bfcache restores) to ensure handlers/state
+            window.addEventListener('pageshow', (e) => {
+                // Only reinitialize on BFCache restores; avoid toggling state on hard loads
+                if (e.persisted) {
+                    this.reinitialize();
+                } else {
+                    // Ensure closed state on normal load
+                    this.forceClosedState();
+                }
+            });
+            // Guard again after other scripts run
+            setTimeout(() => this.forceClosedState(), 0);
         }
         
         bindEvents() {
             if (this.toggle && this.menu && this.overlay) {
-                this.toggle.addEventListener('click', () => this.toggleMenu());
-                this.overlay.addEventListener('click', () => this.closeMenu());
+                this.toggle.addEventListener('click', (e) => {
+                    if (!e.isTrusted) return; // ignore programmatic clicks
+                    this.toggleMenu();
+                });
+                // Overlay remains non-blocking; close on outside click via document listener
                 if (this.closeBtn) {
-                    this.closeBtn.addEventListener('click', () => this.closeMenu());
+                    this.closeBtn.addEventListener('click', (e) => {
+                        if (!e.isTrusted) return;
+                        this.closeMenu();
+                    });
                 }
                 
                 // Close on escape key
@@ -1262,29 +1300,49 @@ document.addEventListener('DOMContentLoaded', function() {
                         this.closeMenu();
                     }
                 });
+                this._directBound = true;
+            }
+
+            // Delegated event listeners as a fallback for dynamic DOM or refresh edge cases
+            if (!this._directBound && !this._delegatedBound) {
+                this._delegatedHandler = (e) => {
+                    if (!e.isTrusted) return; // only user interactions
+                    if (e.target.closest && e.target.closest('.mobile-toggle')) {
+                        // click should only open/close, don't propagate to avoid double triggers
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.toggleMenu();
+                        return;
+                    }
+                    if (e.target.closest && e.target.closest('.mobile-close')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.closeMenu();
+                        return;
+                    }
+                    // Close when clicking outside the menu while it is open
+                    if (this.menu && this.menu.classList.contains('active')) {
+                        const clickedInsideMenu = e.target.closest && e.target.closest('.mobile-menu');
+                        const clickedToggle = e.target.closest && e.target.closest('.mobile-toggle');
+                        const clickedClose = e.target.closest && e.target.closest('.mobile-close');
+                        if (!clickedInsideMenu && !clickedToggle && !clickedClose) {
+                            this.closeMenu();
+                            return;
+                        }
+                    }
+                };
+                document.addEventListener('click', this._delegatedHandler, true);
+                this._delegatedBound = true;
             }
         }
         
         toggleMenu() {
+            if (!this.menu || !this.toggle || !this.overlay) return;
             const isActive = this.menu.classList.contains('active');
-            
-            this.toggle.classList.toggle('active');
-            this.menu.classList.toggle('active');
-            this.overlay.classList.toggle('active');
-            
-            // Update ARIA attributes
-            this.toggle.setAttribute('aria-expanded', !isActive);
-            this.menu.setAttribute('aria-hidden', isActive);
-            
-            // Lock body scroll - Géré par hamburger-menu-fix.js
-            // document.body.style.overflow = !isActive ? 'hidden' : '';
-            
-            // Focus management
             if (!isActive) {
-                setTimeout(() => {
-                    const firstLink = this.menu.querySelector('.mobile-nav-link, .mobile-dropdown-trigger');
-                    firstLink?.focus();
-                }, 300);
+                this.openMenu();
+            } else {
+                this.closeMenu();
             }
         }
         
@@ -1292,12 +1350,33 @@ document.addEventListener('DOMContentLoaded', function() {
             this.toggle.classList.remove('active');
             this.menu.classList.remove('active');
             this.overlay.classList.remove('active');
+            // Clear any inline overrides
+            if (this.menu && this.menu.style) {
+                this.menu.style.left = '';
+            }
             
             this.toggle.setAttribute('aria-expanded', 'false');
             this.menu.setAttribute('aria-hidden', 'true');
             
-            // document.body.style.overflow = ''; // Géré par hamburger-menu-fix.js
+            // Always unlock scroll on close
+            this.unlockScroll();
             this.toggle.focus();
+        }
+        
+        openMenu() {
+            this.toggle.classList.add('active');
+            this.menu.classList.add('active');
+            this.overlay.classList.add('active');
+            this.toggle.setAttribute('aria-expanded', 'true');
+            this.menu.setAttribute('aria-hidden', 'false');
+            // Fallback inline style to ensure visibility even if CSS is overridden
+            this.menu.style.left = '0';
+            // Lock scroll and set focus to first item
+            this.lockScroll();
+            setTimeout(() => {
+                const firstLink = this.menu.querySelector('.mobile-nav-link, .mobile-dropdown-trigger');
+                if (firstLink && firstLink.focus) firstLink.focus();
+            }, 200);
         }
         
         setupDropdowns() {
@@ -1391,6 +1470,107 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                 });
+            }
+        }
+
+        // Ensure menu and overlay are top-level (escape any ancestor stacking contexts)
+        ensureInBody() {
+            if (this.menu && this.menu.parentNode !== document.body) {
+                document.body.appendChild(this.menu);
+            }
+            if (this.overlay && this.overlay.parentNode !== document.body) {
+                document.body.appendChild(this.overlay);
+            }
+        }
+
+        reinitialize() {
+            // Requery elements in case DOM changed
+            this.toggle = document.querySelector('.mobile-toggle');
+            this.menu = document.querySelector('.mobile-menu');
+            this.overlay = document.querySelector('.mobile-overlay');
+            this.closeBtn = document.querySelector('.mobile-close');
+            // Ensure correct DOM placement
+            this.ensureInBody();
+            // Close menu if somehow persisted as open
+            this.forceClosedState();
+        }
+
+        forceClosedState() {
+            if (this.menu) {
+                this.menu.classList.remove('active');
+                if (this.menu.style) this.menu.style.left = '';
+                this.menu.setAttribute('aria-hidden', 'true');
+            }
+            if (this.overlay) {
+                this.overlay.classList.remove('active');
+            }
+            if (this.toggle) {
+                this.toggle.classList.remove('active');
+                this.toggle.setAttribute('aria-expanded', 'false');
+            }
+            // Clear any scroll locks/styles
+            document.documentElement.classList.remove('is-locked');
+            document.body.classList.remove('is-locked');
+            if (document.body.style.position === 'fixed') {
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.left = '';
+                document.body.style.right = '';
+                document.body.style.width = '';
+            }
+        }
+
+        // Robust scroll lock for mobile (supports iOS)
+        lockScroll() {
+            if (this._locked) return;
+            this._locked = true;
+            this._scrollY = window.scrollY || window.pageYOffset || 0;
+            document.documentElement.classList.add('is-locked');
+            document.body.classList.add('is-locked');
+            // iOS-friendly: fix body to prevent background scroll
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${this._scrollY}px`;
+            document.body.style.left = '0';
+            document.body.style.right = '0';
+            document.body.style.width = '100%';
+            // Prevent scroll chaining to body/html when menu is open
+            this._preventScroll = (e) => {
+                if (!this.menu || !this.menu.classList.contains('active')) return;
+                const insideMenu = e.target && e.target.closest && e.target.closest('.mobile-menu');
+                if (!insideMenu) {
+                    e.preventDefault();
+                }
+            };
+            try {
+                document.addEventListener('wheel', this._preventScroll, { passive: false });
+                document.addEventListener('touchmove', this._preventScroll, { passive: false });
+            } catch (_) {
+                document.addEventListener('wheel', this._preventScroll);
+                document.addEventListener('touchmove', this._preventScroll);
+            }
+        }
+
+        unlockScroll() {
+            if (!this._locked) return;
+            this._locked = false;
+            document.documentElement.classList.remove('is-locked');
+            document.body.classList.remove('is-locked');
+            const top = parseInt(document.body.style.top || '0', 10) || 0;
+            // Clear styles
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.left = '';
+            document.body.style.right = '';
+            document.body.style.width = '';
+            // Restore scroll position
+            window.scrollTo(0, Math.abs(top));
+            // Remove scroll prevention listeners
+            if (this._preventScroll) {
+                document.removeEventListener('wheel', this._preventScroll, { passive: false });
+                document.removeEventListener('touchmove', this._preventScroll, { passive: false });
+                document.removeEventListener('wheel', this._preventScroll);
+                document.removeEventListener('touchmove', this._preventScroll);
+                this._preventScroll = null;
             }
         }
     }

@@ -856,6 +856,47 @@ function initMobileScrollUpButton() {
         <link rel="stylesheet" href="{{ asset('css/hero-titles-mobile.css') }}">
         <link rel="stylesheet" href="{{ asset('css/enhanced-mobile-cards.css') }}">
 
+<!-- Mobile Menu Z-Index Override: ensure it overlays everything -->
+<style>
+/* Force mobile menu and overlay above any UI (scrollUp, modals, etc.) */
+.mobile-menu {
+    z-index: 2147483648 !important; /* Above any existing UI including #scrollUp */
+    position: fixed !important; /* Escape any ancestor positioning */
+    pointer-events: auto !important; /* Menu remains interactive */
+    height: 100vh !important; /* Its own scroll context */
+    overflow-y: auto !important; /* Scroll inside menu */
+}
+.mobile-menu.active { left: 0 !important; }
+.mobile-overlay {
+    z-index: 2147483647 !important; /* Below menu, above page */
+    position: fixed !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none !important; /* Default non-blocking */
+    background: transparent !important; /* No shade until active */
+}
+.mobile-overlay.active {
+    pointer-events: none !important; /* keep non-blocking even when active */
+    background: transparent !important; /* Fully transparent when active */
+}
+
+/* Lower z-index of scroll-to-top buttons so overlay/menu stay on top */
+#mobileScrollUp {
+    z-index: 2147483645 !important;
+}
+#scrollUp {
+    z-index: 2147483645 !important;
+}
+</style>
+
+<!-- Scroll lock styles for mobile menu -->
+<style>
+/* Prevent background scroll when menu is open */
+.is-locked {
+    overflow: hidden !important;
+    touch-action: none !important;
+}
+</style>
+
 <!-- Mobile Menu Width Override - SENIOR LEVEL NUCLEAR OPTION -->
 <style>
 /* Make the ACTUAL mobile menu responsive */

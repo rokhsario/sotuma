@@ -2,6 +2,10 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Cache;
+use App\Models\Product;
+use App\Models\Category;
+
 class SeoService
 {
     private $siteName = 'SOTUMA';
@@ -127,7 +131,7 @@ class SeoService
         return [
             'title' => 'À Propos de SOTUMA - Expertise Menuiserie Aluminium Sfax',
             'description' => 'Découvrez l\'histoire de SOTUMA, entreprise leader en menuiserie aluminium à Sfax. 20+ ans d\'expertise, innovation et qualité au service de vos projets.',
-            'keywords' => 'sotuma histoire, entreprise aluminium sfax, expertise menuiserie, qualité sotuma, innovation aluminium',
+            'keywords' => $this->getKeywordsString(),
             'og_title' => 'À Propos de SOTUMA',
             'og_description' => 'Leader en menuiserie aluminium à Sfax depuis plus de 20 ans',
             'canonical' => $this->siteUrl . '/about'
@@ -139,7 +143,7 @@ class SeoService
         return [
             'title' => 'Contact SOTUMA Sfax - Devis Gratuit Menuiserie Aluminium',
             'description' => 'Contactez SOTUMA à Sfax pour vos projets de menuiserie aluminium. Devis gratuit, conseils experts et installation professionnelle. Adresse, téléphone, email.',
-            'keywords' => 'contact sotuma, devis gratuit aluminium, adresse sotuma sfax, téléphone sotuma, email sotuma',
+            'keywords' => $this->getKeywordsString(),
             'og_title' => 'Contact SOTUMA',
             'og_description' => 'Contactez-nous pour vos projets de menuiserie aluminium',
             'canonical' => $this->siteUrl . '/contact'
@@ -151,7 +155,7 @@ class SeoService
         return [
             'title' => 'Produits SOTUMA - Menuiserie Aluminium, Volets, Climatisation Sfax',
             'description' => 'Découvrez notre gamme complète de produits : menuiserie aluminium, volets roulants, portes, fenêtres, climatisation et chauffage. Qualité et innovation garanties.',
-            'keywords' => 'produits sotuma, gamme aluminium, catalogue menuiserie, volets roulants, climatisation, chauffage',
+            'keywords' => $this->getKeywordsString(),
             'og_title' => 'Produits SOTUMA',
             'og_description' => 'Gamme complète de menuiserie aluminium et climatisation',
             'canonical' => $this->siteUrl . '/products'
@@ -163,7 +167,7 @@ class SeoService
         return [
             'title' => 'Catégories Produits SOTUMA - Menuiserie Aluminium Sfax',
             'description' => 'Explorez nos catégories de produits : portes aluminium, fenêtres, volets roulants, climatisation, chauffage. Solutions sur mesure pour votre habitat.',
-            'keywords' => 'catégories produits, portes aluminium, fenêtres aluminium, volets roulants, climatisation sfax',
+            'keywords' => $this->getKeywordsString(),
             'og_title' => 'Catégories Produits',
             'og_description' => 'Découvrez nos catégories de produits aluminium',
             'canonical' => $this->siteUrl . '/categories'
@@ -175,7 +179,7 @@ class SeoService
         return [
             'title' => 'Nos Projets SOTUMA - Réalisations Menuiserie Aluminium Sfax',
             'description' => 'Découvrez nos réalisations et projets de menuiserie aluminium à Sfax. Galerie photos de nos travaux : résidentiel, commercial, industriel.',
-            'keywords' => 'projets sotuma, réalisations aluminium, galerie photos, travaux résidentiel, commercial, industriel',
+            'keywords' => $this->getKeywordsString(),
             'og_title' => 'Nos Projets',
             'og_description' => 'Découvrez nos réalisations en menuiserie aluminium',
             'canonical' => $this->siteUrl . '/project-categories'
@@ -187,7 +191,7 @@ class SeoService
         return [
             'title' => 'Blog SOTUMA - Actualités Menuiserie Aluminium Sfax',
             'description' => 'Restez informé des dernières tendances en menuiserie aluminium, conseils d\'entretien et actualités SOTUMA. Articles experts et guides pratiques.',
-            'keywords' => 'blog sotuma, actualités aluminium, conseils menuiserie, entretien volets, tendances',
+            'keywords' => $this->getKeywordsString(),
             'og_title' => 'Blog SOTUMA',
             'og_description' => 'Actualités et conseils en menuiserie aluminium',
             'canonical' => $this->siteUrl . '/blog'
@@ -199,7 +203,7 @@ class SeoService
         return [
             'title' => 'Certifications SOTUMA - Qualité et Normes Menuiserie Aluminium',
             'description' => 'Découvrez les certifications et normes qualité de SOTUMA. Garanties, labels et attestations de nos produits et services.',
-            'keywords' => 'certifications sotuma, normes qualité, garanties aluminium, labels, attestations',
+            'keywords' => $this->getKeywordsString(),
             'og_title' => 'Certifications SOTUMA',
             'og_description' => 'Nos certifications et normes qualité',
             'canonical' => $this->siteUrl . '/certificates'
@@ -214,7 +218,7 @@ class SeoService
         return [
             'title' => $product->title . ' - SOTUMA Sfax | Menuiserie Aluminium',
             'description' => 'Découvrez ' . $product->title . ' chez SOTUMA. Qualité premium, installation professionnelle et garantie. Devis gratuit à Sfax.',
-            'keywords' => strtolower($product->title) . ', sotuma, aluminium sfax, menuiserie, devis gratuit',
+            'keywords' => $this->getKeywordsString([strtolower($product->title)]),
             'og_title' => $product->title . ' - SOTUMA',
             'og_description' => 'Découvrez ce produit de qualité chez SOTUMA',
             'canonical' => $this->siteUrl . '/product/' . $product->slug
@@ -229,7 +233,7 @@ class SeoService
         return [
             'title' => $project->title . ' - Projet SOTUMA | Menuiserie Aluminium Sfax',
             'description' => 'Découvrez le projet ' . $project->title . ' réalisé par SOTUMA. Expertise en menuiserie aluminium à Sfax.',
-            'keywords' => strtolower($project->title) . ', projet sotuma, réalisation aluminium, sfax',
+            'keywords' => $this->getKeywordsString([strtolower($project->title)]),
             'og_title' => $project->title . ' - Projet SOTUMA',
             'og_description' => 'Découvrez cette réalisation SOTUMA',
             'canonical' => $this->siteUrl . '/projet/' . $project->slug
@@ -244,7 +248,7 @@ class SeoService
         return [
             'title' => $category->title . ' - SOTUMA Sfax | Menuiserie Aluminium',
             'description' => 'Découvrez notre gamme ' . $category->title . ' chez SOTUMA. Qualité premium et installation professionnelle à Sfax.',
-            'keywords' => strtolower($category->title) . ', sotuma, aluminium sfax, menuiserie, devis gratuit',
+            'keywords' => $this->getKeywordsString([strtolower($category->title)]),
             'og_title' => $category->title . ' - SOTUMA',
             'og_description' => 'Découvrez cette catégorie de produits SOTUMA',
             'canonical' => $this->siteUrl . '/categories/' . $category->slug
@@ -259,7 +263,7 @@ class SeoService
         return [
             'title' => $category->title . ' - Projets SOTUMA | Menuiserie Aluminium Sfax',
             'description' => 'Découvrez nos projets ' . $category->title . ' réalisés par SOTUMA. Expertise en menuiserie aluminium à Sfax.',
-            'keywords' => strtolower($category->title) . ', projets sotuma, réalisations aluminium, sfax',
+            'keywords' => $this->getKeywordsString([strtolower($category->title)]),
             'og_title' => $category->title . ' - Projets SOTUMA',
             'og_description' => 'Découvrez nos projets dans cette catégorie',
             'canonical' => $this->siteUrl . '/categories-projets/' . $category->slug
@@ -276,9 +280,55 @@ class SeoService
         ];
     }
     
-    private function getKeywordsString()
+    private function getKeywordsString(array $extra = [])
     {
-        return implode(', ', $this->keywords);
+        $dynamic = $this->getDynamicKeywords();
+        // Priority keywords always first
+        $priority = [
+            'sotuma', 'sotuma sfax', 'aluminium', 'aluminium sfax',
+            'sotuma aluminium', 'sotuma aluminium sfax'
+        ];
+        $all = array_merge($priority, $this->keywords, $dynamic, $extra);
+        // Normalize, dedupe, and trim
+        $all = array_filter(array_unique(array_map(function($k){
+            return trim(mb_strtolower($k));
+        }, $all)));
+        // Cap to 200 max keywords
+        if (count($all) > 200) {
+            $all = array_slice($all, 0, 200);
+        }
+        return implode(', ', $all);
+    }
+
+    private function getDynamicKeywords(): array
+    {
+        return Cache::remember('seo.dynamic_keywords', 3600, function(){
+            $productTitles = [];
+            $categoryTitles = [];
+            try {
+                if (class_exists(Product::class)) {
+                    $productTitles = Product::query()->whereNotNull('title')->limit(500)->pluck('title')->all();
+                }
+                if (class_exists(Category::class)) {
+                    $categoryTitles = Category::query()->whereNotNull('title')->limit(500)->pluck('title')->all();
+                }
+            } catch (\Throwable $e) {
+                // On failure (e.g., during install), return base only
+                return [];
+            }
+
+            $keywords = [];
+            foreach (array_merge($productTitles, $categoryTitles) as $title) {
+                $t = trim(mb_strtolower($title));
+                if ($t === '') continue;
+                $keywords[] = $t;                 // product/category name
+                $keywords[] = 'sotuma ' . $t;     // brand + name
+                $keywords[] = $t . ' sfax';       // geo + name
+                $keywords[] = 'aluminium ' . $t;  // material + name
+            }
+
+            return array_values(array_unique($keywords));
+        });
     }
     
     public function getStructuredData($page = 'home', $data = [])

@@ -24,7 +24,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 @endphp
 
 <meta name="description" content="{{ $seoData['description'] ?? 'SOTUMA - Leader en menuiserie aluminium à Sfax, Tunisie' }}">
-<meta name="keywords" content="{{ $seoData['keywords'] ?? 'aluminium, sotuma, menuiserie, volets roulants, sfax, tunisie' }}">
+<meta name="keywords" content="{{ $seoData['keywords'] ?? 'sotuma, sotuma sfax, aluminium, menuiserie aluminium, volets roulants, portes aluminium, fenêtres aluminium, pergola, brise soleil, moustiquaire, porte de garage, domotique, climatisation, chauffage, sfax, tunisie' }}">
 <meta name="author" content="SOTUMA">
 <meta name="robots" content="index, follow">
 <meta name="language" content="fr">

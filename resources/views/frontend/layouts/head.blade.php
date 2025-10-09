@@ -137,6 +137,77 @@ document.addEventListener('DOMContentLoaded', function() {
     .preloader { display: none !important; }
 }
 </style>
+
+<script>
+// MobileScrollGuardian: robust scroll unlock for mobile
+(function() {
+    'use strict';
+
+    function isMobile() {
+        return window.matchMedia('(max-width: 1024px)').matches || 'ontouchstart' in window;
+    }
+
+    function hasBlockingOverlay() {
+        return !!document.querySelector(
+            '.mobile-menu.active, .mobile-overlay.active, .nav-menu.active, .navbar-collapse.show, .offcanvas.show, .modal.show, body.modal-open, .popup.show, .lightbox.open, .fancybox-is-open, .swal2-shown'
+        );
+    }
+
+    function applyTouchHints() {
+        if (!isMobile()) return;
+        document.documentElement.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
+        document.documentElement.style.setProperty('overscroll-behavior-y', 'auto', 'important');
+        document.documentElement.style.setProperty('touch-action', 'pan-y', 'important');
+        document.body.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
+        document.body.style.setProperty('overscroll-behavior-y', 'auto', 'important');
+        document.body.style.setProperty('touch-action', 'pan-y', 'important');
+    }
+
+    function unlockScrollIfSafe() {
+        if (!isMobile()) return;
+        if (!hasBlockingOverlay()) {
+            // Clear overflow locks
+            if (getComputedStyle(document.body).overflow === 'hidden' || document.body.style.overflow === 'hidden') {
+                document.body.style.overflow = '';
+            }
+            if (getComputedStyle(document.documentElement).overflow === 'hidden' || document.documentElement.style.overflow === 'hidden') {
+                document.documentElement.style.overflow = '';
+            }
+            // Clear modal body lock if no modal is shown
+            if (document.body.classList.contains('modal-open')) {
+                document.body.classList.remove('modal-open');
+            }
+            // Defensive: if body was fixed by a script, release it
+            if (getComputedStyle(document.body).position === 'fixed') {
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+            }
+        }
+    }
+
+    function observeChanges() {
+        var observer = new MutationObserver(unlockScrollIfSafe);
+        observer.observe(document.body, { attributes: true, attributeFilter: ['style','class'] });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['style','class'] });
+        ['.mobile-menu', '.mobile-overlay', '.nav-menu', '.navbar-collapse', '.offcanvas', '.modal', '.popup']
+            .forEach(function(sel) {
+                var el = document.querySelector(sel);
+                if (el) observer.observe(el, { attributes: true, attributeFilter: ['style','class'] });
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        applyTouchHints();
+        unlockScrollIfSafe();
+        observeChanges();
+        setInterval(unlockScrollIfSafe, 800);
+    });
+
+    ['resize','orientationchange','pageshow','visibilitychange','click','touchstart','touchend','keyup','focusin']
+        .forEach(function(evt){ window.addEventListener(evt, unlockScrollIfSafe, { passive: true }); });
+})();
+</script>
 <!-- Bootstrap -->
 <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.css')}}">
 <!-- Bootstrap Icons -->

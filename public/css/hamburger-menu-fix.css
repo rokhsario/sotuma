@@ -6,8 +6,13 @@ Version: 1.0 - Production Ready
 
 /* ===== CORRECTION DU MENU HAMBURGER ===== */
 
-/* 1. Correction du bouton hamburger */
-.mobile-toggle {
+/* 1. Correction du bouton hamburger - Tous les sélecteurs possibles */
+.mobile-toggle,
+.mobile-menu-toggle,
+.hamburger,
+.mobile-nav-toggle,
+button[aria-label*="Toggle"],
+button[aria-label*="menu"] {
     position: relative !important;
     z-index: 10001 !important;
     display: flex !important;
@@ -24,12 +29,22 @@ Version: 1.0 - Production Ready
     transition: all 0.3s ease !important;
 }
 
-.mobile-toggle:hover {
+.mobile-toggle:hover,
+.mobile-menu-toggle:hover,
+.hamburger:hover,
+.mobile-nav-toggle:hover,
+button[aria-label*="Toggle"]:hover,
+button[aria-label*="menu"]:hover {
     background: rgba(255, 0, 0, 0.1) !important;
     transform: translateY(-1px) !important;
 }
 
-.mobile-toggle.active {
+.mobile-toggle.active,
+.mobile-menu-toggle.active,
+.hamburger.active,
+.mobile-nav-toggle.active,
+button[aria-label*="Toggle"].active,
+button[aria-label*="menu"].active {
     background: rgba(255, 0, 0, 0.15) !important;
     transform: scale(0.95) !important;
 }

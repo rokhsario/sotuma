@@ -15,12 +15,53 @@
         initHamburgerMenuFix();
     });
 
+    // Fonction utilitaire pour trouver un élément avec plusieurs sélecteurs
+    function findElement(selectors) {
+        for (let selector of selectors) {
+            const element = document.querySelector(selector);
+            if (element) {
+                console.log(`Élément trouvé avec le sélecteur: ${selector}`);
+                return element;
+            }
+        }
+        return null;
+    }
+
     function initHamburgerMenuFix() {
-        // Sélectionner les éléments du menu hamburger
-        const mobileToggle = document.querySelector('.mobile-toggle');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const mobileOverlay = document.querySelector('.mobile-overlay');
-        const mobileClose = document.querySelector('.mobile-close');
+        // Sélectionner les éléments du menu hamburger avec tous les sélecteurs possibles
+        const mobileToggle = findElement([
+            '.mobile-toggle',
+            '.mobile-menu-toggle',
+            '.hamburger',
+            '.mobile-nav-toggle',
+            'button[aria-label*="Toggle"]',
+            'button[aria-label*="menu"]',
+            'button[class*="toggle"]',
+            'button[class*="hamburger"]',
+            'button[class*="mobile"]'
+        ]);
+        
+        const mobileMenu = findElement([
+            '.mobile-menu',
+            '.mobile-nav-menu',
+            '.mobile-sidebar',
+            '[class*="mobile-menu"]',
+            '[class*="mobile-nav"]'
+        ]);
+        
+        const mobileOverlay = findElement([
+            '.mobile-overlay',
+            '.mobile-nav-overlay',
+            '.overlay',
+            '[class*="overlay"]'
+        ]);
+        
+        const mobileClose = findElement([
+            '.mobile-close',
+            '.mobile-nav-close',
+            '.close',
+            '[class*="close"]'
+        ]);
 
         // Vérifier que les éléments existent
         if (!mobileToggle || !mobileMenu || !mobileOverlay) {

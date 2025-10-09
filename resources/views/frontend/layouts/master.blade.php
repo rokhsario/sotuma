@@ -461,6 +461,8 @@
 	@if(config('app.debug'))
 	<script src="{{ asset('js/test-mobile-scroll.js') }}"></script>
 	<script src="{{ asset('js/test-hamburger-menu.js') }}"></script>
+	<script src="{{ asset('js/hamburger-debug.js') }}"></script>
+	<script src="{{ asset('js/hamburger-emergency-fix.js') }}"></script>
 	@endif
 	
 	<script src="{{ asset('js/frontend-mobile-enhancements.js') }}"></script>

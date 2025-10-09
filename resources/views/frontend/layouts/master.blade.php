@@ -453,9 +453,14 @@
 	<link rel="stylesheet" href="{{ asset('css/mobile-scroll-fix.css') }}">
 	<script src="{{ asset('js/mobile-scroll-fix.js') }}"></script>
 	
+	<!-- Hamburger Menu Fix -->
+	<link rel="stylesheet" href="{{ asset('css/hamburger-menu-fix.css') }}">
+	<script src="{{ asset('js/hamburger-menu-fix.js') }}"></script>
+	
 	<!-- Mobile Scroll Test (à supprimer en production) -->
 	@if(config('app.debug'))
 	<script src="{{ asset('js/test-mobile-scroll.js') }}"></script>
+	<script src="{{ asset('js/test-hamburger-menu.js') }}"></script>
 	@endif
 	
 	<script src="{{ asset('js/frontend-mobile-enhancements.js') }}"></script>

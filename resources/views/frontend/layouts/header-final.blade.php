@@ -1276,8 +1276,8 @@ document.addEventListener('DOMContentLoaded', function() {
             this.toggle.setAttribute('aria-expanded', !isActive);
             this.menu.setAttribute('aria-hidden', isActive);
             
-            // Lock body scroll
-            document.body.style.overflow = !isActive ? 'hidden' : '';
+            // Lock body scroll - Géré par hamburger-menu-fix.js
+            // document.body.style.overflow = !isActive ? 'hidden' : '';
             
             // Focus management
             if (!isActive) {
@@ -1296,7 +1296,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.toggle.setAttribute('aria-expanded', 'false');
             this.menu.setAttribute('aria-hidden', 'true');
             
-            document.body.style.overflow = '';
+            // document.body.style.overflow = ''; // Géré par hamburger-menu-fix.js
             this.toggle.focus();
         }
         

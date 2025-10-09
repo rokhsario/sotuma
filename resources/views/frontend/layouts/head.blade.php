@@ -97,11 +97,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}?v=1">
 <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon-new.ico') }}?v=1">
+<script>
+// Mobile scroll unlock failsafe: ensure body/html aren't stuck with overflow:hidden when no overlay is active
+document.addEventListener('DOMContentLoaded', function() {
+    function hasBlockingOverlay() {
+        return document.querySelector('.mobile-menu.active, .mobile-overlay.active, .nav-menu.active, .modal.show, body.modal-open, .popup.show');
+    }
+    function unlockScrollIfNeeded() {
+        if (window.innerWidth <= 1024 && !hasBlockingOverlay()) {
+            if (document.body.style.overflow === 'hidden' || getComputedStyle(document.body).overflow === 'hidden') {
+                document.body.style.overflow = '';
+            }
+            if (document.documentElement.style.overflow === 'hidden' || getComputedStyle(document.documentElement).overflow === 'hidden') {
+                document.documentElement.style.overflow = '';
+            }
+        }
+    }
+    unlockScrollIfNeeded();
+    window.addEventListener('resize', unlockScrollIfNeeded, { passive: true });
+    window.addEventListener('orientationchange', unlockScrollIfNeeded);
+    window.addEventListener('pageshow', unlockScrollIfNeeded);
+    document.addEventListener('click', unlockScrollIfNeeded, true);
+});
+</script>
 <!-- Web Font -->
 <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 
 <!-- StyleSheet -->
 <link rel="manifest" href="/manifest.json">
+<style>
+/* Ensure mobile scrolling is always enabled when no overlay/menu is open */
+@media (max-width: 1024px) {
+    html, body { 
+        overflow-y: auto !important; 
+        -webkit-overflow-scrolling: touch !important;
+        overscroll-behavior-y: auto !important;
+    }
+    /* Defensive: hide any preloader on mobile */
+    .preloader { display: none !important; }
+}
+</style>
 <!-- Bootstrap -->
 <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.css')}}">
 <!-- Bootstrap Icons -->

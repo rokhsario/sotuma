@@ -613,6 +613,9 @@
     border-bottom: 1px solid rgba(210, 180, 140, 0.2);
 }
 
+/* Remove the first decorative line in the hamburger (header separator) */
+.mobile-menu-header { border-bottom: none !important; }
+
 .mobile-menu-logo {
     height: 50px;
     width: auto;
@@ -623,7 +626,7 @@
 .mobile-menu-header { position: relative; }
 .mobile-menu .mobile-menu-logo {
     position: absolute !important;
-    top: 16px !important; /* move slightly down */
+    top: 8px !important; /* moved a bit up */
     left: 16px !important;
     height: 56px !important; /* 2x bigger */
     width: auto !important;
@@ -1038,13 +1041,13 @@
 }
 
 .mobile-login-primary {
-    background: linear-gradient(135deg, #D2B48C 0%, #bc8f8f 100%);
+    background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
     color: white !important;
     border: none;
 }
 
 .mobile-login-primary:hover {
-    background: linear-gradient(135deg, #bc8f8f 0%, #a67c76 100%);
+    background: linear-gradient(135deg, #CC0000 0%, #990000 100%);
     color: white !important;
 }
 
@@ -1548,6 +1551,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.addEventListener('wheel', this._preventScroll);
                 document.addEventListener('touchmove', this._preventScroll);
             }
+            // iOS overscroll containment
+            document.documentElement.style.overscrollBehaviorY = 'contain';
+            document.body.style.overscrollBehaviorY = 'contain';
+            // Ensure menu scrolls independently
+            if (this.menu) {
+                this.menu.style.webkitOverflowScrolling = 'touch';
+                this.menu.style.overflowY = 'auto';
+                this.menu.style.touchAction = 'pan-y';
+                this._stopPropHandler = function(ev){ ev.stopPropagation(); };
+                this.menu.addEventListener('touchmove', this._stopPropHandler, { passive: false });
+            }
         }
 
         unlockScroll() {
@@ -1571,6 +1585,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.removeEventListener('wheel', this._preventScroll);
                 document.removeEventListener('touchmove', this._preventScroll);
                 this._preventScroll = null;
+            }
+            // Reset overscroll behavior
+            document.documentElement.style.overscrollBehaviorY = '';
+            document.body.style.overscrollBehaviorY = '';
+            if (this.menu && this._stopPropHandler) {
+                this.menu.removeEventListener('touchmove', this._stopPropHandler, { passive: false });
+                this._stopPropHandler = null;
             }
         }
     }

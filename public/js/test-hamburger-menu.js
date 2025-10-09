@@ -8,10 +8,13 @@
 
     // Attendre que le DOM soit prêt
     document.addEventListener('DOMContentLoaded', function() {
+    // Ne pas auto-exécuter sauf si activé explicitement
+    if (window.__SOTUMA_TEST__ === true) {
         // Test du menu hamburger après 2 secondes
         setTimeout(function() {
             testHamburgerMenu();
         }, 2000);
+    }
     });
 
     function testHamburgerMenu() {

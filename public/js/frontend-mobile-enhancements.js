@@ -585,12 +585,9 @@ Version: 1.0 - Production Ready
             }, 250);
         });
         
-        // Run mobile force every 100ms for first 2 seconds to catch any late-loading content
-        let forceInterval = setInterval(() => {
-            immediateMobileForce();
-            forceHideIndexPageSections();
-        }, 100);
-        setTimeout(() => clearInterval(forceInterval), 2000);
+    // Run a couple of times early instead of continuous polling to avoid reflow/flicker
+    setTimeout(() => { immediateMobileForce(); forceHideIndexPageSections(); }, 100);
+    setTimeout(() => { forceMobileResponsive(); forceHideIndexPageSections(); }, 600);
         
         console.log('SOTUMA Mobile Enhancements initialized');
     }

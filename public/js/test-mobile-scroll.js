@@ -8,10 +8,13 @@
 
     // Attendre que le DOM soit prêt
     document.addEventListener('DOMContentLoaded', function() {
+    // Ne pas auto-exécuter sauf si activé explicitement
+    if (window.__SOTUMA_TEST__ === true) {
         // Test du scroll après 2 secondes
         setTimeout(function() {
             testMobileScroll();
         }, 2000);
+    }
     });
 
     function testMobileScroll() {

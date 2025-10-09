@@ -136,6 +136,8 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Defensive: hide any preloader on mobile */
     .preloader { display: none !important; }
 }
+/* Reduce layout shifts on load */
+html { overflow-anchor: none; }
 </style>
 
 <script>
@@ -201,7 +203,10 @@ document.addEventListener('DOMContentLoaded', function() {
         applyTouchHints();
         unlockScrollIfSafe();
         observeChanges();
-        setInterval(unlockScrollIfSafe, 800);
+        // Run a few times during early load instead of continuous polling to avoid jumps
+        setTimeout(unlockScrollIfSafe, 50);
+        setTimeout(unlockScrollIfSafe, 300);
+        setTimeout(unlockScrollIfSafe, 1000);
     });
 
     ['resize','orientationchange','pageshow','visibilitychange','click','touchstart','touchend','keyup','focusin']

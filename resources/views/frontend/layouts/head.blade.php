@@ -1,6 +1,7 @@
 <!-- Meta Tag -->
 @yield('meta')
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="google-site-verification" content="D-tLf2QDAwUc5wzqUIsVJ3Eun3MZFpHTTGKx87YmPTg">
 <!-- iOS/Safari mobile enhancements -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">

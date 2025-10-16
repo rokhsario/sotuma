@@ -68,7 +68,12 @@ Ensures edge-to-edge images with centered titles
                     grid.style.setProperty('width', '100%', 'important');
                     grid.style.setProperty('max-width', '100%', 'important');
                     grid.style.setProperty('margin', '0', 'important');
-                    grid.style.setProperty('padding', '0', 'important');
+                    // Keep 5px side padding on project category show page
+                    if (grid.matches('.project-categories-show-page .projects-grid')) {
+                        grid.style.setProperty('padding', '0 5px', 'important');
+                    } else {
+                        grid.style.setProperty('padding', '0', 'important');
+                    }
                     grid.style.setProperty('overflow', 'visible', 'important');
                     grid.style.removeProperty('grid-template-columns');
                     grid.style.removeProperty('grid-template-rows');
@@ -93,7 +98,12 @@ Ensures edge-to-edge images with centered titles
                     container.style.setProperty('width', '100%', 'important');
                     container.style.setProperty('max-width', '100%', 'important');
                     container.style.setProperty('margin', '0', 'important');
-                    container.style.setProperty('padding', '0', 'important');
+                    // Keep 5px side padding on project category show page
+                    if (container.matches('.project-categories-show-page .projects-container')) {
+                        container.style.setProperty('padding', '0 5px', 'important');
+                    } else {
+                        container.style.setProperty('padding', '0', 'important');
+                    }
                     container.style.setProperty('overflow', 'visible', 'important');
                 }
             });
@@ -230,10 +240,18 @@ Ensures edge-to-edge images with centered titles
                     card.style.setProperty('transform', 'none', 'important');
                     card.style.setProperty('transition', 'none', 'important');
                     
-                    // Remove any hover effects from child elements
+                    // Remove any hover effects from child elements,
+                    // but DO NOT override transforms on images we intentionally scale
                     const childElements = card.querySelectorAll('*');
                     childElements.forEach(child => {
-                        child.style.setProperty('transform', 'none', 'important');
+                        const isScaledImage = child.classList && (
+                            child.classList.contains('product-image') ||
+                            child.classList.contains('project-image') ||
+                            child.classList.contains('category-image')
+                        );
+                        if (!isScaledImage) {
+                            child.style.setProperty('transform', 'none', 'important');
+                        }
                         child.style.setProperty('transition', 'none', 'important');
                         child.style.setProperty('box-shadow', 'none', 'important');
                     });

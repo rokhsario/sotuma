@@ -126,7 +126,7 @@ return [
     'terms_of_service' => 'Terms of Service',
     'privacy_policy' => 'Privacy Policy',
     'view_all_services' => 'View All Our Services',
-    'discover_realizations' => 'Discover our realizations by category',
+    'discover_realizations' => 'Discover Our Realizations By Category',
     'project_categories' => 'Project Categories',
     'ready_start_project' => 'Ready to start your project?',
     'expert_team_ready' => 'Our expert team is here to support you at every step',

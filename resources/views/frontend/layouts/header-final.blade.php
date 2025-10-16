@@ -434,7 +434,7 @@
     border-radius: 12px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    min-width: 140px;
+    min-width: 150px;
 }
 
 .lang-current:hover {

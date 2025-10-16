@@ -233,8 +233,8 @@
                                                                 }
                                                             $singleLine = (!$hasManual && $break === null && $break2 === null && mb_strlen($product->title) <= 22);
                                                             @endphp
-                                                            @if($product->has_details)
-                                                                <a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}" style="color: inherit; text-decoration: none; font-weight: inherit; display:block; width:100%; white-space: normal; text-align:center;">
+                                                            @if($product->slug)
+                                                                <a href="{{ route('product-detail',$product->slug) }}" style="color: inherit; text-decoration: none; font-weight: inherit; display:block; width:100%; white-space: normal; text-align:center;">
                                                                     @if($singleLine)
                                                                         {{ $product->title }}
                                                                     @else
@@ -255,7 +255,7 @@
                                                                 </span>
                                                             @endif
                                                         </h3>
-                                                        @if($product->has_details)
+                                                        @if($product->slug)
                                                         <div class="d-block d-md-none" style="margin-top:6px;">
                                                             <a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}" style="color:#FF0000; font-weight:700; font-size:0.9rem; text-transform:uppercase; letter-spacing:0.5px;">Voir Détails</a>
                                                         </div>

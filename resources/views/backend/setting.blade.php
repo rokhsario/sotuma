@@ -152,9 +152,33 @@
         </div>
         
         <div class="form-group">
+          <label for="email2" class="col-form-label">Email 2</label>
+          <input type="email" class="form-control" name="email2" value="{{$data->email2 ?? ''}}">
+          @error('email2')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+        
+        <div class="form-group">
+          <label for="email3" class="col-form-label">Email 3</label>
+          <input type="email" class="form-control" name="email3" value="{{$data->email3 ?? ''}}">
+          @error('email3')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+        
+        <div class="form-group">
           <label for="phone" class="col-form-label">Numéro de Téléphone <span class="text-danger">*</span></label>
           <input type="text" class="form-control" name="phone" required value="{{$data->phone}}">
           @error('phone')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+        
+        <div class="form-group">
+          <label for="phone2" class="col-form-label">Numéro de Téléphone 2</label>
+          <input type="text" class="form-control" name="phone2" value="{{$data->phone2 ?? ''}}">
+          @error('phone2')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>

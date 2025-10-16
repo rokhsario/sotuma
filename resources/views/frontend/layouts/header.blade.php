@@ -775,6 +775,16 @@ document.addEventListener('DOMContentLoaded', function() {
     left: 0;
 }
 
+/* Desktop: widen language switcher trigger and dropdown */
+@media (min-width: 992px) {
+    .custom-lang-dropdown .selected-lang {
+        min-width: clamp(150px, 12vw, 260px);
+    }
+    .custom-lang-dropdown .lang-options {
+        min-width: clamp(150px, 12vw, 260px);
+    }
+}
+
 /* Fullscreen Button Styles */
 .fullscreen-btn {
     background: #f8f9fa;

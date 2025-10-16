@@ -99,7 +99,7 @@
             }, { passive: true });
 
             // Correction pour les éléments avec overflow
-            const scrollableElements = document.querySelectorAll('.modal, .popup, .mobile-sidebar, .tiktok-feed-grid, .thumbnail-slider');
+            const scrollableElements = document.querySelectorAll('.modal, .popup, .mobile-sidebar, .tiktok-feed-grid:not([data-media-page="true"]), .thumbnail-slider');
             scrollableElements.forEach(element => {
                 element.style.webkitOverflowScrolling = 'touch';
                 element.style.overflowScrolling = 'touch';
@@ -255,13 +255,13 @@
     // ===== CORRECTION DES GRILLES ET LAYOUTS =====
     function fixGridsAndLayouts() {
         if (isMobile) {
-            const grids = document.querySelectorAll('.products-grid, .categories-grid, .project-info-container, .tiktok-feed-grid');
+            const grids = document.querySelectorAll('.products-grid, .categories-grid, .project-info-container, .tiktok-feed-grid:not([data-media-page="true"])');
             
             grids.forEach(grid => {
                 // S'assurer que les grilles ne bloquent pas le scroll
                 grid.style.position = 'relative';
                 grid.style.overflow = 'visible';
-                grid.style.display = 'block';
+                // Do not force display for media page grid
                 
                 // Correction des éléments enfants
                 const children = grid.querySelectorAll('*');

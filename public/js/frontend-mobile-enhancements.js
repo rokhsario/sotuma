@@ -284,7 +284,7 @@ Version: 1.0 - Production Ready
         const productsGrids = document.querySelectorAll('.products-grid:not(.projects-categories-grid):not(.offer-grid):not([class*="projects-categories"]):not([class*="offer-grid"]), .products-section .products-grid, .main-content .products-grid');
         const categoryGrids = document.querySelectorAll('.categories-grid:not(.projects-categories-grid):not(.offer-grid):not([class*="projects-categories"]):not([class*="offer-grid"]), .aluprof-category-grid:not(.projects-categories-grid):not(.offer-grid):not([class*="projects-categories"]):not([class*="offer-grid"]), .main-content .categories-grid');
         const projectGrids = document.querySelectorAll('.project-info-container:not(.projects-categories-grid):not(.offer-grid):not([class*="projects-categories"]):not([class*="offer-grid"]), .main-content .project-info-container');
-        const mediaGrids = document.querySelectorAll('.tiktok-feed-grid');
+        const mediaGrids = document.querySelectorAll('.tiktok-feed-grid:not([data-media-page="true"])');
         
         // Apply mobile responsive styles with maximum force
         if (isSmallMobileWidth) {
@@ -515,13 +515,13 @@ Version: 1.0 - Production Ready
             });
             
             // Handle media grids with single column layout for mobile/tablet
-            const mediaGrids = document.querySelectorAll('.tiktok-feed-grid');
+            const mediaGrids = document.querySelectorAll('.tiktok-feed-grid:not([data-media-page="true"])');
             mediaGrids.forEach(grid => {
                 if (grid) {
                     // Force single column layout for mobile/tablet
                     grid.style.setProperty('display', 'block', 'important');
                     grid.style.setProperty('grid-template-columns', 'none', 'important');
-                    grid.style.setProperty('gap', '0', 'important');
+                    // Skip gap/padding/margin/width overrides for media page
                     grid.style.setProperty('padding', '0', 'important');
                     grid.style.setProperty('margin', '0', 'important');
                     grid.style.setProperty('width', '100vw', 'important');
@@ -530,6 +530,7 @@ Version: 1.0 - Production Ready
                     // Set items to full width for single column
                     const items = grid.querySelectorAll('.tiktok-feed-item');
                     items.forEach(item => {
+                        // Skip item overrides for media page
                         item.style.setProperty('width', '100vw', 'important');
                         item.style.setProperty('max-width', '100vw', 'important');
                         item.style.setProperty('margin', '0', 'important');
@@ -560,11 +561,16 @@ Version: 1.0 - Production Ready
         enhanceAccessibility();
         
         // Force mobile responsive grids immediately
-        immediateMobileForce();
         forceMobileResponsive();
         
         // Force hide index page sections
         forceHideIndexPageSections();
+        
+        // Disable immediate mobile force on media page to avoid inline overrides
+        const hasMediaPageGrid = document.querySelector('.tiktok-feed-grid[data-media-page="true"]') !== null;
+        if (!hasMediaPageGrid) {
+            immediateMobileForce();
+        }
         
         // Add mobile class to body for CSS targeting
         if (isMobile) {
@@ -586,7 +592,7 @@ Version: 1.0 - Production Ready
         });
         
     // Run a couple of times early instead of continuous polling to avoid reflow/flicker
-    setTimeout(() => { immediateMobileForce(); forceHideIndexPageSections(); }, 100);
+    setTimeout(() => { if (!document.querySelector('.tiktok-feed-grid[data-media-page="true"]')) { immediateMobileForce(); } forceHideIndexPageSections(); }, 100);
     setTimeout(() => { forceMobileResponsive(); forceHideIndexPageSections(); }, 600);
         
         console.log('SOTUMA Mobile Enhancements initialized');

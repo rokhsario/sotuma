@@ -288,6 +288,14 @@
     transform: translate(-50%, -50%);
 }
 
+/* Tablet and below: zoom out product images by 20% */
+@media (max-width: 1024px) {
+    .product-image {
+        transform: translate(-50%, -50%) scale(0.8) !important;
+        transform-origin: center center !important;
+    }
+}
+
 .product-card:hover .product-image {
     transform: translate(-50%, -50%) scale(1.08);
 }
@@ -685,6 +693,8 @@
         bottom: 0 !important;
         margin: 0 !important;
         padding: 0 !important;
+        transform: scale(0.8) !important; /* zoom out 20% on mobile */
+        transform-origin: center center !important;
     }
     
     .product-content {
@@ -886,6 +896,8 @@
         bottom: 0 !important;
         margin: 0 !important;
         padding: 0 !important;
+        transform: scale(0.8) !important; /* zoom out 20% on small mobile */
+        transform-origin: center center !important;
     }
     
     .product-content {
@@ -980,7 +992,7 @@
                             $singleLine = (!$hasManual && $break === null && $break2 === null && mb_strlen($product->title) <= 22);
                         @endphp
                         @php
-                            $tag = ($product->has_details && $product->slug) ? 'a' : 'span';
+                            $tag = ($product->slug) ? 'a' : 'span';
                             $href = ($tag === 'a') ? route('product-detail', $product->slug) : null;
                             $attrs = $href ? ' href="'.$href.'"' : '';
                         @endphp
@@ -994,7 +1006,7 @@
                             @endif
                         </{{ $tag }}>
                     </h3>
-                    @if($product->has_details)
+                    @if($product->slug)
                         <div class="d-block d-md-none" style="margin-top:6px;">
                             <a href="{{ $product->slug ? route('product-detail',$product->slug) : '#' }}" style="color:#FF0000; font-weight:700; font-size:0.9rem; text-transform:uppercase; letter-spacing:0.5px;">Voir Détails</a>
                         </div>

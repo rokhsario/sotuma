@@ -212,26 +212,22 @@
     
     .tiktok-feed-grid {
         grid-template-columns: 1fr !important;
-        gap: 0 !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        width: 100vw !important;
-        max-width: 100vw !important;
+        padding: 0 5% !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        gap: 5px !important;
     }
     
     .tiktok-feed-item {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
-        border-radius: 0 !important;
-        min-height: 250px;
-        max-height: 350px;
+        margin-bottom: 5px !important;
     }
     
     .tiktok-feed-thumb, 
     .tiktok-feed-video {
-        border-radius: 0 !important;
+        border-radius: 12px;
     }
+    /* Keep desktop border-radius */
     
     .tiktok-feed-badge {
         top: 15px;
@@ -274,22 +270,25 @@
     
     .tiktok-feed-grid {
         grid-template-columns: 1fr !important;
-        gap: 0 !important;
-        padding: 0 !important;
-        margin: 0 !important;
+        gap: 5px !important;
+        padding: 0 5% !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
     
     .tiktok-feed-item {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
-        border-radius: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto 5px auto !important;
+        border-radius: 20px !important;
     }
     
     .tiktok-feed-item {
         min-height: 200px;
         max-height: 300px;
         border-radius: 12px;
+        margin-bottom: 5px !important;
     }
     
     .tiktok-feed-thumb, 
@@ -338,22 +337,25 @@
     
     .tiktok-feed-grid {
         grid-template-columns: 1fr !important;
-        gap: 0 !important;
-        padding: 0 !important;
-        margin: 0 !important;
+        gap: 5px !important;
+        padding: 0 5% !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
     
     .tiktok-feed-item {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
-        border-radius: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto 5px auto !important;
+        border-radius: 20px !important;
     }
     
     .tiktok-feed-item {
         min-height: 180px;
         max-height: 250px;
         border-radius: 10px;
+        margin-bottom: 5px !important;
     }
     
     .tiktok-feed-thumb, 
@@ -443,22 +445,6 @@
     }
 }
 
-/* ===== TOUCH OPTIMIZATIONS ===== */
-@media (hover: none) and (pointer: coarse) {
-    .tiktok-feed-item:hover {
-        transform: none;
-    }
-    
-    .tiktok-feed-item:active {
-        transform: scale(0.95);
-    }
-    
-    .tiktok-feed-overlay {
-        opacity: 1;
-        background: linear-gradient(0deg,rgba(0,0,0,0.8),rgba(0,0,0,0.3));
-    }
-}
-
 /* ===== ACCESSIBILITY IMPROVEMENTS ===== */
 .tiktok-feed-item:focus {
     outline: 2px solid #007bff;
@@ -488,6 +474,11 @@
         transition: none;
     }
 }
+
+/* Strong lock: show only the inspect modal */
+html.inspect-open, body.inspect-open { overflow: hidden !important; position: fixed !important; inset: 0 !important; width: 100% !important; height: 100% !important; }
+body.inspect-open > * { display: none !important; }
+body.inspect-open > #feedModal { display: flex !important; visibility: visible !important; pointer-events: auto !important; }
 </style>
 
 <div class="tiktok-hero">
@@ -495,7 +486,7 @@
 </div>
 
 @if($posts->count())
-<div class="tiktok-feed-grid">
+<div class="tiktok-feed-grid" data-media-page="true">
     @foreach($posts as $post)
         @php
             // Use post_images relationship or fallback to photo field
@@ -631,6 +622,7 @@ function openFeedModal(id) {
     document.getElementById('feedModalContent').innerHTML = content;
     document.getElementById('feedModalTitle').innerText = post.title;
     document.getElementById('feedModal').style.display = 'flex';
+    document.body.classList.add('inspect-open');
     
     // Prevent body scroll on mobile
     document.body.style.overflow = 'hidden';
@@ -645,6 +637,7 @@ function closeFeedModal() {
     
     // Restore body scroll
     document.body.style.overflow = '';
+    document.body.classList.remove('inspect-open');
 }
 
 // Enhanced modal interactions
@@ -657,50 +650,7 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeFeedModal();
 });
 
-// Touch interactions for mobile
-if (isTouch) {
-    // Add touch feedback to feed items
-    document.querySelectorAll('.tiktok-feed-item').forEach(item => {
-        item.addEventListener('touchstart', function() {
-            this.style.transform = 'scale(0.98)';
-            this.style.transition = 'transform 0.1s ease';
-        });
-        
-        item.addEventListener('touchend', function() {
-            this.style.transform = '';
-        });
-        
-        item.addEventListener('touchcancel', function() {
-            this.style.transform = '';
-        });
-    });
-    
-    // Swipe to close modal
-    let startY = 0;
-    let currentY = 0;
-    let isDragging = false;
-    
-    document.getElementById('feedModal').addEventListener('touchstart', function(e) {
-        startY = e.touches[0].clientY;
-        isDragging = true;
-    });
-    
-    document.getElementById('feedModal').addEventListener('touchmove', function(e) {
-        if (!isDragging) return;
-        
-        currentY = e.touches[0].clientY;
-        const diffY = currentY - startY;
-        
-        if (diffY > 100) { // Swipe down threshold
-            closeFeedModal();
-            isDragging = false;
-        }
-    });
-    
-    document.getElementById('feedModal').addEventListener('touchend', function() {
-        isDragging = false;
-    });
-}
+// Touch-specific handlers removed to align interactions with desktop
 
 // Ensure autoplay for all videos in the grid after DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {

@@ -156,6 +156,17 @@
 	    position: relative;
 	}
 
+	/* Desktop: capitalize only first letter of link labels */
+	@media (min-width: 1025px) {
+	    .footer-links li a span,
+	    .footer-links li a {
+	        text-transform: none;
+	    }
+	    .footer-links li a::first-letter {
+	        text-transform: uppercase;
+	    }
+	}
+
 	.footer-links li a::before {
 	    content: '';
 	    position: absolute;
@@ -424,6 +435,9 @@
 	}
 	
 	@media (max-width: 768px) {
+	    .desktop-only {
+	        display: none !important;
+	    }
 	    .footer-main {
 	        grid-template-columns: 1fr;
 	        gap: 40px;
@@ -539,11 +553,11 @@
 	                <h3>{{ __('frontend.quick_links') }}</h3>
 	                <ul class="footer-links">
 	                    <li><a href="{{ route('home') }}"><i class="fas fa-home"></i> {{ __('frontend.home') }}</a></li>
-	                    <li><a href="{{ route('project-categories.index') }}"><i class="fas fa-building"></i> {{ __('frontend.projects') }}</a></li>
 	                    <li><a href="{{ route('about-us') }}"><i class="fas fa-info-circle"></i> {{ __('frontend.about') }}</a></li>
-	                    <li><a href="{{ route('contact') }}"><i class="fas fa-envelope"></i> {{ __('frontend.contact') }}</a></li>
 	                    <li><a href="{{ route('media') }}"><i class="fas fa-newspaper"></i> {{ __('frontend.media') }}</a></li>
+	                    <li><a href="{{ route('project-categories.index') }}"><i class="fas fa-building"></i> {{ __('frontend.projects') }}</a></li>
 	                    <li><a href="{{ route('categories.index') }}"><i class="fas fa-th-large"></i> {{ __('frontend.products') }}</a></li>
+	                    <li><a href="{{ route('contact') }}"><i class="fas fa-envelope"></i> {{ __('frontend.contact') }}</a></li>
 	                </ul>
 	            </div>
 
@@ -568,6 +582,10 @@
                             <span class="contact-label">{{ __('frontend.phone') }}</span>
                             <span class="contact-value">
                                 <a href="tel:{{ $settings->phone ?? '+216 58 844 717' }}">{{ $settings->phone ?? '+216 58 844 717' }}</a>
+                                @if(!empty($settings->phone2))
+                                <br class="desktop-only"/>
+                                <a class="desktop-only" href="tel:{{ $settings->phone2 }}">{{ $settings->phone2 }}</a>
+                                @endif
                             </span>
                         </div>
                     </div>
@@ -579,6 +597,14 @@
                             <span class="contact-label">{{ __('frontend.email') }}</span>
                             <span class="contact-value">
                                 <a href="mailto:{{ $settings->email ?? 'anis.fakhfakh@yahoo.fr' }}">{{ $settings->email ?? 'anis.fakhfakh@yahoo.fr' }}</a>
+                                @if(!empty($settings->email2))
+                                <br class="desktop-only"/>
+                                <a class="desktop-only" href="mailto:{{ $settings->email2 }}">{{ $settings->email2 }}</a>
+                                @endif
+                                @if(!empty($settings->email3))
+                                <br class="desktop-only"/>
+                                <a class="desktop-only" href="mailto:{{ $settings->email3 }}">{{ $settings->email3 }}</a>
+                                @endif
                             </span>
                         </div>
                     </div>
@@ -588,7 +614,8 @@
                         </div>
                         <div class="contact-details">
                             <span class="contact-label">{{ __('frontend.hours') }}</span>
-                            <span class="contact-value">Lun-Ven: 8h-18h</span>
+	                            <span class="contact-value">Lundi - Vendredi : 8h-18h</span>
+	                            <span class="contact-value desktop-only">Samedi : 8h-14h</span>
                         </div>
                     </div>
                 </div>
@@ -626,7 +653,7 @@
 	        <!-- Footer Bottom -->
 	        <div class="footer-bottom">
 	            <div class="footer-copyright">
-	                &copy; {{ date('Y') }} SOTUMA. {{ __('frontend.all_rights_reserved') }}. | Conçu avec <i class="fas fa-heart" style="color: #FF0000;"></i> en Tunisie
+	                &copy; {{ date('Y') }} SOTUMA. {{ __('frontend.all_rights_reserved') }}.
 	            </div>
 	            <div class="footer-legal">
 	                <a href="{{ route('about-us') }}">{{ __('frontend.about') }}</a>

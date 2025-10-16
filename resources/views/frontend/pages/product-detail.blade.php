@@ -79,7 +79,7 @@
     height: auto;
     display: block;
     object-fit: contain; /* ensure full image fits */
-    transform: scale(0.8); /* zoomed out ~20% */
+    transform: none; /* default desktop - no zoom-out */
     transform-origin: center center;
 }
 
@@ -89,7 +89,7 @@
         padding: 10px !important;
     }
     .product-image {
-        transform: scale(0.8) !important;
+        transform: scale(0.8) !important; /* zoomed out ~20% on <=1024px */
         transform-origin: center center !important;
     }
 }
@@ -147,7 +147,7 @@
 /* Single star bullet; apply only to direct children to avoid duplicates */
 .product-description > p::before,
 .product-description > div::before {
-    content: "★";
+    content: "";
     position: absolute;
     left: 0;
     top: 0.1em; /* slight vertical align */
@@ -237,7 +237,7 @@
 }
 
 .product-description p::before {
-    content: "★";
+    content: "";
     position: absolute;
     left: 0;
     top: 0;
@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Add star
                 const star = document.createElement('span');
-                star.innerHTML = '★';
+                star.innerHTML = '';
                 star.style.cssText = `
                     position: absolute;
                     left: 0;

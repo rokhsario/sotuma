@@ -86,13 +86,16 @@ class AdminController extends Controller
             'about_approach_image'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:92160',
             'address'=>'required|string',
             'email'=>'required|email',
+            'email2'=>'nullable|email',
+            'email3'=>'nullable|email',
             'phone'=>'required|string',
+            'phone2'=>'nullable|string',
             'warranty_years'=>'required|integer|min:1|max:50',
             'experience_years'=>'required|integer|min:1|max:100',
             'projects_count'=>'required|integer|min:1|max:1000',
         ]);
         
-        $data = $request->only(['short_des', 'hero_slogan', 'address', 'email', 'phone', 'warranty_years', 'experience_years', 'projects_count']);
+        $data = $request->only(['short_des', 'hero_slogan', 'address', 'email', 'email2', 'email3', 'phone', 'phone2', 'warranty_years', 'experience_years', 'projects_count']);
         
         // Handle presentation image upload
         if ($request->hasFile('presentation_image')) {

@@ -130,7 +130,7 @@ return [
     'terms_of_service' => 'Conditions d\'utilisation',
     'privacy_policy' => 'Politique de confidentialité',
     'view_all_services' => 'Voir tous nos services',
-    'discover_realizations' => 'Découvrez nos réalisations par catégorie',
+    'discover_realizations' => 'Découvrez Nos Réalisations Par Catégorie',
     'project_categories' => 'Catégories de Projets',
     'ready_start_project' => 'Prêt à commencer votre projet ?',
     'expert_team_ready' => 'Notre équipe d\'experts est là pour vous accompagner à chaque étape',

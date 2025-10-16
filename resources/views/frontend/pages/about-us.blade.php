@@ -14,7 +14,7 @@
         <div class="hero-overlay d-none d-lg-block position-absolute w-100 h-100" style="background: rgba(30, 30, 30, 0.55); touch-action: manipulation !important;"></div>
     </div>
     <div class="container h-100 d-flex flex-column justify-content-center align-items-center position-relative" style="z-index:2;">
-        <h1 class="display-3 text-white font-weight-bold mb-3" style="letter-spacing: 2px; touch-action: manipulation !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; line-height: 1.2 !important; max-width: 100% !important; text-align: center !important; margin: 0px auto !important; display: block !important; box-sizing: border-box !important;">À propos</h1>
+        <h1 class="display-3 text-white font-weight-bold mb-3" style="letter-spacing: 2px; touch-action: manipulation !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; line-height: 1.2 !important; max-width: 100% !important; text-align: center !important; margin: 0px auto !important; display: block !important; box-sizing: border-box !important;">À PROPOS</h1>
         <p class="lead text-white" style="font-size:1.5rem; max-width:700px;">{{ __('frontend.about_excellence') }}</p>
     </div>
 </section>
@@ -592,6 +592,26 @@
         margin-right: auto !important;
         font-size: clamp(2.2rem, 6vw, 4rem) !important; /* bigger desktop title */
         letter-spacing: 2px !important;
+    }
+    
+    /* Desktop: 80px side margins for text paragraphs */
+    .presentation-text,
+    .mission-text,
+    .objectifs-text,
+    .expertise-text,
+    .approche-text {
+        margin-left: 80px !important;
+        margin-right: 80px !important;
+    }
+    
+    /* Desktop: bigger paragraph text */
+    .presentation-text p,
+    .mission-text p,
+    .objectifs-text p,
+    .expertise-text p,
+    .approche-text p {
+        font-size: 1.0rem !important;
+        line-height: 1.5 !important;
     }
 }
 </style>

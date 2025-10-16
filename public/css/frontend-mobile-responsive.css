@@ -788,7 +788,7 @@ Version: 1.0 - Production Ready
         padding: 0 20px !important;
     }
     
-    .tiktok-feed-grid {
+    .tiktok-feed-grid:not([data-media-page="true"]) {
         display: flex !important;
         flex-wrap: wrap !important;
         justify-content: center !important;
@@ -796,7 +796,7 @@ Version: 1.0 - Production Ready
         padding: 20px 15px !important;
     }
     
-    .tiktok-feed-item {
+    .tiktok-feed-grid:not([data-media-page="true"]) .tiktok-feed-item {
         min-height: 250px !important;
         max-height: 350px !important;
         border-radius: 12px !important;
@@ -844,7 +844,7 @@ Version: 1.0 - Production Ready
         font-size: 1.6rem !important;
     }
     
-    .tiktok-feed-grid {
+    .tiktok-feed-grid:not([data-media-page="true"]) {
         display: flex !important;
         flex-wrap: wrap !important;
         justify-content: center !important;
@@ -852,7 +852,7 @@ Version: 1.0 - Production Ready
         padding: 15px 10px !important;
     }
     
-    .tiktok-feed-item {
+    .tiktok-feed-grid:not([data-media-page="true"]) .tiktok-feed-item {
         min-height: 200px !important;
         max-height: 300px !important;
         border-radius: 8px !important;

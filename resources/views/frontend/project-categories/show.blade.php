@@ -340,6 +340,20 @@
 }
 
 /* Responsive - EXACT MAS */
+@media (max-width: 1024px) {
+    .project-categories-show-page .projects-container {
+        padding: 0 5px !important; /* 5px side margins on tablets */
+    }
+    .project-categories-show-page .projects-grid {
+        padding: 0 5px !important; /* 5px side margins on tablets */
+        box-sizing: border-box !important;
+    }
+    .project-categories-show-page .project-card {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+    }
+}
 @media (max-width: 768px) {
     .project-categories-show-page .hero-title {
         font-size: 1.8rem !important;

@@ -154,8 +154,11 @@ Edge-to-edge images with centered black titles
         transform: none !important;
     }
     
-    .project-categories-show-page .project-card:hover .project-image {
-        transform: none !important;
+    /* Keep desktop-only hover reset; allow mobile/tablet explicit transforms */
+    @media (min-width: 1025px) {
+        .project-categories-show-page .project-card:hover .project-image {
+            transform: none !important;
+        }
     }
 }
 
@@ -225,8 +228,10 @@ Edge-to-edge images with centered black titles
         transform: none !important;
     }
     
-    .category-card:hover .category-image {
-        transform: none !important;
+    @media (min-width: 1025px) {
+        .category-card:hover .category-image {
+            transform: none !important;
+        }
     }
 }
 
@@ -291,8 +296,10 @@ Edge-to-edge images with centered black titles
         transform: none !important;
     }
     
-    .product-card:hover .product-image {
-        transform: none !important;
+    @media (min-width: 1025px) {
+        .product-card:hover .product-image {
+            transform: none !important;
+        }
     }
 }
 

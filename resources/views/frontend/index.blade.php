@@ -3274,6 +3274,15 @@
 </section>
 
 <!-- Premium Projects Categories Grid Section -->
+<style>
+/* Desktop-only: hide descriptions in Projects and Products grids on the homepage */
+@media (min-width: 1025px) {
+    .projects-categories-grid .projects-categories-description,
+    .offer-grid .offer-description {
+        display: none !important;
+    }
+}
+</style>
 <section class="projects-categories-grid-section" id="projets">
     <div class="projects-categories-grid-header">
                         <h2 class="projects-categories-grid-title">Nos Projets</h2>
@@ -3811,7 +3820,7 @@
         </div>
         
         <div class="premium-certificates-cta">
-            <a href="/certificates" class="premium-certificates-btn">Voir tous nos certificats</a>
+            <a href="/certificates" class="premium-certificates-btn">Voir Tous Nos Certificats</a>
         </div>
     </div>
 </section>

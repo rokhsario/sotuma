@@ -47,7 +47,7 @@
 .map-overlay {
     position: absolute;
     top: 20px;
-    left: 20px;
+    left: 80px;
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
     padding: 20px;

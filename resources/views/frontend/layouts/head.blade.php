@@ -1359,7 +1359,21 @@ function initMobileScrollUpButton() {
 *[class*="dropdown"] .dropdown-item,
 .dropdown-menu *,
 .nav-item.dropdown * {
-    text-transform: capitalize !important;
+    text-transform: none !important;
+}
+
+/* Desktop only: first letter uppercase, rest as-is to preserve accents */
+@media (min-width: 1025px) {
+    .dropdown-content a,
+    .dropdown-menu a,
+    .dropdown-item {
+        text-transform: none !important;
+    }
+    .dropdown-content a::first-letter,
+    .dropdown-menu a::first-letter,
+    .dropdown-item::first-letter {
+        text-transform: uppercase !important;
+    }
 }
 </style>
 
@@ -1399,11 +1413,8 @@ function initMobileScrollUpButton() {
                     // Also capitalize the text content programmatically
                     const text = element.textContent.trim();
                     if (text) {
-                        // First convert to lowercase, then capitalize first letter of each word
-                        const lowerText = text.toLowerCase();
-                        const capitalized = lowerText.replace(/\b\w/g, function(l) {
-                            return l.toUpperCase();
-                        });
+                        // Only capitalize the true first letter, preserve accents (ô, é, è, etc)
+                        const capitalized = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
                         if (capitalized !== text) {
                             element.textContent = capitalized;
                         }

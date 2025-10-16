@@ -24,6 +24,26 @@
     --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
 }
 
+/* Strong lock for mobile/tablet inspect modal - mirror media page behavior */
+@media (max-width: 1024px) {
+    html.inspect-open, body.inspect-open {
+        overflow: hidden !important;
+        position: fixed !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+    body.inspect-open > * {
+        display: none !important;
+    }
+    body.inspect-open > #certificateModal {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+}
+
 body {
     background-color: var(--primary-bg);
     color: var(--text-primary);
@@ -520,9 +540,23 @@ function openCertificateModal(imageSrc, title) {
     
     modalImage.src = imageSrc;
     modalImage.alt = title;
+    
+    // Ensure modal is a direct child of body for strong lock layout (mobile/tablet)
+    try {
+        if (modal && modal.parentNode !== document.body) {
+            document.body.appendChild(modal);
+        }
+    } catch (e) {}
+    
+    const isMobileOrTablet = window.innerWidth <= 1024 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobileOrTablet) {
+        // Strong full-screen inspect mode (match media page)
+        document.body.classList.add('inspect-open');
+    }
+    
     modal.classList.add('active');
     
-    // Prevent body scroll
+    // Prevent body scroll (desktop fallback)
     document.body.style.overflow = 'hidden';
 }
 
@@ -531,7 +565,8 @@ function closeCertificateModal() {
     modal.classList.remove('active');
     
     // Restore body scroll
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = '';
+    document.body.classList.remove('inspect-open');
 }
 
 // Close modal on escape key

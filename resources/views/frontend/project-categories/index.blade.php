@@ -4,6 +4,33 @@
 
 @section('main-content')
 
+    <!-- SEO: Breadcrumb + ItemList for Project Categories -->
+    <script type="application/ld+json">
+    {!! json_encode([
+      '@context' => 'https://schema.org',
+      '@type' => 'BreadcrumbList',
+      'itemListElement' => [
+        ['@type' => 'ListItem','position' => 1,'name' => __('frontend.home') ?? 'Accueil','item' => url('/')],
+        ['@type' => 'ListItem','position' => 2,'name' => __('frontend.project_categories') ?? 'Catégories de Projets','item' => url()->current()],
+      ]
+    ], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}
+    </script>
+    <script type="application/ld+json">
+    {!! json_encode([
+      '@context' => 'https://schema.org',
+      '@type' => 'ItemList',
+      'name' => 'Catégories de Projets',
+      'itemListElement' => $categories->map(function($c, $i){
+        return [
+          '@type' => 'ListItem',
+          'position' => $i+1,
+          'url' => route('project-categories.show', $c->slug),
+          'name' => $c->name,
+        ];
+      })->values()->all()
+    ], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}
+    </script>
+
 <style>
 
 .project-categories-page,

@@ -934,6 +934,34 @@
     </div>
 </section>
 
+<!-- SEO: Breadcrumb + ItemList for Category Products -->
+<script type="application/ld+json">
+{!! json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'BreadcrumbList',
+  'itemListElement' => [
+    ['@type' => 'ListItem','position' => 1,'name' => __('frontend.home') ?? 'Accueil','item' => url('/')],
+    ['@type' => 'ListItem','position' => 2,'name' => __('frontend.products') ?? 'Produits','item' => route('categories.index')],
+    ['@type' => 'ListItem','position' => 3,'name' => $category->title,'item' => url()->current()],
+  ]
+], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'ItemList',
+  'name' => $category->title . ' - Produits',
+  'itemListElement' => $products->map(function($p, $i){
+    return [
+      '@type' => 'ListItem',
+      'position' => $i+1,
+      'url' => $p->slug ? route('product-detail', $p->slug) : url()->current(),
+      'name' => $p->title,
+    ];
+  })->values()->all()
+], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}
+</script>
+
 <!-- Products Section (Show First) -->
 @if($products->count() > 0)
 <section class="products-section">

@@ -106,7 +106,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {
   "@context": "https:\/\/schema.org",
   "@type": "LocalBusiness",
-  "name": "TPR Aluminium Sfax",
+  "name": "SOTUMA",
   "image": "{{ asset('images/sotuma-logo.jpg') }}",
   "url": "{{ url('/') }}",
   "telephone": "{{ $settings->phone ?? '' }}",
@@ -119,6 +119,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "postalCode": "",
     "addressCountry": "TN"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 34.811397,
+    "longitude": 10.707046
+  },
+  "openingHoursSpecification": [
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"18:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"08:00","closes":"14:00"}
+  ],
   "areaServed": [{"@type": "City", "name": "Sfax"}],
   "priceRange": "€€",
   "sameAs": [

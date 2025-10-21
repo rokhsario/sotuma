@@ -4,6 +4,55 @@
 
 @section('main-content')
 
+<!-- SEO: LocalBusiness + ContactPage JSON-LD -->
+<script type="application/ld+json">
+{!! json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'LocalBusiness',
+  'name' => 'SOTUMA',
+  'image' => asset('images/sotuma-logo.jpg'),
+  'url' => url('/'),
+  'telephone' => $settings->phone ?? '',
+  'email' => $settings->email ?? '',
+  'address' => [
+    '@type' => 'PostalAddress',
+    'streetAddress' => $settings->address ?? 'Sfax',
+    'addressLocality' => 'Sfax',
+    'addressRegion' => 'SF',
+    'addressCountry' => 'TN'
+  ],
+  'geo' => [
+    '@type' => 'GeoCoordinates',
+    'latitude' => 34.811397,
+    'longitude' => 10.707046
+  ],
+  'openingHoursSpecification' => [
+    ['@type' => 'OpeningHoursSpecification','dayOfWeek' => ['Monday','Tuesday','Wednesday','Thursday','Friday'],'opens' => '08:00','closes' => '18:00'],
+    ['@type' => 'OpeningHoursSpecification','dayOfWeek' => 'Saturday','opens' => '08:00','closes' => '14:00']
+  ],
+  'sameAs' => array_values(array_filter([
+    $settings->facebook ?? null,
+    $settings->instagram ?? null,
+    'https://www.linkedin.com/company/sotuma/'
+  ])),
+], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'ContactPage',
+  'name' => 'Contact SOTUMA',
+  'url' => url()->current(),
+  'breadcrumb' => [
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+      ['@type' => 'ListItem','position' => 1,'name' => __('frontend.home') ?? 'Accueil','item' => url('/')],
+      ['@type' => 'ListItem','position' => 2,'name' => __('frontend.contact') ?? 'Contact','item' => url()->current()],
+    ]
+  ]
+], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}
+</script>
+
 <style>
 /* Modern Contact Page - Google Maps First Design */
 :root {

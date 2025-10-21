@@ -1,5 +1,21 @@
 @extends('layouts.app')
 @section('content')
+    <!-- SEO: Products listing ItemList -->
+    <script type="application/ld+json">
+    {!! json_encode([
+      '@context' => 'https://schema.org',
+      '@type' => 'ItemList',
+      'name' => 'Produits SOTUMA',
+      'itemListElement' => $products->map(function($p, $i){
+        return [
+          '@type' => 'ListItem',
+          'position' => $i+1,
+          'url' => $p->slug ? route('product-detail', $p->slug) : url('/products'),
+          'name' => $p->title,
+        ];
+      })->values()->all()
+    ], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}
+    </script>
 <div class="container py-5">
     <h2 class="mb-4 text-center">Products</h2>
     <form method="GET" class="mb-4 text-center">

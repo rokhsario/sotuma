@@ -49,6 +49,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Canonical URL -->
 <link rel="canonical" href="{{ $seoData['canonical'] ?? url()->current() }}">
 
+<!-- Hreflang (basic) -->
+@php
+    $current = url()->current();
+    $alts = [
+        'fr' => $current.(str_contains($current,'?') ? '&' : '?').'lang=fr',
+        'ar' => $current.(str_contains($current,'?') ? '&' : '?').'lang=ar',
+        'en' => $current.(str_contains($current,'?') ? '&' : '?').'lang=en',
+    ];
+@endphp
+<link rel="alternate" hreflang="x-default" href="{{ $seoData['canonical'] ?? $current }}" />
+<link rel="alternate" hreflang="fr" href="{{ $alts['fr'] }}" />
+<link rel="alternate" hreflang="ar" href="{{ $alts['ar'] }}" />
+<link rel="alternate" hreflang="en" href="{{ $alts['en'] }}" />
+
 <!-- Mobile Safari/iOS CSS fixes -->
 <style>
   html, body { height: -webkit-fill-available; }
@@ -87,9 +101,48 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 </script>
 
+<!-- LocalBusiness JSON-LD (Sfax) -->
+<script type="application/ld+json">
+{
+  "@context": "https:\/\/schema.org",
+  "@type": "LocalBusiness",
+  "name": "TPR Aluminium Sfax",
+  "image": "{{ asset('images/sotuma-logo.jpg') }}",
+  "url": "{{ url('/') }}",
+  "telephone": "{{ $settings->phone ?? '' }}",
+  "email": "{{ $settings->email ?? '' }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ $settings->address ?? '' }}",
+    "addressLocality": "Sfax",
+    "addressRegion": "SF",
+    "postalCode": "",
+    "addressCountry": "TN"
+  },
+  "areaServed": [{"@type": "City", "name": "Sfax"}],
+  "priceRange": "€€",
+  "sameAs": [
+    "https:\/\/www.facebook.com\/sotumasfax",
+    "https:\/\/www.instagram.com\/sotuma_aluminium\/",
+    "https:\/\/www.linkedin.com\/company\/sotuma\/"
+  ]
+}
+</script>
+
 <!-- Structured Data -->
 <script type="application/ld+json">
 {!! $seoService->getStructuredData($page ?? 'home', $seoData ?? []) !!}
+</script>
+
+<!-- BreadcrumbList (global fallback) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"{{ __('frontend.home') }}","item":"{{ url('/') }}"}
+  ]
+}
 </script>
 
 <!-- Title Tag  -->

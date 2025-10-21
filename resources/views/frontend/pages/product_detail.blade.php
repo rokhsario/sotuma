@@ -17,6 +17,55 @@
 @section('title','SOTUMA || PRODUCT DETAIL')
 @section('main-content')
 
+    <!-- SEO: Product and Breadcrumb JSON-LD -->
+    <script type="application/ld+json">
+    {!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'Product',
+        'name' => $product->title ?? '',
+        'description' => isset($product->description) ? strip_tags($product->description) : '',
+        'image' => isset($product->image) && $product->image ? asset($product->image) : asset('images/no-image.png'),
+        'brand' => [
+            '@type' => 'Brand',
+            'name' => 'SOTUMA'
+        ],
+        'sku' => $product->slug ?? null,
+        'url' => url()->current(),
+    ], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}
+    </script>
+    <script type="application/ld+json">
+    {!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'BreadcrumbList',
+        'itemListElement' => array_values(array_filter([
+            [
+                '@type' => 'ListItem',
+                'position' => 1,
+                'name' => __('frontend.home') ?? 'Accueil',
+                'item' => url('/')
+            ],
+            [
+                '@type' => 'ListItem',
+                'position' => 2,
+                'name' => __('frontend.products') ?? 'Produits',
+                'item' => url('/products')
+            ],
+            isset($product->category) ? [
+                '@type' => 'ListItem',
+                'position' => 3,
+                'name' => $product->category->title,
+                'item' => route('categories.show', $product->category->slug ?? null)
+            ] : null,
+            [
+                '@type' => 'ListItem',
+                'position' => 4,
+                'name' => $product->title ?? '',
+                'item' => url()->current()
+            ],
+        ]))
+    ], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}
+    </script>
+
 		<!-- Breadcrumbs -->
 		<div class="breadcrumbs">
 			<div class="container">

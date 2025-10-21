@@ -9,18 +9,18 @@ use App\Models\Category;
 class SeoService
 {
     private $siteName = 'SOTUMA';
-    private $siteUrl = 'https://sotuma.com';
+    private $siteUrl = 'https://sotuma.net';
     private $siteDescription = 'SOTUMA - Leader en fabrication et installation de menuiserie aluminium, volets roulants, portes et fenêtres à Sfax, Tunisie. Solutions innovantes et durables pour votre habitat.';
     
     private $keywords = [
         // Main keywords
-        'aluminium', 'sotuma', 'tpr', 'sotuma sfax', 'menuiserie aluminium', 'volets roulants',
-        'portes aluminium', 'fenêtres aluminium', 'climatisation', 'chauffage', 'isolation thermique',
+        'aluminium', 'tpr', 'tpr aluminium', 'tpr sfax', 'sotuma', 'sotuma sfax', 'menuiserie aluminium', 'produits aluminium', 'volets roulants',
+        'portes aluminium', 'fenêtres aluminium', 'menuiserie aluminium sfax', 'isolation thermique',
         'isolation phonique', 'sécurité', 'qualité', 'durabilité', 'innovation', 'excellence',
         
         // Location-based keywords
-        'sfax tunisie', 'sfax aluminium', 'menuiserie sfax', 'volets sfax', 'portes sfax',
-        'fenêtres sfax', 'climatisation sfax', 'chauffage sfax', 'isolation sfax',
+        'sfax tunisie', 'sfax aluminium', 'aluminium sfax', 'menuiserie sfax', 'volets sfax', 'portes sfax',
+        'fenêtres sfax', 'menuiserie aluminium sfax', 'isolation sfax',
         'tunisie aluminium', 'menuiserie tunisie', 'volets tunisie', 'portes tunisie',
         
         // Product-specific keywords
@@ -38,13 +38,13 @@ class SeoService
         
         // Service keywords
         'installation aluminium', 'pose menuiserie', 'maintenance aluminium', 'réparation volet',
-        'dépannage climatisation', 'entretien chauffage', 'devis gratuit', 'conseil technique',
+        'menuiserie aluminium sfax', 'devis gratuit', 'conseil technique',
         'garantie produit', 'service après-vente', 'livraison gratuite', 'installation gratuite',
         
         // Brand and company keywords
         'sotuma aluminium', 'sotuma sfax', 'sotuma tunisie', 'entreprise sotuma',
         'société sotuma', 'marque sotuma', 'leader aluminium', 'expert menuiserie',
-        'spécialiste volets', 'professionnel climatisation', 'référence qualité',
+        'spécialiste volets', 'référence qualité',
         
         // Industry keywords
         'construction tunisie', 'bâtiment tunisie', 'rénovation tunisie', 'amélioration habitat',
@@ -53,15 +53,14 @@ class SeoService
         
         // Long-tail keywords
         'meilleur fabricant aluminium sfax', 'prix menuiserie aluminium sfax', 'devis volet roulant sfax',
-        'installation climatisation sfax', 'réparation chauffage sfax', 'isolation maison sfax',
+        'menuiserie aluminium sfax', 'isolation maison sfax',
         'menuiserie sur mesure sfax', 'porte blindée sfax', 'fenêtre sécurisée sfax',
         'véranda aluminium sfax', 'pergola sfax', 'store banne sfax', 'brise soleil sfax',
         'grille protection sfax', 'moustiquaire sfax', 'porte garage sfax', 'clôture sfax',
         'portail automatique sfax', 'domotique maison sfax', 'automatisation maison sfax',
         
         // Seasonal and promotional keywords
-        'promotion aluminium', 'offre spéciale menuiserie', 'réduction volets', 'bon plan climatisation',
-        'soldes chauffage', 'fin de série', 'liquidation stock', 'prix cassé', 'devis rapide',
+        'promotion aluminium', 'offre spéciale menuiserie', 'réduction volets', 'fin de série', 'liquidation stock', 'prix cassé', 'devis rapide',
         'installation express', 'livraison rapide', 'paiement échelonné', 'crédit consommation'
     ];
     
@@ -116,11 +115,11 @@ class SeoService
     private function getHomeMeta()
     {
         return [
-            'title' => 'SOTUMA - Leader Menuiserie Aluminium Sfax | Volets Roulants, Portes, Fenêtres',
-            'description' => 'SOTUMA, leader en menuiserie aluminium à Sfax, Tunisie. Volets roulants, portes, fenêtres, climatisation et chauffage. Qualité, innovation et service après-vente garantis. Devis gratuit.',
+            'title' => 'SOTUMA - Menuiserie Aluminium Sfax | Volets, Portes, Fenêtres',
+            'description' => 'SOTUMA – Menuiserie aluminium à Sfax: portes, fenêtres, volets roulants, pergolas. Qualité, sur mesure, devis gratuit et installation professionnelle.',
             'keywords' => $this->getKeywordsString(),
             'og_title' => 'SOTUMA - Menuiserie Aluminium Sfax',
-            'og_description' => 'Solutions complètes en menuiserie aluminium, volets roulants et climatisation à Sfax',
+            'og_description' => 'Solutions en menuiserie aluminium (portes, fenêtres, volets, pergolas) à Sfax',
             'og_image' => $this->siteUrl . '/images/sotuma-logo.jpg',
             'canonical' => $this->siteUrl
         ];
@@ -153,11 +152,11 @@ class SeoService
     private function getProductsMeta()
     {
         return [
-            'title' => 'Produits SOTUMA - Menuiserie Aluminium, Volets, Climatisation Sfax',
-            'description' => 'Découvrez notre gamme complète de produits : menuiserie aluminium, volets roulants, portes, fenêtres, climatisation et chauffage. Qualité et innovation garanties.',
+            'title' => 'Produits SOTUMA - Menuiserie Aluminium Sfax',
+            'description' => 'Découvrez notre gamme complète de produits : menuiserie aluminium, volets roulants, portes et fenêtres à Sfax. Qualité et innovation garanties.',
             'keywords' => $this->getKeywordsString(),
             'og_title' => 'Produits SOTUMA',
-            'og_description' => 'Gamme complète de menuiserie aluminium et climatisation',
+            'og_description' => 'Gamme complète de menuiserie aluminium à Sfax',
             'canonical' => $this->siteUrl . '/products'
         ];
     }
@@ -166,7 +165,7 @@ class SeoService
     {
         return [
             'title' => 'Catégories Produits SOTUMA - Menuiserie Aluminium Sfax',
-            'description' => 'Explorez nos catégories de produits : portes aluminium, fenêtres, volets roulants, climatisation, chauffage. Solutions sur mesure pour votre habitat.',
+            'description' => 'Explorez nos catégories de produits : portes aluminium, fenêtres et volets roulants. Solutions sur mesure pour votre habitat à Sfax.',
             'keywords' => $this->getKeywordsString(),
             'og_title' => 'Catégories Produits',
             'og_description' => 'Découvrez nos catégories de produits aluminium',

@@ -3812,11 +3812,11 @@
                     <div class="premium-certificate-meta">
                         <div class="premium-certificate-meta-item">
                             <i class="fas fa-user-tie"></i>
-                            <span>{{ __('frontend.delivered_by_sotuma') }}</span>
+                            <span>Délivré par TPR</span>
                         </div>
                         <div class="premium-certificate-meta-item">
                             <i class="fas fa-calendar-alt"></i>
-                            <span>Certificat officiel SOTUMA</span>
+                            <span>Certificat officiel TPR</span>
                         </div>
                         <div class="premium-certificate-meta-item">
                             <i class="fas fa-shield-alt"></i>

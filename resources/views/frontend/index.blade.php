@@ -3050,9 +3050,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(212, 165, 116, 0.1) 0%, transparent 50%);
+    background:
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.12) 0%, transparent 55%),
+        radial-gradient(circle at 80% 20%, rgba(212, 165, 116, 0.18) 0%, transparent 55%);
     z-index: 2;
     pointer-events: none;
 }
@@ -3063,11 +3063,23 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: linear-gradient(135deg, rgba(212, 165, 116, 0.8), rgba(245, 222, 179, 0.8)), url('{{ asset('images/image7.png') }}');
-    background-position: center, center;
-    background-repeat: no-repeat, no-repeat;
-    background-size: cover, 90%; /* zoom out image to 70% (30% smaller) */
+    background-image: linear-gradient(135deg, rgba(212, 165, 116, 0.9), rgba(245, 222, 179, 0.9));
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     z-index: 1;
+}
+
+/* Left decorative image for CTA (desktop only) */
+.premium-cta-left-image {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 42%;
+    background: url('{{ asset('images/hethahou.png') }}') left center / contain no-repeat;
+    z-index: 2; /* above gradient, below content */
+    pointer-events: none;
 }
 
 .premium-cta-container {
@@ -3076,6 +3088,47 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 80px;
+}
+
+/* Bottom-right slogan (desktop) */
+.premium-cta-slogan {
+    position: absolute;
+    right: 220px;
+    bottom: 28px;
+    z-index: 2; /* under content overlay effects but above background */
+    color: #fff;
+    font-style: italic;
+    font-weight: 900;
+    letter-spacing: 5px;
+    font-size: clamp(26px, 3.8vw, 56px);
+    text-shadow: 0 3px 10px rgba(0,0,0,0.35);
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.95;
+    transform: skewX(-8deg);
+}
+
+/* Subtle spacing/underline accent for senior style */
+.premium-cta-slogan::after {
+    content: '';
+    display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
+    border-radius: 3px;
+}
+
+@media (max-width: 768px) {
+    .premium-cta-slogan {
+        right: 16px;
+        bottom: 16px;
+        letter-spacing: 2px;
+        font-size: 14px;
+        opacity: .9;
+    }
+    .premium-cta-slogan::after { width: 48px; height: 2px; margin-top: 6px; }
 }
 
 .premium-cta-content {
@@ -3187,17 +3240,17 @@
 }
 
 .premium-cta-btn.primary {
-    background: linear-gradient(135deg, #1a1a1a, #333);
-    color: #d4a574;
-    border-color: #d4a574;
-    box-shadow: 0 8px 30px rgba(212, 165, 116, 0.3);
+    background: linear-gradient(135deg, #111, #2a2a2a);
+    color: #fff;
+    border-color: #fff;
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.35);
 }
 
 .premium-cta-btn.primary:hover {
-    background: linear-gradient(135deg, #d4a574, #c49464);
-    color: white;
+    background: linear-gradient(135deg, #fff, #eaeaea);
+    color: #1a1a1a;
     transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(212, 165, 116, 0.4);
+    box-shadow: 0 14px 46px rgba(0, 0, 0, 0.28);
     text-decoration: none;
 }
 
@@ -3231,6 +3284,9 @@
     .premium-cta-container {
         padding: 0 20px;
     }
+    
+    /* Hide left image on small screens */
+    .premium-cta-left-image { display: none; }
     
     .premium-cta-buttons {
         flex-direction: column;
@@ -3830,6 +3886,8 @@
 <!-- Premium CTA Section - God Level Design -->
 <section class="premium-cta-section">
     <div class="premium-cta-background"></div>
+    <div class="premium-cta-left-image"></div>
+    <div class="premium-cta-slogan">Leader of Perfection</div>
     <div class="premium-cta-container">
         <div class="premium-cta-content">
                             <h2 class="premium-cta-title">{{ __('frontend.ready_realize_project') }}</h2>

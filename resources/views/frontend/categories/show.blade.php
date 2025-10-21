@@ -214,8 +214,8 @@
     top: 0;
     left: 0;
     width: 0;
-    height: 2px;
-    background: #000;
+    height: 5px;
+    background: #FF0000;
     transition: all 0.6s ease;
     z-index: 1;
 }
@@ -225,9 +225,9 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 2px;
+    width: 5px;
     height: 0;
-    background: #000;
+    background: #FF0000;
     transition: all 0.6s ease;
     z-index: 1;
 }
@@ -366,7 +366,7 @@
 }
 
 .detail-badge {
-    background: linear-gradient(135deg, #d2b48c, #bc8f8f);
+    background: linear-gradient(135deg, #FF0000, #FF0000);
     color: white;
     padding: 6px 12px;
     border-radius: 20px;

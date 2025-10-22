@@ -28,7 +28,7 @@
             </div>
             <div class="col-lg-6 order-lg-1 d-flex align-items-center p-0">
                 <div class="presentation-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1;">
-                    <h2 class="section-title mb-4" style="font-size:2.5rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.presentation') }}</h2>
+                    <h2 class="section-title mb-4" style="font-size:1.6rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.presentation') }}</h2>
                     <p>{{ __('frontend.presentation_text_1') }}</p>
                     <p>{{ __('frontend.presentation_text_2') }}</p>
                 </div>
@@ -46,7 +46,7 @@
             </div>
             <div class="col-lg-6 d-flex align-items-center p-0">
                 <div class="mission-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1;">
-                    <h2 class="section-title mb-4" style="font-size:2.5rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.our_mission') }}</h2>
+                    <h2 class="section-title mb-4" style="font-size:1.6rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.our_mission') }}</h2>
                     <p>{!! __('frontend.mission_text') !!}</p>
                 </div>
             </div>
@@ -60,7 +60,7 @@
         <div class="row align-items-center no-gutters">
             <div class="col-lg-6 d-flex align-items-center p-0">
                 <div class="objectifs-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1; min-height:400px;">
-                    <h2 class="section-title mb-4" style="font-size:2.5rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.our_objectives') }}</h2>
+                    <h2 class="section-title mb-4" style="font-size:1.6rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.our_objectives') }}</h2>
                     <p>{!! __('frontend.objectives_text_1') !!}<br><br>{!! __('frontend.objectives_text_2') !!}</p>
                 </div>
             </div>
@@ -80,7 +80,7 @@
             </div>
             <div class="col-lg-6 d-flex align-items-center p-0">
                 <div class="expertise-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1; min-height:400px;">
-                    <h2 class="section-title mb-4" style="font-size:2.5rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.our_expertise') }}</h2>
+                    <h2 class="section-title mb-4" style="font-size:1.6rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.our_expertise') }}</h2>
                     <p>{!! __('frontend.expertise_text_1') !!}<br><br>{!! __('frontend.expertise_text_2') !!}</p>
                 </div>
             </div>
@@ -94,7 +94,7 @@
         <div class="row align-items-center no-gutters">
             <div class="col-lg-6 d-flex align-items-center p-0">
                 <div class="approche-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1; min-height:400px;">
-                    <h2 class="section-title mb-4" style="font-size:2.5rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.our_approach') }}</h2>
+                    <h2 class="section-title mb-4" style="font-size:1.6rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.our_approach') }}</h2>
                     <p>{{ __('frontend.approach_text') }}</p>
                 </div>
             </div>
@@ -110,7 +110,7 @@
 <!-- Partners Scrolling Section -->
 <section class="partners-scroll py-5" style="background:#f8f5f0;">
     <div class="container-fluid">
-        <h2 class="section-title text-center mb-5" style="font-size:2.2rem; font-weight:700;">Nos Partenaires</h2>
+        <h2 class="section-title text-center mb-5" style="font-size:1.6rem; font-weight:700;">Nos Partenaires</h2>
         <div class="partners-scroll-container" style="overflow:hidden; position:relative;">
             <div class="partners-scroll-content" style="display:flex; animation:scroll 30s linear infinite; white-space:nowrap;">
                 <!-- Partner 1 -->
@@ -621,7 +621,7 @@
 <section class="about-cta py-5 position-relative d-none d-lg-block" style="background:#f8f5f0;">
     <div class="cta-overlay position-absolute w-100 h-100" style="background:rgba(139,69,19,0.3); top:0;"></div>
     <div class="container text-center position-relative" style="z-index:2;">
-        <h2 class="section-title mb-4" style="font-size:2.3rem; font-weight:700; color:#333;">{{ __('frontend.contact_us') }}</h2>
+        <h2 class="section-title mb-4" style="font-size:1.6rem; font-weight:700; color:#333;">{{ __('frontend.contact_us') }}</h2>
         <p class="lead mb-4" style="font-size:1.3rem; color:#666;">{{ __('frontend.contact_text') }}</p>
         <a href="/contact" class="btn btn-lg btn-primary px-5 py-3" style="font-size:1.2rem; font-weight:600; letter-spacing:1px;">{{ __('frontend.contact_button') }}</a>
     </div>

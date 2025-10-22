@@ -1470,14 +1470,7 @@ class ProjectSlider {
             const correspondingSlideIndex = ({!! $project->image ? 'index + 1' : 'index' !!});
             thumb.classList.toggle('active', correspondingSlideIndex === this.currentIndex);
             
-            // Scroll to active thumbnail
-            if (correspondingSlideIndex === this.currentIndex) {
-                thumb.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'nearest', 
-                    inline: 'center' 
-                });
-            }
+            // Avoid auto-scrolling thumbnails on load to prevent page jump
         });
         
         // Update counter

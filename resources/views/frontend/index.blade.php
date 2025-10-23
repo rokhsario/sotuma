@@ -1781,6 +1781,25 @@
     }
 }
 
+/* Desktop alignment tweaks for Processus d'excellence */
+@media (min-width: 1025px) {
+    .premium-process-step {
+        text-align: left;
+        align-items: flex-start;
+    }
+    .premium-process-content {
+        text-align: left;
+        align-items: flex-start;
+    }
+    .premium-process-step-title,
+    .premium-process-step-description {
+        text-align: left;
+    }
+    .premium-process-features {
+        align-items: flex-start;
+    }
+}
+
 /* Premium Services Section - God Level CSS */
 .premium-services-section {
     background: linear-gradient(135deg, #f8f5f0 0%, #fff 50%, #f8f9fa 100%);

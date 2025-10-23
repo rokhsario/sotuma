@@ -589,6 +589,11 @@
     transform: translateY(-50%);
 }
 
+/* Strong lock: show only the inspect modal (match media/certificates) */
+html.inspect-open, body.inspect-open { overflow: hidden !important; position: fixed !important; inset: 0 !important; width: 100% !important; height: 100% !important; }
+body.inspect-open > * { display: none !important; }
+body.inspect-open > #imageModal { display: flex !important; visibility: visible !important; pointer-events: auto !important; }
+
 /* ENHANCED IMAGE MODAL */
 .enhanced-image-modal {
     display: none !important;
@@ -1031,8 +1036,21 @@
     
     /* Slider Section Mobile */
     .enhanced-slider-section {
-        padding: 0 !important;
+        padding: 12px 0 0 0 !important;
         margin: 0 !important;
+    }
+
+    /* Ensure image fills slider on mobile */
+    .slide-image-container {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .slide-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center center !important;
     }
     
     .main-slider-container {
@@ -1136,6 +1154,19 @@
         height: 350px !important;
         border-radius: 0 !important;
         margin-bottom: 15px !important;
+    }
+
+    /* Center and size modal (inspect) appropriately on small mobile */
+    #imageModal > div {
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    #imageModal img {
+        max-width: 100% !important;
+        max-height: 100% !important;
     }
     
     .slider-nav {
@@ -1634,8 +1665,9 @@ function openModalWithIndex(index, imageSrc, title) {
         </div>
     `;
     
-    // Add to body
+    // Add to body and enable strong lock like certificates/media
     document.body.insertAdjacentHTML('beforeend', modalHTML);
+    document.body.classList.add('inspect-open');
     document.body.style.overflow = 'hidden';
     
     console.log('Modal opened with image at index:', modalCurrentIndex);
@@ -1712,6 +1744,7 @@ function closeModal() {
     if (modal) {
     modal.style.display = 'none';
     document.body.style.overflow = 'auto';
+    document.body.classList.remove('inspect-open');
     }
 }
 

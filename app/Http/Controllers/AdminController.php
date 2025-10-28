@@ -186,6 +186,7 @@ class AdminController extends Controller
     {
         $request->validate([
             'current_password' => ['required', new MatchOldPassword],
+            'email' => ['required','email','unique:users,email,'.auth()->id()],
             'new_password' => ['required', 'min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/'],
             'new_confirm_password' => ['required', 'same:new_password'],
         ], [
@@ -195,9 +196,12 @@ class AdminController extends Controller
             'new_confirm_password.required' => 'Password confirmation is required.',
         ]);
 
-        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+        $user = User::find(auth()->user()->id);
+        $user->email = $request->email;
+        $user->password = Hash::make($request->new_password);
+        $user->save();
 
-        return redirect()->route('home')->with('success','Password successfully changed');
+        return redirect()->route('home')->with('success','Password and email successfully changed');
     }
 
     // Pie chart

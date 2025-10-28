@@ -15,7 +15,7 @@
     </div>
     <div class="container h-100 d-flex flex-column justify-content-center align-items-center position-relative" style="z-index:2;">
         <h1 class="display-3 text-white font-weight-bold mb-3" style="letter-spacing: 2px; touch-action: manipulation !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; line-height: 1.2 !important; max-width: 100% !important; text-align: center !important; margin: 0px auto !important; display: block !important; box-sizing: border-box !important;">À PROPOS</h1>
-        <p class="lead text-white" style="font-size:1.5rem; max-width:700px;">{{ __('frontend.about_excellence') }}</p>
+        <p class="lead text-white" style="font-size:1.5rem; max-width:700px;">SOTUMA est un concepteur, fabricant, distributeur et installateur spécialisé dans les menuiseries extérieures et intérieures réalisées en aluminium.</p>
     </div>
 </section>
 
@@ -28,8 +28,8 @@
             </div>
             <div class="col-lg-6 order-lg-1 d-flex align-items-center p-0">
                 <div class="presentation-text p-5 m-4 rounded shadow-lg w-100" style="background:#fffbe9; font-size:1.35rem; line-height:2.1;">
-                    <h2 class="section-title mb-4" style="font-size:1.6rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.presentation') }}</h2>
-                    <p>{{ __('frontend.presentation_text_1') }}</p>
+                    <h2 class="section-title mb-4" style="font-size:1.9rem; font-weight:700; letter-spacing:1px;">{{ __('frontend.presentation') }}</h2>
+                    <p>Menuiserie Aluminium — SOTUMA est un concepteur, fabricant, distributeur et installateur spécialisé dans les menuiseries extérieures et intérieures réalisées en aluminium.</p>
                     <p>{{ __('frontend.presentation_text_2') }}</p>
                 </div>
             </div>
@@ -111,8 +111,8 @@
 <section class="partners-scroll py-5" style="background:#f8f5f0;">
     <div class="container-fluid">
         <h2 class="section-title text-center mb-5" style="font-size:1.6rem; font-weight:700;">Nos Partenaires</h2>
-        <div class="partners-scroll-container" style="overflow:hidden; position:relative;">
-            <div class="partners-scroll-content" style="display:flex; animation:scroll 30s linear infinite; white-space:nowrap;">
+        <div class="partners-scroll-container">
+            <div class="partners-scroll-content">
                 <!-- Partner 1 -->
                 <div class="partner-item" style="flex-shrink:0; margin:0 30px; text-align:center; min-width:150px;">
                     <div style="width:120px; height:80px; background:#fff; border-radius:8px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
@@ -231,6 +231,22 @@
 <div style="height:2px; background:linear-gradient(90deg, transparent, #ddd, transparent); margin:60px 0;"></div>
 
 <style>
+/* Partners slider base styles (desktop default) */
+.partners-scroll-container {
+    overflow: hidden;
+    position: relative;
+}
+.partners-scroll-content {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 30s linear infinite;
+    will-change: transform;
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+}
+.partners-scroll-container:hover .partners-scroll-content {
+    animation-play-state: paused;
+}
 @keyframes scroll {
     0% {
         transform: translateX(0);
@@ -238,10 +254,6 @@
     100% {
         transform: translateX(-50%);
     }
-}
-
-.partners-scroll-container:hover .partners-scroll-content {
-    animation-play-state: paused;
 }
 
 .partner-item div {
@@ -468,6 +480,18 @@
         font-size: clamp(1.5rem, 5vw, 2rem) !important;
         margin-bottom: 30px !important;
     }
+    /* Enable native horizontal swipe on mobile */
+    .partners-scroll-container {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-x !important;
+        scroll-snap-type: x proximity !important;
+        scrollbar-width: none !important; /* Firefox */
+    }
+    .partners-scroll-container::-webkit-scrollbar { display: none !important; } /* WebKit */
+    .partners-scroll-content { width: max-content !important; }
+    .partner-item { scroll-snap-align: center !important; }
     
     .partner-item {
         margin: 0 15px !important;
@@ -616,6 +640,87 @@
 }
 </style>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var container = document.querySelector('.partners-scroll-container');
+  var content = container ? container.querySelector('.partners-scroll-content') : null;
+  if (!container || !content) return;
+
+  // Only enhance on mobile/tablet; desktop keeps CSS animation
+  var isMobile = window.matchMedia('(max-width: 1024px)').matches;
+  if (!isMobile) return;
+
+  // Ensure we start near the middle for seamless loop (content is duplicated)
+  var halfWidth = content.scrollWidth / 2;
+  try { container.scrollLeft = Math.max(1, Math.floor(halfWidth / 2)); } catch(e) {}
+
+  // Drag-to-scroll using Pointer Events
+  var isDragging = false;
+  var startX = 0;
+  var startScrollLeft = 0;
+  function onPointerDown(e){
+    isDragging = true;
+    startX = e.clientX;
+    startScrollLeft = container.scrollLeft;
+    container.setPointerCapture && container.setPointerCapture(e.pointerId);
+    pauseAuto();
+  }
+  function onPointerMove(e){
+    if (!isDragging) return;
+    var dx = startX - e.clientX;
+    container.scrollLeft = startScrollLeft + dx;
+  }
+  function onPointerUp(){
+    isDragging = false;
+    resumeAuto();
+  }
+  if (window.PointerEvent) {
+    container.addEventListener('pointerdown', onPointerDown, { passive: true });
+    container.addEventListener('pointermove', onPointerMove, { passive: true });
+    container.addEventListener('pointerup', onPointerUp, { passive: true });
+    container.addEventListener('pointercancel', onPointerUp, { passive: true });
+  } else {
+    // Fallback for older browsers: touch/mouse
+    container.addEventListener('touchstart', function(e){ onPointerDown(e.touches[0]); }, { passive: true });
+    container.addEventListener('touchmove', function(e){ onPointerMove(e.touches[0]); }, { passive: true });
+    container.addEventListener('touchend', onPointerUp, { passive: true });
+    container.addEventListener('mousedown', function(e){ onPointerDown(e); });
+    window.addEventListener('mousemove', function(e){ onPointerMove(e); });
+    window.addEventListener('mouseup', onPointerUp);
+  }
+
+  // Seamless loop by wrapping scrollLeft around half of content width
+  container.addEventListener('scroll', function(){
+    var max = halfWidth;
+    if (container.scrollLeft >= max) {
+      container.scrollLeft -= max;
+    } else if (container.scrollLeft <= 0) {
+      container.scrollLeft += max;
+    }
+  }, { passive: true });
+
+  // Gentle auto-scroll on mobile that coexists with user swipe
+  var rafId = null;
+  function autoScroll(){
+    container.scrollLeft += 0.5; // tune speed
+    rafId = window.requestAnimationFrame(autoScroll);
+  }
+  function pauseAuto(){ if (rafId) { window.cancelAnimationFrame(rafId); rafId = null; } }
+  function resumeAuto(){ if (!rafId) rafId = window.requestAnimationFrame(autoScroll); }
+
+  // Start auto scroll
+  resumeAuto();
+
+  // Pause while the user actively scrolls (wheel or touch momentum)
+  var scrollTimeout;
+  container.addEventListener('scroll', function(){
+    pauseAuto();
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(resumeAuto, 150);
+  }, { passive: true });
+});
+</script>
 
 <!-- Call to Action / Contact Info Section - Hidden on Mobile and Tablet -->
 <section class="about-cta py-5 position-relative d-none d-lg-block" style="background:#f8f5f0;">

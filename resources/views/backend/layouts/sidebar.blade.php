@@ -68,12 +68,7 @@
         </div>
     </li>
 
-    <!-- Reviews -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('review.index')}}">
-            <i class="fas fa-comments"></i>
-            <span>{{ __('admin.client_reviews') }}</span></a>
-    </li>
+    
 
     <!-- Divider -->
     <hr class="sidebar-divider">

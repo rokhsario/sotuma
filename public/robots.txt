@@ -41,6 +41,7 @@ Allow: /assets/
 
 # Sitemap location
 Sitemap: https://sotuma.net/sitemap.xml
+Sitemap: https://sotuma.net/sitemap-images.xml
 
 # Crawl delay (optional)
 Crawl-delay: 1

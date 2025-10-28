@@ -10,7 +10,7 @@ class SeoService
 {
     private $siteName = 'SOTUMA';
     private $siteUrl = 'https://sotuma.net';
-    private $siteDescription = 'SOTUMA - Leader en fabrication et installation de menuiserie aluminium, volets roulants, portes et fenêtres à Sfax, Tunisie. Solutions innovantes et durables pour votre habitat.';
+    private $siteDescription = 'SOTUMA est un concepteur, fabricant, distributeur et installateur spécialisé dans les menuiseries extérieures et intérieures réalisées en aluminium.';
     
     private $keywords = [
         // Main keywords
@@ -116,10 +116,10 @@ class SeoService
     {
         return [
             'title' => 'SOTUMA - Menuiserie Aluminium Sfax | Volets, Portes, Fenêtres',
-            'description' => 'SOTUMA – Menuiserie aluminium à Sfax: portes, fenêtres, volets roulants, pergolas. Qualité, sur mesure, devis gratuit et installation professionnelle.',
+            'description' => 'SOTUMA est un concepteur, fabricant, distributeur et installateur spécialisé dans les menuiseries extérieures et intérieures réalisées en aluminium. Portes, fenêtres, volets roulants, pergolas à Sfax – sur mesure, qualité et installation professionnelle.',
             'keywords' => $this->getKeywordsString(),
             'og_title' => 'SOTUMA - Menuiserie Aluminium Sfax',
-            'og_description' => 'Solutions en menuiserie aluminium (portes, fenêtres, volets, pergolas) à Sfax',
+            'og_description' => 'Menuiseries extérieures et intérieures en aluminium à Sfax: portes, fenêtres, volets, pergolas',
             'og_image' => $this->siteUrl . '/images/sotuma-logo.jpg',
             'canonical' => $this->siteUrl
         ];
@@ -129,10 +129,10 @@ class SeoService
     {
         return [
             'title' => 'À Propos de SOTUMA - Expertise Menuiserie Aluminium Sfax',
-            'description' => 'Découvrez l\'histoire de SOTUMA, entreprise leader en menuiserie aluminium à Sfax. 20+ ans d\'expertise, innovation et qualité au service de vos projets.',
+            'description' => 'SOTUMA est un concepteur, fabricant, distributeur et installateur spécialisé dans les menuiseries extérieures et intérieures en aluminium. 20+ ans d\'expertise à Sfax.',
             'keywords' => $this->getKeywordsString(),
             'og_title' => 'À Propos de SOTUMA',
-            'og_description' => 'Leader en menuiserie aluminium à Sfax depuis plus de 20 ans',
+            'og_description' => 'Concepteur et installateur de menuiseries aluminium à Sfax',
             'canonical' => $this->siteUrl . '/about'
         ];
     }
@@ -153,7 +153,7 @@ class SeoService
     {
         return [
             'title' => 'Produits SOTUMA - Menuiserie Aluminium Sfax',
-            'description' => 'Découvrez notre gamme complète de produits : menuiserie aluminium, volets roulants, portes et fenêtres à Sfax. Qualité et innovation garanties.',
+            'description' => 'Gamme complète de menuiseries extérieures et intérieures en aluminium: portes, fenêtres, volets roulants, pergolas. Conception et installation à Sfax.',
             'keywords' => $this->getKeywordsString(),
             'og_title' => 'Produits SOTUMA',
             'og_description' => 'Gamme complète de menuiserie aluminium à Sfax',
@@ -177,7 +177,7 @@ class SeoService
     {
         return [
             'title' => 'Nos Projets SOTUMA - Réalisations Menuiserie Aluminium Sfax',
-            'description' => 'Découvrez nos réalisations et projets de menuiserie aluminium à Sfax. Galerie photos de nos travaux : résidentiel, commercial, industriel.',
+            'description' => 'Réalisations en menuiseries aluminium extérieures et intérieures à Sfax: résidentiel, commercial, industriel. Expertise SOTUMA.',
             'keywords' => $this->getKeywordsString(),
             'og_title' => 'Nos Projets',
             'og_description' => 'Découvrez nos réalisations en menuiserie aluminium',

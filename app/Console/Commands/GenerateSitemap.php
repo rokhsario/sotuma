@@ -119,7 +119,7 @@ class GenerateSitemap extends Command
 
         $xml .= '</urlset>';
 
-        // Write file
+        // Write main sitemap file
         $pathOption = $this->option('path');
         $absolutePath = base_path($pathOption);
         $dir = dirname($absolutePath);
@@ -131,6 +131,73 @@ class GenerateSitemap extends Command
         $publicUrl = url('/sitemap.xml');
         $this->info("Sitemap generated at: {$absolutePath}");
         $this->info("Public URL: {$publicUrl}");
+
+        // Build separate image sitemap
+        $this->info('Generating sitemap-images.xml ...');
+        $imageXml = '<?xml version="1.0" encoding="UTF-8"?>';
+        $imageXml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">';
+
+        // Helper to append image tags
+        $appendImages = function(string $pageUrl, array $imageUrls) use (&$imageXml) {
+            if (empty($imageUrls)) return;
+            $imageXml .= '<url>';
+            $imageXml .= '<loc>'.htmlspecialchars($pageUrl, ENT_XML1).'</loc>';
+            foreach ($imageUrls as $img) {
+                if (!$img) continue;
+                $imageXml .= '<image:image><image:loc>'.htmlspecialchars($img, ENT_XML1).'</image:loc></image:image>';
+            }
+            $imageXml .= '</url>';
+        };
+
+        // Products (main image)
+        try {
+            foreach (Product::query()->get(['slug','image','updated_at']) as $product) {
+                $pageUrl = route_exists('product-detail') ? route('product-detail', $product->slug) : url('/product-detail/'.$product->slug);
+                $imgs = [];
+                if (!empty($product->image)) {
+                    $imgs[] = url($product->image);
+                }
+                $appendImages($pageUrl, $imgs);
+            }
+        } catch (\Throwable $e) {}
+
+        // Project categories (no images linked directly by default)
+        // Projects (main + gallery)
+        try {
+            foreach (Project::query()->with('images')->get() as $project) {
+                $pageUrl = route_exists('projects.show') ? route('projects.show', $project) : url('/projet/'.$project->id);
+                $imgs = [];
+                if (!empty($project->image)) {
+                    $imgs[] = url($project->image);
+                }
+                foreach ($project->images as $img) {
+                    if ($img->url) { $imgs[] = $img->url; }
+                }
+                $appendImages($pageUrl, array_values(array_unique($imgs)));
+            }
+        } catch (\Throwable $e) {}
+
+        // Blog posts (main + gallery)
+        try {
+            foreach (Post::query()->with('images')->where('status','active')->get() as $post) {
+                $pageUrl = route_exists('media.detail') ? route('media.detail', $post->slug) : url('/media-detail/'.$post->slug);
+                $imgs = [];
+                if (method_exists($post, 'getPhotoUrlAttribute') && $post->photo_url) {
+                    $imgs[] = $post->photo_url;
+                }
+                foreach ($post->images as $img) {
+                    if ($img->url) { $imgs[] = $img->url; }
+                }
+                $appendImages($pageUrl, array_values(array_unique($imgs)));
+            }
+        } catch (\Throwable $e) {}
+
+        $imageXml .= '</urlset>';
+
+        $imagesPath = public_path('sitemap-images.xml');
+        File::put($imagesPath, $imageXml);
+        $this->info("Image sitemap generated at: {$imagesPath}");
+        $this->info("Public URL: ".url('/sitemap-images.xml'));
 
         return 0;
     }

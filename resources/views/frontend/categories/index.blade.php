@@ -612,6 +612,33 @@
     </div>
 </section>
 
+<!-- SEO: Breadcrumb + ItemList for Categories -->
+<script type="application/ld+json">
+{!! json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'BreadcrumbList',
+  'itemListElement' => [
+    ['@type' => 'ListItem','position' => 1,'name' => __('frontend.home') ?? 'Accueil','item' => url('/')],
+    ['@type' => 'ListItem','position' => 2,'name' => __('frontend.products') ?? 'Produits','item' => url()->current()],
+  ]
+], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'ItemList',
+  'name' => __('frontend.product_categories') ?? 'Catégories de produits',
+  'itemListElement' => collect($categories)->values()->map(function($c, $i){
+    return [
+      '@type' => 'ListItem',
+      'position' => $i+1,
+      'url' => route('categories.show', $c->slug ?? Str::slug($c->title)),
+      'name' => $c->title,
+    ];
+  })->all()
+], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}
+</script>
+
 <!-- Categories Section -->
 <section class="categories-section">
     <div class="categories-container">

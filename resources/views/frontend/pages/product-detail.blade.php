@@ -359,4 +359,37 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<!-- Structured Data: BreadcrumbList and Product -->
+@php
+    $productImage = $product->image ? asset($product->image) : asset('images/no-image.png');
+    $productCategory = $product->category->title ?? null;
+    $productDesc = trim(strip_tags($product->description ?? ''));
+@endphp
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Accueil","item": "{{ url('/') }}"},
+    {"@type":"ListItem","position":2,"name":"Produits","item": "{{ route('products.all') }}"},
+    {"@type":"ListItem","position":3,"name": @json($product->title),"item": "{{ url()->current() }}"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": @json($product->title),
+  "image": [@json($productImage)],
+  "description": @json($productDesc),
+  "brand": {"@type":"Brand","name":"SOTUMA"},
+  @if($productCategory)
+  "category": @json($productCategory),
+  @endif
+  "sku": "{{ $product->id }}",
+  "url": "{{ url()->current() }}"
+}
+</script>
+
 @endsection

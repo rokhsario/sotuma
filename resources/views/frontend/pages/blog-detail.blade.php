@@ -116,6 +116,48 @@
                                             </div>
                                             </div>
     </section>
+    
+    <!-- JSON-LD: BreadcrumbList and Article schema -->
+    @php
+        $articleTitle = $post->title;
+        $articleUrl = url()->current();
+        $articleImage = $post->featured_image ?? ($post->images->first()->url ?? ($post->photo ? asset($post->photo) : null));
+        $articleDesc = trim(strip_tags($post->summary ?: $post->description));
+        $articleDatePublished = optional($post->created_at)->toIso8601String();
+        $articleDateModified = optional($post->updated_at ?: $post->created_at)->toIso8601String();
+        $authorName = $post->author_info->name ?? 'SOTUMA';
+        $categoryName = $post->cat_info->title ?? null;
+    @endphp
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Accueil","item":"{{ url('/') }}"},
+        {"@type":"ListItem","position":2,"name":"Blog","item":"{{ route('media') }}"},
+        {"@type":"ListItem","position":3,"name": @json($articleTitle),"item":"{{ $articleUrl }}"}
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": @json($articleTitle),
+      "mainEntityOfPage": {"@type":"WebPage","@id":"{{ $articleUrl }}"},
+      @if($articleImage)
+      "image": [@json($articleImage)],
+      @endif
+      "datePublished": "{{ $articleDatePublished }}",
+      "dateModified": "{{ $articleDateModified }}",
+      "author": {"@type":"Person","name": @json($authorName)},
+      "publisher": {"@type":"Organization","name":"SOTUMA","logo":{"@type":"ImageObject","url":"{{ asset('images/sotuma-logo.jpg') }}"}},
+      "description": @json($articleDesc)
+      @if($categoryName),
+      "articleSection": @json($categoryName)
+      @endif
+    }
+    </script>
                     
                     <!-- Comments Section -->
     <section class="comments-section">

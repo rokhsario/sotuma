@@ -933,10 +933,8 @@ function initMobileScrollUpButton() {
     handleScroll();
 }
 </script>
-        <link rel="stylesheet" href="{{ asset('css/mobile-cards-enhancement.css') }}">
         <link rel="stylesheet" href="{{ asset('css/projects-products-mobile-enhancement.css') }}">
         <link rel="stylesheet" href="{{ asset('css/hero-titles-mobile.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/enhanced-mobile-cards.css') }}">
 
 <!-- Mobile Menu Z-Index Override: ensure it overlays everything -->
 <style>

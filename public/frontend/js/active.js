@@ -286,15 +286,18 @@ window.onload = () => {
 			mainClass: 'mfp-fade'
 		});
 		
-		/*====================================
-			Scroll Up JS
-		======================================*/
+	/*====================================
+		Scroll Up JS
+	======================================*/
+	// Vérifier que scrollUp est disponible avant de l'utiliser
+	if (typeof $.fn.scrollUp !== 'undefined') {
 		$.scrollUp({
 			scrollText: '<span><i class="fa fa-angle-up"></i></span>',
 			easingType: 'easeInOutExpo',
 			scrollSpeed: 900,
 			animation: 'fade'
-		});  
+		});
+	}
 		
 	});
 	

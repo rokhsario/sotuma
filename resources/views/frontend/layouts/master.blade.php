@@ -469,17 +469,11 @@
 	
 	<script src="{{ asset('js/frontend-mobile-enhancements.js') }}"></script>
 	
-	<!-- Mobile Cards Enhancement -->
-	<script src="{{ asset('js/mobile-cards-enhancement.js') }}"></script>
-	
         <!-- Projects & Products Mobile Enhancement -->
         <script src="{{ asset('js/projects-products-mobile-enhancement.js') }}"></script>
         
         <!-- Hero Titles Mobile Enhancement -->
         <script src="{{ asset('js/hero-titles-mobile.js') }}"></script>
-        
-        <!-- Enhanced Mobile Cards -->
-        <script src="{{ asset('js/enhanced-mobile-cards.js') }}"></script>
 
 </body>
 </html>

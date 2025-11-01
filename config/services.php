@@ -45,4 +45,12 @@ return [
         'redirect' => env('FACEBOOK_REDIRECT_URI', env('APP_URL') . '/login/facebook/callback'),
      ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Google Analytics & SEO Services
+    |--------------------------------------------------------------------------
+    */
+    'google_analytics_id' => env('GOOGLE_ANALYTICS_ID', 'G-J8C3Z5FSDB'),
+    'google_tag_manager_id' => env('GOOGLE_TAG_MANAGER_ID', 'GTM-KK8KT37D'),
+
 ];

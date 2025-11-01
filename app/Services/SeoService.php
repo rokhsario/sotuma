@@ -214,13 +214,34 @@ class SeoService
         $product = $data['product'] ?? null;
         if (!$product) return $this->getDefaultMeta();
         
+        // Construire une description SEO optimisée
+        $productDesc = strip_tags($product->description ?? '');
+        $categoryName = $product->category->title ?? 'Produit aluminium';
+        
+        // Description optimisée pour le SEO (150-160 caractères idéalement)
+        $description = $productDesc 
+            ? substr($productDesc, 0, 155) . (strlen($productDesc) > 155 ? '...' : '')
+            : 'Découvrez ' . $product->title . ' chez SOTUMA à Sfax. ' . $categoryName . ' de qualité premium, installation professionnelle et garantie. Devis gratuit.';
+        
+        // S'assurer que la description ne dépasse pas 160 caractères
+        if (strlen($description) > 160) {
+            $description = substr($description, 0, 157) . '...';
+        }
+        
         return [
-            'title' => $product->title . ' - SOTUMA Sfax | Menuiserie Aluminium',
-            'description' => 'Découvrez ' . $product->title . ' chez SOTUMA. Qualité premium, installation professionnelle et garantie. Devis gratuit à Sfax.',
-            'keywords' => $this->getKeywordsString([strtolower($product->title)]),
+            'title' => $product->title . ' | SOTUMA - Menuiserie Aluminium Sfax',
+            'description' => $description,
+            'keywords' => $this->getKeywordsString([
+                strtolower($product->title),
+                strtolower($categoryName),
+                'menuiserie aluminium sfax',
+                'devis gratuit',
+                'installation professionnelle'
+            ]),
             'og_title' => $product->title . ' - SOTUMA',
-            'og_description' => 'Découvrez ce produit de qualité chez SOTUMA',
-            'canonical' => $this->siteUrl . '/product/' . $product->slug
+            'og_description' => $description,
+            'og_image' => $product->image ? url($product->image) : $this->siteUrl . '/images/sotuma-logo.jpg',
+            'canonical' => $this->siteUrl . '/product-detail/' . $product->slug
         ];
     }
     

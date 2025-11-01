@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('frontend.layouts.master')
 @section('content')
     <!-- SEO: Products listing ItemList -->
     <script type="application/ld+json">

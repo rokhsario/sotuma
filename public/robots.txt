@@ -1,87 +1,47 @@
-# robots.txt optimisé pour SEO - SOTUMA
-# https://www.sotuma.net/robots.txt
-
 User-agent: *
 Allow: /
 
-# Disallow admin area et pages privées
+# Disallow admin area
 Disallow: /admin/
 Disallow: /admin/*
-Disallow: /user/
-Disallow: /user/*
 Disallow: /login
 Disallow: /register
 Disallow: /password/
-Disallow: /password/*
 Disallow: /email/
 Disallow: /home
 
-# Disallow fichiers système et temporaires
+# Disallow temporary files
 Disallow: /storage/logs/
 Disallow: /storage/framework/
 Disallow: /bootstrap/cache/
 Disallow: /vendor/
-Disallow: /.env
-Disallow: /.git/
 
-# Disallow paramètres de recherche et filtres (URLs dynamiques)
+# Disallow search and filters
 Disallow: /*?*
-Disallow: /*&*
 Disallow: /search*
 Disallow: /filter*
-Disallow: /shop/filter*
 
-# Allow pages importantes pour le SEO
+# Allow important pages
 Allow: /
-Allow: /about-us
+Allow: /about
 Allow: /contact
 Allow: /products
-Allow: /products/*
 Allow: /categories/
-Allow: /categories/*
-Allow: /categories-projets/
-Allow: /categories-projets/*
-Allow: /projet/
-Allow: /projet/*
-Allow: /media
-Allow: /media-detail/
-Allow: /media-detail/*
+Allow: /project-categories/
+Allow: /projects/
+Allow: /blog
 Allow: /certificates
-Allow: /product-detail/
-Allow: /product-detail/*
 
-# Allow assets statiques pour améliorer le crawl
+# Allow static assets
 Allow: /css/
 Allow: /js/
 Allow: /images/
 Allow: /frontend/
 Allow: /assets/
-Allow: /*.css$
-Allow: /*.js$
-Allow: /*.jpg$
-Allow: /*.jpeg$
-Allow: /*.png$
-Allow: /*.gif$
-Allow: /*.webp$
-Allow: /*.svg$
 
-# Sitemap location (important pour Google)
+# Sitemap location
 Sitemap: https://sotuma.net/sitemap.xml
 Sitemap: https://sotuma.net/sitemap-images.xml
 
-# Crawl delay pour éviter la surcharge (1 seconde)
-Crawl-delay: 1
-
-# User-agents spécifiques
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Googlebot-Image
-Allow: /images/
-Allow: /product-detail/
-Allow: /projet/
-
-User-agent: Bingbot
-Allow: /
+# Crawl delay (optional)
 Crawl-delay: 1

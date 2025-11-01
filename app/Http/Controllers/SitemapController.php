@@ -17,7 +17,7 @@ class SitemapController extends Controller
     {
         $sitemap = Cache::remember('seo.sitemap.xml', 3600, function () {
             $xml = '<?xml version="1.0" encoding="UTF-8"?>';
-            $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">';
+            $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
         
             // Static pages (use existing route names)
             $homeUrl = \Illuminate\Support\Facades\Route::has('home') ? route('home') : url('/');
@@ -78,23 +78,14 @@ class SitemapController extends Controller
                 $xml .= '</url>';
             }
         
-            // Products (avec images pour meilleur SEO)
+            // Products
             $products = Product::query()->get();
             foreach ($products as $product) {
                 $xml .= '<url>';
                 $xml .= '<loc>' . htmlspecialchars(route('product-detail', $product->slug), ENT_XML1) . '</loc>';
                 $xml .= '<lastmod>' . optional($product->updated_at)->format('Y-m-d') . '</lastmod>';
-                $xml .= '<changefreq>weekly</changefreq>'; // Augmenté à weekly pour meilleure indexation
-                $xml .= '<priority>0.9</priority>'; // Augmenté à 0.9 car les produits sont prioritaires
-                // Ajouter l'image du produit pour le SEO images
-                if ($product->image) {
-                    $imageUrl = str_starts_with($product->image, 'http') ? $product->image : url($product->image);
-                    $xml .= '<image:image>';
-                    $xml .= '<image:loc>' . htmlspecialchars($imageUrl, ENT_XML1) . '</image:loc>';
-                    $xml .= '<image:title>' . htmlspecialchars($product->title . ' - SOTUMA', ENT_XML1) . '</image:title>';
-                    $xml .= '<image:caption>' . htmlspecialchars($product->title . ' - Menuiserie Aluminium SOTUMA', ENT_XML1) . '</image:caption>';
-                    $xml .= '</image:image>';
-                }
+                $xml .= '<changefreq>monthly</changefreq>';
+                $xml .= '<priority>0.7</priority>';
                 $xml .= '</url>';
             }
 

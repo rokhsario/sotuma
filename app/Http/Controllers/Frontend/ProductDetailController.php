@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Services\SeoService;
 use Illuminate\Http\Request;
 
 class ProductDetailController extends Controller
@@ -19,10 +18,6 @@ class ProductDetailController extends Controller
             abort(404, 'Product not found');
         }
         
-        // Préparer les données SEO pour la vue
-        $seoService = app(SeoService::class);
-        $seoData = $seoService->getMetaTags('product-detail', ['product' => $product]);
-        
-        return view('frontend.pages.product-detail', compact('product', 'seoData'));
+        return view('frontend.pages.product-detail', compact('product'));
     }
 }

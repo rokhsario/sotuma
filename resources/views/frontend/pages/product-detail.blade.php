@@ -1,126 +1,6 @@
 @extends('frontend.layouts.master')
 
-@php
-    // Définir les variables SEO pour cette page
-    $page = 'product-detail';
-    $seoData = $seoData ?? [];
-    $seoData['title'] = $seoData['title'] ?? ($product->title . ' | SOTUMA - Menuiserie Aluminium Sfax');
-    $seoData['description'] = $seoData['description'] ?? (strip_tags($product->description ?? '') ?: 'Découvrez ' . $product->title . ' chez SOTUMA. Qualité premium, installation professionnelle et garantie. Devis gratuit à Sfax.');
-    $seoData['og_image'] = $seoData['og_image'] ?? ($product->image ? asset($product->image) : asset('images/sotuma-logo.jpg'));
-    $seoData['canonical'] = $seoData['canonical'] ?? route('product-detail', $product->slug);
-    $seoData['keywords'] = $seoData['keywords'] ?? implode(', ', [
-        strtolower($product->title),
-        'menuiserie aluminium',
-        'sotuma sfax',
-        $product->category->title ?? 'produit aluminium',
-        'devis gratuit',
-        'installation professionnelle'
-    ]);
-@endphp
-
-@section('meta')
-<meta name="description" content="{{ $seoData['description'] }}">
-<meta name="keywords" content="{{ $seoData['keywords'] }}">
-<meta name="author" content="SOTUMA">
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="product">
-<meta property="og:url" content="{{ $seoData['canonical'] }}">
-<meta property="og:title" content="{{ $seoData['title'] }}">
-<meta property="og:description" content="{{ $seoData['description'] }}">
-<meta property="og:image" content="{{ $seoData['og_image'] }}">
-<meta property="og:site_name" content="SOTUMA">
-<meta property="og:locale" content="fr_FR">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@sotuma_aluminium">
-<meta name="twitter:title" content="{{ $seoData['title'] }}">
-<meta name="twitter:description" content="{{ $seoData['description'] }}">
-<meta name="twitter:image" content="{{ $seoData['og_image'] }}">
-
-<!-- Canonical URL -->
-<link rel="canonical" href="{{ $seoData['canonical'] }}">
-
-<!-- Hreflang pour multilingue -->
-<link rel="alternate" hreflang="fr" href="{{ $seoData['canonical'] }}">
-<link rel="alternate" hreflang="x-default" href="{{ $seoData['canonical'] }}">
-
-<!-- Product Schema.org JSON-LD -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": @json($product->title),
-  "image": [@json($product->image ? asset($product->image) : asset('images/no-image.png'))],
-  "description": @json(strip_tags($product->description ?? '')),
-  "brand": {
-    "@type": "Brand",
-    "name": "SOTUMA"
-  },
-  @if($product->category)
-  "category": @json($product->category->title),
-  @endif
-  "sku": "{{ $product->slug }}",
-  "mpn": "{{ $product->id }}",
-  "url": "{{ $seoData['canonical'] }}",
-  "offers": {
-    "@type": "Offer",
-    "availability": "https://schema.org/InStock",
-    "priceCurrency": "TND",
-    "seller": {
-      "@type": "Organization",
-      "name": "SOTUMA"
-    },
-    "url": "{{ $seoData['canonical'] }}"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.5",
-    "reviewCount": "10"
-  }
-}
-</script>
-
-<!-- BreadcrumbList Schema.org JSON-LD -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": "{{ url('/') }}"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Produits",
-      "item": "{{ route('products.all') }}"
-    }@if($product->category),{
-      "@type": "ListItem",
-      "position": 3,
-      "name": @json($product->category->title),
-      "item": "{{ route('categories.show', $product->category->slug) }}"
-    },{
-      "@type": "ListItem",
-      "position": 4,
-      "name": @json($product->title),
-      "item": "{{ $seoData['canonical'] }}"
-    }@else,{
-      "@type": "ListItem",
-      "position": 3,
-      "name": @json($product->title),
-      "item": "{{ $seoData['canonical'] }}"
-    }@endif
-  ]
-}
-</script>
-@endsection
-
-@section('title', $seoData['title'])
+@section('title', $product->title . ' - SOTUMA')
 @section('main-content')
 
 <!-- Product Detail Section -->
@@ -130,17 +10,9 @@
             <!-- Product Image -->
             <div class="product-image-section">
                 <div class="product-image-container">
-                    <picture>
-                        <source srcset="{{ $product->image ? asset($product->image) : asset('images/no-image.png') }}" type="image/jpeg">
-                        <img src="{{ $product->image ? asset($product->image) : asset('images/no-image.png') }}" 
-                             alt="{{ $product->title }} - Menuiserie Aluminium SOTUMA Sfax - {{ $product->category->title ?? 'Produit aluminium' }}" 
-                             title="{{ $product->title }} - SOTUMA"
-                             class="product-image"
-                             loading="lazy"
-                             width="500"
-                             height="500"
-                             fetchpriority="high">
-                    </picture>
+                    <img src="{{ $product->image ? asset($product->image) : asset('images/no-image.png') }}" 
+                         alt="{{ $product->title }}" 
+                         class="product-image">
                 </div>
             </div>
             

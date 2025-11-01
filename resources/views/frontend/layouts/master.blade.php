@@ -6,10 +6,8 @@
 <body class="js">
 	
     <!-- Google Tag Manager (noscript) -->
-    @if(config('services.google_tag_manager_id'))
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ config('services.google_tag_manager_id') }}"
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KK8KT37D"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    @endif
     <!-- End Google Tag Manager (noscript) -->
     
     <!-- Preloader (desktop only) -->
@@ -469,11 +467,17 @@
 	
 	<script src="{{ asset('js/frontend-mobile-enhancements.js') }}"></script>
 	
+	<!-- Mobile Cards Enhancement -->
+	<script src="{{ asset('js/mobile-cards-enhancement.js') }}"></script>
+	
         <!-- Projects & Products Mobile Enhancement -->
         <script src="{{ asset('js/projects-products-mobile-enhancement.js') }}"></script>
         
         <!-- Hero Titles Mobile Enhancement -->
         <script src="{{ asset('js/hero-titles-mobile.js') }}"></script>
+        
+        <!-- Enhanced Mobile Cards -->
+        <script src="{{ asset('js/enhanced-mobile-cards.js') }}"></script>
 
 </body>
 </html>

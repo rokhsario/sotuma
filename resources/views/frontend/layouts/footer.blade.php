@@ -677,8 +677,8 @@
 	<script src="{{asset('frontend/js/popper.min.js')}}"></script>
 	<!-- Bootstrap JS -->
 	<script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
-	<!-- Color JS - Removed (file not found) -->
-	{{-- <script src="{{asset('frontend/js/colors.js')}}"></script> --}}
+	<!-- Color JS -->
+	<script src="{{asset('frontend/js/colors.js')}}"></script>
 	<!-- Slicknav JS -->
 	<script src="{{asset('frontend/js/slicknav.min.js')}}"></script>
 	<!-- Owl Carousel JS -->
@@ -693,8 +693,8 @@
 	<script src="{{asset('frontend/js/nicesellect.js')}}"></script>
 	<!-- Flex Slider JS -->
 	<script src="{{asset('frontend/js/flex-slider.js')}}"></script>
-	<!-- ScrollUp JS -->
-	<script src="{{asset('frontend/js/scrollup.js')}}"></script>
+	<!-- ScrollUp JS - Removed to use custom implementation -->
+	<!-- <script src="{{asset('frontend/js/scrollup.js')}}"></script> -->
 	<!-- Onepage Nav JS -->
 	<script src="{{asset('frontend/js/onepage-nav.min.js')}}"></script>
 	{{-- Isotope --}}

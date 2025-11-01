@@ -76,30 +76,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 img.setAttribute('loading', 'lazy');
             }
             
-            // Add error handling (éviter la boucle infinie si no-image.png n'existe pas)
+            // Add error handling
             img.addEventListener('error', function() {
-                // Éviter la boucle infinie : ne pas réessayer si c'est déjà no-image.png
-                if (!this.src.includes('no-image.png') && !this.dataset.errorHandled) {
-                    this.dataset.errorHandled = 'true';
-                    // Vérifier si l'image de remplacement existe avant de l'utiliser
-                    const noImagePath = '/images/no-image.png';
-                    const testImg = new Image();
-                    testImg.onload = () => {
-                        this.src = noImagePath;
-                        this.alt = 'Image not available';
-                    };
-                    testImg.onerror = () => {
-                        // Si no-image.png n'existe pas, masquer l'image plutôt que de créer une boucle
-                        this.style.display = 'none';
-                        this.alt = 'Image not available';
-                    };
-                    testImg.src = noImagePath;
-                } else if (this.src.includes('no-image.png')) {
-                    // Si c'est déjà no-image.png qui échoue, masquer l'image
-                    this.style.display = 'none';
-                    this.alt = 'Image not available';
-                }
-            }, { once: true }); // Utiliser { once: true } pour éviter plusieurs événements
+                this.src = '/images/no-image.png';
+                this.alt = 'Image not available';
+            });
         });
         
         // Intersection Observer for advanced lazy loading
